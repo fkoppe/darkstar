@@ -20,9 +20,17 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+/*X X X X X X X X X X X X X X
+X                           X
+X   THIS IS A CORE FILE     X
+X                           X
+X X X X X X X X X X X X X X*/
 
-#include <dark/core/core.h>
+#if !defined(___DARK___CORE_MODULE_H)
+#define ___DARK___CORE_MODULE_H
 
-#endif // !defined(___DARK___DARKSTAR_H)
+#include <dark/core/essential.h>
+
+#undef DARK_MODULE
+
+#endif // !defined(___DARK___CORE_MODULE_H)

@@ -1,0 +1,10 @@
+target_sources(
+    darkstar
+    PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/assert.c
+    ${CMAKE_CURRENT_LIST_DIR}/core_helper.c
+    ${CMAKE_CURRENT_LIST_DIR}/core_helper.h
+    ${CMAKE_CURRENT_LIST_DIR}/core_module.h
+    ${CMAKE_CURRENT_LIST_DIR}/terminate.c
+    ${CMAKE_CURRENT_LIST_DIR}/version.c
+)

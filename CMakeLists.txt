@@ -4,7 +4,7 @@ project(darkstar LANGUAGES C)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
-add_library(dark)
+add_library(darkstar)
 
 set(DARK_VERSION_MAJOR 0 CACHE INTERNAL "")
 set(DARK_VERSION_MINOR 1 CACHE INTERNAL "")
@@ -12,7 +12,7 @@ set(DARK_VERSION_PATCH 0 CACHE INTERNAL "")
 set(DARK_VERSION_TWEAK 0 CACHE INTERNAL "")
 
 target_compile_definitions(
-    dark
+    darkstar
     PUBLIC
     ___DARK_VERSION_MAJOR=${DARK_VERSION_MAJOR}
     ___DARK_VERSION_MINOR=${DARK_VERSION_MINOR}
@@ -21,7 +21,7 @@ target_compile_definitions(
 )
 
 target_compile_definitions(
-    dark
+    darkstar
     PUBLIC
     $<$<CONFIG:Debug>:
     ___DARK_CONFIGURATION="Debug"
@@ -30,7 +30,7 @@ target_compile_definitions(
     >
 )
 target_compile_definitions(
-    dark
+    darkstar
     PUBLIC
     $<$<CONFIG:RelWithDebug>:
     ___DARK_CONFIGURATION="RelWithDebug"
@@ -40,7 +40,7 @@ target_compile_definitions(
     >
 )
 target_compile_definitions(
-    dark
+    darkstar
     PUBLIC
     $<$<CONFIG:RelWithDebInfo>:
     ___DARK_CONFIGURATION="RelWithDebInfo"
@@ -49,7 +49,7 @@ target_compile_definitions(
     >
 )
 target_compile_definitions(
-    dark
+    darkstar
     PUBLIC
     $<$<CONFIG:RelTest>:
     ___DARK_CONFIGURATION="RelTest"
@@ -59,7 +59,7 @@ target_compile_definitions(
     >
 )
 target_compile_definitions(
-    dark
+    darkstar
     PUBLIC
     $<$<CONFIG:Release>:
     ___DARK_CONFIGURATION="Release"
@@ -67,7 +67,7 @@ target_compile_definitions(
     >
 )
 target_compile_definitions(
-    dark
+    darkstar
     PUBLIC
     $<$<CONFIG:MinSizeRel>:
     ___DARK_CONFIGURATION="MinSizeRel"

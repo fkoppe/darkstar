@@ -20,9 +20,20 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___LIBRARY_H)
+#define ___DARK___LIBRARY_H
 
-#include <dark/core/core.h>
+#include <dark/core/essential.h>
+#include <dark/core/version.h>
 
-#endif // !defined(___DARK___DARKSTAR_H)
+#if !defined(DARK_LIBRARY)
+#define DARK_LIBRARY NULL
+#endif // !defined(DARK_LIBRARY)
+
+typedef struct Dark_Library
+{
+    const char* name;
+    uint32_t version;
+} Dark_Library;
+
+#endif // !defined(___DARK___LIBRARY_H)

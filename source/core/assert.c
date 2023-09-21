@@ -20,9 +20,50 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+/*X X X X X X X X X X X X X X
+X                           X
+X   THIS IS A CORE FILE     X
+X                           X
+X X X X X X X X X X X X X X*/
+
+#include "core_helper.h"
+#include "core_module.h"
 
 #include <dark/core/core.h>
 
-#endif // !defined(___DARK___DARKSTAR_H)
+#include <assert.h>
+#include <stdio.h>
+
+#undef DARK_UNIT
+
+void dark_assert(const char* const file_, const char* const func_, const int64_t line_, const char* const date_, const char* const time_, const Dark_Library* const library_, const char* const module_, const char* const unit_, const char* const condition_, const Dark_Error* const error_, const char* const message_)
+{
+    assert(NULL != file_);
+    assert(NULL != func_);
+    assert(0 != line_);
+    assert(NULL != date_);
+    assert(NULL != time_);
+    //library_
+    //module_
+    //unit_
+    assert(NULL != condition_);
+    assert(NULL != error_);
+    //message_
+
+    fprintf(stderr, "-------------------------ASSERT-------------------------\nassertion failed - abort has been called\n\ncond:\t(%s) was false\n\n", condition_);
+
+    dark_core_enviroment_print(stderr, file_, func_, line_, date_, time_, library_, module_, unit_);
+
+    fputs("----------\n\n", stderr);
+
+    dark_core_error_print(stderr, error_);
+
+    if (NULL != message_)
+    {
+        fprintf(stderr, "\nmesg:\t%s\n", message_);
+    }
+
+    fputs("--------------------------------------------------------\n", stderr);
+
+    abort();
+}

@@ -20,9 +20,13 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___MODULE_H)
+#define ___DARK___MODULE_H
 
-#include <dark/core/core.h>
+#include <dark/core/essential.h>
 
-#endif // !defined(___DARK___DARKSTAR_H)
+#if !defined(DARK_MODULE)
+#define DARK_MODULE NULL
+#endif // !defined(DARK_MODULE)
+
+#endif // !defined(___DARK___MODULE_H)

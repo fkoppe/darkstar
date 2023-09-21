@@ -20,9 +20,16 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___ESSENTIAL_H)
+#define ___DARK___ESSENTIAL_H
 
-#include <dark/core/core.h>
+#include <stdlib.h>
 
-#endif // !defined(___DARK___DARKSTAR_H)
+#include <stdbool.h>
+
+#include <stdint.h>
+#include <inttypes.h>
+
+#include <math.h>
+
+#endif // !defined(___DARK___ESSENTIAL_H)

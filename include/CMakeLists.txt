@@ -1,5 +1,5 @@
 target_include_directories(
-    dark
+    darkstar
     PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}
 )

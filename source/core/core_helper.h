@@ -20,9 +20,22 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+/*X X X X X X X X X X X X X X
+X                           X
+X   THIS IS A CORE FILE     X
+X                           X
+X X X X X X X X X X X X X X*/
 
-#include <dark/core/core.h>
+#if !defined(___DARK___CORE_HELPER_H)
+#define ___DARK___CORE_HELPER_H
 
-#endif // !defined(___DARK___DARKSTAR_H)
+#include <dark/core/error.h>
+#include <dark/core/essential.h>
+#include <dark/core/library.h>
+
+#include <stdio.h>
+
+void dark_core_enviroment_print(FILE* stream, const char* file, const char* func, int64_t line, const char* date, const char* time, const Dark_Library* library, const char* module, const char* unit);
+void dark_core_error_print(FILE* stream, const Dark_Error* error);
+
+#endif // !defined(___DARK___CORE_HELPER_H)

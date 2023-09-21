@@ -20,9 +20,23 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___ASSERT_H)
+#define ___DARK___ASSERT_H
 
-#include <dark/core/core.h>
+#include <dark/core/error.h>
+#include <dark/core/essential.h>
+#include <dark/core/library.h>
+#include <dark/core/module.h>
+#include <dark/core/unit.h>
 
-#endif // !defined(___DARK___DARKSTAR_H)
+#if defined(___DARK_DEBUG)
+#define DARK_ASSERT(condition, error) if(!(condition)) dark_assert(__FILE__, __func__, __LINE__, __DATE__, __TIME__, DARK_LIBRARY, DARK_MODULE, DARK_UNIT, (#condition), &(error), NULL)
+#define DARK_ASSERT_MSG(condition, error, message) if(!(condition)) dark_assert(__FILE__, __func__, __LINE__, __DATE__, __TIME__, DARK_LIBRARY, DARK_MODULE, DARK_UNIT, (#condition), &(error), (message))
+#else
+#define DARK_ASSERT(condition, error)
+#define DARK_ASSERT_MSG(condition, error, message)
+#endif // defined(___DARK_DEBUG)
+
+void dark_assert(const char* file, const char* func, int64_t line, const char* date, const char* time, const Dark_Library* library, const char* module, const char* unit, const char* condition, const Dark_Error* error, const char* message);
+
+#endif // !defined(___DARK___ASSERT_H)
