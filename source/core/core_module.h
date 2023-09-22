@@ -31,6 +31,8 @@ X X X X X X X X X X X X X X*/
 
 #include <dark/core/essential.h>
 
+#undef DARK_LIBRARY
+
 #undef DARK_MODULE
 
 #endif // !defined(___DARK___CORE_MODULE_H)

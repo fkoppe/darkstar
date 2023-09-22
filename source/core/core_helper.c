@@ -48,7 +48,7 @@ void dark_core_enviroment_print(FILE* stream_, const char* file_, const char* fu
     //module_
     //unit_
 
-    fprintf(stderr, "file:\t%s\nfunc:\t%s\nline:\t%" PRId64 "\ndate:\t%s\ntime:\t%s\n\n", file_, func_, line_, date_, time_);
+    fprintf(stderr, "file:\t%s\nfunc:\t%s\nline:\t%" PRId64 "\ndate:\t%s\ntime:\t%s\n\nconf:\t%s\n\n", file_, func_, line_, date_, time_, ___DARK_CONFIGURATION);
 
     if (NULL != library_)
     {
