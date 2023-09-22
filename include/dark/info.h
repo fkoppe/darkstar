@@ -20,11 +20,12 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___INFO_H)
+#define ___DARK___INFO_H
 
-#include <dark/core/core.h>
+#include <dark/core/essential.h>
+#include <dark/core/library.h>
 
-#include <dark/info.h>
+static const Dark_Library DARK_INFO_LIBRARY_DARKSTAR = { "darkstar", DARK_VERSION_MAKE(___DARK_VERSION_MAJOR, ___DARK_VERSION_MINOR, ___DARK_VERSION_STAGE, ___DARK_VERSION_PATCH)};
 
-#endif // !defined(___DARK___DARKSTAR_H)
+#endif // !defined(___DARK___INFO_H)
