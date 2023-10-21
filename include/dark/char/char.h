@@ -20,12 +20,10 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARK_LIBRARY_H)
-#define ___DARK___DARK_LIBRARY_H
+#if !defined(___DARK___CHAR_H)
+#define ___DARK___CHAR_H
 
-#include <dark/core/essential.h>
-#include <dark/info.h>
+#include <dark/char/cstring.h>
+#include <dark/char/digit.h>
 
-#define DARK_LIBRARY &DARK_INFO_LIBRARY_DARKSTAR
-
-#endif // !defined(___DARK___DARK_LIBRARY_H)
+#endif // !defined(___DARK___CHAR_H)

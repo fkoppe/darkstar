@@ -20,12 +20,89 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARK_LIBRARY_H)
-#define ___DARK___DARK_LIBRARY_H
+#include "char_module.h"
 
-#include <dark/core/essential.h>
-#include <dark/info.h>
+#include <dark/char/char.h>
+#include <dark/core/core.h>
 
-#define DARK_LIBRARY &DARK_INFO_LIBRARY_DARKSTAR
+#undef DARK_UNIT
+#define DARK_UNIT "digit"
 
-#endif // !defined(___DARK___DARK_LIBRARY_H)
+uint8_t dark_digit_get(const int32_t integer_, const size_t position_)
+{
+    uint16_t num = abs(integer_);
+    
+    num /= pow(10, position_);
+    
+    return num % 10;
+}
+
+size_t dark_digit_count(const int32_t integer_)
+{
+    size_t count = 1;
+    int32_t num = integer_;
+    
+    while(num /= 10)
+    {
+        count++;
+    }
+    
+    return count;
+}
+
+char dark_digit_to_char(const uint8_t digit_)
+{
+    DARK_ASSERT_MSG(digit_ < 10, DARK_ERROR_RANGE, "digit has to be <10");
+    
+    switch(digit_)
+    {
+    case 0:
+        return '0';
+    case 1:
+        return '1';
+    case 2:
+        return '2';
+    case 3:
+        return '3';
+    case 4:
+        return '4';
+    case 5:
+        return '5';
+    case 6:
+        return '6';
+    case 7:
+        return '7';
+    case 8:
+        return '8';
+    case 9:
+        return '9';
+    default:
+        DARK_EXIT_ERROR(-1, DARK_ERROR_UNKNOWN);
+    }
+}
+
+void dark_digit_int32_to_char_arr(int32_t integer_, size_t count_, char* destination_)
+{
+    uint64_t num = abs(integer_);
+    
+    for(size_t i = 0; i < count_; i++)
+    {
+        if(num > 0)
+        {
+            destination_[count_ - i - 1] = dark_digit_to_char(num % 10);
+        }
+        else
+        {
+            destination_[count_ - i - 1] = '0';
+        }
+        
+        num /= 10;
+    }
+}
+
+void dark_digit_int32_to_char_arr_terminated(int32_t integer_, size_t count_, char* destination_)
+{
+    dark_digit_int32_to_char_arr(integer_, count_, destination_);
+    
+    destination_[count_] = '\0';
+}

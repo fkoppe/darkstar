@@ -5,4 +5,5 @@ target_sources(
     ${CMAKE_CURRENT_LIST_DIR}/info.h
 )
 
+add_subdirectory(char)
 add_subdirectory(core)

@@ -20,12 +20,25 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARK_LIBRARY_H)
-#define ___DARK___DARK_LIBRARY_H
+#include "char_module.h"
 
-#include <dark/core/essential.h>
-#include <dark/info.h>
+#include <dark/char/char.h>
+#include <dark/core/core.h>
 
-#define DARK_LIBRARY &DARK_INFO_LIBRARY_DARKSTAR
+#undef DARK_UNIT
+#define DARK_UNIT "cstring"
 
-#endif // !defined(___DARK___DARK_LIBRARY_H)
+size_t dark_cstring_lenght(const char* const cstring_)
+{
+    DARK_ASSERT(NULL != cstring_, DARK_ERROR_NULL);
+    
+    for(size_t i = 0; i < DARK_CSTRING_LENGHT_MAX; i++)
+    {
+        if('\0' == cstring_[i])
+        {
+            return i;
+        }
+    }
+    
+    DARK_EXIT_MSG(-1, DARK_ERROR_RUNTIME, "cstring lost integrity");
+}

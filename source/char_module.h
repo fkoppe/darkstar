@@ -20,12 +20,19 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARK_LIBRARY_H)
-#define ___DARK___DARK_LIBRARY_H
+/*X X X X X X X X X X X X X X
+X                           X
+X   THIS IS A CORE FILE     X
+X                           X
+X X X X X X X X X X X X X X*/
+
+#if !defined(___DARK___CORE_MODULE_H)
+#define ___DARK___CORE_MODULE_H
 
 #include <dark/core/essential.h>
-#include <dark/info.h>
 
-#define DARK_LIBRARY &DARK_INFO_LIBRARY_DARKSTAR
+#undef DARK_LIBRARY
 
-#endif // !defined(___DARK___DARK_LIBRARY_H)
+#undef DARK_MODULE
+
+#endif // !defined(___DARK___CORE_MODULE_H)

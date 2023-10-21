@@ -20,12 +20,17 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARK_LIBRARY_H)
-#define ___DARK___DARK_LIBRARY_H
+#if !defined(___DARK___DIGIT_H)
+#define ___DARK___DIGIT_H
 
 #include <dark/core/essential.h>
-#include <dark/info.h>
 
-#define DARK_LIBRARY &DARK_INFO_LIBRARY_DARKSTAR
+uint8_t dark_digit_get(int32_t integer, size_t position);
 
-#endif // !defined(___DARK___DARK_LIBRARY_H)
+size_t dark_digit_count(int32_t integer);
+char dark_digit_to_char(uint8_t digit);
+
+void dark_digit_int64_to_char_arr(int32_t integer, size_t count, char* destination);
+void dark_digit_int64_to_char_arr_terminated(int32_t integer, size_t count, char* destination);
+
+#endif // !defined(___DARK___DIGIT_H)

@@ -10,4 +10,5 @@ target_precompile_headers(
     ${CMAKE_CURRENT_LIST_DIR}/dark_library.h
 )
 
+add_subdirectory(char)
 add_subdirectory(core)

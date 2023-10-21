@@ -20,12 +20,15 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARK_LIBRARY_H)
-#define ___DARK___DARK_LIBRARY_H
+#if !defined(___DARK___CSTRING_H)
+#define ___DARK___CSTRING_H
 
 #include <dark/core/essential.h>
-#include <dark/info.h>
 
-#define DARK_LIBRARY &DARK_INFO_LIBRARY_DARKSTAR
+#if !defined(DARK_CSTRING_LENGHT_MAX)
+#define DARK_CSTRING_LENGHT_MAX 256
+#endif // !defined(DARK_CSTRING_LENGHT_MAX)
 
-#endif // !defined(___DARK___DARK_LIBRARY_H)
+size_t dark_cstring_lenght(const char* cstring);
+
+#endif // !defined(___DARK___CSTRING_H)
