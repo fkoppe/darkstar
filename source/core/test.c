@@ -20,17 +20,49 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___CORE_H)
-#define ___DARK___CORE_H
+/*X X X X X X X X X X X X X X
+X                           X
+X   THIS IS A CORE FILE     X
+X                           X
+X X X X X X X X X X X X X X*/
 
-#include <dark/core/assert.h>
-#include <dark/core/error.h>
-#include <dark/core/essential.h>
-#include <dark/core/library.h>
-#include <dark/core/module.h>
-#include <dark/core/terminate.h>
-#include <dark/core/test.h>
-#include <dark/core/unit.h>
-#include <dark/core/version.h>
+#include "core_helper.h"
+#include "core_module.h"
 
-#endif // !defined(___DARK___CORE_H)
+#include <dark/core/core.h>
+
+#include <assert.h>
+#include <stdio.h>
+
+#undef DARK_UNIT
+
+void dark_test(const char* const condition_, const size_t num_, const char* const name_, const int64_t integer_, const uint64_t uinteger_, const char* const cstring_)
+{
+    assert(NULL != condition_);
+    //num_
+    assert(!num_ || NULL != name_);
+    //integer_
+    //uinteger_
+    //cstring
+
+    fprintf(stderr, "\n\n-------------------------TEST-------------------------\ntest failed - exit has been called\n\ncond:\t(%s) was false\n\n", condition_);
+    
+    switch(num_)
+    {
+    case 1:
+        fprintf(stderr, "%" PRId64 " = %s\n\n", integer_, name_);
+        break;
+    case 2:
+        fprintf(stderr, "%" PRIu64 " = %s\n\n", uinteger_, name_);
+        break;
+    case 3:
+        fprintf(stderr, "%s" " = %s\n\n", cstring_, name_);
+        break;
+    default:
+        //nothing
+    }
+
+    fputs("------------------------------------------------------\n\n\n", stderr);
+
+    exit(-1);
+}

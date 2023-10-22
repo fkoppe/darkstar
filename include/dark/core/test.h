@@ -20,17 +20,16 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___CORE_H)
-#define ___DARK___CORE_H
+#if !defined(___DARK___TEST_H)
+#define ___DARK___TEST_H
 
-#include <dark/core/assert.h>
-#include <dark/core/error.h>
 #include <dark/core/essential.h>
-#include <dark/core/library.h>
-#include <dark/core/module.h>
-#include <dark/core/terminate.h>
-#include <dark/core/test.h>
-#include <dark/core/unit.h>
-#include <dark/core/version.h>
 
-#endif // !defined(___DARK___CORE_H)
+#define DARK_TEST(condition) if(!(condition)) dark_test((#condition), 0, NULL, 0, 0, NULL)
+#define DARK_TEST_INT(condition, integer) if(!(condition)) dark_test((#condition), 1, (#integer), (integer), 0, NULL)
+#define DARK_TEST_UINT(condition, uinteger) if(!(condition)) dark_test((#condition), 2, (#uinteger), 0, (uinteger), NULL)
+#define DARK_TEST_CSTRING(condition, cstring) if(!(condition)) dark_test((#condition), 3, (#cstring), 0, 0, (cstring))
+
+void dark_test(const char* condition, size_t num, const char* name, int64_t integer, uint64_t uinteger, const char* cstring);
+
+#endif // !defined(___DARK___TEST_H)

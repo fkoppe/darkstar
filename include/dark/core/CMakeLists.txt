@@ -8,6 +8,7 @@ target_sources(
     ${CMAKE_CURRENT_LIST_DIR}/library.h
     ${CMAKE_CURRENT_LIST_DIR}/module.h
     ${CMAKE_CURRENT_LIST_DIR}/terminate.h
+    ${CMAKE_CURRENT_LIST_DIR}/test.h
     ${CMAKE_CURRENT_LIST_DIR}/unit.h
     ${CMAKE_CURRENT_LIST_DIR}/version.h
 )
