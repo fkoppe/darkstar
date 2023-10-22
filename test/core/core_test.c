@@ -2,6 +2,9 @@
 
 int main()
 {
+    //test test
+    DARK_TEST(NULL == NULL);
+
     //assert_test
     DARK_ASSERT(0 == 0, DARK_ERROR_UNKNOWN);
 
@@ -13,10 +16,10 @@ int main()
 
     uint32_t version =  dark_version_make(major_max, minor_max, stage_max, patch_max);
 
-    DARK_ASSERT(dark_version_major(version) == major_max, DARK_ERROR_UNKNOWN);
-    DARK_ASSERT(dark_version_minor(version) == minor_max, DARK_ERROR_UNKNOWN);
-    DARK_ASSERT(dark_version_stage(version) == stage_max, DARK_ERROR_UNKNOWN);
-    DARK_ASSERT(dark_version_patch(version) == patch_max, DARK_ERROR_UNKNOWN);
+    DARK_TEST_UINT(dark_version_major(version) == major_max, dark_version_major(version));
+    DARK_TEST_UINT(dark_version_minor(version) == minor_max, dark_version_major(version));
+    DARK_TEST_UINT(dark_version_stage(version) == stage_max, dark_version_major(version));
+    DARK_TEST_UINT(dark_version_patch(version) == patch_max, dark_version_major(version));
 
     return EXIT_SUCCESS;
 }

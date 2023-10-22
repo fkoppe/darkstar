@@ -30,6 +30,4 @@
 #include <stdint.h>
 #include <inttypes.h>
 
-#include <math.h>
-
 #endif // !defined(___DARK___ESSENTIAL_H)

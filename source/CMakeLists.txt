@@ -12,3 +12,4 @@ target_precompile_headers(
 
 add_subdirectory(char)
 add_subdirectory(core)
+add_subdirectory(math)

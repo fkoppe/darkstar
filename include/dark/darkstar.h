@@ -25,6 +25,7 @@
 
 #include <dark/char/char.h>
 #include <dark/core/core.h>
+#include <dark/math/math.h>
 
 #include <dark/info.h>
 

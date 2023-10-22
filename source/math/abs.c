@@ -20,39 +20,65 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DIGIT_H)
-#define ___DARK___DIGIT_H
+#include "math_module.h"
 
-#include <dark/core/essential.h>
+#include <dark/char/char.h>
 
-#define DARK_DIGIT_COUNT_INT8_MAX 3
-#define DARK_DIGIT_COUNT_INT16_MAX 5
-#define DARK_DIGIT_COUNT_INT32_MAX 10
-#define DARK_DIGIT_COUNT_INT64_MAX 19
-#define DARK_DIGIT_COUNT_UINT8_MAX 3
-#define DARK_DIGIT_COUNT_UINT16_MAX 5
-#define DARK_DIGIT_COUNT_UINT32_MAX 10
-#define DARK_DIGIT_COUNT_UINT64_MAX 20
+#undef DARK_UNIT
+#define DARK_UNIT "abs"
 
-uint8_t dark_digit_uint_get(uint64_t integer, size_t position);
-uint8_t dark_digit_int_get(int64_t integer, size_t position);
+uint8_t dark_abs_int8(const int8_t integer_)
+{
+    //interger_
+    
+    if(integer_ < 0)
+    {
+        return -integer_;
+    }
+    else
+    {
+        return integer_;
+    }
+}
 
-char dark_digit_to_char(uint8_t digit);
+uint16_t dark_abs_int16(const int16_t integer_)
+{
+    //interger_
+    
+    if(integer_ < 0)
+    {
+        return -integer_;
+    }
+    else
+    {
+        return integer_;
+    }
+}
 
-size_t dark_digit_count_uint8(uint8_t integer);
-size_t dark_digit_count_uint16(uint16_t integer);
-size_t dark_digit_count_uint32(uint32_t integer);
-size_t dark_digit_count_uint64(uint64_t integer);
+uint32_t dark_abs_int32(const int32_t integer_)
+{
+    //interger_
+    
+    if(integer_ < 0)
+    {
+        return -integer_;
+    }
+    else
+    {
+        return integer_;
+    }
+}
 
-size_t dark_digit_count_int8(int8_t integer);
-size_t dark_digit_count_int16(int16_t integer);
-size_t dark_digit_count_int32(int32_t integer);
-size_t dark_digit_count_int64(int64_t integer);
-
-void dark_digit_uint_to_char_arr(uint64_t integer, size_t count, char* destination);
-void dark_digit_uint_to_char_arr_terminated(uint64_t integer, size_t count, char* destination);
-
-void dark_digit_int_to_char_arr(int64_t integer, size_t count, char* destination);
-void dark_digit_int_to_char_arr_terminated(int64_t integer, size_t count, char* destination);
-
-#endif // !defined(___DARK___DIGIT_H)
+uint64_t dark_abs_int64(const int64_t integer_)
+{
+    //interger_
+    
+    if(integer_ < 0)
+    {
+        return -integer_;
+    }
+    else
+    {
+        return integer_;
+    }
+}

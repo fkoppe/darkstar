@@ -20,39 +20,12 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DIGIT_H)
-#define ___DARK___DIGIT_H
+#if !defined(___DARK___POW_H)
+#define ___DARK___POW_H
 
 #include <dark/core/essential.h>
 
-#define DARK_DIGIT_COUNT_INT8_MAX 3
-#define DARK_DIGIT_COUNT_INT16_MAX 5
-#define DARK_DIGIT_COUNT_INT32_MAX 10
-#define DARK_DIGIT_COUNT_INT64_MAX 19
-#define DARK_DIGIT_COUNT_UINT8_MAX 3
-#define DARK_DIGIT_COUNT_UINT16_MAX 5
-#define DARK_DIGIT_COUNT_UINT32_MAX 10
-#define DARK_DIGIT_COUNT_UINT64_MAX 20
+uint64_t dark_ppow_uint(uint64_t base, uint64_t exponent);
+int64_t dark_ppow_int(int64_t base, uint64_t exponent);
 
-uint8_t dark_digit_uint_get(uint64_t integer, size_t position);
-uint8_t dark_digit_int_get(int64_t integer, size_t position);
-
-char dark_digit_to_char(uint8_t digit);
-
-size_t dark_digit_count_uint8(uint8_t integer);
-size_t dark_digit_count_uint16(uint16_t integer);
-size_t dark_digit_count_uint32(uint32_t integer);
-size_t dark_digit_count_uint64(uint64_t integer);
-
-size_t dark_digit_count_int8(int8_t integer);
-size_t dark_digit_count_int16(int16_t integer);
-size_t dark_digit_count_int32(int32_t integer);
-size_t dark_digit_count_int64(int64_t integer);
-
-void dark_digit_uint_to_char_arr(uint64_t integer, size_t count, char* destination);
-void dark_digit_uint_to_char_arr_terminated(uint64_t integer, size_t count, char* destination);
-
-void dark_digit_int_to_char_arr(int64_t integer, size_t count, char* destination);
-void dark_digit_int_to_char_arr_terminated(int64_t integer, size_t count, char* destination);
-
-#endif // !defined(___DARK___DIGIT_H)
+#endif // !defined(___DARK___POW_H)

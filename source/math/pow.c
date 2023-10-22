@@ -20,39 +20,70 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DIGIT_H)
-#define ___DARK___DIGIT_H
+#include "dark/core/assert.h"
+#include "math_module.h"
 
-#include <dark/core/essential.h>
+#include <dark/char/char.h>
+#include <dark/core/core.h>
+#include <dark/math/math.h>
 
-#define DARK_DIGIT_COUNT_INT8_MAX 3
-#define DARK_DIGIT_COUNT_INT16_MAX 5
-#define DARK_DIGIT_COUNT_INT32_MAX 10
-#define DARK_DIGIT_COUNT_INT64_MAX 19
-#define DARK_DIGIT_COUNT_UINT8_MAX 3
-#define DARK_DIGIT_COUNT_UINT16_MAX 5
-#define DARK_DIGIT_COUNT_UINT32_MAX 10
-#define DARK_DIGIT_COUNT_UINT64_MAX 20
+#undef DARK_UNIT
+#define DARK_UNIT "pow"
 
-uint8_t dark_digit_uint_get(uint64_t integer, size_t position);
-uint8_t dark_digit_int_get(int64_t integer, size_t position);
+uint64_t dark_ppow_uint(uint64_t base_, uint64_t exponent_)
+{
+    //base_
+    //exponent_
 
-char dark_digit_to_char(uint8_t digit);
+    if(0 == exponent_)
+    {
+        return 1;
+    }
 
-size_t dark_digit_count_uint8(uint8_t integer);
-size_t dark_digit_count_uint16(uint16_t integer);
-size_t dark_digit_count_uint32(uint32_t integer);
-size_t dark_digit_count_uint64(uint64_t integer);
+    if (0 == base_)
+    {
+        return 0;
+    }
 
-size_t dark_digit_count_int8(int8_t integer);
-size_t dark_digit_count_int16(int16_t integer);
-size_t dark_digit_count_int32(int32_t integer);
-size_t dark_digit_count_int64(int64_t integer);
+    uint64_t val = base_;
+    for(size_t i = 1; i < exponent_; i++)
+    {
+        DARK_ASSERT(val <= (UINT64_MAX - (val * base_)), DARK_ERROR_OVERFLOW);
+        val *= base_;
+    }
 
-void dark_digit_uint_to_char_arr(uint64_t integer, size_t count, char* destination);
-void dark_digit_uint_to_char_arr_terminated(uint64_t integer, size_t count, char* destination);
+    return val;
+}
 
-void dark_digit_int_to_char_arr(int64_t integer, size_t count, char* destination);
-void dark_digit_int_to_char_arr_terminated(int64_t integer, size_t count, char* destination);
+int64_t dark_ppow_int(int64_t base_, uint64_t exponent_)
+{
+    //base_
+    //exponent_
 
-#endif // !defined(___DARK___DIGIT_H)
+    if(0 == exponent_)
+    {
+        return 1;
+    }
+
+    if (0 == base_)
+    {
+        return 0;
+    }
+
+    int64_t val = base_;
+    for(size_t i = 1; i < exponent_; i++)
+    {
+        if (val > 0)
+        {
+            DARK_ASSERT(val <= (INT64_MAX - (val * dark_abs_int64(base_))), DARK_ERROR_OVERFLOW);
+        }
+        else
+        {
+            DARK_ASSERT(val >= (INT64_MIN + (val * dark_abs_int64(base_))), DARK_ERROR_UNDERFLOW);
+        }
+
+        val *= base_;
+    }
+
+    return val;
+}
