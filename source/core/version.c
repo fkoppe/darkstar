@@ -36,10 +36,10 @@ X X X X X X X X X X X X X X*/
 
 uint32_t dark_version_make(const uint8_t major_, const uint16_t minor_, const uint8_t stage_, const uint16_t patch_)
 {
-    assert(256 >= major_);
-    assert(1024 >= minor_);
-    assert(4 >= stage_);
-    assert(4096 >= patch_);
+    assert(255 >= major_);
+    assert(1023 >= minor_);
+    assert(3 >= stage_);
+    assert(4095 >= patch_);
 
     return DARK_VERSION_MAKE(major_, minor_, stage_, patch_);
 }
@@ -51,7 +51,7 @@ uint8_t dark_version_major(const uint32_t version_)
     return DARK_VERSION_MAJOR(version_);
 }
 
-uint8_t dark_version_minor(const uint32_t version_)
+uint16_t dark_version_minor(const uint32_t version_)
 {
     //version_
 
@@ -65,7 +65,7 @@ uint8_t dark_version_stage(const uint32_t version_)
     return DARK_VERSION_STAGE(version_);
 }
 
-uint8_t dark_version_patch(const uint32_t version_)
+uint16_t dark_version_patch(const uint32_t version_)
 {
     //version_
 

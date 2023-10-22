@@ -21,6 +21,7 @@
 ************************************************************************************/
 
 #include "char_module.h"
+#include "dark/char/digit.h"
 
 #include <dark/char/char.h>
 #include <dark/core/core.h>
@@ -31,29 +32,16 @@
 uint8_t dark_digit_get(const int32_t integer_, const size_t position_)
 {
     uint16_t num = abs(integer_);
-    
-    num /= pow(10, position_);
-    
-    return num % 10;
-}
 
-size_t dark_digit_count(const int32_t integer_)
-{
-    size_t count = 1;
-    int32_t num = integer_;
-    
-    while(num /= 10)
-    {
-        count++;
-    }
-    
-    return count;
+    num /= pow(10, position_);
+
+    return num % 10;
 }
 
 char dark_digit_to_char(const uint8_t digit_)
 {
     DARK_ASSERT_MSG(digit_ < 10, DARK_ERROR_RANGE, "digit has to be <10");
-    
+
     switch(digit_)
     {
     case 0:
@@ -81,10 +69,30 @@ char dark_digit_to_char(const uint8_t digit_)
     }
 }
 
+size_t dark_digit_count_int32(const int32_t integer_)
+{
+    size_t count = 1;
+    int32_t num = integer_;
+
+    for (size_t i = 0; i < DARK_DIGIT_COUNT_INT32_MAX; i++)
+    {
+        if(num /= 10)
+        {
+            count++;
+        }
+        else
+        {
+            i = DARK_DIGIT_COUNT_INT32_MAX;
+        }
+    }
+
+    return count;
+}
+
 void dark_digit_int32_to_char_arr(int32_t integer_, size_t count_, char* destination_)
 {
     uint64_t num = abs(integer_);
-    
+
     for(size_t i = 0; i < count_; i++)
     {
         if(num > 0)
@@ -95,7 +103,7 @@ void dark_digit_int32_to_char_arr(int32_t integer_, size_t count_, char* destina
         {
             destination_[count_ - i - 1] = '0';
         }
-        
+
         num /= 10;
     }
 }
@@ -103,6 +111,6 @@ void dark_digit_int32_to_char_arr(int32_t integer_, size_t count_, char* destina
 void dark_digit_int32_to_char_arr_terminated(int32_t integer_, size_t count_, char* destination_)
 {
     dark_digit_int32_to_char_arr(integer_, count_, destination_);
-    
+
     destination_[count_] = '\0';
 }

@@ -25,12 +25,17 @@
 
 #include <dark/core/essential.h>
 
-uint8_t dark_digit_get(int32_t integer, size_t position);
+#define DARK_DIGIT_COUNT_INT32_MAX 10
+#define DARK_DIGIT_COUNT_INT64_MAX 19
+#define DARK_DIGIT_COUNT_UINT32_MAX 10
+#define DARK_DIGIT_COUNT_UINT64_MAX 20
 
-size_t dark_digit_count(int32_t integer);
+uint8_t dark_digit_get(int32_t integer, size_t position);
 char dark_digit_to_char(uint8_t digit);
 
-void dark_digit_int64_to_char_arr(int32_t integer, size_t count, char* destination);
-void dark_digit_int64_to_char_arr_terminated(int32_t integer, size_t count, char* destination);
+size_t dark_digit_count_int32(int32_t integer);
+
+void dark_digit_int32_to_char_arr(int32_t integer, size_t count, char* destination);
+void dark_digit_int32_to_char_arr_terminated(int32_t integer, size_t count, char* destination);
 
 #endif // !defined(___DARK___DIGIT_H)
