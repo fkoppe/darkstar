@@ -60,6 +60,7 @@ void dark_test(const char* const condition_, const size_t num_, const char* cons
         break;
     default:
         //nothing
+        break;
     }
 
     fputs("------------------------------------------------------\n\n\n", stderr);
