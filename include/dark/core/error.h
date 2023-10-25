@@ -54,6 +54,7 @@ static const Dark_Error DARK_ERROR_WIN32 = { &DARK_ERROR_API, "win32", NULL};
 //logic error
 static const Dark_Error DARK_ERROR_LOGIC = { NULL, "logic", NULL };
 static const Dark_Error DARK_ERROR_STATE = { &DARK_ERROR_LOGIC, "state", "already in requested state" };
+static const Dark_Error DARK_ERROR_MATH = { &DARK_ERROR_LOGIC, "math", "undefined operation" };
 
 static const Dark_Error DARK_ERROR_VALUE = { &DARK_ERROR_LOGIC, "value", "invalid value" };
 static const Dark_Error DARK_ERROR_NULL = { &DARK_ERROR_VALUE, "null", "unexpected null-pointer" };

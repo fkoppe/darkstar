@@ -37,6 +37,8 @@ uint64_t dark_ppow_uint(uint64_t base_, uint64_t exponent_)
 
     if(0 == exponent_)
     {
+        DARK_ASSERT(0 != base_, DARK_ERROR_MATH);
+        
         return 1;
     }
 
