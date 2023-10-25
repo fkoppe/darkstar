@@ -6,8 +6,6 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 
 add_library(darkstar)
 
-enable_testing()
-
 set(DARK_VERSION_MAJOR 0 CACHE INTERNAL "")
 set(DARK_VERSION_MINOR 1 CACHE INTERNAL "")
 set(DARK_VERSION_PATCH 0 CACHE INTERNAL "")
@@ -25,7 +23,7 @@ target_compile_definitions(
 set(CMAKE_CONFIGURATION_TYPES Debug RelWithDebug RelWithDebInfo RelTest Release MinSizeRel)
 string(REGEX REPLACE "-DNDEBUG " "" CMAKE_C_FLAGS_RELWITHDEBUG "${CMAKE_C_FLAGS_RELWITHDEBINFO} -DDEBUG" )
 set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBUG ${CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO})
-string(REGEX REPLACE "( -DNDEBUG$|-DNDEBUG )" "" CMAKE_C_FLAGS_RELTEST "${CMAKE_C_FLAGS_RELEASE}" )    
+string(REGEX REPLACE "( -DNDEBUG$|-DNDEBUG )" "" CMAKE_C_FLAGS_RELTEST "${CMAKE_C_FLAGS_RELEASE}" )
 set(CMAKE_EXE_LINKER_FLAGS_RELTEST ${CMAKE_EXE_LINKER_FLAGS_RELEASE})
 
 target_compile_definitions(
@@ -84,6 +82,10 @@ target_compile_definitions(
     >
 )
 
+if(DARK_TEST_ENABLE)
+  enable_testing()
+  add_subdirectory(test)
+endif()
+
 add_subdirectory(include)
 add_subdirectory(source)
-add_subdirectory(test)
