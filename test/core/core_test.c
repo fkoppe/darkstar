@@ -1,3 +1,4 @@
+#include "dark/core/macro.h"
 #include <dark/darkstar.h>
 
 int main()
@@ -7,6 +8,10 @@ int main()
 
     //assert_test
     DARK_ASSERT(0 == 0, DARK_ERROR_UNKNOWN);
+
+    //min_max test
+    DARK_TEST(DARK_MAX(10, 1) == 10);
+    DARK_TEST(DARK_MIN(10, 1) == 1);
 
     //version_test
     const uint8_t major_max = 255;
