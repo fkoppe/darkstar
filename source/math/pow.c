@@ -20,10 +20,8 @@
 *                                                                                   *
 ************************************************************************************/
 
-#include "dark/core/assert.h"
 #include "math_module.h"
 
-#include <dark/char/char.h>
 #include <dark/core/core.h>
 #include <dark/math/math.h>
 
@@ -38,7 +36,7 @@ uint64_t dark_ppow_uint(uint64_t base_, uint64_t exponent_)
     if(0 == exponent_)
     {
         DARK_ASSERT(0 != base_, DARK_ERROR_MATH);
-        
+
         return 1;
     }
 
