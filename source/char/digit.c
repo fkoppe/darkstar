@@ -75,13 +75,14 @@ char dark_digit_to_char(const uint8_t digit_)
         return '9';
     default:
         DARK_EXIT_ERROR(-1, DARK_ERROR_UNKNOWN);
+        return 'x';
     }
 }
 
 size_t dark_digit_count_uint8(uint8_t integer_)
 {
     //integer_
-    
+
     size_t count = 1;
 
     for (size_t i = 0; i < DARK_DIGIT_COUNT_UINT8_MAX; i++)
@@ -102,7 +103,7 @@ size_t dark_digit_count_uint8(uint8_t integer_)
 size_t dark_digit_count_uint16(uint16_t integer_)
 {
     //integer_
-    
+
     size_t count = 1;
 
     for (size_t i = 0; i < DARK_DIGIT_COUNT_UINT16_MAX; i++)
@@ -123,7 +124,7 @@ size_t dark_digit_count_uint16(uint16_t integer_)
 size_t dark_digit_count_uint32(uint32_t integer_)
 {
     //integer_
-    
+
     size_t count = 1;
 
     for (size_t i = 0; i < DARK_DIGIT_COUNT_UINT32_MAX; i++)
@@ -144,7 +145,7 @@ size_t dark_digit_count_uint32(uint32_t integer_)
 size_t dark_digit_count_uint64(uint64_t integer_)
 {
     //integer_
-    
+
     size_t count = 1;
 
     for (size_t i = 0; i < DARK_DIGIT_COUNT_UINT64_MAX; i++)
@@ -165,7 +166,7 @@ size_t dark_digit_count_uint64(uint64_t integer_)
 size_t dark_digit_count_int8(int8_t integer_)
 {
     //integer_
-    
+
     size_t count = 1;
 
     for (size_t i = 0; i < DARK_DIGIT_COUNT_INT8_MAX; i++)
@@ -186,7 +187,7 @@ size_t dark_digit_count_int8(int8_t integer_)
 size_t dark_digit_count_int16(int16_t integer_)
 {
     //integer_
-    
+
     size_t count = 1;
 
     for (size_t i = 0; i < DARK_DIGIT_COUNT_INT16_MAX; i++)
@@ -207,7 +208,7 @@ size_t dark_digit_count_int16(int16_t integer_)
 size_t dark_digit_count_int32(int32_t integer_)
 {
     //integer_
-    
+
     size_t count = 1;
 
     for (size_t i = 0; i < DARK_DIGIT_COUNT_INT32_MAX; i++)
@@ -228,7 +229,7 @@ size_t dark_digit_count_int32(int32_t integer_)
 size_t dark_digit_count_int64(int64_t integer_)
 {
     //integer_
-    
+
     size_t count = 1;
 
     for (size_t i = 0; i < DARK_DIGIT_COUNT_INT64_MAX; i++)
@@ -251,7 +252,7 @@ void dark_digit_uint_to_char_arr(uint64_t integer_, const size_t count_, char* c
     //integer_
     //count_
     DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
-    
+
     for(size_t i = 0; i < count_; i++)
     {
         if(integer_ > 0)
@@ -272,7 +273,7 @@ void dark_digit_uint_to_char_arr_terminated(const uint64_t integer_, const size_
     //integer_
     //count_
     DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
-    
+
     dark_digit_uint_to_char_arr(integer_, count_, destination_);
 
     destination_[count_] = '\0';
@@ -283,7 +284,7 @@ void dark_digit_int_to_char_arr(const int64_t integer_, const size_t count_, cha
     //integer_
     //count_
     DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
-    
+
     dark_digit_uint_to_char_arr(dark_abs_int64(integer_), count_, destination_);
 }
 
@@ -292,7 +293,7 @@ void dark_digit_int_to_char_arr_terminated(const int64_t integer_, const size_t 
     //integer_
     //count_
     DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
-    
+
     dark_digit_int_to_char_arr(integer_, count_, destination_);
 
     destination_[count_] = '\0';

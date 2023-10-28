@@ -20,18 +20,15 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___CORE_H)
-#define ___DARK___CORE_H
+#if !defined(___DARK___MACRO_H)
+#define ___DARK___MACRO_H
 
-#include <dark/core/assert.h>
-#include <dark/core/error.h>
 #include <dark/core/essential.h>
-#include <dark/core/library.h>
-#include <dark/core/macro.h>
-#include <dark/core/module.h>
-#include <dark/core/terminate.h>
-#include <dark/core/test.h>
-#include <dark/core/unit.h>
-#include <dark/core/version.h>
 
-#endif // !defined(___DARK___CORE_H)
+#define DARK_MIN(x, y) \
+((x) < (y) ? (x) : (y))
+
+#define DARK_MAX(x, y) \
+((x) > (y) ? (x) : (y))
+
+#endif // !defined(___DARK___MACRO_H)
