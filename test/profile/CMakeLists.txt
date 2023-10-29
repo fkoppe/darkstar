@@ -1,0 +1,1 @@
+dark_test_add(memory_profiler_test)

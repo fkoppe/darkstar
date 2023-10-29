@@ -1,4 +1,3 @@
-#include "dark/core/macro.h"
 #include <dark/darkstar.h>
 
 int main()

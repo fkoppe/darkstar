@@ -20,14 +20,10 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___ALLOC_OVERRIDE_H)
+#define ___DARK___ALLOC_OVERRIDE_H
 
-#include <dark/char/char.h>
-#include <dark/core/core.h>
-#include <dark/math/math.h>
-#include <dark/profile/profile.h>
+#include <dark/core/essential.h>
+#include <dark/profile/memory_profiler.h>
 
-#include <dark/info.h>
-
-#endif // !defined(___DARK___DARKSTAR_H)
+#endif // !defined(___DARK___ALLOC_OVERRIDE_H)

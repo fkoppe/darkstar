@@ -20,14 +20,12 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___PROFILE_MODULE_H)
+#define ___DARK___PROFILE_MODULE_H
 
-#include <dark/char/char.h>
-#include <dark/core/core.h>
-#include <dark/math/math.h>
-#include <dark/profile/profile.h>
+#include <dark/core/essential.h>
 
-#include <dark/info.h>
+#undef DARK_MODULE
+#define DARK_MODULE "profile"
 
-#endif // !defined(___DARK___DARKSTAR_H)
+#endif // !defined(___DARK___PROFILE_MODULE_H)
