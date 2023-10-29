@@ -150,14 +150,14 @@ void dark_memory_profiler_print_info_stdout()
     //TODO
 }
 
-Dark_Memory_Info dark_memory_profiler_info_all_get()
+Dark_Memory_Info dark_memory_profiler_info_all()
 {
     DARK_ASSERT(MEMORY_PROFILER.initialised_is, DARK_ERROR_NOSTATE);
 
     return MEMORY_PROFILER.all;
 }
 
-Dark_Memory_Info dark_memory_profiler_info_own_get()
+Dark_Memory_Info dark_memory_profiler_info_own()
 {
     DARK_ASSERT(MEMORY_PROFILER.initialised_is, DARK_ERROR_NOSTATE);
 
