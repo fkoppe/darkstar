@@ -20,15 +20,12 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___CONTAINER_DATA_H)
+#define ___DARK___CONTAINER_DATA_H
 
-#include <dark/char/char.h>
-#include <dark/container/container.h>
-#include <dark/core/core.h>
-#include <dark/math/math.h>
-#include <dark/profile/profile.h>
+#include <dark/core/error.h>
+#include <dark/core/essential.h>
 
-#include <dark/info.h>
+static const Dark_Error DARK_ERROR_CONTAINER_INDEX = { &DARK_ERROR_RANGE, "range", "index has to be <size"};
 
-#endif // !defined(___DARK___DARKSTAR_H)
+#endif // !defined(___DARK___CONTAINER_DATA_H)

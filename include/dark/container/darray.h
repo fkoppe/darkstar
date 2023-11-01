@@ -20,15 +20,54 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___DARRAY_H)
+#define ___DARK___DARRAY_H
 
-#include <dark/char/char.h>
-#include <dark/container/container.h>
-#include <dark/core/core.h>
-#include <dark/math/math.h>
-#include <dark/profile/profile.h>
+#include <dark/core/essential.h>
 
-#include <dark/info.h>
+#define DARK_DARRAY_AT(darray, index, type) \
+(*(type*)dark_darray_at((darray), (index)))
 
-#endif // !defined(___DARK___DARKSTAR_H)
+#define DARK_DARRAY_FRONT(darray, type) \
+(*(type*)dark_darray_front((darray)))
+
+#define DARK_DARRAY_BACK(darray, type) \
+(*(type*)dark_darray_back((darray)))
+
+#define DARK_DARRAY_DATA(darray, type) \
+((type*)dark_darray_data((darray)))
+
+#if !defined(DARK_DARRAY_SIZE_MAX)
+#define DARK_DARRAY_SIZE_MAX (1024*4)
+#endif // !defined(DARK_DARRAY_SIZE_MAX)
+
+void* dark_darray_new_size(size_t element_size, size_t capacity, size_t size);
+void* dark_darray_new_capacity(size_t element_size, size_t capacity);
+void* dark_darray_new(size_t element_size);
+void dark_darray_delete(void* darray);
+
+void* dark_darray_at(void* darray, size_t index);
+void* dark_darray_front(void* darray);
+void* dark_darray_back(void* darray);
+void* dark_darray_data(void* darray);
+
+void dark_darray_push(void* darray, size_t index, size_t count, void* array);
+void dark_darray_insert(void* darray, size_t index, void* element);
+void dark_darray_push_front(void* darray, void* element);
+void dark_darray_push_back(void* darray, void* element);
+
+void dark_darray_pop(void* darray, size_t index, size_t count);
+void dark_darray_erase(void* darray, size_t index);
+void dark_darray_pop_front(void* darray);
+void dark_darray_pop_back(void* darray);
+
+size_t dark_darray_capacity(void* darray);
+void dark_darray_reserve_exact(void* darray, size_t capacity);
+void dark_darray_shrink_to_fit(void* darray);
+
+size_t dark_darray_size(void* darray);
+void dark_darray_resize(void* darray, size_t size);
+void dark_darray_clear(void* darray);
+size_t dark_darray_element_size(void* darray);
+
+#endif // !defined(___DARK___DARRAY_H)

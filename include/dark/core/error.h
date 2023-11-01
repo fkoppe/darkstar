@@ -49,7 +49,6 @@ static const Dark_Error DARK_ERROR_SWITCH = { &DARK_ERROR_RUNTIME, "switch", "un
 
 static const Dark_Error DARK_ERROR_API = { &DARK_ERROR_RUNTIME, "api", "api failed" };
 static const Dark_Error DARK_ERROR_DARK = { &DARK_ERROR_API, "dark", NULL};
-static const Dark_Error DARK_ERROR_WIN32 = { &DARK_ERROR_API, "win32", NULL};
 
 //logic error
 static const Dark_Error DARK_ERROR_LOGIC = { NULL, "logic", NULL };

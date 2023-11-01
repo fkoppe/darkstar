@@ -20,15 +20,18 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___CONTAINER_HELPER_H)
+#define ___DARK___CONTAINER_HELPER_H
 
-#include <dark/char/char.h>
-#include <dark/container/container.h>
-#include <dark/core/core.h>
-#include <dark/math/math.h>
-#include <dark/profile/profile.h>
+#include <dark/core/essential.h>
 
-#include <dark/info.h>
+typedef struct Dark_DArray
+{
+    size_t element_size;
+    size_t capacity;
+    size_t size;
+    char* data;
+} Dark_DArray;
 
-#endif // !defined(___DARK___DARKSTAR_H)
+#endif // !defined(___DARK___CONTAINER_HELPER_H)
+

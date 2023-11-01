@@ -166,7 +166,7 @@ Dark_Memory_Info dark_memory_profiler_info_own()
 
 void* dark_memory_profiler_malloc(const size_t size_, const char* const file_, const char* const func_, const int64_t line_, const char* const date_, const char* const time_, const Dark_Library* const library_, const char* const module_, const char* const unit_)
 {
-    if (!(size_ > 0 || !MEMORY_PROFILER.assert_pointer_is)) dark_assert(file_, func_, line_, date_, time_, library_, module_, unit_, "NULL != pointer", &DARK_ERROR_NULL, "tried to malloc with size =0 from...");
+    if (!(size_ > 0 || !MEMORY_PROFILER.assert_pointer_is)) dark_assert(file_, func_, line_, date_, time_, library_, module_, unit_, "size_ > 0", &DARK_ERROR_NULL, "TRIED TO MALLOC with size =0 from...");
     DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != func_, DARK_ERROR_NULL);
     DARK_ASSERT(0 != line_, DARK_ERROR_ZERO);
@@ -248,8 +248,8 @@ void* dark_memory_profiler_malloc(const size_t size_, const char* const file_, c
 
 void* dark_memory_profiler_realloc(void* const pointer_, const size_t size_, const char* const file_, const char* const func_, const int64_t line_, const char* const date_, const char* const time_, const Dark_Library* const library_, const char* const module_, const char* const unit_)
 {
-    if (!(NULL != pointer_ || !MEMORY_PROFILER.assert_pointer_is)) dark_assert(file_, func_, line_, date_, time_, library_, module_, unit_, "NULL != pointer", &DARK_ERROR_NULL, "tried to realloc with pointer =NULL from...");
-    if (!(size_ > 0 || !MEMORY_PROFILER.assert_pointer_is)) dark_assert(file_, func_, line_, date_, time_, library_, module_, unit_, "NULL != pointer", &DARK_ERROR_NULL, "tried to malloc with size =0 from...");
+    if (!(NULL != pointer_ || !MEMORY_PROFILER.assert_pointer_is)) dark_assert(file_, func_, line_, date_, time_, library_, module_, unit_, "NULL != pointer", &DARK_ERROR_NULL, "TRIED TO REALLOC with pointer =NULL from...");
+    if (!(size_ > 0 || !MEMORY_PROFILER.assert_pointer_is)) dark_assert(file_, func_, line_, date_, time_, library_, module_, unit_, "size_ > 0", &DARK_ERROR_NULL, "TRIED TO REALLOC with size =0 from...");
     DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != func_, DARK_ERROR_NULL);
     DARK_ASSERT(0 != line_, DARK_ERROR_ZERO);
@@ -305,8 +305,8 @@ void* dark_memory_profiler_realloc(void* const pointer_, const size_t size_, con
 
 void* dark_memory_profiler_calloc(const size_t count_, const size_t size_, const char* const file_, const char* const func_, const int64_t line_, const char* const date_, const char* const time_, const Dark_Library* const library_, const char* const module_, const char*const unit_)
 {
-    if (!(count_ > 0 || !MEMORY_PROFILER.assert_pointer_is)) dark_assert(file_, func_, line_, date_, time_, library_, module_, unit_, "count > 0", &DARK_ERROR_NULL, "tried to calloc with number =0 from...");
-    if (!(size_ > 0 || !MEMORY_PROFILER.assert_pointer_is)) dark_assert(file_, func_, line_, date_, time_, library_, module_, unit_, "size > 0", &DARK_ERROR_NULL, "tried to calloc with size =0 from...");
+    if (!(count_ > 0 || !MEMORY_PROFILER.assert_pointer_is)) dark_assert(file_, func_, line_, date_, time_, library_, module_, unit_, "count > 0", &DARK_ERROR_NULL, "TRIED TO CALLOC with number =0 from...");
+    if (!(size_ > 0 || !MEMORY_PROFILER.assert_pointer_is)) dark_assert(file_, func_, line_, date_, time_, library_, module_, unit_, "size > 0", &DARK_ERROR_NULL, "TRIED TO CALLOC with size =0 from...");
     DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != func_, DARK_ERROR_NULL);
     DARK_ASSERT(0 != line_, DARK_ERROR_ZERO);
@@ -388,7 +388,7 @@ void* dark_memory_profiler_calloc(const size_t count_, const size_t size_, const
 
 void dark_memory_profiler_free(void* const pointer_, const char* const file_, const char* const func_, const int64_t line_, const char* const date_, const char* const time_, const Dark_Library* const library_, const char* const module_, const char* const unit_)
 {
-    if (!(NULL != pointer_ || !MEMORY_PROFILER.assert_pointer_is)) dark_assert(file_, func_, line_, date_, time_, library_, module_, unit_, "NULL != pointer", &DARK_ERROR_NULL, "tried to free NULL from...");
+    if (!(NULL != pointer_ || !MEMORY_PROFILER.assert_pointer_is)) dark_assert(file_, func_, line_, date_, time_, library_, module_, unit_, "NULL != pointer", &DARK_ERROR_NULL, "TRIED TO FREE with pointer =NULL from...");
     DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != func_, DARK_ERROR_NULL);
     DARK_ASSERT(0 != line_, DARK_ERROR_ZERO);
