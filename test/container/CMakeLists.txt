@@ -1,1 +1,1 @@
-dark_test_add(vector_test)
+dark_test_add(darray_test)

@@ -72,21 +72,19 @@ int main()
 
     dark_darray_push(darray_1, 0, 2, arr);
     dark_darray_push(darray_1, 0, 2, arr2);
-
-
     dark_darray_push(darray_1, 0, 4, arr2);
 
     DARK_TEST_UINT(dark_darray_capacity(darray_1) == 8, dark_darray_capacity(darray_1));
     DARK_TEST_UINT(dark_darray_size(darray_1) == 8, dark_darray_size(darray_1));
 
-    DARK_TEST_INT(DARK_DARRAY_AT(darray_1, 0, int) == 13, DARK_DARRAY_AT(darray_1, 4, int));
-    DARK_TEST_INT(DARK_DARRAY_AT(darray_1, 1, int) == 14, DARK_DARRAY_AT(darray_1, 5, int));
-    DARK_TEST_INT(DARK_DARRAY_AT(darray_1, 2, int) == 55, DARK_DARRAY_AT(darray_1, 6, int));
-    DARK_TEST_INT(DARK_DARRAY_AT(darray_1, 3, int) == 99, DARK_DARRAY_AT(darray_1, 7, int));
-    DARK_TEST_INT(DARK_DARRAY_AT(darray_1, 4, int) == 13, DARK_DARRAY_AT(darray_1, 2, int));
-    DARK_TEST_INT(DARK_DARRAY_AT(darray_1, 5, int) == 14, DARK_DARRAY_AT(darray_1, 3, int));
-    DARK_TEST_INT(DARK_DARRAY_AT(darray_1, 6, int) == 33, DARK_DARRAY_AT(darray_1, 0, int));
-    DARK_TEST_INT(DARK_DARRAY_AT(darray_1, 7, int) == 44, DARK_DARRAY_AT(darray_1, 1, int));
+    DARK_TEST_INT(DARK_DARRAY_AT(darray_1, 0, int) == 13, DARK_DARRAY_AT(darray_1, 0, int));
+    DARK_TEST_INT(DARK_DARRAY_AT(darray_1, 1, int) == 14, DARK_DARRAY_AT(darray_1, 1, int));
+    DARK_TEST_INT(DARK_DARRAY_AT(darray_1, 2, int) == 55, DARK_DARRAY_AT(darray_1, 2, int));
+    DARK_TEST_INT(DARK_DARRAY_AT(darray_1, 3, int) == 99, DARK_DARRAY_AT(darray_1, 3, int));
+    DARK_TEST_INT(DARK_DARRAY_AT(darray_1, 4, int) == 13, DARK_DARRAY_AT(darray_1, 4, int));
+    DARK_TEST_INT(DARK_DARRAY_AT(darray_1, 5, int) == 14, DARK_DARRAY_AT(darray_1, 5, int));
+    DARK_TEST_INT(DARK_DARRAY_AT(darray_1, 6, int) == 33, DARK_DARRAY_AT(darray_1, 6, int));
+    DARK_TEST_INT(DARK_DARRAY_AT(darray_1, 7, int) == 44, DARK_DARRAY_AT(darray_1, 7, int));
 
     dark_darray_pop_back(darray_1);
 
