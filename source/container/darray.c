@@ -148,7 +148,7 @@ void dark_darray_push(void* const darray_, const size_t index_, const size_t cou
         }
         else
         {
-            darray->data = malloc(darray->element_size);
+            darray->data = malloc(darray->element_size * count_);
         }
 
         darray->capacity = darray->size;
