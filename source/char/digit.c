@@ -29,22 +29,22 @@
 #undef DARK_UNIT
 #define DARK_UNIT "digit"
 
-uint8_t dark_digit_uint_get(uint64_t integer_, const size_t position_)
+uint8_t dark_digit_get_u(uint64_t integer_, const size_t position_)
 {
     //integer_
     //position_
 
-    integer_ /= dark_ppow_uint(10, position_);
+    integer_ /= dark_ppow_u(10, position_);
 
     return integer_ % 10;
 }
 
-uint8_t dark_digit_int_get(const int64_t integer_, const size_t position_)
+uint8_t dark_digit_get_i(const int64_t integer_, const size_t position_)
 {
     //integer_
     //position_
 
-    return dark_digit_uint_get(dark_abs_int64(integer_), position_);
+    return dark_digit_get_u(dark_abs_i64(integer_), position_);
 }
 
 char dark_digit_to_char(const uint8_t digit_)
@@ -85,7 +85,7 @@ size_t dark_digit_count_uint8(uint8_t integer_)
 
     size_t count = 1;
 
-    for (size_t i = 0; i < DARK_DIGIT_COUNT_UINT8_MAX; i++)
+    for (size_t i = 0; i < DARK_DIGIT_COUNT_MAX_U8; i++)
     {
         if(integer_ /= 10)
         {
@@ -93,7 +93,7 @@ size_t dark_digit_count_uint8(uint8_t integer_)
         }
         else
         {
-            i = DARK_DIGIT_COUNT_UINT8_MAX;
+            i = DARK_DIGIT_COUNT_MAX_U8;
         }
     }
 
@@ -106,7 +106,7 @@ size_t dark_digit_count_uint16(uint16_t integer_)
 
     size_t count = 1;
 
-    for (size_t i = 0; i < DARK_DIGIT_COUNT_UINT16_MAX; i++)
+    for (size_t i = 0; i < DARK_DIGIT_COUNT_MAX_U16; i++)
     {
         if(integer_ /= 10)
         {
@@ -114,7 +114,7 @@ size_t dark_digit_count_uint16(uint16_t integer_)
         }
         else
         {
-            i = DARK_DIGIT_COUNT_UINT16_MAX;
+            i = DARK_DIGIT_COUNT_MAX_U16;
         }
     }
 
@@ -127,7 +127,7 @@ size_t dark_digit_count_uint32(uint32_t integer_)
 
     size_t count = 1;
 
-    for (size_t i = 0; i < DARK_DIGIT_COUNT_UINT32_MAX; i++)
+    for (size_t i = 0; i < DARK_DIGIT_COUNT_MAX_U32; i++)
     {
         if(integer_ /= 10)
         {
@@ -135,7 +135,7 @@ size_t dark_digit_count_uint32(uint32_t integer_)
         }
         else
         {
-            i = DARK_DIGIT_COUNT_UINT32_MAX;
+            i = DARK_DIGIT_COUNT_MAX_U32;
         }
     }
 
@@ -148,7 +148,7 @@ size_t dark_digit_count_uint64(uint64_t integer_)
 
     size_t count = 1;
 
-    for (size_t i = 0; i < DARK_DIGIT_COUNT_UINT64_MAX; i++)
+    for (size_t i = 0; i < DARK_DIGIT_COUNT_MAX_U64; i++)
     {
         if(integer_ /= 10)
         {
@@ -156,7 +156,7 @@ size_t dark_digit_count_uint64(uint64_t integer_)
         }
         else
         {
-            i = DARK_DIGIT_COUNT_UINT64_MAX;
+            i = DARK_DIGIT_COUNT_MAX_U64;
         }
     }
 
@@ -169,7 +169,7 @@ size_t dark_digit_count_int8(int8_t integer_)
 
     size_t count = 1;
 
-    for (size_t i = 0; i < DARK_DIGIT_COUNT_INT8_MAX; i++)
+    for (size_t i = 0; i < DARK_DIGIT_COUNT_MAX_I8; i++)
     {
         if(integer_ /= 10)
         {
@@ -177,7 +177,7 @@ size_t dark_digit_count_int8(int8_t integer_)
         }
         else
         {
-            i = DARK_DIGIT_COUNT_INT8_MAX;
+            i = DARK_DIGIT_COUNT_MAX_I8;
         }
     }
 
@@ -190,7 +190,7 @@ size_t dark_digit_count_int16(int16_t integer_)
 
     size_t count = 1;
 
-    for (size_t i = 0; i < DARK_DIGIT_COUNT_INT16_MAX; i++)
+    for (size_t i = 0; i < DARK_DIGIT_COUNT_MAX_I16; i++)
     {
         if(integer_ /= 10)
         {
@@ -198,7 +198,7 @@ size_t dark_digit_count_int16(int16_t integer_)
         }
         else
         {
-            i = DARK_DIGIT_COUNT_INT16_MAX;
+            i = DARK_DIGIT_COUNT_MAX_I16;
         }
     }
 
@@ -211,7 +211,7 @@ size_t dark_digit_count_int32(int32_t integer_)
 
     size_t count = 1;
 
-    for (size_t i = 0; i < DARK_DIGIT_COUNT_INT32_MAX; i++)
+    for (size_t i = 0; i < DARK_DIGIT_COUNT_MAX_I32; i++)
     {
         if(integer_ /= 10)
         {
@@ -219,7 +219,7 @@ size_t dark_digit_count_int32(int32_t integer_)
         }
         else
         {
-            i = DARK_DIGIT_COUNT_INT32_MAX;
+            i = DARK_DIGIT_COUNT_MAX_I32;
         }
     }
 
@@ -232,7 +232,7 @@ size_t dark_digit_count_int64(int64_t integer_)
 
     size_t count = 1;
 
-    for (size_t i = 0; i < DARK_DIGIT_COUNT_INT64_MAX; i++)
+    for (size_t i = 0; i < DARK_DIGIT_COUNT_MAX_I64; i++)
     {
         if(integer_ /= 10)
         {
@@ -240,7 +240,7 @@ size_t dark_digit_count_int64(int64_t integer_)
         }
         else
         {
-            i = DARK_DIGIT_COUNT_INT64_MAX;
+            i = DARK_DIGIT_COUNT_MAX_I64;
         }
     }
 
@@ -285,7 +285,7 @@ void dark_digit_int_to_char_arr(const int64_t integer_, const size_t count_, cha
     //count_
     DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
 
-    dark_digit_uint_to_char_arr(dark_abs_int64(integer_), count_, destination_);
+    dark_digit_uint_to_char_arr(dark_abs_i64(integer_), count_, destination_);
 }
 
 void dark_digit_int_to_char_arr_terminated(const int64_t integer_, const size_t count_, char* const destination_)

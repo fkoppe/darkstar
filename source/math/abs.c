@@ -27,7 +27,7 @@
 #undef DARK_UNIT
 #define DARK_UNIT "abs"
 
-uint8_t dark_abs_int8(const int8_t integer_)
+uint8_t dark_abs_i8(const int8_t integer_)
 {
     //interger_
 
@@ -41,7 +41,7 @@ uint8_t dark_abs_int8(const int8_t integer_)
     }
 }
 
-uint16_t dark_abs_int16(const int16_t integer_)
+uint16_t dark_abs_i16(const int16_t integer_)
 {
     //interger_
 
@@ -55,7 +55,7 @@ uint16_t dark_abs_int16(const int16_t integer_)
     }
 }
 
-uint32_t dark_abs_int32(const int32_t integer_)
+uint32_t dark_abs_i32(const int32_t integer_)
 {
     //interger_
 
@@ -69,7 +69,7 @@ uint32_t dark_abs_int32(const int32_t integer_)
     }
 }
 
-uint64_t dark_abs_int64(const int64_t integer_)
+uint64_t dark_abs_i64(const int64_t integer_)
 {
     //interger_
 

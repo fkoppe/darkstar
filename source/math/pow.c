@@ -28,7 +28,7 @@
 #undef DARK_UNIT
 #define DARK_UNIT "pow"
 
-uint64_t dark_ppow_uint(uint64_t base_, uint64_t exponent_)
+uint64_t dark_ppow_u(uint64_t base_, uint64_t exponent_)
 {
     //base_
     //exponent_
@@ -55,7 +55,7 @@ uint64_t dark_ppow_uint(uint64_t base_, uint64_t exponent_)
     return val;
 }
 
-int64_t dark_ppow_int(int64_t base_, uint64_t exponent_)
+int64_t dark_ppow_i(int64_t base_, uint64_t exponent_)
 {
     //base_
     //exponent_
@@ -75,11 +75,11 @@ int64_t dark_ppow_int(int64_t base_, uint64_t exponent_)
     {
         if (val > 0)
         {
-            DARK_ASSERT(val <= (INT64_MAX - (val * dark_abs_int64(base_))), DARK_ERROR_OVERFLOW);
+            DARK_ASSERT(val <= (INT64_MAX - (val * dark_abs_i64(base_))), DARK_ERROR_OVERFLOW);
         }
         else
         {
-            DARK_ASSERT(val >= (INT64_MIN + (val * dark_abs_int64(base_))), DARK_ERROR_UNDERFLOW);
+            DARK_ASSERT(val >= (INT64_MIN + (val * dark_abs_i64(base_))), DARK_ERROR_UNDERFLOW);
         }
 
         val *= base_;

@@ -31,7 +31,7 @@
 size_t dark_cstring_lenght(const char* const cstring_)
 {
     DARK_ASSERT(NULL != cstring_, DARK_ERROR_NULL);
-    
+
     for(size_t i = 0; i < DARK_CSTRING_LENGHT_MAX; i++)
     {
         if('\0' == cstring_[i])
@@ -39,6 +39,6 @@ size_t dark_cstring_lenght(const char* const cstring_)
             return i;
         }
     }
-    
+
     DARK_EXIT_MSG(-1, DARK_ERROR_RUNTIME, "cstring lost integrity");
 }

@@ -25,7 +25,7 @@
 
 #include <dark/core/essential.h>
 
-uint64_t dark_ppow_uint(uint64_t base, uint64_t exponent);
-int64_t dark_ppow_int(int64_t base, uint64_t exponent);
+uint64_t dark_ppow_u(uint64_t base, uint64_t exponent);
+int64_t dark_ppow_i(int64_t base, uint64_t exponent);
 
 #endif // !defined(___DARK___POW_H)

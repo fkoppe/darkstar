@@ -25,9 +25,9 @@
 
 #include <dark/core/essential.h>
 
-uint8_t dark_abs_int8(int8_t integer);
-uint16_t dark_abs_int16(int16_t integer);
-uint32_t dark_abs_int32(int32_t integer);
-uint64_t dark_abs_int64(int64_t integer);
+uint8_t dark_abs_i8(int8_t integer);
+uint16_t dark_abs_i16(int16_t integer);
+uint32_t dark_abs_i32(int32_t integer);
+uint64_t dark_abs_i64(int64_t integer);
 
 #endif // !defined(___DARK___ABS_H)

@@ -36,32 +36,258 @@ X X X X X X X X X X X X X X*/
 
 #undef DARK_UNIT
 
-void dark_test(const char* const condition_, const size_t num_, const char* const name_, const int64_t integer_, const uint64_t uinteger_, const char* const cstring_)
+void dark_test_u(const char* const func_, const int64_t line_, const char* op_, const bool eq_, const bool lt_, const bool nt_, const uint64_t a_, const uint64_t b_, const char* const as_, const char* const bs_)
 {
-    assert(NULL != condition_);
-    //num_
-    assert(!num_ || NULL != name_);
-    //integer_
-    //uinteger_
-    //cstring
+    assert(NULL != func_);
+    assert(0 != line_);
+    assert(NULL != op_);
+    //eq_!
+    //lt_!
+    assert(eq_ || lt_);
+    //nt_
+    //a_
+    //b_
+    assert(NULL != as_);
+    assert(NULL != bs_);
 
-    fprintf(stderr, "\n\n-------------------------TEST-------------------------\ntest failed - exit has been called\n\ncond:\t(%s) was false\n\n", condition_);
-    
-    switch(num_)
+    bool result = false;
+
+    if(eq_ && (a_ == b_))
     {
-    case 1:
-        fprintf(stderr, "%" PRId64 " = %s\n\n", integer_, name_);
-        break;
-    case 2:
-        fprintf(stderr, "%" PRIu64 " = %s\n\n", uinteger_, name_);
-        break;
-    case 3:
-        fprintf(stderr, "%s" " = %s\n\n", cstring_, name_);
-        break;
-    default:
-        //nothing
-        break;
+        result = true;
     }
+
+    if(lt_ && (a_ < b_))
+    {
+        result = true;
+    }
+
+    if(nt_)
+    {
+        result = !result;
+    }
+
+    if(result)
+    {
+        return;
+    }
+
+    fprintf(stderr, "\n\n-------------------------TEST-------------------------\ntest failed - exit has been called\n\ncond:\t%s %s %s was false\n%s:\t%" PRIu64 "\n%s:\t%" PRIu64 "\n\n", as_, op_, bs_, as_, a_, bs_, b_);
+
+    fputs("------------------------------------------------------\n\n\n", stderr);
+
+    exit(-1);
+}
+
+void dark_test_i(const char* const func_, const int64_t line_, const char* op_, const bool eq_, const bool lt_, const bool nt_, const int64_t a_, const int64_t b_, const char* const as_, const char* const bs_)
+{
+    assert(NULL != func_);
+    assert(0 != line_);
+    assert(NULL != op_);
+    //eq_!
+    //lt_!
+    assert(eq_ || lt_);
+    //nt_
+    //a_
+    //b_
+    assert(NULL != as_);
+    assert(NULL != bs_);
+
+    bool result = false;
+
+    if(eq_ && (a_ == b_))
+    {
+        result = true;
+    }
+
+    if(lt_ && (a_ < b_))
+    {
+        result = true;
+    }
+
+    if(nt_)
+    {
+        result = !result;
+    }
+
+    if(result)
+    {
+        return;
+    }
+
+    fprintf(stderr, "\n\n-------------------------TEST-------------------------\ntest failed - exit has been called\n\ncond:\t%s %s %s was false\n%s:\t%" PRId64 "\n%s:\t%" PRId64 "\n\n", as_, op_, bs_, as_, a_, bs_, b_);
+
+    fputs("------------------------------------------------------\n\n\n", stderr);
+
+    exit(-1);
+}
+
+void dark_test_f(const char* const func_, const int64_t line_, const char* op_, const bool eq_, const bool lt_, const bool nt_, const float a_, const float b_, const char* const as_, const char* const bs_)
+{
+    assert(NULL != func_);
+    assert(0 != line_);
+    assert(NULL != op_);
+    //eq_!
+    //lt_!
+    assert(eq_ || lt_);
+    //nt_
+    //a_
+    //b_
+    assert(NULL != as_);
+    assert(NULL != bs_);
+
+    bool result = false;
+
+    if(eq_ && (a_ == b_))
+    {
+        result = true;
+    }
+
+    if(lt_ && (a_ < b_))
+    {
+        result = true;
+    }
+
+    if(nt_)
+    {
+        result = !result;
+    }
+
+    if(result)
+    {
+        return;
+    }
+
+    fprintf(stderr, "\n\n-------------------------TEST-------------------------\ntest failed - exit has been called\n\ncond:\t%s %s %s was false\n%s:\t%f\n%s:\t%f\n\n", as_, op_, bs_, as_, a_, bs_, b_);
+
+    fputs("------------------------------------------------------\n\n\n", stderr);
+
+    exit(-1);
+}
+
+void dark_test_d(const char* const func_, const int64_t line_, const char* op_, const bool eq_, const bool lt_, const bool nt_, const double a_, const double b_, const char* const as_, const char* const bs_)
+{
+    assert(NULL != func_);
+    assert(0 != line_);
+    assert(NULL != op_);
+    //eq_!
+    //lt_!
+    assert(eq_ || lt_);
+    //nt_
+    //a_
+    //b_
+    assert(NULL != as_);
+    assert(NULL != bs_);
+
+    bool result = false;
+
+    if(eq_ && (a_ == b_))
+    {
+        result = true;
+    }
+
+    if(lt_ && (a_ < b_))
+    {
+        result = true;
+    }
+
+    if(nt_)
+    {
+        result = !result;
+    }
+
+    if(result)
+    {
+        return;
+    }
+
+    fprintf(stderr, "\n\n-------------------------TEST-------------------------\ntest failed - exit has been called\n\ncond:\t%s %s %s was false\n%s:\t%lf\n%s:\t%lf\n\n", as_, op_, bs_, as_, a_, bs_, b_);
+
+    fputs("------------------------------------------------------\n\n\n", stderr);
+
+    exit(-1);
+}
+
+void dark_test_s(const char* const func_, const int64_t line_, const char* op_, const bool eq_, const bool lt_, const bool nt_, const char* const a_, const char* const b_, const char* const as_, const char* const bs_)
+{
+    assert(NULL != func_);
+    assert(0 != line_);
+    assert(NULL != op_);
+    //eq_!
+    //lt_!
+    assert(eq_ || lt_);
+    //nt_
+    //a_
+    //b_
+    assert(NULL != as_);
+    assert(NULL != bs_);
+
+    bool result = false;
+
+    if(eq_ && !memcmp(a_, b_, size_))
+    {
+        result = true;
+    }
+
+    if(lt_ && (memcmp(a_, b_, size_) < 0))
+    {
+        result = true;
+    }
+
+    if(nt_)
+    {
+        result = !result;
+    }
+
+    if(result)
+    {
+        return;
+    }
+
+    fprintf(stderr, "\n\n-------------------------TEST-------------------------\ntest failed - exit has been called\n\ncond:\t%s %s %s was false\n%s:\t%s\n%s:\t%s\n\n", as_, op_, bs_, as_, a_, bs_, b_);
+
+    fputs("------------------------------------------------------\n\n\n", stderr);
+
+    exit(-1);
+}
+
+void dark_test_m(const char* const func_, const int64_t line_, const char* op_, const bool eq_, const bool lt_, const bool nt_, const int64_t a_, const int64_t b_, const char* const as_, const char* const bs_)
+{
+    assert(NULL != func_);
+    assert(0 != line_);
+    assert(NULL != op_);
+    //eq_!
+    //lt_!
+    assert(eq_ || lt_);
+    //nt_
+    //a_
+    //b_
+    assert(NULL != as_);
+    assert(NULL != bs_);
+
+    bool result = false;
+
+    if(eq_ && !memcmp(a_, b_, size_))
+    {
+        result = true;
+    }
+
+    if(lt_ && (memcmp(a_, b_, size_) < 0))
+    {
+        result = true;
+    }
+
+    if(nt_)
+    {
+        result = !result;
+    }
+
+    if(result)
+    {
+        return;
+    }
+
+    fprintf(stderr, "\n\n-------------------------TEST-------------------------\ntest failed - exit has been called\n\ncond:\t%s %s %s was false\n\n", as_, op_, bs_, as_, bs_);
 
     fputs("------------------------------------------------------\n\n\n", stderr);
 
