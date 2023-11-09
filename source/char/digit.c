@@ -79,7 +79,7 @@ char dark_digit_to_char(const uint8_t digit_)
     }
 }
 
-size_t dark_digit_count_uint8(uint8_t integer_)
+size_t dark_digit_count_u8(uint8_t integer_)
 {
     //integer_
 
@@ -100,7 +100,7 @@ size_t dark_digit_count_uint8(uint8_t integer_)
     return count;
 }
 
-size_t dark_digit_count_uint16(uint16_t integer_)
+size_t dark_digit_count_u16(uint16_t integer_)
 {
     //integer_
 
@@ -121,7 +121,7 @@ size_t dark_digit_count_uint16(uint16_t integer_)
     return count;
 }
 
-size_t dark_digit_count_uint32(uint32_t integer_)
+size_t dark_digit_count_u32(uint32_t integer_)
 {
     //integer_
 
@@ -142,7 +142,7 @@ size_t dark_digit_count_uint32(uint32_t integer_)
     return count;
 }
 
-size_t dark_digit_count_uint64(uint64_t integer_)
+size_t dark_digit_count_u64(uint64_t integer_)
 {
     //integer_
 
@@ -163,7 +163,7 @@ size_t dark_digit_count_uint64(uint64_t integer_)
     return count;
 }
 
-size_t dark_digit_count_int8(int8_t integer_)
+size_t dark_digit_count_i8(int8_t integer_)
 {
     //integer_
 
@@ -184,7 +184,7 @@ size_t dark_digit_count_int8(int8_t integer_)
     return count;
 }
 
-size_t dark_digit_count_int16(int16_t integer_)
+size_t dark_digit_count_i16(int16_t integer_)
 {
     //integer_
 
@@ -205,7 +205,7 @@ size_t dark_digit_count_int16(int16_t integer_)
     return count;
 }
 
-size_t dark_digit_count_int32(int32_t integer_)
+size_t dark_digit_count_i32(int32_t integer_)
 {
     //integer_
 
@@ -226,7 +226,7 @@ size_t dark_digit_count_int32(int32_t integer_)
     return count;
 }
 
-size_t dark_digit_count_int64(int64_t integer_)
+size_t dark_digit_count_i64(int64_t integer_)
 {
     //integer_
 
@@ -247,7 +247,7 @@ size_t dark_digit_count_int64(int64_t integer_)
     return count;
 }
 
-void dark_digit_uint_to_char_arr(uint64_t integer_, const size_t count_, char* const destination_)
+void dark_digit_to_char_arr_u(uint64_t integer_, const size_t count_, char* const destination_)
 {
     //integer_
     //count_
@@ -268,33 +268,33 @@ void dark_digit_uint_to_char_arr(uint64_t integer_, const size_t count_, char* c
     }
 }
 
-void dark_digit_uint_to_char_arr_terminated(const uint64_t integer_, const size_t count_, char* const destination_)
+void dark_digit_to_char_arr_u_terminated(const uint64_t integer_, const size_t count_, char* const destination_)
 {
     //integer_
     //count_
     DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
 
-    dark_digit_uint_to_char_arr(integer_, count_, destination_);
+    dark_digit_to_char_arr_u(integer_, count_, destination_);
 
     destination_[count_] = '\0';
 }
 
-void dark_digit_int_to_char_arr(const int64_t integer_, const size_t count_, char* const destination_)
+void dark_digit_to_char_arr_i(const int64_t integer_, const size_t count_, char* const destination_)
 {
     //integer_
     //count_
     DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
 
-    dark_digit_uint_to_char_arr(dark_abs_i64(integer_), count_, destination_);
+    dark_digit_to_char_arr_u(dark_abs_i64(integer_), count_, destination_);
 }
 
-void dark_digit_int_to_char_arr_terminated(const int64_t integer_, const size_t count_, char* const destination_)
+void dark_digit_to_char_arr_i_terminated(const int64_t integer_, const size_t count_, char* const destination_)
 {
     //integer_
     //count_
     DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
 
-    dark_digit_int_to_char_arr(integer_, count_, destination_);
+    dark_digit_to_char_arr_i(integer_, count_, destination_);
 
     destination_[count_] = '\0';
 }

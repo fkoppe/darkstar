@@ -2,17 +2,17 @@
 
 int main()
 {
-    DARK_TEST_UINT(dark_ppow_uint(112, 0) == 1, dark_ppow_uint(112, 0));
-    DARK_TEST_UINT(dark_ppow_uint(112, 1) == 112, dark_ppow_uint(112, 1));
-    DARK_TEST_UINT(dark_ppow_uint(2, 2) == 4, dark_ppow_uint(2, 2));
-    DARK_TEST_UINT(dark_ppow_uint(2, 3) == 8, dark_ppow_uint(2, 3));
-    DARK_TEST_UINT(dark_ppow_uint(0, 3) == 0, dark_ppow_uint(0, 3));
+    DARK_TEST_EQ_U(1, dark_ppow_u(112, 0));
+    DARK_TEST_EQ_U(112, dark_ppow_u(112, 1));
+    DARK_TEST_EQ_U(4, dark_ppow_u(2, 2));
+    DARK_TEST_EQ_U(8, dark_ppow_u(2, 3));
+    DARK_TEST_EQ_U(0, dark_ppow_u(0, 3));
 
-    DARK_TEST_INT(dark_ppow_int(-112, 0) == 1, dark_ppow_int(-112, 0));
-    DARK_TEST_INT(dark_ppow_int(-112, 1) == -112, dark_ppow_int(-112, 1));
-    DARK_TEST_INT(dark_ppow_int(-2, 2) == 4, dark_ppow_int(-2, 2));
-    DARK_TEST_INT(dark_ppow_int(-2, 3) == -8, dark_ppow_int(-2, 3));
-    DARK_TEST_UINT(dark_ppow_int(0, 3) == 0, dark_ppow_int(0, 3));
+    DARK_TEST_EQ_I(1, dark_ppow_i(-112, 0));
+    DARK_TEST_EQ_I(-112, dark_ppow_i(-112, 1));
+    DARK_TEST_EQ_I(4, dark_ppow_i(-2, 2));
+    DARK_TEST_EQ_I(-8, dark_ppow_i(-2, 3));
+    DARK_TEST_EQ_U(0, dark_ppow_i(0, 3));
 
     return EXIT_SUCCESS;
 }
