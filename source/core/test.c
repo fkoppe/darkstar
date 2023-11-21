@@ -300,7 +300,7 @@ void dark_test_m(const char* const func_, const int64_t line_, const char* const
         return;
     }
 
-    fprintf(stderr, "\n\n-------------------------TEST-------------------------\ntest failed - exit has been called\n\ncond:\t%s %s %s was false\n\nfunc:\t%s\nline:\t%" PRId64 "\n\n", as_, op_, bs_, as_, bs_, func_, line_);
+    fprintf(stderr, "\n\n-------------------------TEST-------------------------\ntest failed - exit has been called\n\ncond:\t%s %s %s was false\n\nfunc:\t%s\nline:\t%" PRId64 "\n\n", as_, op_, bs_, func_, line_);
 
     fputs("------------------------------------------------------\n\n\n", stderr);
 
