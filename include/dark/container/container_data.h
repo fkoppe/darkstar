@@ -28,4 +28,8 @@
 
 static const Dark_Error DARK_ERROR_CONTAINER_INDEX = { &DARK_ERROR_RANGE, "range", "index has to be <size"};
 
+#if !defined(DARK_CONTAINER_SIZE_MAX)
+#define DARK_CONTAINER_SIZE_MAX (1024*16)
+#endif // !defined(DARK_CONTAINER_SIZE_MAX)
+
 #endif // !defined(___DARK___CONTAINER_DATA_H)

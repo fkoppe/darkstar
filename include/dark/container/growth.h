@@ -20,12 +20,28 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___CONTAINER_H)
-#define ___DARK___CONTAINER_H
+#if !defined(___DARK___GROWTH_H)
+#define ___DARK___GROWTH_H
 
-#include <dark/container/container_data.h>
-#include <dark/container/darray.h>
-#include <dark/container/growth.h>
-#include <dark/container/vector.h>
+#include <dark/core/error.h>
+#include <dark/core/essential.h>
 
-#endif // !defined(___DARK___CONTAINER_H)
+#define DARK_GROWTH_VALUE(old, growth) \
+DARK_MIN(growth.max != 0 ? growth.max : DARK_MAX(growth.min, DARK_MAX(1, growth.factor) * DARK_MAX(1, old)), DARK_MAX(growth.min, growth.factor * DARK_MAX(1, old)))
+
+#define DARK_GROWTH_APPLIED(old, growth) \
+(old + DARK_GROWTH_VALUE(old, growth))
+
+typedef struct Dark_Growth
+{
+    float factor;
+    size_t min;
+    size_t max;
+} Dark_Growth;
+
+static const Dark_Growth DARK_GROWTH_STANDARD = { 0.5f, 1, 0 };
+static const Dark_Growth DARK_GROWTH_QUADRATIC = { 1.0f, 1, 0 };
+
+static const Dark_Error DARK_ERROR_GROWTH = { &DARK_ERROR_LOGIC, "growth", "unable to grow/shrink" };
+
+#endif // !defined(___DARK___GROWTH_H)

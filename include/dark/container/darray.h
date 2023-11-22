@@ -37,10 +37,6 @@
 #define DARK_DARRAY_DATA(darray, type) \
 ((type*)dark_darray_data((darray)))
 
-#if !defined(DARK_DARRAY_SIZE_MAX)
-#define DARK_DARRAY_SIZE_MAX (1024*4)
-#endif // !defined(DARK_DARRAY_SIZE_MAX)
-
 void* dark_darray_new_size(size_t element_size, size_t capacity, size_t size);
 void* dark_darray_new_capacity(size_t element_size, size_t capacity);
 void* dark_darray_new(size_t element_size);

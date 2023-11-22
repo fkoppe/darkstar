@@ -136,7 +136,7 @@ void dark_darray_push(void* const darray_, const size_t index_, const size_t cou
     }
 
     DARK_ASSERT(index_ <= darray->size, DARK_ERROR_CONTAINER_INDEX);
-    DARK_ASSERT(darray->size <= DARK_DARRAY_SIZE_MAX - count_, DARK_ERROR_OVERFLOW);
+    DARK_ASSERT(darray->size <= DARK_CONTAINER_SIZE_MAX - count_, DARK_ERROR_OVERFLOW);
 
     darray->size += count_;
 
@@ -173,7 +173,7 @@ void dark_darray_insert(void* const darray_, const size_t index_, void* const el
     Dark_DArray* const darray = darray_;
 
     DARK_ASSERT(index_ <= darray->size, DARK_ERROR_CONTAINER_INDEX);
-    DARK_ASSERT(darray->size + 1 <= DARK_DARRAY_SIZE_MAX, DARK_ERROR_OVERFLOW);
+    DARK_ASSERT(darray->size + 1 <= DARK_CONTAINER_SIZE_MAX, DARK_ERROR_OVERFLOW);
 
     dark_darray_push(darray, index_, 1, element_);
 }
@@ -195,7 +195,7 @@ void dark_darray_push_back(void* const darray_, void* const element_)
 
     Dark_DArray* const darray = darray_;
 
-    DARK_ASSERT(darray->size + 1 <= DARK_DARRAY_SIZE_MAX, DARK_ERROR_OVERFLOW);
+    DARK_ASSERT(darray->size + 1 <= DARK_CONTAINER_SIZE_MAX, DARK_ERROR_OVERFLOW);
 
     dark_darray_insert(darray, darray->size, element_);
 }

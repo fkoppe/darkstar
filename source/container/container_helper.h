@@ -23,6 +23,7 @@
 #if !defined(___DARK___CONTAINER_HELPER_H)
 #define ___DARK___CONTAINER_HELPER_H
 
+#include <dark/container/growth.h>
 #include <dark/core/essential.h>
 
 typedef struct Dark_DArray
@@ -32,6 +33,12 @@ typedef struct Dark_DArray
     size_t size;
     char* data;
 } Dark_DArray;
+
+typedef struct Dark_Vector
+{
+    Dark_DArray darray;
+    Dark_Growth growth;
+} Dark_Vector;
 
 #endif // !defined(___DARK___CONTAINER_HELPER_H)
 
