@@ -26,17 +26,17 @@
 #include <dark/container/growth.h>
 #include <dark/core/essential.h>
 
-typedef struct Dark_DArray
+typedef struct Dark_Array
 {
     size_t element_size;
     size_t capacity;
     size_t size;
     char* data;
-} Dark_DArray;
+} Dark_Array;
 
 typedef struct Dark_Vector
 {
-    Dark_DArray darray;
+    Dark_Array array;
     Dark_Growth growth;
 } Dark_Vector;
 

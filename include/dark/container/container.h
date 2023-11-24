@@ -23,8 +23,8 @@
 #if !defined(___DARK___CONTAINER_H)
 #define ___DARK___CONTAINER_H
 
+#include <dark/container/array.h>
 #include <dark/container/container_data.h>
-#include <dark/container/darray.h>
 #include <dark/container/growth.h>
 #include <dark/container/vector.h>
 
