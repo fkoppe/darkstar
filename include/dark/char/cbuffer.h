@@ -20,11 +20,14 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___CHAR_H)
-#define ___DARK___CHAR_H
+#if !defined(___DARK___CBUFFER_H)
+#define ___DARK___CBUFFER_H
 
-#include <dark/char/cbuffer.h>
-#include <dark/char/cstring.h>
-#include <dark/char/digit.h>
+#include <dark/core/essential.h>
 
-#endif // !defined(___DARK___CHAR_H)
+#include <stdarg.h>
+
+size_t dark_cbuffer_snprintf(char* cbuffer, size_t count, const char* format, ...);
+size_t dark_cbuffer_vsnprintf(char* cbuffer, size_t count, const char* format, va_list arguments);
+
+#endif // !defined(___DARK___CBUFFER_H)

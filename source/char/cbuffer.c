@@ -20,11 +20,37 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___CHAR_H)
-#define ___DARK___CHAR_H
+#include "char_module.h"
 
-#include <dark/char/cbuffer.h>
-#include <dark/char/cstring.h>
-#include <dark/char/digit.h>
+#include <dark/char/char.h>
+#include <dark/core/core.h>
 
-#endif // !defined(___DARK___CHAR_H)
+#define STB_SPRINTF_IMPLEMENTATION
+#include <stb/sprintf.h>
+
+#undef DARK_UNIT
+#define DARK_UNIT "cbuffer"
+
+size_t dark_cbuffer_snprintf(char* const cbuffer_, const size_t count_, const char* const format_, ...)
+{
+    DARK_ASSERT(!cbuffer_ == !count_, DARK_ERROR_LOGIC);
+    DARK_ASSERT(NULL!= format_, DARK_ERROR_NULL);
+
+    va_list args;
+    va_start(args, format_);
+    const size_t result = stbsp_vsnprintf(cbuffer_, count_, format_, args);
+    va_end(args);
+
+    return result;
+}
+
+size_t dark_cbuffer_vsnprintf(char* const cbuffer_, const size_t count_, const char* const format_, va_list arguments_)
+{
+    DARK_ASSERT(!cbuffer_ == !count_, DARK_ERROR_LOGIC);
+    DARK_ASSERT(NULL != format_, DARK_ERROR_NULL);
+    //arguments_
+
+    const size_t result = stbsp_vsnprintf(cbuffer_, count_, format_, arguments_);
+
+    return result;
+}

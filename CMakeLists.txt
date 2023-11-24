@@ -88,4 +88,5 @@ if(DARK_TEST_ENABLE)
 endif()
 
 add_subdirectory(include)
+add_subdirectory(library)
 add_subdirectory(source)
