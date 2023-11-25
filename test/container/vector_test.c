@@ -9,6 +9,11 @@ int main()
     void* vector = malloc(dark_vector_struct_size());
     dark_vector_create_size(vector, DARK_GROWTH_STANDARD, sizeof(int), 10, 10);
     dark_vector_destroy(vector);
+
+    void* null = NULL;
+    void* result = dark_vector_emplace(vector, 0, 0);
+    DARK_TEST_EQ_M(&result, &null , sizeof(void*));
+
     free(vector);
 
     void* vector_del = dark_vector_new(DARK_GROWTH_STANDARD, sizeof(int));

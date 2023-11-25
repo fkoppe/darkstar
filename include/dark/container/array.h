@@ -54,6 +54,8 @@ void* dark_array_front(void* array);
 void* dark_array_back(void* array);
 void* dark_array_data(void* array);
 
+void* dark_array_emplace(void* array, size_t index, size_t count);
+
 void dark_array_push(void* array, size_t index, size_t count, void* source);
 void dark_array_insert(void* array, size_t index, void* element);
 void dark_array_push_front(void* array, void* element);

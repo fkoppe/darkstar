@@ -167,18 +167,17 @@ void* dark_array_data(void* const array_)
     return dark_array_at(array, 0);
 }
 
-void dark_array_push(void* const array_, const size_t index_, const size_t count_, void* const source_)
+void* dark_array_emplace(void* array_, size_t index_, size_t count_)
 {
     DARK_ASSERT(NULL != array_, DARK_ERROR_NULL);
     //index_!
     //count_!
-    DARK_ASSERT(NULL != source_, DARK_ERROR_NULL);
 
     Dark_Array* const array = array_;
 
     if (0 == count_)
     {
-        return;
+        return NULL;
     }
 
     DARK_ASSERT(index_ <= array->size, DARK_ERROR_CONTAINER_INDEX);
@@ -207,7 +206,30 @@ void dark_array_push(void* const array_, const size_t index_, const size_t count
         memmove(array->data + (array->element_size * (index_ + count_)), array->data + (array->element_size * index_), array->element_size * (array->size - index_ - count_));
     }
 
-    memcpy(array->data + (array->element_size * index_), source_, array->element_size * count_);
+    return array->data + (array->element_size * index_);
+}
+
+void dark_array_push(void* const array_, const size_t index_, const size_t count_, void* const source_)
+{
+    DARK_ASSERT(NULL != array_, DARK_ERROR_NULL);
+    //index_!
+    //count_!
+    DARK_ASSERT(NULL != source_, DARK_ERROR_NULL);
+
+    Dark_Array* const array = array_;
+
+    if (0 == count_)
+    {
+        return;
+    }
+
+    DARK_ASSERT(index_ <= array->size, DARK_ERROR_CONTAINER_INDEX);
+    DARK_ASSERT(array->size <= DARK_CONTAINER_SIZE_MAX - count_, DARK_ERROR_OVERFLOW);
+
+    //count >0 -> destination != NULL
+    void* const destination = dark_array_emplace(array, index_, count_);
+
+    memcpy(destination, source_, array->element_size * count_);
 }
 
 void dark_array_insert(void* const array_, const size_t index_, void* const element_)

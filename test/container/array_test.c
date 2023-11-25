@@ -28,6 +28,10 @@ int main()
     DARK_TEST_EQ_I(99, DARK_ARRAY_BACK(array_3, int));
     DARK_TEST_EQ_I(*DARK_ARRAY_DATA(array_3, int), DARK_ARRAY_FRONT(array_3, int));
 
+    void* null = NULL;
+    void* result = dark_array_emplace(array_1, 0, 0);
+    DARK_TEST_EQ_M(&result, &null , sizeof(void*));
+
     int integer = 8;
     dark_array_push_back(array_1, &integer);
     dark_array_push_back(array_2, &integer);

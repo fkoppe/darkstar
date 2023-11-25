@@ -162,6 +162,27 @@ void* dark_vector_data(void* const vector_)
     return dark_array_data(&vector->array);
 }
 
+void* dark_vector_emplace(void* const vector_, const size_t index_, const size_t count_)
+{
+    DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
+    //index_!
+    //count_!
+
+    Dark_Vector* const vector = vector_;
+
+    if (0 == count_)
+    {
+        return NULL;
+    }
+
+    DARK_ASSERT(index_ <= vector->array.size, DARK_ERROR_CONTAINER_INDEX);
+    DARK_ASSERT(vector->array.size <= DARK_CONTAINER_SIZE_MAX - count_, DARK_ERROR_OVERFLOW);
+
+    dark_vector_reserve(vector, vector->array.size + count_);
+
+    return dark_array_emplace(&vector->array, index_, count_);
+}
+
 void dark_vector_push(void* const vector_, const size_t index_, const size_t count_, void* const source_)
 {
     DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
@@ -179,10 +200,7 @@ void dark_vector_push(void* const vector_, const size_t index_, const size_t cou
     DARK_ASSERT(index_ <= vector->array.size, DARK_ERROR_CONTAINER_INDEX);
     DARK_ASSERT(vector->array.size <= DARK_CONTAINER_SIZE_MAX - count_, DARK_ERROR_OVERFLOW);
 
-    if (vector->array.size + count_ > vector->array.capacity)
-    {
-        dark_array_reserve_exact(&vector->array, DARK_GROWTH_APPLIED(vector->array.capacity, vector->growth));
-    }
+    dark_vector_reserve(vector, vector->array.size + count_);
 
     dark_array_push(&vector->array, index_, count_, source_);
 }

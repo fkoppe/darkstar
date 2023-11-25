@@ -23,6 +23,7 @@
 #if !defined(___DARK___VECTOR_H)
 #define ___DARK___VECTOR_H
 
+#include <dark/container/growth.h>
 #include <dark/core/essential.h>
 
 #define DARK_VECTOR_AT(vector, index, type) \
@@ -54,6 +55,8 @@ void* dark_vector_front(void* vector);
 void* dark_vector_back(void* vector);
 void* dark_vector_data(void* vector);
 
+void* dark_vector_emplace(void* vector, size_t index, size_t count);
+
 void dark_vector_push(void* vector, size_t index, size_t count, void* source);
 void dark_vector_insert(void* vector, size_t index, void* element);
 void dark_vector_push_front(void* vector, void* element);
@@ -72,6 +75,7 @@ void dark_vector_shrink_to_fit(void* vector);
 size_t dark_vector_size(void* vector);
 void dark_vector_resize(void* vector, size_t size);
 void dark_vector_clear(void* vector);
+
 size_t dark_vector_element_size(void* vector);
 
 #endif // !defined(___DARK___VECTOR_H)
