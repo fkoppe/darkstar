@@ -2,7 +2,7 @@
 
 int main()
 {
-    #if defined(___DARK_DEBUG)
+#if defined(___DARK_DEBUG)
     dark_memory_profiler_initialise(DARK_MEMORY_PROFILE_LEVEL_FULL, true);
 #endif // defined(___DARK_DEBUG)
 

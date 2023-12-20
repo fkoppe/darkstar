@@ -31,26 +31,41 @@
 #undef DARK_UNIT
 #define DARK_UNIT "cbuffer"
 
-size_t dark_cbuffer_snprintf(char* const cbuffer_, const size_t count_, const char* const format_, ...)
+size_t dark_cbuffer_lenght(char* const cbuffer_, const size_t max_)
 {
-    DARK_ASSERT(!cbuffer_ == !count_, DARK_ERROR_LOGIC);
+    DARK_ASSERT(NULL != cbuffer_, DARK_ERROR_NULL);
+
+    for(size_t i = 0; i < max_; i++)
+    {
+        if('\0' == cbuffer_[i])
+        {
+            return i;
+        }
+    }
+
+    DARK_EXIT_MSG(-1, DARK_ERROR_RUNTIME, "cbuffer lost integrity");
+}
+
+size_t dark_cbuffer_snprintf(char* const cbuffer_, const size_t max_, const char* const format_, ...)
+{
+    DARK_ASSERT(!cbuffer_ == !max_, DARK_ERROR_LOGIC);
     DARK_ASSERT(NULL!= format_, DARK_ERROR_NULL);
 
     va_list args;
     va_start(args, format_);
-    const size_t result = stbsp_vsnprintf(cbuffer_, count_, format_, args);
+    const size_t result = stbsp_vsnprintf(cbuffer_, max_, format_, args);
     va_end(args);
 
     return result;
 }
 
-size_t dark_cbuffer_vsnprintf(char* const cbuffer_, const size_t count_, const char* const format_, va_list arguments_)
+size_t dark_cbuffer_vsnprintf(char* const cbuffer_, const size_t max_, const char* const format_, va_list arguments_)
 {
-    DARK_ASSERT(!cbuffer_ == !count_, DARK_ERROR_LOGIC);
+    DARK_ASSERT(!cbuffer_ == !max_, DARK_ERROR_LOGIC);
     DARK_ASSERT(NULL != format_, DARK_ERROR_NULL);
     //arguments_
 
-    const size_t result = stbsp_vsnprintf(cbuffer_, count_, format_, arguments_);
+    const size_t result = stbsp_vsnprintf(cbuffer_, max_, format_, arguments_);
 
     return result;
 }

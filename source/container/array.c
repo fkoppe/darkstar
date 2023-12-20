@@ -201,7 +201,7 @@ void* dark_array_emplace(void* array_, size_t index_, size_t count_)
         DARK_ASSERT(NULL != array->data, DARK_ERROR_ALLOCATION);
     }
 
-    if (index_ < array->size)
+    if (index_ < array->size - count_)
     {
         memmove(array->data + (array->element_size * (index_ + count_)), array->data + (array->element_size * index_), array->element_size * (array->size - index_ - count_));
     }

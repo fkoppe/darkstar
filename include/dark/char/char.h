@@ -26,5 +26,6 @@
 #include <dark/char/cbuffer.h>
 #include <dark/char/cstring.h>
 #include <dark/char/digit.h>
+#include <dark/char/string.h>
 
 #endif // !defined(___DARK___CHAR_H)

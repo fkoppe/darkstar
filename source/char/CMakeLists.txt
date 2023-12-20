@@ -5,4 +5,5 @@ target_sources(
     ${CMAKE_CURRENT_LIST_DIR}/char_module.h
     ${CMAKE_CURRENT_LIST_DIR}/cstring.c
     ${CMAKE_CURRENT_LIST_DIR}/digit.c
+    ${CMAKE_CURRENT_LIST_DIR}/string.c
 )

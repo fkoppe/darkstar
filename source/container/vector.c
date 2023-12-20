@@ -44,7 +44,7 @@ void dark_vector_create_size(void* const vector_, const Dark_Growth growth_, con
 
     Dark_Vector* const vector = vector_;
 
-    dark_array_create(&vector->array, element_size_);
+    dark_array_create_size(&vector->array, element_size_, capacity_, size_);
     vector->growth = growth_;
 }
 
@@ -57,6 +57,8 @@ void dark_vector_create_capacity(void* const vector_, const Dark_Growth growth_,
     //capacity_
 
     Dark_Vector* const vector = vector_;
+
+    dark_vector_create_size(vector, growth_, element_size_, capacity_, 0);
 }
 
 void dark_vector_create(void* const vector_, const Dark_Growth growth_, const size_t element_size_)
@@ -67,6 +69,8 @@ void dark_vector_create(void* const vector_, const Dark_Growth growth_, const si
     DARK_ASSERT(0 != element_size_, DARK_ERROR_ZERO);
 
     Dark_Vector* const vector = vector_;
+
+    dark_vector_create_capacity(vector, growth_, element_size_, 0);
 }
 
 void dark_vector_destroy(void* const vector_)
@@ -321,7 +325,7 @@ void dark_vector_reserve(void* const vector_, const size_t capacity_)
 
     const size_t num = req / gval + (req % gval != 0 ? 1 : 0);
 
-    dark_array_reserve_exact(&vector->array, vector->array.capacity + num * gval);
+    dark_array_reserve_exact(&vector->array, vector->array.capacity + (num * gval));
 }
 
 void dark_vector_reserve_exact(void* const vector_, const size_t capacity_)

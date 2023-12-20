@@ -27,7 +27,9 @@
 
 #include <stdarg.h>
 
-size_t dark_cbuffer_snprintf(char* cbuffer, size_t count, const char* format, ...);
-size_t dark_cbuffer_vsnprintf(char* cbuffer, size_t count, const char* format, va_list arguments);
+size_t dark_cbuffer_lenght(char* cbuffer, size_t max);
+
+size_t dark_cbuffer_snprintf(char* cbuffer, size_t max, const char* format, ...);
+size_t dark_cbuffer_vsnprintf(char* cbuffer, size_t max, const char* format, va_list arguments);
 
 #endif // !defined(___DARK___CBUFFER_H)
