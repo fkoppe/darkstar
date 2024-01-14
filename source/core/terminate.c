@@ -3,7 +3,7 @@
 *   darkstar 0.1.0.0 - https://github.com/fkoppe/darkstar                           *
 *   ************************************************************************        *
 *                                                                                   *
-*   Copyright (C) 2023 Felix Koppe <fkoppe@web.de>                                  *
+*   Copyright (C) 2023-2024 Felix Koppe <fkoppe@web.de>                             *
 *                                                                                   *
 *   This program is free software: you can redistribute it and/or modify            *
 *   it under the terms of the GNU Affero General Public License as published        *
