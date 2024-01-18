@@ -58,20 +58,19 @@ void dark_sort_insertion(const size_t element_size_, const size_t count_, void* 
     void* elem = malloc(element_size_);
     DARK_ASSERT(NULL != elem, DARK_ERROR_ALLOCATION);
 
-    size_t iter = 0;
-    for(size_t i = 0; i < count_; i++)
+    for(size_t i = 1; i < count_; i++)
     {
         memcpy(elem, data_ + (i * element_size_), element_size_);
 
-        iter = i - 1;
+        size_t iter = i;
 
-        while (iter >= 0 && 0 < compare_(data_ + (iter * element_size_), elem))
+        while (iter > 0 && 0 < compare_(data_ + ((iter - 1) * element_size_), elem))
         {
-            memcpy(data_ + ((iter + 1) * element_size_), data_ + (iter * element_size_), element_size_);
-            iter -= 1;
+            memcpy(data_ + (iter * element_size_), data_ + ((iter - 1) * element_size_), element_size_);
+            iter--;
         }
 
-        memcpy(data_ + ((iter + 1) * element_size_), elem, element_size_);
+        memcpy(data_ + (iter * element_size_), elem, element_size_);
     }
 
     free(elem);
