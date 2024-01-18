@@ -20,12 +20,77 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___CHAR_MODULE_H)
-#define ___DARK___CHAR_MODULE_H
+#include "order_module.h"
 
-#include <dark/core/essential.h>
+#include <dark/core/core.h>
+#include <dark/order/order.h>
 
-#undef DARK_MODULE
-#define DARK_MODULE "char"
+#undef DARK_UNIT
+#define DARK_UNIT "sort"
 
-#endif // !defined(___DARK___CHAR_MODULE_H)
+#include <string.h>
+
+bool dark_sort_is(const size_t element_size_, const size_t count_, void* const data_, const DARK_Compare compare_)
+{
+    DARK_ASSERT(element_size_ > 0, DARK_ERROR_ZERO);
+    //count_
+    DARK_ASSERT(data_ != NULL, DARK_ERROR_NULL);
+    DARK_ASSERT(compare_ != NULL, DARK_ERROR_NULL);
+
+    for(size_t i = 0; i < count_ - 1; i++)
+    {
+        if(0 < compare_(data_ + (i * element_size_), data_ + ((i + 1) * element_size_)))
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+void dark_sort_insertion(const size_t element_size_, const size_t count_, void* const data_, const DARK_Compare compare_)
+{
+    DARK_ASSERT(element_size_ > 0, DARK_ERROR_ZERO);
+    //count_
+    DARK_ASSERT(data_ != NULL, DARK_ERROR_NULL);
+    DARK_ASSERT(compare_ != NULL, DARK_ERROR_NULL);
+
+    void* elem = malloc(element_size_);
+    DARK_ASSERT(NULL != elem, DARK_ERROR_ALLOCATION);
+
+    size_t iter = 0;
+    for(size_t i = 0; i < count_; i++)
+    {
+        memcpy(elem, data_ + (i * element_size_), element_size_);
+
+        iter = i - 1;
+
+        while (iter >= 0 && 0 < compare_(data_ + (iter * element_size_), elem))
+        {
+            memcpy(data_ + ((iter + 1) * element_size_), data_ + (iter * element_size_), element_size_);
+            iter -= 1;
+        }
+
+        memcpy(data_ + ((iter + 1) * element_size_), elem, element_size_);
+    }
+
+    free(elem);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -20,12 +20,12 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___CHAR_MODULE_H)
-#define ___DARK___CHAR_MODULE_H
+#if !defined(___DARK___ORDER_MODULE_H)
+#define ___DARK___ORDER_MODULE_H
 
 #include <dark/core/essential.h>
 
 #undef DARK_MODULE
-#define DARK_MODULE "char"
+#define DARK_MODULE "order"
 
-#endif // !defined(___DARK___CHAR_MODULE_H)
+#endif // !defined(___DARK___ORDER_MODULE_H)

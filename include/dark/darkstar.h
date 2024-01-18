@@ -27,6 +27,7 @@
 #include <dark/container/container.h>
 #include <dark/core/core.h>
 #include <dark/math/math.h>
+#include <dark/order/order.h>
 #include <dark/profile/profile.h>
 
 #include <dark/info.h>

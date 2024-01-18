@@ -37,6 +37,25 @@ X X X X X X X X X X X X X X*/
 
 #undef DARK_UNIT
 
+void dark_test(const char* const func_, const int64_t line_, const bool cond_, const char* const conds_)
+{
+    assert(NULL != func_);
+    assert(0 != line_);
+    //cond_
+    assert(NULL != conds_);
+
+    if(cond_)
+    {
+        return;
+    }
+
+    fprintf(stderr, "\n\n-------------------------TEST-------------------------\ntest failed - exit has been called\n\ncond:\t%s was false\n\nfunc:\t%s\nline:\t%" PRId64 "\n\n", conds_, func_, line_);
+
+    fputs("------------------------------------------------------\n\n\n", stderr);
+
+    exit(-1);
+}
+
 void dark_test_u(const char* const func_, const int64_t line_, const char* const op_, const bool eq_, const bool lt_, const bool nt_, const uint64_t a_, const uint64_t b_, const char* const as_, const char* const bs_)
 {
     assert(NULL != func_);

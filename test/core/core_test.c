@@ -3,6 +3,7 @@
 int main()
 {
     //test test
+    DARK_TEST(true);
     DARK_TEST_EQ_U(1, 1);
     DARK_TEST_NE_U(2, 1);
     DARK_TEST_LT_U(1, 2);

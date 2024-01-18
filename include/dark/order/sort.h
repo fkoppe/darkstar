@@ -25,4 +25,8 @@
 
 #include <dark/core/essential.h>
 
+bool dark_sort_is(size_t element_size, size_t count, void* data, DARK_Compare compare);
+
+void dark_sort_insertion(size_t element_size, size_t count, void* data, DARK_Compare compare);
+
 #endif // !defined(___DARK___SORT_H)
