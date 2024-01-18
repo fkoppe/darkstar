@@ -39,7 +39,7 @@ bool dark_find_linear_index(const void* const element_, const size_t element_siz
 
     for(size_t i = 0; i < count_; i++)
     {
-        if(0 == compare_(data_ + (i * element_size_), element_))
+        if(0 == compare_((char*)data_+ (i * element_size_), element_))
         {
             if(NULL != index_)
             {
@@ -64,7 +64,7 @@ bool dark_find_linear_reverse_index(const void* const element_, const size_t ele
 
     for(size_t i = count_ - 1; i >= 0; i--)
     {
-        if(0 == compare_(data_ + ((i) * element_size_), element_))
+        if(0 == compare_((char*)data_ + (i * element_size_), element_))
         {
             if(NULL != index_)
             {
@@ -94,7 +94,7 @@ bool dark_find_binary_index(const void* const element_, const size_t element_siz
     {
         size_t mid = low + (high - low) / 2;
 
-        switch(compare_(data_ + (mid * element_size_), element_))
+        switch(compare_((char*)data_ + (mid * element_size_), element_))
         {
             case -1:
                 low = mid + 1;
@@ -128,7 +128,7 @@ void* dark_find_linear(const void* const element_, const size_t element_size_, c
         return NULL;
     }
 
-    return data_ + (index * element_size_);
+    return (char*)data_ + (index * element_size_);
 }
 
 void* dark_find_linear_reverse(const void* const element_, const size_t element_size_, const size_t count_, void* const data_, const DARK_Compare compare_)
@@ -146,7 +146,7 @@ void* dark_find_linear_reverse(const void* const element_, const size_t element_
         return NULL;
     }
 
-    return data_ + (index * element_size_);
+    return (char*)data_ + (index * element_size_);
 }
 
 void* dark_find_binary(const void* const element_, const size_t element_size_, const size_t count_, void* const data_, const DARK_Compare compare_)
@@ -164,5 +164,5 @@ void* dark_find_binary(const void* const element_, const size_t element_size_, c
         return NULL;
     }
 
-    return data_ + (index * element_size_);
+    return (char*)data_ + (index * element_size_);
 }

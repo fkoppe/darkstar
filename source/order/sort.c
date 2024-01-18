@@ -39,7 +39,7 @@ bool dark_sort_is(const size_t element_size_, const size_t count_, void* const d
 
     for(size_t i = 0; i < count_ - 1; i++)
     {
-        if(0 < compare_(data_ + (i * element_size_), data_ + ((i + 1) * element_size_)))
+        if(0 < compare_((char*)data_ + (i * element_size_), (char*)data_ + ((i + 1) * element_size_)))
         {
             return false;
         }
@@ -60,17 +60,17 @@ void dark_sort_insertion(const size_t element_size_, const size_t count_, void* 
 
     for(size_t i = 1; i < count_; i++)
     {
-        memcpy(elem, data_ + (i * element_size_), element_size_);
+        memcpy(elem, (char*)data_ + (i * element_size_), element_size_);
 
         size_t iter = i;
 
-        while (iter > 0 && 0 < compare_(data_ + ((iter - 1) * element_size_), elem))
+        while (iter > 0 && 0 < compare_((char*)data_ + ((iter - 1) * element_size_), elem))
         {
-            memcpy(data_ + (iter * element_size_), data_ + ((iter - 1) * element_size_), element_size_);
+            memcpy((char*)data_ + (iter * element_size_), (char*)data_ + ((iter - 1) * element_size_), element_size_);
             iter--;
         }
 
-        memcpy(data_ + (iter * element_size_), elem, element_size_);
+        memcpy((char*)data_ + (iter * element_size_), elem, element_size_);
     }
 
     free(elem);
