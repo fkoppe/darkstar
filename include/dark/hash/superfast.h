@@ -20,17 +20,11 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___SUPERFAST_H)
+#define ___DARK___SUPERFAST_H
 
-#include <dark/char/char.h>
-#include <dark/container/container.h>
-#include <dark/core/core.h>
-#include <dark/hash/hash.h>
-#include <dark/math/math.h>
-#include <dark/order/order.h>
-#include <dark/profile/profile.h>
+#include <dark/core/essential.h>
 
-#include <dark/info.h>
+uint32_t dark_hash_superfast_32(size_t byte, const void* data);
 
-#endif // !defined(___DARK___DARKSTAR_H)
+#endif // !defined(___DARK___SUPERFAST_H)

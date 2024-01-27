@@ -20,17 +20,40 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#include "hash_module.h"
 
-#include <dark/char/char.h>
-#include <dark/container/container.h>
-#include <dark/core/core.h>
 #include <dark/hash/hash.h>
-#include <dark/math/math.h>
-#include <dark/order/order.h>
-#include <dark/profile/profile.h>
+#include <dark/core/core.h>
 
-#include <dark/info.h>
+#undef DARK_UNIT
+#define DARK_UNIT "djb2"
 
-#endif // !defined(___DARK___DARKSTAR_H)
+uint32_t dark_hash_djb2_32(const size_t byte_, const void* const data_)
+{
+    //byte_
+    DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
+
+    uint32_t hash = 0x1505;
+
+    for(size_t i = 0; i < byte_; i++)
+    {
+        hash = ((hash << 5) + hash) + ((char*)data_)[i];
+    }
+
+    return hash;
+}
+
+uint32_t dark_hash_djb2a_32(const size_t byte_, const void* const data_)
+{
+    //byte_
+    DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
+
+    uint32_t hash = 0x1505;
+
+    for(size_t i = 0; i < byte_; i++)
+    {
+       hash = ((hash << 5) + hash) ^ ((char*)data_)[i];
+    }
+
+    return hash;
+}

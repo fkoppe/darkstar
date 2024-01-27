@@ -20,17 +20,66 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#include "hash_module.h"
 
-#include <dark/char/char.h>
-#include <dark/container/container.h>
-#include <dark/core/core.h>
 #include <dark/hash/hash.h>
-#include <dark/math/math.h>
-#include <dark/order/order.h>
-#include <dark/profile/profile.h>
+#include <dark/core/core.h>
 
-#include <dark/info.h>
+#undef DARK_UNIT
+#define DARK_UNIT "superfast"
 
-#endif // !defined(___DARK___DARKSTAR_H)
+uint32_t dark_hash_superfast_32(const size_t byte_, const void* const data_)
+{
+    //byte_
+    DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
+
+    if(0 == byte_)
+    {
+        return 0;
+    }
+
+    const uint16_t* data = data_;
+
+    uint32_t hash = byte_;
+    uint32_t rem = byte_ & 3;
+    uint32_t index = 0;
+    uint32_t temp = 0;
+
+    for(size_t i = byte_ >> 2; i > 0; i--)
+    {
+        hash += *(data + index);
+        temp = (uint32_t)((*(data + index + 2)) << 11) ^ hash;
+        hash = (hash << 16) ^ temp;
+        index += 2;
+        hash += hash >> 11;
+    }
+
+    switch (rem)
+    {
+        case 1:
+            hash += (intptr_t)(data + index);
+            hash ^= hash << 10;
+            hash += hash >> 1;
+            break;
+        case 2:
+            hash += *(data + index);
+            hash ^= hash << 11;
+            hash += hash >> 17;
+            break;
+        case 3:
+            hash += *(data + index);
+            hash ^= hash << 16;
+            hash ^= ((intptr_t)(data + index + 2)) << 18;
+            hash += hash >> 11;
+            break;
+    }
+
+    hash ^= hash << 3;
+    hash += hash >> 5;
+    hash ^= hash << 4;
+    hash += hash >> 17;
+    hash ^= hash << 25;
+    hash += hash >> 6;
+
+    return hash;
+}

@@ -20,17 +20,13 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___HASH_H)
+#define ___DARK___HASH_H
 
-#include <dark/char/char.h>
-#include <dark/container/container.h>
-#include <dark/core/core.h>
-#include <dark/hash/hash.h>
-#include <dark/math/math.h>
-#include <dark/order/order.h>
-#include <dark/profile/profile.h>
+#include <dark/hash/djb2.h>
+#include <dark/hash/fnv1.h>
+#include <dark/hash/murmur2.h>
+#include <dark/hash/murmur3.h>
+#include <dark/hash/superfast.h>
 
-#include <dark/info.h>
-
-#endif // !defined(___DARK___DARKSTAR_H)
+#endif // !defined(___DARK___HASH_H)

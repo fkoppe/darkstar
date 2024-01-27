@@ -1,0 +1,10 @@
+target_sources(
+    darkstar
+    PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/djb2.c
+    ${CMAKE_CURRENT_LIST_DIR}/fnv1.c
+    ${CMAKE_CURRENT_LIST_DIR}/hash_module.h
+    ${CMAKE_CURRENT_LIST_DIR}/murmur2.c
+    ${CMAKE_CURRENT_LIST_DIR}/murmur3.c
+    ${CMAKE_CURRENT_LIST_DIR}/superfast.c
+)
