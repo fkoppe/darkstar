@@ -20,16 +20,11 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___CONTAINER_DATA_H)
-#define ___DARK___CONTAINER_DATA_H
+#if !defined(___DARK___RANDOM_H)
+#define ___DARK___RANDOM_H
 
-#include <dark/core/error.h>
-#include <dark/core/essential.h>
+#include <dark/random/entropy.h>
+#include <dark/random/prng.h>
+#include <dark/random/uuid4.h>
 
-static const Dark_Error DARK_ERROR_CONTAINER_INDEX = { &DARK_ERROR_RANGE, "container_index", "index has to be <size"};
-#define DARK_CONTAINER_SIZE_MAX 99999999999999999
-#if !defined(DARK_CONTAINER_SIZE_MAX)
-#define DARK_CONTAINER_SIZE_MAX (1024*16)
-#endif // !defined(DARK_CONTAINER_SIZE_MAX)
-
-#endif // !defined(___DARK___CONTAINER_DATA_H)
+#endif // !defined(___DARK___RANDOM_H)

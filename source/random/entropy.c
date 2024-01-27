@@ -20,16 +20,49 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___CONTAINER_DATA_H)
-#define ___DARK___CONTAINER_DATA_H
+#include "random_module.h"
 
-#include <dark/core/error.h>
-#include <dark/core/essential.h>
+#include <dark/core/core.h>
+#include <dark/random/random.h>
 
-static const Dark_Error DARK_ERROR_CONTAINER_INDEX = { &DARK_ERROR_RANGE, "container_index", "index has to be <size"};
-#define DARK_CONTAINER_SIZE_MAX 99999999999999999
-#if !defined(DARK_CONTAINER_SIZE_MAX)
-#define DARK_CONTAINER_SIZE_MAX (1024*16)
-#endif // !defined(DARK_CONTAINER_SIZE_MAX)
+#undef DARK_UNIT
+#define DARK_UNIT "entropy"
 
-#endif // !defined(___DARK___CONTAINER_DATA_H)
+Dark_Entropy dark_entropy_seed()
+{
+    Dark_Entropy entropy;
+
+    //TODO
+
+    entropy.value[0] = 42;
+    entropy.value[1] = 99;
+    entropy.value[2] = 13;
+    entropy.value[3] = 19;
+
+    return entropy;
+}
+
+void dark_entropy_randomize(Dark_Entropy* entropy)
+{
+    DARK_ASSERT(NULL != entropy, DARK_ERROR_NULL);
+
+    //TODO
+}
+
+uint32_t* dark_entropy_get_32(Dark_Entropy* entropy)
+{
+    DARK_ASSERT(NULL != entropy, DARK_ERROR_NULL);
+
+    //TODO
+
+    return (uint32_t*)entropy;
+}
+
+uint64_t* dark_entropy_get_64(Dark_Entropy* entropy)
+{
+    DARK_ASSERT(NULL != entropy, DARK_ERROR_NULL);
+
+    //TODO
+
+    return (uint64_t*)entropy;
+}

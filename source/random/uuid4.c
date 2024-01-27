@@ -20,16 +20,52 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___CONTAINER_DATA_H)
-#define ___DARK___CONTAINER_DATA_H
+#include "random_module.h"
 
-#include <dark/core/error.h>
-#include <dark/core/essential.h>
+#include <dark/core/core.h>
+#include <dark/random/random.h>
 
-static const Dark_Error DARK_ERROR_CONTAINER_INDEX = { &DARK_ERROR_RANGE, "container_index", "index has to be <size"};
-#define DARK_CONTAINER_SIZE_MAX 99999999999999999
-#if !defined(DARK_CONTAINER_SIZE_MAX)
-#define DARK_CONTAINER_SIZE_MAX (1024*16)
-#endif // !defined(DARK_CONTAINER_SIZE_MAX)
+#undef DARK_UNIT
+#define DARK_UNIT "uuid4"
 
-#endif // !defined(___DARK___CONTAINER_DATA_H)
+Dark_Uuid4 dark_uuid4_generate(uint64_t* const random_)
+{
+    DARK_ASSERT(NULL != random_, DARK_ERROR_NULL);
+
+    Dark_Uuid4 uuid4;
+
+    uuid4.oct[0] = dark_prng_splitmix_64(random_);
+    uuid4.oct[1] = dark_prng_splitmix_64(random_);
+
+    uuid4.byte[6] = (uuid4.byte[6] & 0xf) | 0x40;
+    uuid4.byte[8] = (uuid4.byte[8] & 0x3f) | 0x80;
+
+    return uuid4;
+}
+
+void dark_uuid4_write(const Dark_Uuid4 uuid4_, char* const destination_)
+{
+    //uuid4_
+    DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
+
+    const char hex[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+    const size_t group[] = { 8, 4, 4, 4, 12 };
+    size_t index = 0;
+
+    char* ptr = destination_;
+
+    for (size_t i = 0; i < (sizeof(group) / sizeof(group[0])); i++)
+    {
+        for (size_t j = 0; j < group[i]; j += 2)
+        {
+            uint8_t byte = uuid4_.byte[index++];
+
+            *ptr++ = hex[byte >> 4];
+            *ptr++ = hex[byte & 0xf];
+        }
+
+        *ptr++ = '-';
+    }
+
+    *--ptr = 0;
+}

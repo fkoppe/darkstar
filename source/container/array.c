@@ -226,7 +226,6 @@ void dark_array_push(void* const array_, const size_t index_, const size_t count
     DARK_ASSERT(index_ <= array->size, DARK_ERROR_CONTAINER_INDEX);
     DARK_ASSERT(array->size <= DARK_CONTAINER_SIZE_MAX - count_, DARK_ERROR_OVERFLOW);
 
-    //count >0 -> destination != NULL
     void* const destination = dark_array_emplace(array, index_, count_);
 
     memcpy(destination, source_, array->element_size * count_);
@@ -241,7 +240,7 @@ void dark_array_insert(void* const array_, const size_t index_, void* const elem
     Dark_Array* const array = array_;
 
     DARK_ASSERT(index_ <= array->size, DARK_ERROR_CONTAINER_INDEX);
-    DARK_ASSERT(array->size + 1 <= DARK_CONTAINER_SIZE_MAX, DARK_ERROR_OVERFLOW);
+    DARK_ASSERT(array->size <= DARK_CONTAINER_SIZE_MAX, DARK_ERROR_OVERFLOW);
 
     dark_array_push(array, index_, 1, element_);
 }
@@ -263,7 +262,7 @@ void dark_array_push_back(void* const array_, void* const element_)
 
     Dark_Array* const array = array_;
 
-    DARK_ASSERT(array->size + 1 <= DARK_CONTAINER_SIZE_MAX, DARK_ERROR_OVERFLOW);
+    DARK_ASSERT(array->size <= DARK_CONTAINER_SIZE_MAX, DARK_ERROR_OVERFLOW);
 
     dark_array_insert(array, array->size, element_);
 }

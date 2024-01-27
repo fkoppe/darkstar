@@ -30,6 +30,7 @@
 #include <dark/math/math.h>
 #include <dark/order/order.h>
 #include <dark/profile/profile.h>
+#include <dark/random/random.h>
 
 #include <dark/info.h>
 

@@ -20,16 +20,38 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___CONTAINER_DATA_H)
-#define ___DARK___CONTAINER_DATA_H
+#include "random_module.h"
 
-#include <dark/core/error.h>
-#include <dark/core/essential.h>
+#include <dark/core/core.h>
+#include <dark/random/random.h>
 
-static const Dark_Error DARK_ERROR_CONTAINER_INDEX = { &DARK_ERROR_RANGE, "container_index", "index has to be <size"};
-#define DARK_CONTAINER_SIZE_MAX 99999999999999999
-#if !defined(DARK_CONTAINER_SIZE_MAX)
-#define DARK_CONTAINER_SIZE_MAX (1024*16)
-#endif // !defined(DARK_CONTAINER_SIZE_MAX)
+#undef DARK_UNIT
+#define DARK_UNIT "prng"
 
-#endif // !defined(___DARK___CONTAINER_DATA_H)
+uint32_t dark_prng_splitmix_32(uint32_t* const random_)
+{
+    DARK_ASSERT(NULL != random_, DARK_ERROR_NULL);
+
+    *random_ += 0x9e3779b9;
+
+    uint32_t rand = *random_;
+    rand = (rand ^ (rand >> 16)) * 0x85ebca6b;
+    rand = (rand ^ (rand >> 13)) * 0xc2b2ae35;
+    rand ^= (rand >> 16);
+
+    return rand;
+}
+
+uint64_t dark_prng_splitmix_64(uint64_t* const random_)
+{
+    DARK_ASSERT(NULL != random_, DARK_ERROR_NULL);
+
+	*random_ += 0x9e3779b97f4a7c15;
+
+    uint64_t rand = *random_;
+	rand = (rand ^ (rand >> 30)) * 0xbf58476d1ce4e5b9;
+	rand = (rand ^ (rand >> 27)) * 0x94d049bb133111eb;
+    rand ^= (rand >> 31);
+
+	return rand;
+}
