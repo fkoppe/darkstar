@@ -25,8 +25,9 @@
 
 #include <dark/core/essential.h>
 
-typedef union Dark_Entropy
+typedef struct Dark_Entropy
 {
+    uint64_t next;
     uint64_t value[4];
 } Dark_Entropy;
 

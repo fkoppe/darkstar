@@ -2,14 +2,24 @@
 
 int main()
 {
-    const uint64_t val_1 = 0xBD4732262FEB6E95;
-    const uint64_t val_2 = 0x28EFE333B266F183;
-
     Dark_Entropy entropy = dark_entropy_seed();
-    Dark_Uuid4 uuid = dark_uuid4_generate(dark_entropy_get_64(&entropy));
 
-    DARK_TEST_EQ_U(uuid.oct[0], val_1);
-    DARK_TEST_EQ_U(uuid.oct[1], val_2);
+    void* ptr_1 = dark_entropy_get_64(&entropy);
+    void* ptr_2 = dark_entropy_get_64(&entropy);
+
+    DARK_TEST_NE_M(&ptr_1, &ptr_2, sizeof(void*));
+
+    Dark_Uuid4 uuid_1 = dark_uuid4_generate(dark_entropy_get_64(&entropy));
+    Dark_Uuid4 uuid_2 = dark_uuid4_generate(dark_entropy_get_64(&entropy));
+
+    DARK_TEST_NE_U(uuid_1.oct[0], uuid_2.oct[0]);
+    DARK_TEST_NE_U(uuid_1.oct[1], uuid_2.oct[1]);
+
+    uuid_1 = dark_uuid4_generate(ptr_1);
+    uuid_2 = dark_uuid4_generate(ptr_1);
+
+    DARK_TEST_NE_U(uuid_1.oct[0], uuid_2.oct[0]);
+    DARK_TEST_NE_U(uuid_1.oct[1], uuid_2.oct[1]);
 
     return EXIT_SUCCESS;
 }

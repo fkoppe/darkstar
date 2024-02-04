@@ -32,12 +32,9 @@ Dark_Entropy dark_entropy_seed()
 {
     Dark_Entropy entropy;
 
-    //TODO
+    entropy.next = 0;
 
-    entropy.value[0] = 42;
-    entropy.value[1] = 99;
-    entropy.value[2] = 13;
-    entropy.value[3] = 19;
+    //TODO
 
     return entropy;
 }
@@ -53,16 +50,16 @@ uint32_t* dark_entropy_get_32(Dark_Entropy* entropy)
 {
     DARK_ASSERT(NULL != entropy, DARK_ERROR_NULL);
 
-    //TODO
+    entropy->next++;
 
-    return (uint32_t*)entropy;
+    return (uint32_t*)(((uint8_t*)entropy->value) + (entropy->next % 28));
 }
 
 uint64_t* dark_entropy_get_64(Dark_Entropy* entropy)
 {
     DARK_ASSERT(NULL != entropy, DARK_ERROR_NULL);
 
-    //TODO
+    entropy->next++;
 
-    return (uint64_t*)entropy;
+    return (uint64_t*)(((uint8_t*)entropy->value) + (entropy->next % 24));
 }

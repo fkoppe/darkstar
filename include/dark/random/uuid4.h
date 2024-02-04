@@ -25,7 +25,7 @@
 
 #include <dark/core/essential.h>
 
-#define DARK_UUID4_BUFFER_SIZE sizeof("xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx")
+#define DARK_UUID4_BUFFER_SIZE sizeof("xxxxxxxx-xxxx-4xxx-xxxx-xxxxxxxxxxxx")
 
 typedef union Dark_Uuid4
 {
