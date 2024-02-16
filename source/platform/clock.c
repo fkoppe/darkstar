@@ -52,7 +52,7 @@ uint64_t dark_clock_ns(void)
     LARGE_INTEGER freqency;
 
     bool b1 = QueryPerformanceCounter(&tick);
-    bool b2 = QueryPerformanceFrequency(&freqency)
+    bool b2 = QueryPerformanceFrequency(&freqency);
 
     DARK_ASSERT_MSG(b1, DARK_ERROR_PLATFORM, "QueryPerformanceCounter");
     DARK_ASSERT_MSG(b2, DARK_ERROR_PLATFORM, "QueryPerformanceFrequency");
