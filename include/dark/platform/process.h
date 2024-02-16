@@ -25,6 +25,6 @@
 
 #include <dark/core/essential.h>
 
-uint64_t dark_process_id();
+uint64_t dark_process_id(void);
 
 #endif // !defined(___DARK___PROCESS_H)

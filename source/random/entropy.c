@@ -28,7 +28,7 @@
 #undef DARK_UNIT
 #define DARK_UNIT "entropy"
 
-Dark_Entropy dark_entropy_seed()
+Dark_Entropy dark_entropy_seed(void)
 {
     Dark_Entropy entropy;
 

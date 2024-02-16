@@ -75,7 +75,8 @@ void* dark_thread_new(void (* const function_), void* const argument_)
 #endif // defined(___DARK_WINDOWS)
 
 #if defined(___DARK_UNIX)
-    DARK_ASSERT_MSG(0 == pthread_create(&thread->handle, NULL, function_, argument_), DARK_ERROR_PLATFORM, "pthread_create");
+    int64_t result = pthread_create(&thread->handle, NULL, function_, argument_);
+    DARK_ASSERT_MSG(0 == result, DARK_ERROR_PLATFORM, "pthread_create");
 
     thread->id = thread->handle;
 #endif // defined(___DARK_UNIX)
@@ -92,7 +93,8 @@ void dark_thread_delete(void* const thread_)
     DARK_ASSERT_MSG(!thread->joinable_is, DARK_ERROR_NOSTATE, "thread was not joined or detached");
 
 #if defined(___DARK_WINDOWS)
-    DARK_ASSERT_MSG(0 != CloseHandle(thread->handle), DARK_ERROR_PLATFORM, "CloseHandle");
+    bool b1 = CloseHandle(thread->handle);
+    DARK_ASSERT_MSG(0 != b1, DARK_ERROR_PLATFORM, "CloseHandle");
 #endif // defined(___DARK_WINDOWS)
 
 #if defined(___DARK_UNIX)
@@ -111,7 +113,7 @@ uint64_t dark_thread_id(void* const thread_)
     return thread->id;
 }
 
-uint64_t dark_thread_id_current()
+uint64_t dark_thread_id_current(void)
 {
 #ifdef ___DARK_WINDOWS
     return GetCurrentThreadId();
@@ -145,7 +147,7 @@ void dark_thread_join(void* const thread_)
     case WAIT_FAILED:
     case WAIT_ABANDONED:
     case WAIT_TIMEOUT:
-        DARK_ASSERT_MSG(!thread->joinable_is, DARK_ERROR_PLATFORM, "WaitForSingleObject");
+        DARK_EXIT_MSG(-1, DARK_ERROR_PLATFORM, "WaitForSingleObject");
         break;
     default:
         DARK_ABORT_ERROR(DARK_ERROR_UNREACHABLE);
@@ -154,7 +156,8 @@ void dark_thread_join(void* const thread_)
 #endif // ___DARK_WINDOWS
 
 #if defined(___DARK_UNIX)
-    DARK_ASSERT_MSG(0 == pthread_join(thread->handle, NULL), DARK_ERROR_PLATFORM, "pthread_join");
+    int64_t result = pthread_join(thread->handle, NULL);
+    DARK_ASSERT_MSG(0 == result, DARK_ERROR_PLATFORM, "pthread_join");
 #endif // defined(___DARK_UNIX)
 
     thread->joinable_is = false;

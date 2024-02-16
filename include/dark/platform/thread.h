@@ -29,7 +29,7 @@ void* dark_thread_new(void (* function), void* argument);
 void dark_thread_delete(void* thread);
 
 uint64_t dark_thread_id(void* thread);
-uint64_t dark_thread_id_current();
+uint64_t dark_thread_id_current(void);
 
 bool dark_thread_joinable(void* thread);
 void dark_thread_join(void* thread);

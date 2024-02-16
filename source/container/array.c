@@ -31,7 +31,7 @@
 #undef DARK_UNIT
 #define DARK_UNIT "array"
 
-size_t dark_array_struct_size()
+size_t dark_array_struct_size(void)
 {
     return sizeof(Dark_Array);
 }

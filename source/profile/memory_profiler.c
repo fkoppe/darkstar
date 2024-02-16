@@ -143,21 +143,21 @@ void dark_memory_profiler_shutdown(const bool print_error_is_)
     }
 }
 
-void dark_memory_profiler_print_info_stdout()
+void dark_memory_profiler_print_info_stdout(void)
 {
     DARK_ASSERT(MEMORY_PROFILER.initialised_is, DARK_ERROR_NOSTATE);
 
     //TODO
 }
 
-Dark_Memory_Info dark_memory_profiler_info_all()
+Dark_Memory_Info dark_memory_profiler_info_all(void)
 {
     DARK_ASSERT(MEMORY_PROFILER.initialised_is, DARK_ERROR_NOSTATE);
 
     return MEMORY_PROFILER.all;
 }
 
-Dark_Memory_Info dark_memory_profiler_info_own()
+Dark_Memory_Info dark_memory_profiler_info_own(void)
 {
     DARK_ASSERT(MEMORY_PROFILER.initialised_is, DARK_ERROR_NOSTATE);
 

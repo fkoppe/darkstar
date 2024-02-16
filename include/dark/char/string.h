@@ -28,7 +28,7 @@
 
 #include <stdarg.h>
 
-size_t dark_string_struct_size();
+size_t dark_string_struct_size(void);
 
 void dark_string_create_v(void* string, Dark_Growth growth, const char* format, va_list arguments);
 void dark_string_create_f(void* string, Dark_Growth growth, const char* format, ...);

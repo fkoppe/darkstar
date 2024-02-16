@@ -37,7 +37,7 @@
 #define DARK_ARRAY_DATA(array, type) \
 ((type*)dark_array_data((array)))
 
-size_t dark_array_struct_size();
+size_t dark_array_struct_size(void);
 
 void dark_array_create_size(void* array, size_t element_size, size_t capacity, size_t size);
 void dark_array_create_capacity(void* array, size_t element_size, size_t capacity);

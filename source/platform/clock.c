@@ -45,14 +45,17 @@
 #include <time.h>
 #endif // defined(___DARK_UNIX)
 
-uint64_t dark_clock_ns()
+uint64_t dark_clock_ns(void)
 {
 #if defined(___DARK_WINDOWS)
     LARGE_INTEGER tick;
     LARGE_INTEGER freqency;
 
-    DARK_ASSERT_MSG(QueryPerformanceCounter(&tick), DARK_ERROR_PLATFORM, "QueryPerformanceCounter");
-    DARK_ASSERT_MSG(QueryPerformanceFrequency(&freqency), DARK_ERROR_PLATFORM, "QueryPerformanceFrequency");
+    bool b1 = QueryPerformanceCounter(&tick);
+    bool b2 = QueryPerformanceFrequency(&freqency)
+
+    DARK_ASSERT_MSG(b1, DARK_ERROR_PLATFORM, "QueryPerformanceCounter");
+    DARK_ASSERT_MSG(b2, DARK_ERROR_PLATFORM, "QueryPerformanceFrequency");
 
     return (uint64_t)((tick.QuadPart * 1000) / (freqency.QuadPart / 1000000));
 #endif // defined(___DARK_WINDOWS)
@@ -66,12 +69,12 @@ uint64_t dark_clock_ns()
 #endif // defined(___DARK_UNIX)
 }
 
-uint64_t dark_clock_ms()
+uint64_t dark_clock_ms(void)
 {
     return dark_clock_ns() / DARK_MEGA;
 }
 
-uint64_t dark_clock_s()
+uint64_t dark_clock_s(void)
 {
     return dark_clock_ns() / DARK_GIGA;
 }

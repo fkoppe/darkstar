@@ -44,7 +44,7 @@
 #include <unistd.h>
 #endif // defined(___DARK_UNIX)
 
-uint64_t dark_process_id()
+uint64_t dark_process_id(void)
 {
 #ifdef ___SPRX_WINDOWS
     return GetCurrentProcessId();

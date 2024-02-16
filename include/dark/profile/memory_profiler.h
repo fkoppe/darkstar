@@ -69,10 +69,10 @@ typedef struct Dark_Memory_Info
 void dark_memory_profiler_initialise(Dark_Memory_Profile_Level level, bool assert_pointer_is);
 void dark_memory_profiler_shutdown(bool print_error_is);
 
-void dark_memory_profiler_print_info_stdout();
+void dark_memory_profiler_print_info_stdout(void);
 
-Dark_Memory_Info dark_memory_profiler_info_all();
-Dark_Memory_Info dark_memory_profiler_info_own();
+Dark_Memory_Info dark_memory_profiler_info_all(void);
+Dark_Memory_Info dark_memory_profiler_info_own(void);
 
 void* dark_memory_profiler_malloc(size_t size, const char* file, const char* func, int64_t line, const char* date, const char* time, const Dark_Library* library, const char* module, const char* unit);
 void* dark_memory_profiler_realloc(void* pointer, size_t size, const char* file, const char* func, int64_t line, const char* date, const char* time, const Dark_Library* library, const char* module, const char* unit);

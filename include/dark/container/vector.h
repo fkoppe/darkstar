@@ -38,7 +38,7 @@
 #define DARK_VECTOR_DATA(vector, type) \
 ((type*)dark_vector_data((vector)))
 
-size_t dark_vector_struct_size();
+size_t dark_vector_struct_size(void);
 
 void dark_vector_create_size(void* vector, Dark_Growth growth, size_t element_size, size_t capacity, size_t size);
 void dark_vector_create_capacity(void* vector, Dark_Growth growth, size_t element_size, size_t capacity);

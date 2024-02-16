@@ -29,7 +29,7 @@
 #undef DARK_UNIT
 #define DARK_UNIT "string"
 
-size_t dark_string_struct_size()
+size_t dark_string_struct_size(void)
 {
     return dark_vector_struct_size();
 }

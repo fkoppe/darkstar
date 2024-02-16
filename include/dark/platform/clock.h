@@ -25,8 +25,8 @@
 
 #include <dark/core/essential.h>
 
-uint64_t dark_clock_ns();
-uint64_t dark_clock_ms();
-uint64_t dark_clock_s();
+uint64_t dark_clock_ns(void);
+uint64_t dark_clock_ms(void);
+uint64_t dark_clock_s(void);
 
 #endif // !defined(___DARK___CLOCK_H)

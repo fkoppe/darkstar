@@ -31,7 +31,7 @@ typedef struct Dark_Entropy
     uint64_t value[4];
 } Dark_Entropy;
 
-Dark_Entropy dark_entropy_seed();
+Dark_Entropy dark_entropy_seed(void);
 
 void dark_entropy_randomize(Dark_Entropy* entropy);
 
