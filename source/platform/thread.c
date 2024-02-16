@@ -61,7 +61,7 @@ typedef struct DARK_Thread
 void* dark_thread_new(void (* const function_), void* const argument_)
 {
     DARK_ASSERT(NULL != function_, DARK_ERROR_NULL);
-    DARK_ASSERT(NULL != argument_, DARK_ERROR_NULL);
+    //argument_
 
     DARK_Thread* thread = malloc(sizeof(*thread));
     DARK_ASSERT(NULL != thread, DARK_ERROR_ALLOCATION);
@@ -113,9 +113,9 @@ uint64_t dark_thread_id(void* const thread_)
 
 uint64_t dark_thread_id_current()
 {
-#ifdef ___SPRX_WINDOWS
+#ifdef ___DARK_WINDOWS
     return GetCurrentThreadId();
-#endif // ___SPRX_WINDOWS
+#endif // ___DARK_WINDOWS
 
 #if defined(___DARK_UNIX)
     return pthread_self();
@@ -137,7 +137,7 @@ void dark_thread_join(void* const thread_)
 
     DARK_Thread* thread = thread_;
 
-#ifdef ___SPRX_WINDOWS
+#ifdef ___DARK_WINDOWS
     switch (WaitForSingleObject(thread->handle, INFINITE))
     {
     case WAIT_OBJECT_0:
@@ -151,10 +151,10 @@ void dark_thread_join(void* const thread_)
         DARK_ABORT_ERROR(DARK_ERROR_UNREACHABLE);
         break;
     }
-#endif // ___SPRX_WINDOWS
+#endif // ___DARK_WINDOWS
 
 #if defined(___DARK_UNIX)
-    DARK_ASSERT_MSG(!pthread_join(thread->handle, NULL), DARK_ERROR_PLATFORM, "pthread_join");
+    DARK_ASSERT_MSG(0 == pthread_join(thread->handle, NULL), DARK_ERROR_PLATFORM, "pthread_join");
 #endif // defined(___DARK_UNIX)
 
     thread->joinable_is = false;
