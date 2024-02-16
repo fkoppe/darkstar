@@ -26,6 +26,7 @@
 #include <dark/core/essential.h>
 #include <dark/info.h>
 
+#undef DARK_LIBRARY
 #define DARK_LIBRARY &DARK_INFO_LIBRARY_DARKSTAR
 
 #endif // !defined(___DARK___DARK_LIBRARY_H)
