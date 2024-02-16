@@ -82,6 +82,31 @@ target_compile_definitions(
     >
 )
 
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+        message(STATUS "Configurating for Linux")
+        target_compile_definitions(
+            darkstar
+            PUBLIC
+            "___DARK_LINUX"
+        )
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+        message(STATUS "Configurating for Darwin")
+        target_compile_definitions(
+            darkstar
+            PUBLIC
+            "___DARK_DARWIN"
+        )
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+        message(STATUS "Configurating for Windows")
+        target_compile_definitions(
+            darkstar
+            PUBLIC
+            "___DARK_LINUX"
+        )
+else()
+       message(SEND_ERROR "Failed to detect platform")
+endif()
+
 if(DARK_TEST_ENABLE)
   enable_testing()
   add_subdirectory(test)

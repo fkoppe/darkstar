@@ -20,11 +20,19 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___MATH_H)
-#define ___DARK___MATH_H
+#if !defined(___DARK___THREAD_H)
+#define ___DARK___THREAD_H
 
-#include <dark/math/abs.h>
-#include <dark/math/constant.h>
-#include <dark/math/pow.h>
+#include <dark/core/essential.h>
 
-#endif // !defined(___DARK___MATH_H)
+void* dark_thread_new(void (* function), void* argument);
+void dark_thread_delete(void* thread);
+
+uint64_t dark_thread_id(void* thread);
+uint64_t dark_thread_id_current();
+
+bool dark_thread_joinable(void* thread);
+void dark_thread_join(void* thread);
+void dark_thread_detach(void* thread);
+
+#endif // !defined(___DARK___THREAD_H)

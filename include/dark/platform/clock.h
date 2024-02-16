@@ -20,11 +20,13 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___MATH_H)
-#define ___DARK___MATH_H
+#if !defined(___DARK___CLOCK_H)
+#define ___DARK___CLOCK_H
 
-#include <dark/math/abs.h>
-#include <dark/math/constant.h>
-#include <dark/math/pow.h>
+#include <dark/core/essential.h>
 
-#endif // !defined(___DARK___MATH_H)
+uint64_t dark_clock_ns();
+uint64_t dark_clock_ms();
+uint64_t dark_clock_s();
+
+#endif // !defined(___DARK___CLOCK_H)

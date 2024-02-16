@@ -20,11 +20,37 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___MATH_H)
-#define ___DARK___MATH_H
+#include "platform_module.h"
 
-#include <dark/math/abs.h>
-#include <dark/math/constant.h>
-#include <dark/math/pow.h>
+#include <dark/core/core.h>
+#include <dark/platform/platform.h>
 
-#endif // !defined(___DARK___MATH_H)
+#undef DARK_UNIT
+#define DARK_UNIT "process"
+
+#if defined(___DARK_LINUX)
+#define ___DARK_UNIX
+#endif // defined(___DARK_LINUX)
+
+#if defined(___DARK_DARWIN)
+#define ___DARK_UNIX
+#endif // defined(___DARK_DARWIN)
+
+#if defined(___DARK_WINDOWS)
+#include <windows.h>
+#endif // defined(___DARK_WINDOWS)
+
+#if defined(___DARK_UNIX)
+#include <unistd.h>
+#endif // defined(___DARK_UNIX)
+
+uint64_t dark_process_id()
+{
+#ifdef ___SPRX_WINDOWS
+    return GetCurrentProcessId();
+#endif // ___SPRX_WINDOWS
+
+#if defined(___DARK_UNIX)
+    return getpid();
+#endif // defined(___DARK_UNIX)
+}

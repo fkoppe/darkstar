@@ -1,0 +1,9 @@
+target_sources(
+    darkstar
+    PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/clock.h
+    ${CMAKE_CURRENT_LIST_DIR}/platform_data.h
+    ${CMAKE_CURRENT_LIST_DIR}/platform.h
+    ${CMAKE_CURRENT_LIST_DIR}/process.h
+	${CMAKE_CURRENT_LIST_DIR}/thread.h
+)

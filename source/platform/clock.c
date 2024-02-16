@@ -20,11 +20,58 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___MATH_H)
-#define ___DARK___MATH_H
+#include "platform_module.h"
 
-#include <dark/math/abs.h>
-#include <dark/math/constant.h>
-#include <dark/math/pow.h>
+#include <dark/core/core.h>
+#include <dark/math/math.h>
+#include <dark/platform/platform.h>
 
-#endif // !defined(___DARK___MATH_H)
+#undef DARK_UNIT
+#define DARK_UNIT "clock"
+
+#if defined(___DARK_LINUX)
+#define ___DARK_UNIX
+#endif // defined(___DARK_LINUX)
+
+#if defined(___DARK_DARWIN)
+#define ___DARK_UNIX
+#endif // defined(___DARK_DARWIN)
+
+#if defined(___DARK_WINDOWS)
+#include <windows.h>
+#endif // defined(___DARK_WINDOWS)
+
+#if defined(___DARK_UNIX)
+#include <time.h>
+#endif // defined(___DARK_UNIX)
+
+uint64_t dark_clock_ns()
+{
+#if defined(___DARK_WINDOWS)
+    LARGE_INTEGER tick;
+    LARGE_INTEGER freqency;
+
+    DARK_ASSERT_MSG(QueryPerformanceCounter(&tick), DARK_ERROR_PLATFORM, "QueryPerformanceCounter");
+    DARK_ASSERT_MSG(QueryPerformanceFrequency(&freqency), DARK_ERROR_PLATFORM, "QueryPerformanceFrequency");
+
+    return (uint64_t)((tick.QuadPart * 1000) / (freqency.QuadPart / 1000000));
+#endif // defined(___DARK_WINDOWS)
+
+#if defined(___DARK_UNIX)
+    struct timespec time;
+
+    clock_gettime(CLOCK_MONOTONIC_RAW, &time);
+
+    return (uint64_t)(time.tv_nsec + (time.tv_sec * 1000000000));
+#endif // defined(___DARK_UNIX)
+}
+
+uint64_t dark_clock_ms()
+{
+    return dark_clock_ns() / DARK_MEGA;
+}
+
+uint64_t dark_clock_s()
+{
+    return dark_clock_ns() / DARK_GIGA;
+}

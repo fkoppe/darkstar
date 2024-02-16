@@ -39,6 +39,7 @@ typedef struct Dark_Error
 static const Dark_Error DARK_ERROR_UNDEFINED = { NULL, "undefined", NULL};
 
 static const Dark_Error DARK_ERROR_UNKNOWN = { NULL, "unknown", NULL };
+static const Dark_Error DARK_ERROR_UNREACHABLE = { NULL, "unreachable", NULL };
 
 //runtime error
 static const Dark_Error DARK_ERROR_RUNTIME = { NULL, "runtime", NULL };

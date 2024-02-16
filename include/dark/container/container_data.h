@@ -27,7 +27,7 @@
 #include <dark/core/essential.h>
 
 static const Dark_Error DARK_ERROR_CONTAINER_INDEX = { &DARK_ERROR_RANGE, "container_index", "index has to be <size"};
-#define DARK_CONTAINER_SIZE_MAX 99999999999999999
+
 #if !defined(DARK_CONTAINER_SIZE_MAX)
 #define DARK_CONTAINER_SIZE_MAX (1024*16)
 #endif // !defined(DARK_CONTAINER_SIZE_MAX)

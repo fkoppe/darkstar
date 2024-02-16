@@ -20,11 +20,12 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___MATH_H)
-#define ___DARK___MATH_H
+#if !defined(___DARK___PLATFORM_MODULE_H)
+#define ___DARK___PLATFORM_MODULE_H
 
-#include <dark/math/abs.h>
-#include <dark/math/constant.h>
-#include <dark/math/pow.h>
+#include <dark/core/essential.h>
 
-#endif // !defined(___DARK___MATH_H)
+#undef DARK_MODULE
+#define DARK_MODULE "platform"
+
+#endif // !defined(___DARK___PLATFORM_MODULE_H)

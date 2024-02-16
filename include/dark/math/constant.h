@@ -20,11 +20,13 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___MATH_H)
-#define ___DARK___MATH_H
+#if !defined(___DARK___CONSTANT_H)
+#define ___DARK___CONSTANT_H
 
-#include <dark/math/abs.h>
-#include <dark/math/constant.h>
-#include <dark/math/pow.h>
+#include <dark/core/essential.h>
 
-#endif // !defined(___DARK___MATH_H)
+static const uint16_t DARK_KILO = 1000;
+static const uint32_t DARK_MEGA = 1000000;
+static const uint32_t DARK_GIGA = 1000000000;
+
+#endif // !defined(___DARK___CONSTANT_H)

@@ -20,11 +20,11 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___MATH_H)
-#define ___DARK___MATH_H
+#if !defined(___DARK___PROCESS_H)
+#define ___DARK___PROCESS_H
 
-#include <dark/math/abs.h>
-#include <dark/math/constant.h>
-#include <dark/math/pow.h>
+#include <dark/core/essential.h>
 
-#endif // !defined(___DARK___MATH_H)
+uint64_t dark_process_id();
+
+#endif // !defined(___DARK___PROCESS_H)

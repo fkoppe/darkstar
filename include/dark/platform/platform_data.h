@@ -20,11 +20,28 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___MATH_H)
-#define ___DARK___MATH_H
+#if !defined(___DARK___PLATFORM_DATA_H)
+#define ___DARK___PLATFORM_DATA_H
 
-#include <dark/math/abs.h>
-#include <dark/math/constant.h>
-#include <dark/math/pow.h>
+#include <dark/core/essential.h>
 
-#endif // !defined(___DARK___MATH_H)
+#define DARK_PLATFORM_API "unknown"
+
+#if defined(___DARK_WINDOWS)
+#undef DARK_PLATFORM_API
+#define DARK_PLATFORM_API "win32"
+#endif // defined(___DARK_WINDOWS)
+
+#if defined(___DARK_LINUX)
+#undef DARK_PLATFORM_API
+#define DARK_PLATFORM_API "linux"
+#endif // defined(___DARK_LINUX)
+
+#if defined(___DARK_DARWIN)
+#undef DARK_PLATFORM_API
+#define DARK_PLATFORM_API "darwin"
+#endif // defined(___DARK_DARWIN)
+
+static const Dark_Error DARK_ERROR_PLATFORM = { &DARK_ERROR_API, "platform", DARK_PLATFORM_API};
+
+#endif // !defined(___DARK___PLATFORM_DATA_H)
