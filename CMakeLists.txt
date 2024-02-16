@@ -101,7 +101,7 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
         target_compile_definitions(
             darkstar
             PUBLIC
-            "___DARK_LINUX"
+            "___DARK_WINDOWS"
         )
 else()
        message(SEND_ERROR "Failed to detect platform")
