@@ -56,6 +56,51 @@ void dark_test(const char* const func_, const int64_t line_, const bool cond_, c
     exit(-1);
 }
 
+void dark_test_p(const char* const func_, const int64_t line_, const char* const op_, const bool eq_, const bool lt_, const bool nt_, const void* const a_, const void* const b_, const char* const as_, const char* const bs_)
+{
+    assert(NULL != func_);
+    assert(0 != line_);
+    assert(NULL != op_);
+    //eq_!
+    //lt_!
+    assert(eq_ || lt_);
+    //nt_
+    //a_
+    //b_
+    assert(NULL != as_);
+    assert(NULL != bs_);
+
+    bool result = false;
+
+    const int value = memcmp(&a_, &b_, sizeof(void*));
+
+    if(eq_ && !value)
+    {
+        result = true;
+    }
+
+    if(lt_ && (value < 0))
+    {
+        result = true;
+    }
+
+    if(nt_)
+    {
+        result = !result;
+    }
+
+    if(result)
+    {
+        return;
+    }
+
+    fprintf(stderr, "\n\n-------------------------TEST-------------------------\ntest failed - exit has been called\n\ncond:\t%s %s %s was false\n%s:\t%p\n%s:\t%p\n\nfunc:\t%s\nline:\t%" PRId64 "\n\n", as_, op_, bs_, as_, a_, bs_, b_, func_, line_);
+
+    fputs("------------------------------------------------------\n\n\n", stderr);
+
+    exit(-1);
+}
+
 void dark_test_u(const char* const func_, const int64_t line_, const char* const op_, const bool eq_, const bool lt_, const bool nt_, const uint64_t a_, const uint64_t b_, const char* const as_, const char* const bs_)
 {
     assert(NULL != func_);
@@ -299,12 +344,14 @@ void dark_test_m(const char* const func_, const int64_t line_, const char* const
 
     bool result = false;
 
-    if(eq_ && !memcmp(a_, b_, size_))
+    const int value = memcmp(a_, b_, size_);
+
+    if(eq_ && !value)
     {
         result = true;
     }
 
-    if(lt_ && (memcmp(a_, b_, size_) < 0))
+    if(lt_ && (value < 0))
     {
         result = true;
     }

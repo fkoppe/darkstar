@@ -150,7 +150,7 @@ void dark_thread_join(void* const thread_)
         DARK_EXIT_MSG(-1, DARK_ERROR_PLATFORM, "WaitForSingleObject");
         break;
     default:
-        DARK_ABORT_ERROR(DARK_ERROR_UNREACHABLE);
+        DARK_ABORT_ERROR(DARK_ERROR_SWITCH);
         break;
     }
 #endif // ___DARK_WINDOWS

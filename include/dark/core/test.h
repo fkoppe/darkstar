@@ -27,6 +27,13 @@
 
 #define DARK_TEST(cond) dark_test(__func__, __LINE__, (cond), #cond)
 
+#define DARK_TEST_EQ_P(a, b) dark_test_p(__func__, __LINE__, "==", true, false, false, (a), (b), #a, #b)
+#define DARK_TEST_NE_P(a, b) dark_test_p(__func__, __LINE__, "!=", true, false, true, (a), (b), #a, #b)
+#define DARK_TEST_LT_P(a, b) dark_test_p(__func__, __LINE__, "<", false, true, false, (a), (b), #a, #b)
+#define DARK_TEST_LE_P(a, b) dark_test_p(__func__, __LINE__, "<=", true, true, false, (a), (b), #a, #b)
+#define DARK_TEST_GT_P(a, b) dark_test_p(__func__, __LINE__, ">", true, true, true, (a), (b), #a, #b)
+#define DARK_TEST_GE_P(a, b) dark_test_p(__func__, __LINE__, ">=", false, true, true, (a), (b), #a, #b)
+
 #define DARK_TEST_EQ_U(a, b) dark_test_u(__func__, __LINE__, "==", true, false, false, (a), (b), #a, #b)
 #define DARK_TEST_NE_U(a, b) dark_test_u(__func__, __LINE__, "!=", true, false, true, (a), (b), #a, #b)
 #define DARK_TEST_LT_U(a, b) dark_test_u(__func__, __LINE__, "<", false, true, false, (a), (b), #a, #b)
@@ -70,6 +77,7 @@
 #define DARK_TEST_GE_M(a, b, s) dark_test_m(__func__, __LINE__, ">=", false, true, true, (a), (b), (s), #a, #b)
 
 void dark_test(const char* func, int64_t line, bool cond, const char* conds);
+void dark_test_p(const char* func, int64_t line, const char* op, bool eq, bool lt, bool nt, const void* a, const void* b, const char* as, const char* bs);
 void dark_test_u(const char* func, int64_t line, const char* op, bool eq, bool lt, bool nt, uint64_t a, uint64_t b, const char* as, const char* bs);
 void dark_test_i(const char* func, int64_t line, const char* op, bool eq, bool lt, bool nt, int64_t a, int64_t b, const char* as, const char* bs);
 void dark_test_f(const char* func, int64_t line, const char* op, bool eq, bool lt, bool nt, float a, float b, const char* as, const char* bs);

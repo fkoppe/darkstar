@@ -20,13 +20,50 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___PLATFORM_H)
-#define ___DARK___PLATFORM_H
+#if !defined(___DARK___FILE_H)
+#define ___DARK___FILE_H
 
-#include <dark/platform/clock.h>
-#include <dark/platform/file.h>
-#include <dark/platform/platform_data.h>
-#include <dark/platform/process.h>
-#include <dark/platform/thread.h>
+#include <dark/core/essential.h>
 
-#endif // !defined(___DARK___PLATFORM_H)
+#define DARK_FILE_MODIFIER_SIZE 4
+
+typedef enum Dark_File_Mode
+{
+    DARK_FILE_MODE_READ,
+    DARK_FILE_MODE_WRITE,
+    DARK_FILE_MODE_APPEND,
+    ___DARK_FILE_MODE_MAX,
+} Dark_File_Mode;
+
+typedef enum Dark_File_Flag
+{
+    DARK_FILE_FLAG_NONE     = 0,
+    DARK_FILE_FLAG_UPDATE   = 1 << 0,
+    DARK_FILE_FLAG_BINARY   = 1 << 1,
+    ___DARK_FILE_FLAG_MAX,
+} Dark_File_Flag;
+
+size_t dark_file_count_max(void);
+
+void dark_file_modifier_get(Dark_File_Mode mode, Dark_File_Flag flag, char* destination);
+
+void* dark_file_new(void);
+void dark_file_delete(void* file);
+
+bool dark_file_open(void* file, const char* path, Dark_File_Mode mode, Dark_File_Flag flag);
+bool dark_file_close(void* file);
+
+bool dark_file_open_is(void* file);
+
+bool dark_file_read(void* file, size_t max, char** destination);
+bool dark_file_write_char(void* file, char character);
+bool dark_file_write_cbuffer(void* file, const char* cbuffer);
+
+bool dark_file_binary_read(void* file, size_t size, size_t max, size_t* count, char** destination);
+bool dark_file_binary_write(void* file, size_t size, size_t count, const void* data);
+
+bool dark_file_mmap(void* file, const char** destination);
+
+bool dark_file_size_get(void* file, size_t* destination);
+
+#endif // !defined(___DARK___FILE_H)
