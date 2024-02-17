@@ -20,14 +20,16 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___PLATFORM_H)
-#define ___DARK___PLATFORM_H
+#if !defined(___DARK___MUTEX_H)
+#define ___DARK___MUTEX_H
 
-#include <dark/platform/clock.h>
-#include <dark/platform/file.h>
-#include <dark/platform/mutex.h>
-#include <dark/platform/platform_data.h>
-#include <dark/platform/process.h>
-#include <dark/platform/thread.h>
+#include <dark/core/essential.h>
 
-#endif // !defined(___DARK___PLATFORM_H)
+void* dark_mutex_new(void);
+void dark_mutex_delete(void* mutex);
+
+bool dark_mutex_trylock(void* mutex);
+void dark_mutex_lock(void* mutex);
+void dark_mutex_unlock(void* mutex);
+
+#endif // !defined(___DARK___MUTEX_H)
