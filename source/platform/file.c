@@ -322,7 +322,7 @@ bool dark_file_mmap(void* const file_, const char** const destination_)
     *destination_ = MapViewOfFile(handle_mapped, FILE_MAP_READ, 0, 0, 0);
 
     bool b = CloseHandle(handle_mapped);
-    DARK_ASSERT(b, SPRX_FILE_ERROR_WIN32("CloseHandle failed"));
+    DARK_ASSERT(b, DARK_ERROR_PLATFORM, "CloseHandle");
 
     if (NULL == *destination_)
     {
