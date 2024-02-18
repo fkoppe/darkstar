@@ -46,9 +46,9 @@
 
 uint64_t dark_process_id(void)
 {
-#ifdef ___DARK_WINDOWS
-    return GetCurrentProcessId();
-#endif // ___DARK_WINDOWS
+#if defined(___DARK_WINDOWS)
+    return GetCurrentProcessId()
+#endif // defined(___DARK_WINDOWS)
 
 #if defined(___DARK_UNIX)
     return getpid();

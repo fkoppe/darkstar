@@ -60,9 +60,9 @@ void* dark_mutex_new(void)
     Dark_Mutex* const mutex = malloc(sizeof(*mutex));
     DARK_ASSERT(NULL != mutex, DARK_ERROR_ALLOCATION);
 
-#ifdef ___DARK_WINDOWS
+#if defined(___DARK_WINDOWS)
     InitializeCriticalSectionAndSpinCount(&mutex->section, 128);
-#endif // ___DARK_WINDOWS
+#endif // defined(___DARK_WINDOWS)
 
 #if defined(___DARK_UNIX)
     int result = pthread_mutex_init(&mutex->lock, NULL);
@@ -78,9 +78,9 @@ void dark_mutex_delete(void* const mutex_)
 
     Dark_Mutex* const mutex = mutex_;
 
-#ifdef ___DARK_WINDOWS
+#if defined(___DARK_WINDOWS)
     DeleteCriticalSection(&mutex->section);
-#endif // ___DARK_WINDOWS
+#endif // defined(___DARK_WINDOWS)
 
 #if defined(___DARK_UNIX)
     pthread_mutex_destroy(&mutex->lock);
@@ -95,9 +95,9 @@ bool dark_mutex_trylock(void* const mutex_)
 
     Dark_Mutex* const mutex = mutex_;
 
-#ifdef ___DARK_WINDOWS
+#if defined(___DARK_WINDOWS)
     return TryEnterCriticalSection(&mutex->section);
-#endif // ___DARK_WINDOWS
+#endif // defined(___DARK_WINDOWS)
 
 #if defined(___DARK_UNIX)
     return !pthread_mutex_trylock(&mutex->lock);
@@ -110,9 +110,9 @@ void dark_mutex_lock(void* const mutex_)
 
     Dark_Mutex* const mutex = mutex_;
 
-#ifdef ___DARK_WINDOWS
+#if defined(___DARK_WINDOWS)
     EnterCriticalSection(&mutex->section);
-#endif // ___DARK_WINDOWS
+#endif // defined(___DARK_WINDOWS)
 
 #if defined(___DARK_UNIX)
     int result = pthread_mutex_lock(&mutex->lock);
@@ -126,9 +126,9 @@ void dark_mutex_unlock(void* const mutex_)
 
     Dark_Mutex* const mutex = mutex_;
 
-#ifdef ___DARK_WINDOWS
+#if defined(___DARK_WINDOWS)
     LeaveCriticalSection(&mutex->section);
-#endif // ___DARK_WINDOWS
+#endif // defined(___DARK_WINDOWS)
 
 #if defined(___DARK_UNIX)
     int result = pthread_mutex_unlock(&mutex->lock);

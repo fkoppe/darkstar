@@ -311,7 +311,7 @@ bool dark_file_mmap(void* const file_, const char** const destination_)
     DARK_ASSERT_MSG(NULL != file->handle, DARK_ERROR_STATE, "not opened");
     DARK_ASSERT_MSG((file->flag & DARK_FILE_FLAG_UPDATE || DARK_FILE_MODE_READ) == file->mode, DARK_ERROR_STATE, "no read mode nor update flag set");
 
-#ifdef ___DARK_WINDOWS
+#if defined(___DARK_WINDOWS)
     const HANDLE handle_mapped = CreateFileMapping((HANDLE)_get_osfhandle(fileno(file->handle)), NULL, PAGE_READONLY, 0, 0, 0);
 
     if (NULL == handle_mapped)
@@ -328,7 +328,7 @@ bool dark_file_mmap(void* const file_, const char** const destination_)
     {
         return false;
     }
-#endif // ___DARK_WINDOWS
+#endif // defined(___DARK_WINDOWS)
 
 #if defined(___DARK_UNIX)
     struct stat sb;
@@ -350,7 +350,7 @@ bool dark_file_size_get(void* const file_, size_t* const destination_)
     DARK_ASSERT_MSG(NULL != file->handle, DARK_ERROR_STATE, "not opened");
     DARK_ASSERT_MSG((file->flag & DARK_FILE_FLAG_UPDATE || DARK_FILE_MODE_READ) == file->mode, DARK_ERROR_STATE, "no read mode nor update flag set");
 
-#ifdef ___DARK_WINDOWS
+#if defined(___DARK_WINDOWS)
     LARGE_INTEGER l_int;
 
     if (0 == GetFileSizeEx((HANDLE)_get_osfhandle(fileno(file->handle)), &l_int))
@@ -359,7 +359,7 @@ bool dark_file_size_get(void* const file_, size_t* const destination_)
     }
 
     *destination_ = l_int.QuadPart;
-#endif // ___DARK_WINDOWS
+#endif // defined(___DARK_WINDOWS)
 
 #if defined(___DARK_UNIX)
     struct stat sb;

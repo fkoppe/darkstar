@@ -115,9 +115,9 @@ uint64_t dark_thread_id(void* const thread_)
 
 uint64_t dark_thread_id_current(void)
 {
-#ifdef ___DARK_WINDOWS
+#if defined(___DARK_WINDOWS)
     return GetCurrentThreadId();
-#endif // ___DARK_WINDOWS
+#endif // defined(___DARK_WINDOWS)
 
 #if defined(___DARK_UNIX)
     return pthread_self();
@@ -139,7 +139,7 @@ void dark_thread_join(void* const thread_)
 
     DARK_Thread* thread = thread_;
 
-#ifdef ___DARK_WINDOWS
+#if defined(___DARK_WINDOWS)
     switch (WaitForSingleObject(thread->handle, INFINITE))
     {
     case WAIT_OBJECT_0:
@@ -153,7 +153,7 @@ void dark_thread_join(void* const thread_)
         DARK_ABORT_ERROR(DARK_ERROR_SWITCH);
         break;
     }
-#endif // ___DARK_WINDOWS
+#endif // defined(___DARK_WINDOWS)
 
 #if defined(___DARK_UNIX)
     int64_t result = pthread_join(thread->handle, NULL);
