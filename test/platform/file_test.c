@@ -13,7 +13,7 @@ int main()
 
     DARK_TEST(dark_file_open(file_1, "test_file_1", DARK_FILE_MODE_WRITE, DARK_FILE_FLAG_NONE));
     char buffer[] = "blablablupp";
-    DARK_TEST(dark_file_write_cbuffer(file_1, buffer));
+    DARK_TEST(dark_file_write(file_1, sizeof(char), sizeof(buffer), buffer));
     DARK_TEST(dark_file_close(file_1));
 
     DARK_TEST(dark_file_open(file_2, "test_file_1", DARK_FILE_MODE_READ, DARK_FILE_FLAG_NONE));
