@@ -244,55 +244,12 @@ bool dark_file_mmap(void* const file_, const char** const destination_)
 {
     DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
-
-    Dark_File* const file = file_;
-
+    Dark_File* file = file_;
     DARK_ASSERT_MSG(NULL != file->handle, DARK_ERROR_STATE, "not opened");
-    DARK_ASSERT_MSG((file->flag & DARK_FILE_FLAG_UPDATE) || DARK_FILE_MODE_READ == file->mode, DARK_ERROR_STATE, "no read mode nor update flag set");
+    DARK_ASSERT_MSG((file->flag & DARK_FILE_FLAG_UPDATE || DARK_FILE_MODE_READ) == file->mode, DARK_ERROR_STATE, "no read mode nor update flag set");
 
 #if defined(___DARK_WINDOWS)
     const HANDLE handle_mapped = CreateFileMapping((HANDLE)_get_osfhandle(fileno(file->handle)), NULL, PAGE_READONLY, 0, 0, 0);
-size_t dark_file_count_max(void)
-{
-    return FOPEN_MAX;
-}
-
-void dark_file_modifier_get(const Dark_File_Mode mode_, const Dark_File_Flag flag_, char* const destination_)
-{
-    DARK_ASSERT(mode_ < ___DARK_FILE_MODE_MAX, DARK_ERROR_ENUM);
-    DARK_ASSERT(flag_ < ___DARK_FILE_FLAG_MAX, DARK_ERROR_ENUM);
-    DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
-
-    switch (mode_)
-    {
-    case DARK_FILE_MODE_READ:
-        *destination_ = 'r';
-        break;
-    case DARK_FILE_MODE_WRITE:
-        *destination_ = 'w';
-        break;
-    case DARK_FILE_MODE_APPEND:
-        *destination_ = 'a';
-        break;
-    default:
-        DARK_ABORT_ERROR(DARK_ERROR_SWITCH);
-        break;
-    }
-
-    size_t i = 1;
-
-    if (flag_ & DARK_FILE_FLAG_BINARY)
-    {
-        destination_[i] = 'b';
-        i++;
-    }
-
-    if (flag_ & DARK_FILE_FLAG_UPDATE)
-    {
-        destination_[i] = '+';
-        i++;
-    }
-}
     if (NULL == handle_mapped)
     {
         return false;
