@@ -187,7 +187,7 @@ void* dark_vector_emplace(void* const vector_, const size_t index_, const size_t
     return dark_array_emplace(&vector->array, index_, count_);
 }
 
-void dark_vector_push(void* const vector_, const size_t index_, const size_t count_, void* const source_)
+void dark_vector_push(void* const vector_, const size_t index_, const size_t count_, const void* const source_)
 {
     DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
     //index_!
@@ -209,7 +209,7 @@ void dark_vector_push(void* const vector_, const size_t index_, const size_t cou
     dark_array_push(&vector->array, index_, count_, source_);
 }
 
-void dark_vector_insert(void* const vector_, const size_t index_, void* const element_)
+void dark_vector_insert(void* const vector_, const size_t index_, const void* const element_)
 {
     DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
     //index_!
@@ -223,7 +223,7 @@ void dark_vector_insert(void* const vector_, const size_t index_, void* const el
     dark_vector_push(vector, index_, 1, element_);
 }
 
-void dark_vector_push_front(void* const vector_, void* const element_)
+void dark_vector_push_front(void* const vector_, const void* const element_)
 {
     DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != element_, DARK_ERROR_NULL);
@@ -233,7 +233,7 @@ void dark_vector_push_front(void* const vector_, void* const element_)
     dark_vector_insert(vector, 0, element_);
 }
 
-void dark_vector_push_back(void* const vector_, void* const element_)
+void dark_vector_push_back(void* const vector_, const void* const element_)
 {
     DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != element_, DARK_ERROR_NULL);
@@ -243,6 +243,24 @@ void dark_vector_push_back(void* const vector_, void* const element_)
     DARK_ASSERT(vector->array.size + 1 <= DARK_CONTAINER_SIZE_MAX, DARK_ERROR_OVERFLOW);
 
     dark_vector_insert(vector, vector->array.size, element_);
+}
+
+void dark_vector_push_back_c(void* const vector_, const size_t count_, const void* const source_)
+{
+    DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
+    //count_!
+    DARK_ASSERT(NULL != source_, DARK_ERROR_NULL);
+
+    Dark_Vector* const vector = vector_;
+
+    if (0 == count_)
+    {
+        return;
+    }
+
+    DARK_ASSERT(vector->array.size <= DARK_CONTAINER_SIZE_MAX - count_, DARK_ERROR_OVERFLOW);
+
+    dark_vector_push(vector, vector->array.size, count_, source_);
 }
 
 void dark_vector_pop(void* const vector_, const size_t index_, const size_t count_)

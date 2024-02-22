@@ -57,10 +57,11 @@ void* dark_vector_data(void* vector);
 
 void* dark_vector_emplace(void* vector, size_t index, size_t count);
 
-void dark_vector_push(void* vector, size_t index, size_t count, void* source);
-void dark_vector_insert(void* vector, size_t index, void* element);
-void dark_vector_push_front(void* vector, void* element);
-void dark_vector_push_back(void* vector, void* element);
+void dark_vector_push(void* vector, size_t index, size_t count, const void* source);
+void dark_vector_insert(void* vector, size_t index, const void* element);
+void dark_vector_push_front(void* vector, const void* element);
+void dark_vector_push_back(void* vector, const void* element);
+void dark_vector_push_back_c(void* vector, size_t count, const void* source);
 
 void dark_vector_pop(void* vector, size_t index, size_t count);
 void dark_vector_erase(void* vector, size_t index);

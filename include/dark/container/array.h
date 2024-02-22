@@ -56,10 +56,11 @@ void* dark_array_data(void* array);
 
 void* dark_array_emplace(void* array, size_t index, size_t count);
 
-void dark_array_push(void* array, size_t index, size_t count, void* source);
-void dark_array_insert(void* array, size_t index, void* element);
-void dark_array_push_front(void* array, void* element);
-void dark_array_push_back(void* array, void* element);
+void dark_array_push(void* array, size_t index, size_t count, const void* source);
+void dark_array_insert(void* array, size_t index, const void* element);
+void dark_array_push_front(void* array, const void* element);
+void dark_array_push_back(void* array, const void* element);
+void dark_array_push_back_c(void* array, size_t count, const void* source);
 
 void dark_array_pop(void* array, size_t index, size_t count);
 void dark_array_erase(void* array, size_t index);
