@@ -20,20 +20,15 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___STREAM_DATA_H)
+#define ___DARK___STREAM_DATA_H
 
-#include <dark/char/char.h>
-#include <dark/container/container.h>
-#include <dark/core/core.h>
-#include <dark/hash/hash.h>
-#include <dark/math/math.h>
-#include <dark/order/order.h>
-#include <dark/platform/platform.h>
-#include <dark/profile/profile.h>
-#include <dark/random/random.h>
-#include <dark/stream/stream.h>
+#include <dark/core/essential.h>
 
-#include <dark/info.h>
+typedef struct Dark_Stream_Setting
+{
+    bool binary;
+    size_t buffer_size;
+} Dark_Stream_Setting;
 
-#endif // !defined(___DARK___DARKSTAR_H)
+#endif // !defined(___DARK___STREAM_DATA_H)

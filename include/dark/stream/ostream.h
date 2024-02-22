@@ -20,20 +20,21 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___OSTREAM_H)
+#define ___DARK___OSTREAM_H
 
-#include <dark/char/char.h>
-#include <dark/container/container.h>
-#include <dark/core/core.h>
-#include <dark/hash/hash.h>
-#include <dark/math/math.h>
-#include <dark/order/order.h>
-#include <dark/platform/platform.h>
-#include <dark/profile/profile.h>
-#include <dark/random/random.h>
-#include <dark/stream/stream.h>
+#include <dark/core/essential.h>
+#include <dark/stream/stream_data.h>
 
-#include <dark/info.h>
+void* dark_ostream_new(Dark_Stream_Setting settings);
+void dark_ostream_delete(void* ostream);
 
-#endif // !defined(___DARK___DARKSTAR_H)
+void dark_ostream_write(void* ostream, size_t byte, const void* data);
+
+void dark_ostream_flush(void* ostream);
+
+void dark_ostream_add_file(void* ostream, const char* path, void* mutex);
+void dark_ostream_add_stdout(void* ostream, void* mutex);
+void dark_ostream_add_sterr(void* ostream, void* mutex);
+
+#endif // !defined(___DARK___OSTREAM_H)

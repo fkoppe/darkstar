@@ -20,20 +20,10 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___STREAM_H)
+#define ___DARK___STREAM_H
 
-#include <dark/char/char.h>
-#include <dark/container/container.h>
-#include <dark/core/core.h>
-#include <dark/hash/hash.h>
-#include <dark/math/math.h>
-#include <dark/order/order.h>
-#include <dark/platform/platform.h>
-#include <dark/profile/profile.h>
-#include <dark/random/random.h>
-#include <dark/stream/stream.h>
+#include <dark/stream/ostream.h>
+#include <dark/stream/stream_data.h>
 
-#include <dark/info.h>
-
-#endif // !defined(___DARK___DARKSTAR_H)
+#endif // !defined(___DARK___STREAM_H)
