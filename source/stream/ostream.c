@@ -70,6 +70,8 @@ void dark_ostream_delete(void* const ostream_)
 
     Dark_Ostream* const ostream = ostream_;
 
+    dark_ostream_flush(ostream);
+
     for(size_t i = 0; i < dark_array_size(ostream->file_array); i++)
     {
         void* const file = dark_array_at(ostream->file_array, i);
