@@ -158,7 +158,7 @@ void dark_ostream_flush(void* const ostream_)
         const size_t result =fwrite(dark_array_data(ostream->buffer_array), sizeof(char), dark_array_size(ostream->buffer_array), stdout);
         DARK_ASSERT_MSG(result == dark_array_size(ostream->buffer_array), DARK_ERROR_RUNTIME, "writing to stdout failed");
 
-        //fflush(stdout);
+        fflush(stdout);
 
         if(NULL != ostream->std.out_mutex)
         {
@@ -176,7 +176,7 @@ void dark_ostream_flush(void* const ostream_)
         const size_t result =fwrite(dark_array_data(ostream->buffer_array), sizeof(char), dark_array_size(ostream->buffer_array), stderr);
         DARK_ASSERT_MSG(result == dark_array_size(ostream->buffer_array), DARK_ERROR_RUNTIME, "writing to stderr failed");
 
-        //fflush(stderr);
+        fflush(stderr);
 
         if(NULL != ostream->std.err_mutex)
         {
