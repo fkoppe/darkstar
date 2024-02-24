@@ -15,6 +15,9 @@ int main()
     dark_memory_profiler_initialise(DARK_MEMORY_PROFILE_LEVEL_FULL, true);
 #endif // defined(___DARK_DEBUG)
 
+    dark_console_hide();
+    dark_console_show();
+
     dark_clock_ns();
 
     dark_process_id();

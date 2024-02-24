@@ -20,15 +20,32 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___PLATFORM_H)
-#define ___DARK___PLATFORM_H
+#if !defined(___DARK___CONSOLE_H)
+#define ___DARK___CONSOLE_H
 
-#include <dark/platform/clock.h>
-#include <dark/platform/console.h>
-#include <dark/platform/file.h>
-#include <dark/platform/mutex.h>
-#include <dark/platform/platform_data.h>
-#include <dark/platform/process.h>
-#include <dark/platform/thread.h>
+#include <dark/core/essential.h>
 
-#endif // !defined(___DARK___PLATFORM_H)
+static const char* const DARK_CONSOLE_COLOR_FG_RED = "\033[31m";
+static const char* const DARK_CONSOLE_COLOR_FG_GREEN = "\033[32m";
+static const char* const DARK_CONSOLE_COLOR_FG_YELLOW = "\033[33m";
+static const char* const DARK_CONSOLE_COLOR_FG_BLUE = "\033[34m";
+static const char* const DARK_CONSOLE_COLOR_FG_PURPLE = "\033[35m";
+static const char* const DARK_CONSOLE_COLOR_FG_CYAN = "\033[36m";
+
+static const char* const DARK_CONSOLE_COLOR_BG_RED = "\033[41m";
+static const char* const DARK_CONSOLE_COLOR_BG_GREEN = "\033[42m";
+static const char* const DARK_CONSOLE_COLOR_BG_YELLOW = "\033[43m";
+static const char* const DARK_CONSOLE_COLOR_BG_BLUE = "\033[44m";
+static const char* const DARK_CONSOLE_COLOR_BG_PURPLE = "\033[45m";
+static const char* const DARK_CONSOLE_COLOR_BG_CYAN = "\033[46m";
+
+static const char* const DARK_CONSOLE_COLOR_EFG_ORANGE = "\033[38;5;202m";
+static const char* const DARK_CONSOLE_COLOR_EFG_LIGHT_GREEN = "\033[38;5;154m";
+static const char* const DARK_CONSOLE_COLOR_EFG_LIGHT_BLUE = "\033[38;5;159m";
+
+static const char* const DARK_CONSOLE_COLOR_RESET = "\033[0m";
+
+void dark_console_hide(void);
+void dark_console_show(void);
+
+#endif // !defined(___DARK___CONSOLE_H)

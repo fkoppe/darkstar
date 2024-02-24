@@ -20,15 +20,48 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___PLATFORM_H)
-#define ___DARK___PLATFORM_H
+#include "platform_module.h"
 
-#include <dark/platform/clock.h>
-#include <dark/platform/console.h>
-#include <dark/platform/file.h>
-#include <dark/platform/mutex.h>
-#include <dark/platform/platform_data.h>
-#include <dark/platform/process.h>
-#include <dark/platform/thread.h>
+#include <dark/core/core.h>
+#include <dark/platform/platform.h>
 
-#endif // !defined(___DARK___PLATFORM_H)
+#undef DARK_UNIT
+#define DARK_UNIT "console"
+
+#if defined(___DARK_LINUX)
+#define ___DARK_UNIX
+#endif // defined(___DARK_LINUX)
+
+#if defined(___DARK_DARWIN)
+#define ___DARK_UNIX
+#endif // defined(___DARK_DARWIN)
+
+#if defined(___DARK_WINDOWS)
+#include <windows.h>
+#endif // defined(___DARK_WINDOWS)
+
+#if defined(___DARK_UNIX)
+//nothing
+#endif // defined(___DARK_UNIX)
+
+void dark_console_hide(void)
+{
+#if defined(___DARK_WINDOWS)
+    ShowWindow(GetConsoleWindow(), SW_HIDE);
+#endif // defined(___DARK_WINDOWS)
+
+#if defined(___DARK_UNIX)
+//nothing
+#endif // defined(___DARK_UNIX)
+}
+
+void dark_console_show(void)
+{
+#if defined(___DARK_WINDOWS)
+    ShowWindow(GetConsoleWindow(), SW_SHOW);
+#endif // defined(___DARK_WINDOWS)
+
+#if defined(___DARK_UNIX)
+//nothing
+#endif // defined(___DARK_UNIX)
+}
