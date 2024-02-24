@@ -20,21 +20,28 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___STOPWATCH_H)
+#define ___DARK___STOPWATCH_H
 
-#include <dark/char/char.h>
-#include <dark/container/container.h>
-#include <dark/core/core.h>
-#include <dark/hash/hash.h>
-#include <dark/math/math.h>
-#include <dark/order/order.h>
-#include <dark/platform/platform.h>
-#include <dark/profile/profile.h>
-#include <dark/random/random.h>
-#include <dark/stream/stream.h>
-#include <dark/time/time.h>
+#include <dark/core/essential.h>
 
-#include <dark/info.h>
+void* dark_stopwatch_new(void);
+void* dark_stopwatch_new_start(void);
 
-#endif // !defined(___DARK___DARKSTAR_H)
+void dark_stopwatch_delete(void* stopwatch);
+uint64_t dark_stopwatch_delete_ns(void* stopwatch);
+
+void dark_stopwatch_start(void* stopwatch);
+void dark_stopwatch_stop(void* stopwatch);
+
+void dark_stopwatch_reset(void* stopwatch);
+uint64_t dark_stopwatch_reset_ns(void* stopwatch);
+
+void dark_stopwatch_restart(void* stopwatch);
+uint64_t dark_stopwatch_restart_ns(void* stopwatch);
+
+bool dark_stopwatch_running_is(void* stopwatch);
+
+uint64_t dark_stopwatch_ns(void* stopwatch);
+
+#endif // !defined(___DARK___STOPWATCH_H)
