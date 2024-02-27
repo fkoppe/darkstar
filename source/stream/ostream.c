@@ -93,6 +93,8 @@ void dark_ostream_write(void* const ostream_, const size_t byte_, const void* co
     //byte_
     DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
 
+    //FIXME: what if buffer_size=0
+
     if(byte_ == 0)
     {
         return;
