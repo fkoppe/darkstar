@@ -24,6 +24,7 @@
 
 #include <dark/char/char.h>
 #include <dark/core/core.h>
+#include <dark/order/order.h>
 
 #define STB_SPRINTF_IMPLEMENTATION
 #include <stb/sprintf.h>
@@ -31,41 +32,37 @@
 #undef DARK_UNIT
 #define DARK_UNIT "cbuffer"
 
-size_t dark_cbuffer_lenght(char* const cbuffer_, const size_t max_)
+bool dark_cbuffer_terminated_is(const size_t byte_, char* const source_, size_t* const lenght_)
 {
-    DARK_ASSERT(NULL != cbuffer_, DARK_ERROR_NULL);
+    //byte_
+    DARK_ASSERT(NULL != source_, DARK_ERROR_NULL);
+    //lenght_
 
-    for(size_t i = 0; i < max_; i++)
-    {
-        if('\0' == cbuffer_[i])
-        {
-            return i;
-        }
-    }
+    const char element = '\0';
 
-    DARK_EXIT_MSG(-1, DARK_ERROR_RUNTIME, "cbuffer lost integrity");
+    return dark_find_linear_index(&element, sizeof(char), byte_, source_, (Dark_Compare)dark_compare_u8, lenght_);
 }
 
-size_t dark_cbuffer_snprintf(char* const cbuffer_, const size_t max_, const char* const format_, ...)
+size_t dark_cbuffer_snprintf(char* const cbuffer_, const size_t byte_, const char* const format_, ...)
 {
-    DARK_ASSERT(!cbuffer_ == !max_, DARK_ERROR_LOGIC);
+    DARK_ASSERT(!cbuffer_ == !byte_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL!= format_, DARK_ERROR_NULL);
 
     va_list args;
     va_start(args, format_);
-    const size_t result = stbsp_vsnprintf(cbuffer_, max_, format_, args);
+    const size_t result = stbsp_vsnprintf(cbuffer_, byte_, format_, args);
     va_end(args);
 
     return result;
 }
 
-size_t dark_cbuffer_vsnprintf(char* const cbuffer_, const size_t max_, const char* const format_, va_list arguments_)
+size_t dark_cbuffer_vsnprintf(char* const cbuffer_, const size_t byte_, const char* const format_, va_list arguments_)
 {
-    DARK_ASSERT(!cbuffer_ == !max_, DARK_ERROR_LOGIC);
+    DARK_ASSERT(!cbuffer_ == !byte_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != format_, DARK_ERROR_NULL);
     //arguments_
 
-    const size_t result = stbsp_vsnprintf(cbuffer_, max_, format_, arguments_);
+    const size_t result = stbsp_vsnprintf(cbuffer_, byte_, format_, arguments_);
 
     return result;
 }

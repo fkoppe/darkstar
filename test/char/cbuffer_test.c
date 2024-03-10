@@ -1,4 +1,3 @@
-#include "dark/char/cbuffer.h"
 #include <dark/darkstar.h>
 
 void sprint(char* const buffer, const size_t count, const char* const format, ...)
@@ -11,8 +10,11 @@ void sprint(char* const buffer, const size_t count, const char* const format, ..
 
 int main()
 {
-    char some[16] = "merry christmas";
-    DARK_TEST_EQ_U(15, dark_cbuffer_lenght(some, 16));
+    char some[] = "merry christmas";
+
+    size_t len = 0;
+    DARK_TEST(dark_cbuffer_terminated_is(sizeof(some) / sizeof(char), some, &len));
+    DARK_TEST_EQ_U(len, (sizeof(some) / sizeof(char)) - 1);
 
     DARK_TEST_EQ_U(14, dark_cbuffer_snprintf(NULL, 0, "hello %s %i", "world", 11));
 
