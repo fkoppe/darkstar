@@ -20,6 +20,7 @@
 *                                                                                   *
 ************************************************************************************/
 
+#include "file_helper.h"
 #include "platform_module.h"
 
 #include <dark/core/core.h>
@@ -180,7 +181,7 @@ bool dark_file_write(void* const file_, const size_t size_, const size_t count_,
     return true;
 }
 
-bool dark_file_read(void* const file_, const size_t max_, char** const destination_)
+bool dark_file_read(void* const file_, const size_t max_, char* const destination_)
 {
     DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
@@ -193,7 +194,7 @@ bool dark_file_read(void* const file_, const size_t max_, char** const destinati
 
     if (max_ > 0)
     {
-        char* const result = fgets(*destination_, max_, file->handle);
+        char* const result = fgets(destination_, max_, file->handle);
 
         if (NULL == result)
         {
@@ -204,7 +205,7 @@ bool dark_file_read(void* const file_, const size_t max_, char** const destinati
     return true;
 }
 
-bool dark_file_binary_read(void* const file_, const size_t size_, const size_t max_, size_t* const count_, char** const destination_)
+bool dark_file_binary_read(void* const file_, const size_t size_, const size_t max_, size_t* const count_, char* const destination_)
 {
     DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
     DARK_ASSERT(size_ > 0, DARK_ERROR_ZERO);
@@ -221,7 +222,7 @@ bool dark_file_binary_read(void* const file_, const size_t size_, const size_t m
     {
         errno = EINVAL;
 
-        *count_ = fread(*destination_, size_, max_, file->handle);
+        *count_ = fread(destination_, size_, max_, file->handle);
 
         if (*count_ != max_)
         {
@@ -310,41 +311,4 @@ bool dark_file_size_get(void* const file_, size_t* const destination_)
 size_t dark_file_count_max(void)
 {
     return FOPEN_MAX;
-}
-
-void dark_file_modifier_get(const Dark_File_Mode mode_, const Dark_File_Flag flag_, char* const destination_)
-{
-    DARK_ASSERT(mode_ < ___DARK_FILE_MODE_MAX, DARK_ERROR_ENUM);
-    DARK_ASSERT(flag_ < ___DARK_FILE_FLAG_MAX, DARK_ERROR_ENUM);
-    DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
-
-    switch (mode_)
-    {
-    case DARK_FILE_MODE_READ:
-        *destination_ = 'r';
-        break;
-    case DARK_FILE_MODE_WRITE:
-        *destination_ = 'w';
-        break;
-    case DARK_FILE_MODE_APPEND:
-        *destination_ = 'a';
-        break;
-    default:
-        DARK_ABORT_ERROR(DARK_ERROR_SWITCH);
-        break;
-    }
-
-    size_t i = 1;
-
-    if (flag_ & DARK_FILE_FLAG_BINARY)
-    {
-        destination_[i] = 'b';
-        i++;
-    }
-
-    if (flag_ & DARK_FILE_FLAG_UPDATE)
-    {
-        destination_[i] = '+';
-        i++;
-    }
 }

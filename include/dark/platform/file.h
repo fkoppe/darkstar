@@ -58,15 +58,13 @@ bool dark_file_open_is(void* file);
 
 bool dark_file_write(void* file, size_t size, size_t count, const void* data);
 
-bool dark_file_read(void* file, size_t max, char** destination);
-bool dark_file_binary_read(void* file, size_t size, size_t max, size_t* count, char** destination);
+bool dark_file_read(void* file, size_t max, char* destination);
+bool dark_file_binary_read(void* file, size_t size, size_t max, size_t* count, char* destination);
 
 bool dark_file_mmap(void* file, const char** destination);
 
 bool dark_file_size_get(void* file, size_t* destination);
 
 size_t dark_file_count_max(void);
-
-void dark_file_modifier_get(Dark_File_Mode mode, Dark_File_Flag flag, char* destination);
 
 #endif // !defined(___DARK___FILE_H)
