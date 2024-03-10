@@ -11,30 +11,30 @@ int main()
     const int32_t element = 2;
 
     //linear
-    DARK_TEST(dark_find_linear_index(&element, sizeof(int32_t), 5, arr_1, (DARK_Compare)dark_compare_i32, &index));
+    DARK_TEST(dark_find_linear_index(&element, sizeof(int32_t), 5, arr_1, (Dark_Compare)dark_compare_i32, &index));
     DARK_TEST_EQ_U(0, index);
 
-    DARK_TEST(dark_find_linear_index(&element, sizeof(int32_t), 3, arr_2, (DARK_Compare)dark_compare_i32, &index));
+    DARK_TEST(dark_find_linear_index(&element, sizeof(int32_t), 3, arr_2, (Dark_Compare)dark_compare_i32, &index));
     DARK_TEST_EQ_U(1, index);
 
-    DARK_TEST(dark_find_linear_index(&element, sizeof(int32_t), 5, arr_3, (DARK_Compare)dark_compare_i32, &index));
+    DARK_TEST(dark_find_linear_index(&element, sizeof(int32_t), 5, arr_3, (Dark_Compare)dark_compare_i32, &index));
     DARK_TEST_EQ_U(4, index);
 
     //linear_reverse
-    DARK_TEST(dark_find_linear_reverse_index(&element, sizeof(int32_t), 5, arr_1, (DARK_Compare)dark_compare_i32, &index));
+    DARK_TEST(dark_find_linear_reverse_index(&element, sizeof(int32_t), 5, arr_1, (Dark_Compare)dark_compare_i32, &index));
     DARK_TEST_EQ_U(4, index);
 
-    DARK_TEST(dark_find_linear_reverse_index(&element, sizeof(int32_t), 3, arr_2, (DARK_Compare)dark_compare_i32, &index));
+    DARK_TEST(dark_find_linear_reverse_index(&element, sizeof(int32_t), 3, arr_2, (Dark_Compare)dark_compare_i32, &index));
     DARK_TEST_EQ_U(1, index);
 
-    DARK_TEST(dark_find_linear_reverse_index(&element, sizeof(int32_t), 5, arr_4, (DARK_Compare)dark_compare_i32, &index));
+    DARK_TEST(dark_find_linear_reverse_index(&element, sizeof(int32_t), 5, arr_4, (Dark_Compare)dark_compare_i32, &index));
     DARK_TEST_EQ_U(0, index);
 
     //binary
-    DARK_TEST(dark_find_binary_index(&element, sizeof(int32_t), 3, arr_2, (DARK_Compare)dark_compare_i32, &index));
+    DARK_TEST(dark_find_binary_index(&element, sizeof(int32_t), 3, arr_2, (Dark_Compare)dark_compare_i32, &index));
     DARK_TEST_EQ_U(1, index);
 
-    DARK_TEST(dark_find_binary_index(&element, sizeof(int32_t), 5, arr_4, (DARK_Compare)dark_compare_i32, &index));
+    DARK_TEST(dark_find_binary_index(&element, sizeof(int32_t), 5, arr_4, (Dark_Compare)dark_compare_i32, &index));
     DARK_TEST_EQ_U(0, index);
 
     return EXIT_SUCCESS;
