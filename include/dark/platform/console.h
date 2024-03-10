@@ -40,8 +40,10 @@ static const char* const DARK_CONSOLE_COLOR_BG_PURPLE = "\033[45m";
 static const char* const DARK_CONSOLE_COLOR_BG_CYAN = "\033[46m";
 
 static const char* const DARK_CONSOLE_COLOR_EFG_ORANGE = "\033[38;5;202m";
-static const char* const DARK_CONSOLE_COLOR_EFG_LIGHT_GREEN = "\033[38;5;154m";
-static const char* const DARK_CONSOLE_COLOR_EFG_LIGHT_BLUE = "\033[38;5;159m";
+static const char* const DARK_CONSOLE_COLOR_EFG_GREEN = "\033[38;5;154m";
+static const char* const DARK_CONSOLE_COLOR_EFG_BLUE = "\033[38;5;159m";
+
+static const char* const DARK_CONSOLE_COLOR_EBG_RED = "\033[48;5;160m";
 
 static const char* const DARK_CONSOLE_COLOR_RESET = "\033[0m";
 
