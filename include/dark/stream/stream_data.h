@@ -27,7 +27,8 @@
 
 typedef struct Dark_Stream_Setting
 {
-    bool binary;
+    bool binary_is;
+    bool force_size_is;
     size_t buffer_size;
 } Dark_Stream_Setting;
 

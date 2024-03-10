@@ -32,6 +32,7 @@ void dark_ostream_delete(void* ostream);
 void dark_ostream_write(void* ostream, size_t byte, const void* data);
 
 void dark_ostream_flush(void* ostream);
+void dark_ostream_flush_unbuffered(void* ostream, size_t byte, const void* data);
 
 void dark_ostream_add_file(void* ostream, const char* path, void* mutex);
 void dark_ostream_add_stdout(void* ostream, void* mutex);

@@ -48,14 +48,18 @@ typedef struct Dark_Ostream
 
 void* dark_ostream_new(const Dark_Stream_Setting settings_)
 {
-    //settings_
+    DARK_ASSERT_MSG(!(0 == settings_.buffer_size) || !settings_.force_size_is, DARK_ERROR_LOGIC, "can not force size to 0");
 
     Dark_Ostream* const ostream = malloc(sizeof(*ostream));
     DARK_ASSERT(NULL != ostream, DARK_ERROR_ALLOCATION);
 
     ostream->settings = settings_;
     ostream->file_array = dark_array_new(dark_file_struct_size() + sizeof(void*));
-    ostream->buffer_array = dark_array_new_capacity(sizeof(char), settings_.buffer_size);
+
+    if(0 != settings_.buffer_size)
+    {
+        ostream->buffer_array = dark_array_new_capacity(sizeof(char), settings_.buffer_size);
+    }
     ostream->std.out_is = false;
     ostream->std.err_is = false;
     ostream->std.out_mutex = NULL;
@@ -81,7 +85,11 @@ void dark_ostream_delete(void* const ostream_)
         dark_file_destroy(file);
     }
 
-    dark_array_delete(ostream->buffer_array);
+    if(0 != ostream->settings.buffer_size)
+    {
+        dark_array_delete(ostream->buffer_array);
+    }
+
     dark_array_delete(ostream->file_array);
 
     free(ostream);
@@ -93,8 +101,6 @@ void dark_ostream_write(void* const ostream_, const size_t byte_, const void* co
     //byte_
     DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
 
-    //FIXME: what if buffer_size=0
-
     if(byte_ == 0)
     {
         return;
@@ -104,20 +110,28 @@ void dark_ostream_write(void* const ostream_, const size_t byte_, const void* co
 
     if(dark_array_size(ostream->buffer_array) + byte_ < ostream->settings.buffer_size)
     {
-        dark_array_push_back_c(ostream->buffer_array, byte_, (char*)data_);
+        dark_array_push_back_c(ostream->buffer_array, byte_, data_);
 
         return;
     }
 
-    const size_t fit = ostream->settings.buffer_size - dark_array_size(ostream->buffer_array);
+    if(ostream->settings.force_size_is)
+    {
+        const size_t fit = ostream->settings.buffer_size - dark_array_size(ostream->buffer_array);
 
-    dark_array_push_back_c(ostream->buffer_array, fit, (char*)data_);
+        dark_array_push_back_c(ostream->buffer_array, fit, data_);
 
-    for(size_t written = fit; written < byte_; written += DARK_MIN(byte_ - written, ostream->settings.buffer_size))
+        for(size_t written = fit; written < byte_; written += DARK_MIN(byte_ - written, ostream->settings.buffer_size))
+        {
+            dark_ostream_flush(ostream);
+
+            dark_array_push_back_c(ostream->buffer_array, DARK_MIN(byte_ - written, ostream->settings.buffer_size), (char*)data_ + written);
+        }
+    }
+    else
     {
         dark_ostream_flush(ostream);
-
-        dark_array_push_back_c(ostream->buffer_array, DARK_MIN(byte_ - written, ostream->settings.buffer_size), (char*)data_ + written);
+        dark_ostream_flush_unbuffered(ostream, byte_, data_);
     }
 }
 
@@ -128,6 +142,24 @@ void dark_ostream_flush(void* const ostream_)
     Dark_Ostream* const ostream = ostream_;
 
     if(0 == dark_array_size(ostream->buffer_array))
+    {
+        return;
+    }
+
+    dark_ostream_flush_unbuffered(ostream, dark_array_size(ostream->buffer_array), dark_array_data(ostream->buffer_array));
+
+    dark_array_clear(ostream->buffer_array);
+}
+
+void dark_ostream_flush_unbuffered(void* const ostream_, const size_t byte_, const void* const data_)
+{
+    DARK_ASSERT(NULL != ostream_, DARK_ERROR_NULL);
+    //byte_
+    DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
+
+    Dark_Ostream* const ostream = ostream_;
+
+    if(byte_ == 0)
     {
         return;
     }
@@ -144,7 +176,7 @@ void dark_ostream_flush(void* const ostream_)
 
         DARK_ASSERT(dark_file_open_is(file), DARK_ERROR_STATE);
 
-        dark_file_write(file, sizeof(char), dark_array_size(ostream->buffer_array), dark_array_data(ostream->buffer_array));
+        dark_file_write(file, sizeof(char), byte_, data_);
 
         if(NULL != mutex)
         {
@@ -159,8 +191,8 @@ void dark_ostream_flush(void* const ostream_)
             dark_mutex_lock(ostream->std.out_mutex);
         }
 
-        const size_t result =fwrite(dark_array_data(ostream->buffer_array), sizeof(char), dark_array_size(ostream->buffer_array), stdout);
-        DARK_ASSERT_MSG(result == dark_array_size(ostream->buffer_array), DARK_ERROR_RUNTIME, "writing to stdout failed");
+        const size_t result =fwrite(data_, sizeof(char), byte_, stdout);
+        DARK_ASSERT_MSG(result == byte_, DARK_ERROR_RUNTIME, "writing to stdout failed");
 
         fflush(stdout);
 
@@ -177,8 +209,8 @@ void dark_ostream_flush(void* const ostream_)
             dark_mutex_lock(ostream->std.err_mutex);
         }
 
-        const size_t result =fwrite(dark_array_data(ostream->buffer_array), sizeof(char), dark_array_size(ostream->buffer_array), stderr);
-        DARK_ASSERT_MSG(result == dark_array_size(ostream->buffer_array), DARK_ERROR_RUNTIME, "writing to stderr failed");
+        const size_t result =fwrite(data_, sizeof(char), byte_, stderr);
+        DARK_ASSERT_MSG(result == byte_, DARK_ERROR_RUNTIME, "writing to stderr failed");
 
         fflush(stderr);
 
@@ -187,8 +219,6 @@ void dark_ostream_flush(void* const ostream_)
             dark_mutex_unlock(ostream->std.err_mutex);
         }
     }
-
-    dark_array_clear(ostream->buffer_array);
 }
 
 void dark_ostream_add_file(void* const ostream_, const char* const path_, void* const mutex_)
@@ -205,13 +235,13 @@ void dark_ostream_add_file(void* const ostream_, const char* const path_, void* 
 
     Dark_File_Flag flag = DARK_FILE_FLAG_NONE;
 
-    if(ostream->settings.binary)
+    if(ostream->settings.binary_is)
     {
         flag = DARK_FILE_FLAG_BINARY;
     }
 
     bool b = dark_file_open(file, path_, DARK_FILE_MODE_APPEND, flag);
-    DARK_ASSERT_MSG(b, DARK_ERROR_UNKNOWN, "could not open file"); //TODO: better error communication
+    DARK_ASSERT_MSG(b, DARK_ERROR_UNKNOWN, "could not open file");
 }
 
 void dark_ostream_add_stdout(void* const ostream_, void* const mutex_)

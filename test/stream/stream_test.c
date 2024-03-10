@@ -8,8 +8,11 @@ int main()
 
     void* mutex = dark_mutex_new();
 
+    char buf[] = { "test message larger than buffer" };
+
     Dark_Stream_Setting stream_settings;
-    stream_settings.binary = false;
+    stream_settings.binary_is = false;
+    stream_settings.force_size_is = false;
     stream_settings.buffer_size = 10;
 
     void* stream = dark_ostream_new(stream_settings);
@@ -17,13 +20,25 @@ int main()
     dark_ostream_add_stdout(stream, NULL);
     dark_ostream_add_file(stream, "output.txt", NULL);
 
-    char buf[] = { "test message larger than buffer" };
-
     dark_ostream_write(stream, sizeof(buf), buf);
 
     dark_ostream_flush(stream);
-
     dark_ostream_delete(stream);
+
+    Dark_Stream_Setting stream2_settings;
+    stream2_settings.binary_is = false;
+    stream2_settings.force_size_is = true;
+    stream2_settings.buffer_size = 10;
+
+    void* stream2 = dark_ostream_new(stream2_settings);
+
+    dark_ostream_add_stdout(stream2, NULL);
+    dark_ostream_add_file(stream2, "output.txt", NULL);
+
+    dark_ostream_write(stream2, sizeof(buf), buf);
+
+    dark_ostream_flush(stream2);
+    dark_ostream_delete(stream2);
 
     dark_mutex_delete(mutex);
 
