@@ -25,7 +25,7 @@
 
 #include <dark/core/essential.h>
 
-typedef int (*DARK_Compare) (const void* element, const void* other);
+typedef int (*Dark_Compare) (const void* element, const void* other);
 
 int dark_compare_i8(const int8_t* element, const int8_t* other);
 int dark_compare_i16(const int16_t* element, const int16_t* other);

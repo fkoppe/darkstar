@@ -30,7 +30,7 @@
 
 #include <string.h>
 
-bool dark_sort_is(const size_t element_size_, const size_t count_, void* const data_, const DARK_Compare compare_)
+bool dark_sort_is(const size_t element_size_, const size_t count_, void* const data_, const Dark_Compare compare_)
 {
     DARK_ASSERT(element_size_ > 0, DARK_ERROR_ZERO);
     //count_
@@ -48,7 +48,7 @@ bool dark_sort_is(const size_t element_size_, const size_t count_, void* const d
     return true;
 }
 
-void dark_sort_insertion(const size_t element_size_, const size_t count_, void* const data_, const DARK_Compare compare_)
+void dark_sort_insertion(const size_t element_size_, const size_t count_, void* const data_, const Dark_Compare compare_)
 {
     DARK_ASSERT(element_size_ > 0, DARK_ERROR_ZERO);
     //count_

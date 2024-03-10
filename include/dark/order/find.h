@@ -25,12 +25,12 @@
 
 #include <dark/core/essential.h>
 
-bool dark_find_linear_index(const void* element, size_t element_size, size_t count, const void* data, DARK_Compare compare, size_t* index);
-bool dark_find_linear_reverse_index(const void* element, size_t element_size, size_t count, const void* data, DARK_Compare compare, size_t* index);
-bool dark_find_binary_index(const void* element, size_t element_size, size_t count, const void* data, DARK_Compare compare, size_t* index);
+bool dark_find_linear_index(const void* element, size_t element_size, size_t count, const void* data, Dark_Compare compare, size_t* index);
+bool dark_find_linear_reverse_index(const void* element, size_t element_size, size_t count, const void* data, Dark_Compare compare, size_t* index);
+bool dark_find_binary_index(const void* element, size_t element_size, size_t count, const void* data, Dark_Compare compare, size_t* index);
 
-void* dark_find_linear(const void* element, size_t element_size, size_t count, void* data, DARK_Compare compare);
-void* dark_find_linear_reverse(const void* element, size_t element_size, size_t count, void* data, DARK_Compare compare);
-void* dark_find_binary(const void* element, size_t element_size, size_t count, void* data, DARK_Compare compare);
+void* dark_find_linear(const void* element, size_t element_size, size_t count, void* data, Dark_Compare compare);
+void* dark_find_linear_reverse(const void* element, size_t element_size, size_t count, void* data, Dark_Compare compare);
+void* dark_find_binary(const void* element, size_t element_size, size_t count, void* data, Dark_Compare compare);
 
 #endif // !defined(___DARK___FIND_H)

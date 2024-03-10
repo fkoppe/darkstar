@@ -28,7 +28,7 @@
 #undef DARK_UNIT
 #define DARK_UNIT "find"
 
-bool dark_find_linear_index(const void* const element_, const size_t element_size_, const size_t count_, const void* const data_, const DARK_Compare compare_, size_t* const index_)
+bool dark_find_linear_index(const void* const element_, const size_t element_size_, const size_t count_, const void* const data_, const Dark_Compare compare_, size_t* const index_)
 {
     DARK_ASSERT(element_ != NULL, DARK_ERROR_NULL);
     DARK_ASSERT(element_size_ > 0, DARK_ERROR_ZERO);
@@ -53,7 +53,7 @@ bool dark_find_linear_index(const void* const element_, const size_t element_siz
     return false;
 }
 
-bool dark_find_linear_reverse_index(const void* const element_, const size_t element_size_, const size_t count_, const void* const data_, const DARK_Compare compare_, size_t* const index_)
+bool dark_find_linear_reverse_index(const void* const element_, const size_t element_size_, const size_t count_, const void* const data_, const Dark_Compare compare_, size_t* const index_)
 {
     DARK_ASSERT(element_ != NULL, DARK_ERROR_NULL);
     DARK_ASSERT(element_size_ > 0, DARK_ERROR_ZERO);
@@ -78,7 +78,7 @@ bool dark_find_linear_reverse_index(const void* const element_, const size_t ele
     return false;
 }
 
-bool dark_find_binary_index(const void* const element_, const size_t element_size_, const size_t count_, const void* const data_, const DARK_Compare compare_, size_t* const index_)
+bool dark_find_binary_index(const void* const element_, const size_t element_size_, const size_t count_, const void* const data_, const Dark_Compare compare_, size_t* const index_)
 {
     DARK_ASSERT(element_ != NULL, DARK_ERROR_NULL);
     DARK_ASSERT(element_size_ > 0, DARK_ERROR_ZERO);
@@ -113,7 +113,7 @@ bool dark_find_binary_index(const void* const element_, const size_t element_siz
     return false;
 }
 
-void* dark_find_linear(const void* const element_, const size_t element_size_, const size_t count_, void* const data_, const DARK_Compare compare_)
+void* dark_find_linear(const void* const element_, const size_t element_size_, const size_t count_, void* const data_, const Dark_Compare compare_)
 {
     DARK_ASSERT(element_ != NULL, DARK_ERROR_NULL);
     DARK_ASSERT(element_size_ > 0, DARK_ERROR_ZERO);
@@ -131,7 +131,7 @@ void* dark_find_linear(const void* const element_, const size_t element_size_, c
     return (char*)data_ + (index * element_size_);
 }
 
-void* dark_find_linear_reverse(const void* const element_, const size_t element_size_, const size_t count_, void* const data_, const DARK_Compare compare_)
+void* dark_find_linear_reverse(const void* const element_, const size_t element_size_, const size_t count_, void* const data_, const Dark_Compare compare_)
 {
     DARK_ASSERT(element_ != NULL, DARK_ERROR_NULL);
     DARK_ASSERT(element_size_ > 0, DARK_ERROR_ZERO);
@@ -149,7 +149,7 @@ void* dark_find_linear_reverse(const void* const element_, const size_t element_
     return (char*)data_ + (index * element_size_);
 }
 
-void* dark_find_binary(const void* const element_, const size_t element_size_, const size_t count_, void* const data_, const DARK_Compare compare_)
+void* dark_find_binary(const void* const element_, const size_t element_size_, const size_t count_, void* const data_, const Dark_Compare compare_)
 {
     DARK_ASSERT(element_ != NULL, DARK_ERROR_NULL);
     DARK_ASSERT(element_size_ > 0, DARK_ERROR_ZERO);
