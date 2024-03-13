@@ -27,6 +27,8 @@
 
 #define DARK_FILE_MODIFIER_SIZE 4
 
+//TODO file errors
+
 typedef enum Dark_File_Mode
 {
     DARK_FILE_MODE_READ,
