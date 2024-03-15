@@ -23,6 +23,7 @@
 #include "time_module.h"
 
 #include <dark/core/core.h>
+#include <dark/math/math.h>
 #include <dark/platform/platform.h>
 #include <dark/time/time.h>
 
@@ -35,6 +36,11 @@ typedef struct Dark_Stopwatch
     uint64_t stamp;
     bool running_is;
 } Dark_Stopwatch;
+
+size_t dark_stopwatch_struct_size(void)
+{
+    return sizeof(Dark_Stopwatch);
+}
 
 void* dark_stopwatch_new(void)
 {
@@ -80,6 +86,24 @@ uint64_t dark_stopwatch_delete_ns(void* const stopwatch_)
     free(stopwatch);
 
     return ns;
+}
+
+uint64_t dark_stopwatch_delete_ms(void* const stopwatch_)
+{
+    DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
+
+    Dark_Stopwatch* const stopwatch = stopwatch_;
+
+    return dark_stopwatch_delete_ns(stopwatch) / DARK_MEGA;
+}
+
+uint64_t dark_stopwatch_delete_s(void* const stopwatch_)
+{
+    DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
+
+    Dark_Stopwatch* const stopwatch = stopwatch_;
+
+    return dark_stopwatch_delete_ns(stopwatch) / DARK_GIGA;
 }
 
 void dark_stopwatch_start(void* const stopwatch_)
@@ -132,6 +156,24 @@ uint64_t dark_stopwatch_reset_ns(void* const stopwatch_)
     return ns;
 }
 
+uint64_t dark_stopwatch_reset_ms(void* const stopwatch_)
+{
+    DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
+
+    Dark_Stopwatch* const stopwatch = stopwatch_;
+
+    return dark_stopwatch_reset_ns(stopwatch) / DARK_MEGA;
+}
+
+uint64_t dark_stopwatch_reset_s(void* const stopwatch_)
+{
+    DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
+
+    Dark_Stopwatch* const stopwatch = stopwatch_;
+
+    return dark_stopwatch_reset_ns(stopwatch) / DARK_GIGA;
+}
+
 void dark_stopwatch_restart(void* const stopwatch_)
 {
     DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
@@ -154,6 +196,24 @@ uint64_t dark_stopwatch_restart_ns(void* const stopwatch_)
     dark_stopwatch_restart(stopwatch);
 
     return ns;
+}
+
+uint64_t dark_stopwatch_restart_ms(void* const stopwatch_)
+{
+    DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
+
+    Dark_Stopwatch* const stopwatch = stopwatch_;
+
+    return dark_stopwatch_restart_ns(stopwatch) / DARK_MEGA;
+}
+
+uint64_t dark_stopwatch_restart_s(void* const stopwatch_)
+{
+    DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
+
+    Dark_Stopwatch* const stopwatch = stopwatch_;
+
+    return dark_stopwatch_restart_ns(stopwatch) / DARK_GIGA;
 }
 
 bool dark_stopwatch_running_is(void* const stopwatch_)
@@ -179,4 +239,22 @@ uint64_t dark_stopwatch_ns(void* const stopwatch_)
     {
         return stopwatch->time;
     }
+}
+
+uint64_t dark_stopwatch_ms(void* const stopwatch_)
+{
+    DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
+
+    Dark_Stopwatch* const stopwatch = stopwatch_;
+
+    return dark_stopwatch_ns(stopwatch) / DARK_MEGA;
+}
+
+uint64_t dark_stopwatch_s(void* const stopwatch_)
+{
+    DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
+
+    Dark_Stopwatch* const stopwatch = stopwatch_;
+
+    return dark_stopwatch_ns(stopwatch) / DARK_GIGA;
 }

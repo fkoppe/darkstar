@@ -32,7 +32,7 @@ size_t dark_string_struct_size(void);
 
 void dark_string_create_v(void* string, Dark_Growth growth, const char* format, va_list arguments);
 void dark_string_create_f(void* string, Dark_Growth growth, const char* format, ...);
-void dark_string_create_cbuffer(void* string, Dark_Growth growth, size_t byte, const char* source);
+void dark_string_create_cbuffer(void* string, Dark_Growth growth, size_t count, const char* source);
 void dark_string_create_char(void* string, Dark_Growth growth, char character);
 void dark_string_create_size(void* string, Dark_Growth growth, size_t capacity, size_t size);
 void dark_string_create_capacity(void* string, Dark_Growth growth, size_t capacity);
@@ -41,7 +41,7 @@ void dark_string_destroy(void* string);
 
 void* dark_string_new_v(Dark_Growth growth, const char* format, va_list arguments);
 void* dark_string_new_f(Dark_Growth growth, const char* format, ...);
-void* dark_string_new_cbuffer(Dark_Growth growth, size_t byte, const char* source);
+void* dark_string_new_cbuffer(Dark_Growth growth, size_t count, const char* source);
 void* dark_string_new_char(Dark_Growth growth, char character);
 void* dark_string_new_size(Dark_Growth growth, size_t capacity, size_t size);
 void* dark_string_new_capacity(Dark_Growth growth, size_t capacity);
@@ -51,27 +51,29 @@ void dark_string_delete(void* string);
 char dark_string_at(void* string, size_t index);
 char dark_string_front(void* string);
 char dark_string_back(void* string);
-char* dark_string_cbuffer(void* string);
-char* dark_string_substr(void* string, size_t index);
+char* dark_string_cbuffer_terminated(void* string);
+char* dark_string_substr_terminated(void* string, size_t index);
 
 void dark_string_push_v(void* string, size_t index, const char* format, va_list arguments);
 void dark_string_push_f(void* string, size_t index, const char* format, ...);
-void dark_string_push_cbuffer(void* string, size_t index, size_t byte, const char* source);
+void dark_string_push_cbuffer(void* string, size_t index, size_t count, const char* source);
 void dark_string_insert(void* string, size_t index, char character);
 void dark_string_push_front(void* string, char character);
 void dark_string_push_back(void* string, char character);
 
 void dark_string_append_v(void* string, const char* format, va_list arguments);
 void dark_string_append_f(void* string, const char* format, ...);
-void dark_string_append_cbuffer(void* string, size_t byte, const char* source);
+void dark_string_append_cbuffer(void* string, size_t count, const char* source);
 void dark_string_prepend_v(void* string, const char* format, va_list arguments);
 void dark_string_prepend_f(void* string, const char* format, ...);
-void dark_string_prepend_cstr(void* string, size_t byte, const char* source);
+void dark_string_prepend_cbuffer(void* string, size_t count, const char* source);
 
 void dark_string_pop(void* string, size_t index, size_t count);
 void dark_string_erase(void* string, size_t index);
 void dark_string_pop_front(void* string);
+//TODO void dark_string_pop_front_c(void* string);
 void dark_string_pop_back(void* string);
+//TODO void dark_string_pop_back_c(void* string);
 
 size_t dark_string_capacity(void* string);
 void dark_string_reserve(void* string, size_t capacity);

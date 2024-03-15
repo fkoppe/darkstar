@@ -25,23 +25,33 @@
 
 #include <dark/core/essential.h>
 
+size_t dark_stopwatch_struct_size(void);
+
 void* dark_stopwatch_new(void);
 void* dark_stopwatch_new_start(void);
 
 void dark_stopwatch_delete(void* stopwatch);
 uint64_t dark_stopwatch_delete_ns(void* stopwatch);
+uint64_t dark_stopwatch_delete_ms(void* stopwatch);
+uint64_t dark_stopwatch_delete_s(void* stopwatch);
 
 void dark_stopwatch_start(void* stopwatch);
 void dark_stopwatch_stop(void* stopwatch);
 
 void dark_stopwatch_reset(void* stopwatch);
 uint64_t dark_stopwatch_reset_ns(void* stopwatch);
+uint64_t dark_stopwatch_reset_ms(void* stopwatch);
+uint64_t dark_stopwatch_reset_s(void* stopwatch);
 
 void dark_stopwatch_restart(void* stopwatch);
 uint64_t dark_stopwatch_restart_ns(void* stopwatch);
+uint64_t dark_stopwatch_restart_ms(void* stopwatch);
+uint64_t dark_stopwatch_restart_s(void* stopwatch);
 
 bool dark_stopwatch_running_is(void* stopwatch);
 
 uint64_t dark_stopwatch_ns(void* stopwatch);
+uint64_t dark_stopwatch_ms(void* stopwatch);
+uint64_t dark_stopwatch_s(void* stopwatch);
 
 #endif // !defined(___DARK___STOPWATCH_H)

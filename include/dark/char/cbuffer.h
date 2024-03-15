@@ -27,9 +27,9 @@
 
 #include <stdarg.h>
 
-bool dark_cbuffer_terminated_is(size_t byte, char* source, size_t* lenght);
+bool dark_cbuffer_terminated_is(size_t count, char* source, size_t* lenght);
 
-size_t dark_cbuffer_snprintf(char* destination, size_t byte, const char* format, ...);
-size_t dark_cbuffer_vsnprintf(char* destination, size_t byte, const char* format, va_list arguments);
+size_t dark_cbuffer_snprintf(char* destination, size_t count, const char* format, ...);
+size_t dark_cbuffer_vsnprintf(char* destination, size_t count, const char* format, va_list arguments);
 
 #endif // !defined(___DARK___CBUFFER_H)

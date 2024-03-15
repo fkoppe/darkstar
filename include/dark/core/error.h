@@ -39,14 +39,15 @@ typedef struct Dark_Error
 static const Dark_Error DARK_ERROR_UNDEFINED = { NULL, "undefined", NULL};
 
 static const Dark_Error DARK_ERROR_UNKNOWN = { NULL, "unknown", NULL };
-static const Dark_Error DARK_ERROR_UNREACHABLE = { NULL, "unreachable", NULL };
+
+static const Dark_Error DARK_ERROR_UNREACHABLE = { NULL, "unreachable", "unreachable part of code reached" };
+static const Dark_Error DARK_ERROR_SWITCH = { &DARK_ERROR_UNREACHABLE, "switch", "unhandled switch value" };
 
 //runtime error
 static const Dark_Error DARK_ERROR_RUNTIME = { NULL, "runtime", NULL };
 static const Dark_Error DARK_ERROR_ALLOCATION = { &DARK_ERROR_RUNTIME, "allocation", "m-/ca-/realloc failed" };
 static const Dark_Error DARK_ERROR_OVERFLOW = { &DARK_ERROR_RUNTIME, "overflow", "exeeded size limit" };
 static const Dark_Error DARK_ERROR_UNDERFLOW = { &DARK_ERROR_RUNTIME, "underflow", "undercut size limit" };
-static const Dark_Error DARK_ERROR_SWITCH = { &DARK_ERROR_RUNTIME, "switch", "unhandled switch value" };
 
 static const Dark_Error DARK_ERROR_API = { &DARK_ERROR_RUNTIME, "api", "api failed" };
 static const Dark_Error DARK_ERROR_DARK = { &DARK_ERROR_API, "dark", NULL};

@@ -37,6 +37,14 @@
 #define DARK_ARRAY_DATA(array, type) \
 ((type*)dark_array_data((array)))
 
+typedef struct Dark_Array_Struct
+{
+    size_t element_size;
+    size_t capacity;
+    size_t size;
+    char* data;
+} Dark_Array_Struct;
+
 size_t dark_array_struct_size(void);
 
 void dark_array_create_size(void* array, size_t element_size, size_t capacity, size_t size);
@@ -55,17 +63,22 @@ void* dark_array_back(void* array);
 void* dark_array_data(void* array);
 
 void* dark_array_emplace(void* array, size_t index, size_t count);
+//TODO void* dark_array_emplace_front(void* array, size_t index, size_t count);
+//TODO void* dark_array_emplace_back(void* array, size_t index, size_t count);
 
 void dark_array_push(void* array, size_t index, size_t count, const void* source);
 void dark_array_insert(void* array, size_t index, const void* element);
 void dark_array_push_front(void* array, const void* element);
+//TODO void dark_array_push_front_c(void* array, const void* element);
 void dark_array_push_back(void* array, const void* element);
 void dark_array_push_back_c(void* array, size_t count, const void* source);
 
 void dark_array_pop(void* array, size_t index, size_t count);
 void dark_array_erase(void* array, size_t index);
 void dark_array_pop_front(void* array);
+//TODO void dark_array_pop_front_c(void* array);
 void dark_array_pop_back(void* array);
+//TODO void dark_array_back_front_c(void* array);
 
 size_t dark_array_capacity(void* array);
 void dark_array_reserve_exact(void* array, size_t capacity);

@@ -20,25 +20,9 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___CONTAINER_HELPER_H)
-#define ___DARK___CONTAINER_HELPER_H
+#if !defined(___DARK___LOG_H)
+#define ___DARK___LOG_H
 
-#include <dark/container/growth.h>
-#include <dark/core/essential.h>
+#include <dark/log/logger.h>
 
-typedef struct Dark_Array
-{
-    size_t element_size;
-    size_t capacity;
-    size_t size;
-    char* data;
-} Dark_Array;
-
-typedef struct Dark_Vector
-{
-    Dark_Array array;
-    Dark_Growth growth;
-} Dark_Vector;
-
-#endif // !defined(___DARK___CONTAINER_HELPER_H)
-
+#endif // !defined(___DARK___LOG_H)

@@ -20,14 +20,52 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___FILE_HELPER_H)
-#define ___DARK___FILE_HELPER_H
+#if !defined(___DARK___LOGGER_H)
+#define ___DARK___LOGGER_H
 
 #include <dark/core/essential.h>
-#include <dark/platform/file.h>
 
-#define DARK_FILE_MODIFIER_SIZE 4
+typedef enum Dark_Log_Level
+{
+    DARK_LOG_LEVEL_COMMENT,
+    DARK_LOG_LEVEL_INTERNAL,
+    DARK_LOG_LEVEL_DEBUG,
+    DARK_LOG_LEVEL_TRACE,
+    DARK_LOG_LEVEL_INFO,
+    DARK_LOG_LEVEL_NOTICE,
+    DARK_LOG_LEVEL_WARN,
+    DARK_LOG_LEVEL_ERROR,
+    DARK_LOG_LEVEL_CRITICAL,
+    DARK_LOG_LEVEL_ALERT,
+    DARK_LOG_LEVEL_EMERGENCY,
+    ___DARK_LOG_LEVEL_MAX,
+} Dark_Log_Level;
 
-void dark_file_modifier_get(Dark_File_Mode mode, Dark_File_Flag flag, char* destination);
+typedef struct Dark_Logger_Settings
+{
+    bool log_is;
+    Dark_Log_Level level_min;
+    struct
+    {
+        bool time;
+        bool thread;
+        bool name;
+        bool library;
+        bool module;
+        bool unit;
+    } format;
+} Dark_Logger_Settings;
 
-#endif // !defined(___DARK___FILE_HELPER_H)
+size_t dark_logger_struct_size(void);
+
+void* dark_logger_new(Dark_Logger_Settings settings, const char* name, void* stream, void* mutex);
+void dark_logger_delete(void* logger);
+
+void dark_logger_log(void* logger, Dark_Log_Level level, const char* cstring);
+void dark_logger_logf(void* logger, Dark_Log_Level level, const char* format, ...);
+void dark_logger_logv(void* logger, Dark_Log_Level level, const char* format, ...);
+
+const char* dark_logger_level_name(Dark_Log_Level level);
+const char* dark_logger_level_color(Dark_Log_Level level);
+
+#endif // !defined(___DARK___LOGGER_H)

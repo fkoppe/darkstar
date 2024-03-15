@@ -46,6 +46,11 @@ typedef struct Dark_Ostream
     } std;
 } Dark_Ostream;
 
+size_t dark_ostream_struct_size(void)
+{
+    return sizeof(Dark_Ostream);
+}
+
 void* dark_ostream_new(const Dark_Stream_Setting settings_)
 {
     DARK_ASSERT_MSG(!(0 == settings_.buffer_size) || !settings_.force_size_is, DARK_ERROR_LOGIC, "can not force size to 0");

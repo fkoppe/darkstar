@@ -25,6 +25,8 @@
 
 #include <dark/core/essential.h>
 
+size_t dark_thread_struct_size(void);
+
 void* dark_thread_new(void (* function), void* argument);
 void dark_thread_delete(void* thread);
 

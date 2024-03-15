@@ -31,7 +31,7 @@
 
 size_t dark_string_struct_size(void)
 {
-    return dark_vector_struct_size();
+    return sizeof(Dark_Vector_Struct);
 }
 
 void dark_string_create_v(void* const string_, const Dark_Growth growth_, const char* const format_, va_list arguments_)
@@ -92,21 +92,21 @@ void dark_string_create_f(void* const string_, const Dark_Growth growth_, const 
     dark_vector_push_back(vector, (void*)&EOS);
 }
 
-void dark_string_create_cbuffer(void* const string_, const Dark_Growth growth_, const size_t byte_, const char* const source_)
+void dark_string_create_cbuffer(void* const string_, const Dark_Growth growth_, const size_t count_, const char* const source_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
     DARK_ASSERT(growth_.min <= growth_.max || 0 == growth_.max, DARK_ERROR_GROWTH);
     DARK_ASSERT(growth_.factor || growth_.min, DARK_ERROR_GROWTH);
-    //byte_
+    //count_
     DARK_ASSERT(NULL != source_, DARK_ERROR_NULL);
 
     void* const vector = string_;
 
-    dark_vector_create_capacity(vector, growth_, sizeof(char), byte_ + 1);
+    dark_vector_create_capacity(vector, growth_, sizeof(char), count_ + 1);
 
-    DARK_ASSERT(byte_ <= DARK_CONTAINER_SIZE_MAX, DARK_ERROR_OVERFLOW);
+    DARK_ASSERT(count_ <= DARK_CONTAINER_SIZE_MAX, DARK_ERROR_OVERFLOW);
 
-    dark_vector_push(vector, 0, byte_, source_);
+    dark_vector_push(vector, 0, count_, source_);
 
     const char EOS = '\0';
     dark_vector_push_back(vector, (void*)&EOS);
@@ -183,7 +183,7 @@ void* dark_string_new_v(const Dark_Growth growth_, const char* const format_, va
     DARK_ASSERT(NULL != format_, DARK_ERROR_NULL);
     //arguments_
 
-    void* vector = malloc(dark_vector_struct_size());
+    void* vector = malloc(sizeof(Dark_Vector_Struct));
     DARK_ASSERT(NULL != vector, DARK_ERROR_ALLOCATION);
 
     dark_string_create_v(vector, growth_, format_, arguments_);
@@ -197,7 +197,7 @@ void* dark_string_new_f(const Dark_Growth growth_, const char* const format_, ..
     DARK_ASSERT(growth_.factor || growth_.min, DARK_ERROR_GROWTH);
     DARK_ASSERT(NULL != format_, DARK_ERROR_NULL);
 
-    void* vector = malloc(dark_vector_struct_size());
+    void* vector = malloc(sizeof(Dark_Vector_Struct));
     DARK_ASSERT(NULL != vector, DARK_ERROR_ALLOCATION);
 
     va_list args;
@@ -208,17 +208,17 @@ void* dark_string_new_f(const Dark_Growth growth_, const char* const format_, ..
     return vector;
 }
 
-void* dark_string_new_cbuffer(const Dark_Growth growth_, const size_t byte_, const char* const source_)
+void* dark_string_new_cbuffer(const Dark_Growth growth_, const size_t count_, const char* const source_)
 {
     DARK_ASSERT(growth_.min <= growth_.max || 0 == growth_.max, DARK_ERROR_GROWTH);
     DARK_ASSERT(growth_.factor || growth_.min, DARK_ERROR_GROWTH);
-    //byte_
+    //count_
     DARK_ASSERT(NULL != source_, DARK_ERROR_NULL);
 
-    void* vector = malloc(dark_vector_struct_size());
+    void* vector = malloc(sizeof(Dark_Vector_Struct));
     DARK_ASSERT(NULL != vector, DARK_ERROR_ALLOCATION);
 
-    dark_string_create_cbuffer(vector, growth_, byte_, source_);
+    dark_string_create_cbuffer(vector, growth_, count_, source_);
 
     return vector;
 }
@@ -229,7 +229,7 @@ void* dark_string_new_char(const Dark_Growth growth_, const char character_)
     DARK_ASSERT(growth_.factor || growth_.min, DARK_ERROR_GROWTH);
     //character_
 
-    void* vector = malloc(dark_vector_struct_size());
+    void* vector = malloc(sizeof(Dark_Vector_Struct));
     DARK_ASSERT(NULL != vector, DARK_ERROR_ALLOCATION);
 
     dark_string_create_char(vector, growth_, character_);
@@ -243,7 +243,7 @@ void* dark_string_new_size(const Dark_Growth growth_, const size_t capacity_, co
     DARK_ASSERT(growth_.factor || growth_.min, DARK_ERROR_GROWTH);
     DARK_ASSERT(capacity_ >= size_, DARK_ERROR_VALUE);
 
-    void* vector = malloc(dark_vector_struct_size());
+    void* vector = malloc(sizeof(Dark_Vector_Struct));
     DARK_ASSERT(NULL != vector, DARK_ERROR_ALLOCATION);
 
     dark_string_create_size(vector, growth_, capacity_, size_);
@@ -265,7 +265,7 @@ void* dark_string_new(const Dark_Growth growth_)
     DARK_ASSERT(growth_.min <= growth_.max || 0 == growth_.max, DARK_ERROR_GROWTH);
     DARK_ASSERT(growth_.factor || growth_.min, DARK_ERROR_GROWTH);
 
-    void* vector = malloc(dark_vector_struct_size());
+    void* vector = malloc(sizeof(Dark_Vector_Struct));
     DARK_ASSERT(NULL != vector, DARK_ERROR_ALLOCATION);
 
     dark_string_create(vector, growth_);
@@ -313,7 +313,7 @@ char dark_string_back(void* const string_)
     return dark_string_at(vector, dark_string_size(vector) - 1);
 }
 
-char* dark_string_cbuffer(void* const string_)
+char* dark_string_cbuffer_terminated(void* const string_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
 
@@ -322,7 +322,7 @@ char* dark_string_cbuffer(void* const string_)
     return DARK_VECTOR_DATA(vector, char);
 }
 
-char* dark_string_substr(void* const string_, const size_t index_)
+char* dark_string_substr_terminated(void* const string_, const size_t index_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
 
@@ -398,19 +398,19 @@ void dark_string_push_f(void* const string_, const size_t index_, const char* co
     DARK_VECTOR_AT(vector, index_ + additional, char) = overwritten;
 }
 
-void dark_string_push_cbuffer(void* const string_, const size_t index_, const size_t byte_, const char* const source_)
+void dark_string_push_cbuffer(void* const string_, const size_t index_, const size_t count_, const char* const source_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
     //index_!
-    //byte_
+    //count_
     DARK_ASSERT(NULL != source_, DARK_ERROR_NULL);
 
     void* const vector = string_;
 
     DARK_ASSERT(index_ <= dark_string_size(vector), DARK_ERROR_CONTAINER_INDEX);
-    DARK_ASSERT(dark_string_size(vector) <= DARK_CONTAINER_SIZE_MAX - byte_, DARK_ERROR_OVERFLOW);
+    DARK_ASSERT(dark_string_size(vector) <= DARK_CONTAINER_SIZE_MAX - count_, DARK_ERROR_OVERFLOW);
 
-    dark_vector_push(vector, index_, byte_, source_);
+    dark_vector_push(vector, index_, count_, source_);
 }
 
 void dark_string_insert(void* const string_, const size_t index_, const char character_)
@@ -511,18 +511,18 @@ void dark_string_append_f(void* const string_, const char* const format_, ...)
     va_end(copy);
 }
 
-void dark_string_append_cbuffer(void* const string_, const size_t byte_, const char* const source_)
+void dark_string_append_cbuffer(void* const string_, const size_t count_, const char* const source_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
     //index_!
-    //byte_
+    //count_
     DARK_ASSERT(NULL != source_, DARK_ERROR_NULL);
 
     void* const vector = string_;
 
-    DARK_ASSERT(dark_string_size(vector) <= DARK_CONTAINER_SIZE_MAX - byte_, DARK_ERROR_OVERFLOW);
+    DARK_ASSERT(dark_string_size(vector) <= DARK_CONTAINER_SIZE_MAX - count_, DARK_ERROR_OVERFLOW);
 
-    dark_vector_push(vector, dark_string_size(string_) - 1, byte_, source_);
+    dark_vector_push(vector, dark_string_size(string_) - 1, count_, source_);
 }
 
 void dark_string_prepend_v(void* const string_, const char* const format_, va_list arguments_)
@@ -586,18 +586,18 @@ void dark_string_prepend_f(void* const string_, const char* const format_, ...)
     DARK_VECTOR_AT(vector, additional, char) = overwritten;
 }
 
-void dark_string_prepend_cbuffer(void* const string_, const size_t byte_, const char* const source_)
+void dark_string_prepend_cbuffer(void* const string_, const size_t count_, const char* const source_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
     //index_!
-    //byte_
+    //count_
     DARK_ASSERT(NULL != source_, DARK_ERROR_NULL);
 
     void* const vector = string_;
 
-    DARK_ASSERT(dark_string_size(vector) <= DARK_CONTAINER_SIZE_MAX - byte_, DARK_ERROR_OVERFLOW);
+    DARK_ASSERT(dark_string_size(vector) <= DARK_CONTAINER_SIZE_MAX - count_, DARK_ERROR_OVERFLOW);
 
-    dark_vector_push(vector, 0, byte_, source_);
+    dark_vector_push(vector, 0, count_, source_);
 }
 
 void dark_string_pop(void* const string_, const size_t index_, const size_t count_)

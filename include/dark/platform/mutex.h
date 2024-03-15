@@ -25,6 +25,8 @@
 
 #include <dark/core/essential.h>
 
+size_t dark_mutex_struct_size(void);
+
 void* dark_mutex_new(void);
 void dark_mutex_delete(void* mutex);
 

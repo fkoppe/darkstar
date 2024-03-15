@@ -42,6 +42,6 @@ typedef struct Dark_Growth
 static const Dark_Growth DARK_GROWTH_STANDARD = { 0.5f, 1, 0 };
 static const Dark_Growth DARK_GROWTH_QUADRATIC = { 1.0f, 1, 0 };
 
-static const Dark_Error DARK_ERROR_GROWTH = { &DARK_ERROR_LOGIC, "growth", "unable to grow/shrink" };
+static const Dark_Error DARK_ERROR_GROWTH = { &DARK_ERROR_LOGIC, "growth", "invalid growth" };
 
 #endif // !defined(___DARK___GROWTH_H)

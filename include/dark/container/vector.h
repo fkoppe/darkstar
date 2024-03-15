@@ -23,6 +23,7 @@
 #if !defined(___DARK___VECTOR_H)
 #define ___DARK___VECTOR_H
 
+#include <dark/container/array.h>
 #include <dark/container/growth.h>
 #include <dark/core/essential.h>
 
@@ -37,6 +38,12 @@
 
 #define DARK_VECTOR_DATA(vector, type) \
 ((type*)dark_vector_data((vector)))
+
+typedef struct Dark_Vector_Struct
+{
+    Dark_Array_Struct array;
+    Dark_Growth growth;
+} Dark_Vector_Struct;
 
 size_t dark_vector_struct_size(void);
 
@@ -56,17 +63,22 @@ void* dark_vector_back(void* vector);
 void* dark_vector_data(void* vector);
 
 void* dark_vector_emplace(void* vector, size_t index, size_t count);
+//TODO void* dark_vector_emplace_front(void* vector, size_t index, size_t count);
+//TODO void* dark_vector_emplace_back(void* vector, size_t index, size_t count);
 
 void dark_vector_push(void* vector, size_t index, size_t count, const void* source);
 void dark_vector_insert(void* vector, size_t index, const void* element);
 void dark_vector_push_front(void* vector, const void* element);
+//TODO void dark_vector_push_front_c(void* vector, const void* element);
 void dark_vector_push_back(void* vector, const void* element);
 void dark_vector_push_back_c(void* vector, size_t count, const void* source);
 
 void dark_vector_pop(void* vector, size_t index, size_t count);
 void dark_vector_erase(void* vector, size_t index);
 void dark_vector_pop_front(void* vector);
+//TODO void dark_vector_pop_front_c(void* vector);
 void dark_vector_pop_back(void* vector);
+//TODO void dark_vector_pop_back_c(void* vector);
 
 size_t dark_vector_capacity(void* vector);
 void dark_vector_reserve(void* vector, size_t capacity);

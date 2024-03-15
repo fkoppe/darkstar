@@ -28,7 +28,7 @@
 #undef DARK_UNIT
 #define DARK_UNIT "compare"
 
-int dark_compare_i8(const int8_t* const element_, const int8_t* const other_)
+int8_t dark_compare_i8(const int8_t* const element_, const int8_t* const other_)
 {
     DARK_ASSERT(NULL != element_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != other_, DARK_ERROR_NULL);
@@ -47,7 +47,7 @@ int dark_compare_i8(const int8_t* const element_, const int8_t* const other_)
     }
 }
 
-int dark_compare_i16(const int16_t* const element_, const int16_t* const other_)
+int8_t dark_compare_i16(const int16_t* const element_, const int16_t* const other_)
 {
     DARK_ASSERT(NULL != element_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != other_, DARK_ERROR_NULL);
@@ -66,7 +66,7 @@ int dark_compare_i16(const int16_t* const element_, const int16_t* const other_)
     }
 }
 
-int dark_compare_i32(const int32_t* const element_, const int32_t* const other_)
+int8_t dark_compare_i32(const int32_t* const element_, const int32_t* const other_)
 {
     DARK_ASSERT(NULL != element_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != other_, DARK_ERROR_NULL);
@@ -85,7 +85,7 @@ int dark_compare_i32(const int32_t* const element_, const int32_t* const other_)
     }
 }
 
-int dark_compare_i64(const int64_t* const element_, const int64_t* const other_)
+int8_t dark_compare_i64(const int64_t* const element_, const int64_t* const other_)
 {
     DARK_ASSERT(NULL != element_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != other_, DARK_ERROR_NULL);
@@ -104,7 +104,7 @@ int dark_compare_i64(const int64_t* const element_, const int64_t* const other_)
     }
 }
 
-int dark_compare_u8(const uint8_t* const element_, const uint8_t* const other_)
+int8_t dark_compare_u8(const uint8_t* const element_, const uint8_t* const other_)
 {
     DARK_ASSERT(NULL != element_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != other_, DARK_ERROR_NULL);
@@ -123,7 +123,7 @@ int dark_compare_u8(const uint8_t* const element_, const uint8_t* const other_)
     }
 }
 
-int dark_compare_u16(const uint16_t* const element_, const uint16_t* const other_)
+int8_t dark_compare_u16(const uint16_t* const element_, const uint16_t* const other_)
 {
     DARK_ASSERT(NULL != element_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != other_, DARK_ERROR_NULL);
@@ -142,7 +142,7 @@ int dark_compare_u16(const uint16_t* const element_, const uint16_t* const other
     }
 }
 
-int dark_compare_u32(const uint32_t* const element_, const uint32_t* const other_)
+int8_t dark_compare_u32(const uint32_t* const element_, const uint32_t* const other_)
 {
     DARK_ASSERT(NULL != element_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != other_, DARK_ERROR_NULL);
@@ -161,7 +161,7 @@ int dark_compare_u32(const uint32_t* const element_, const uint32_t* const other
     }
 }
 
-int dark_compare_u64(const uint64_t* const element_, const uint64_t* const other_)
+int8_t dark_compare_u64(const uint64_t* const element_, const uint64_t* const other_)
 {
     DARK_ASSERT(NULL != element_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != other_, DARK_ERROR_NULL);
@@ -180,7 +180,7 @@ int dark_compare_u64(const uint64_t* const element_, const uint64_t* const other
     }
 }
 
-int dark_compare_f(const float* const element_, const float* const other_)
+int8_t dark_compare_f(const float* const element_, const float* const other_)
 {
     DARK_ASSERT(NULL != element_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != other_, DARK_ERROR_NULL);
@@ -199,7 +199,7 @@ int dark_compare_f(const float* const element_, const float* const other_)
     }
 }
 
-int dark_compare_d(const double* const element_, const double* const other_)
+int8_t dark_compare_d(const double* const element_, const double* const other_)
 {
     DARK_ASSERT(NULL != element_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != other_, DARK_ERROR_NULL);

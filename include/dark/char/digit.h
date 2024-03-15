@@ -49,10 +49,10 @@ size_t dark_digit_count_i16(int16_t integer);
 size_t dark_digit_count_i32(int32_t integer);
 size_t dark_digit_count_i64(int64_t integer);
 
-void dark_digit_to_char_arr_u(uint64_t integer, size_t count, char* destination);
-void dark_digit_to_char_arr_u_terminated(uint64_t integer, size_t count, char* destination);
+void dark_digit_to_cbuffer_u(uint64_t integer, size_t count, char* destination);
+void dark_digit_to_cbuffer_u_terminated(uint64_t integer, size_t count, char* destination);
 
-void dark_digit_to_char_arr_i(int64_t integer, size_t count, char* destination);
-void dark_digit_to_char_arr_i_terminated(int64_t integer, size_t count, char* destination);
+void dark_digit_to_cbuffer_i(int64_t integer, size_t count, char* destination);
+void dark_digit_to_cbuffer_i_terminated(int64_t integer, size_t count, char* destination);
 
 #endif // !defined(___DARK___DIGIT_H)

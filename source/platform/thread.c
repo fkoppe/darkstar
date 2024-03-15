@@ -58,6 +58,11 @@ typedef struct DARK_Thread
 #endif // defined(___DARK_UNIX)
 } DARK_Thread;
 
+size_t dark_thread_struct_size(void)
+{
+    return sizeof(DARK_Thread);
+}
+
 void* dark_thread_new(void (* const function_), void* const argument_)
 {
     DARK_ASSERT(NULL != function_, DARK_ERROR_NULL);

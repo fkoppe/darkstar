@@ -25,6 +25,29 @@
 
 #include <dark/core/essential.h>
 
+#if !defined(___DARK_CONSOLE_NOCOLOR)
+static const char* const DARK_CONSOLE_COLOR_FG_RED = "";
+static const char* const DARK_CONSOLE_COLOR_FG_GREEN = "";
+static const char* const DARK_CONSOLE_COLOR_FG_YELLOW = "";
+static const char* const DARK_CONSOLE_COLOR_FG_BLUE = "";
+static const char* const DARK_CONSOLE_COLOR_FG_PURPLE = "";
+static const char* const DARK_CONSOLE_COLOR_FG_CYAN = "";
+
+static const char* const DARK_CONSOLE_COLOR_BG_RED = "";
+static const char* const DARK_CONSOLE_COLOR_BG_GREEN = "";
+static const char* const DARK_CONSOLE_COLOR_BG_YELLOW = "";
+static const char* const DARK_CONSOLE_COLOR_BG_BLUE = "";
+static const char* const DARK_CONSOLE_COLOR_BG_PURPLE = "";
+static const char* const DARK_CONSOLE_COLOR_BG_CYAN = "";
+
+static const char* const DARK_CONSOLE_COLOR_EFG_ORANGE = "";
+static const char* const DARK_CONSOLE_COLOR_EFG_GREEN = "";
+static const char* const DARK_CONSOLE_COLOR_EFG_BLUE = "";
+
+static const char* const DARK_CONSOLE_COLOR_EBG_RED = "";
+
+static const char* const DARK_CONSOLE_COLOR_RESET = "";
+#else
 static const char* const DARK_CONSOLE_COLOR_FG_RED = "\033[31m";
 static const char* const DARK_CONSOLE_COLOR_FG_GREEN = "\033[32m";
 static const char* const DARK_CONSOLE_COLOR_FG_YELLOW = "\033[33m";
@@ -46,6 +69,7 @@ static const char* const DARK_CONSOLE_COLOR_EFG_BLUE = "\033[38;5;159m";
 static const char* const DARK_CONSOLE_COLOR_EBG_RED = "\033[48;5;160m";
 
 static const char* const DARK_CONSOLE_COLOR_RESET = "\033[0m";
+#endif // !defined(___DARK_CONSOLE_NOCOLOR)
 
 void dark_console_hide(void);
 void dark_console_show(void);

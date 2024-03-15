@@ -247,7 +247,7 @@ size_t dark_digit_count_i64(int64_t integer_)
     return count;
 }
 
-void dark_digit_to_char_arr_u(uint64_t integer_, const size_t count_, char* const destination_)
+void dark_digit_to_cbuffer_u(uint64_t integer_, const size_t count_, char* const destination_)
 {
     //integer_
     //count_
@@ -268,33 +268,33 @@ void dark_digit_to_char_arr_u(uint64_t integer_, const size_t count_, char* cons
     }
 }
 
-void dark_digit_to_char_arr_u_terminated(const uint64_t integer_, const size_t count_, char* const destination_)
+void dark_digit_to_cbuffer_u_terminated(const uint64_t integer_, const size_t count_, char* const destination_)
 {
     //integer_
     //count_
     DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
 
-    dark_digit_to_char_arr_u(integer_, count_, destination_);
+    dark_digit_to_cbuffer_u(integer_, count_, destination_);
 
     destination_[count_] = '\0';
 }
 
-void dark_digit_to_char_arr_i(const int64_t integer_, const size_t count_, char* const destination_)
+void dark_digit_to_cbuffer_i(const int64_t integer_, const size_t count_, char* const destination_)
 {
     //integer_
     //count_
     DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
 
-    dark_digit_to_char_arr_u(dark_abs_i64(integer_), count_, destination_);
+    dark_digit_to_cbuffer_u(dark_abs_i64(integer_), count_, destination_);
 }
 
-void dark_digit_to_char_arr_i_terminated(const int64_t integer_, const size_t count_, char* const destination_)
+void dark_digit_to_cbuffer_i_terminated(const int64_t integer_, const size_t count_, char* const destination_)
 {
     //integer_
     //count_
     DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
 
-    dark_digit_to_char_arr_i(integer_, count_, destination_);
+    dark_digit_to_cbuffer_i(integer_, count_, destination_);
 
     destination_[count_] = '\0';
 }

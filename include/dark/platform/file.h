@@ -25,8 +25,6 @@
 
 #include <dark/core/essential.h>
 
-#define DARK_FILE_MODIFIER_SIZE 4
-
 typedef enum Dark_File_Mode
 {
     DARK_FILE_MODE_READ,
@@ -42,6 +40,8 @@ typedef enum Dark_File_Flag
     DARK_FILE_FLAG_BINARY   = 1 << 1,
     ___DARK_FILE_FLAG_MAX,
 } Dark_File_Flag;
+
+//TODO errors
 
 size_t dark_file_struct_size(void);
 
