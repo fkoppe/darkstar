@@ -45,7 +45,7 @@ void dark_string_create_v(void* const string_, const Dark_Growth growth_, const 
     va_list copy;
     va_copy(copy, arguments_);
 
-    const size_t size = dark_cbuffer_vsnprintf(NULL, 0, format_, arguments_);
+    const size_t size = dark_cbuffer_vsnprintf(0, NULL, format_, arguments_);
 
     DARK_ASSERT(size <= DARK_CONTAINER_SIZE_MAX, DARK_ERROR_OVERFLOW);
 
@@ -55,7 +55,7 @@ void dark_string_create_v(void* const string_, const Dark_Growth growth_, const 
 
     char* const destination = dark_vector_emplace(vector, 0, size);
 
-    dark_cbuffer_vsnprintf(destination, size + 1, format_, copy);
+    dark_cbuffer_vsnprintf(size + 1, destination, format_, copy);
     va_end(copy);
 
     const char EOS = '\0';
@@ -74,7 +74,7 @@ void dark_string_create_f(void* const string_, const Dark_Growth growth_, const 
     va_start(args, format_);
     va_copy(copy, args);
 
-    const size_t size = dark_cbuffer_vsnprintf(NULL, 0, format_, args);
+    const size_t size = dark_cbuffer_vsnprintf(0, NULL, format_, args);
     va_end(args);
 
     DARK_ASSERT(size <= DARK_CONTAINER_SIZE_MAX, DARK_ERROR_OVERFLOW);
@@ -85,7 +85,7 @@ void dark_string_create_f(void* const string_, const Dark_Growth growth_, const 
 
     char* const destination = dark_vector_emplace(vector, 0, size);
 
-    dark_cbuffer_vsnprintf(destination, size + 1, format_, args);
+    dark_cbuffer_vsnprintf(size + 1, destination, format_, args);
     va_end(copy);
 
     const char EOS = '\0';
@@ -342,7 +342,7 @@ void dark_string_push_v(void* const string_, const size_t index_, const char* co
 
     void* const vector = string_;
 
-    const size_t additional = dark_cbuffer_vsnprintf(NULL, 0, format_, arguments_);
+    const size_t additional = dark_cbuffer_vsnprintf(0, NULL, format_, arguments_);
 
     if(0 == additional)
     {
@@ -358,7 +358,7 @@ void dark_string_push_v(void* const string_, const size_t index_, const char* co
 
     char* const destination = dark_vector_emplace(vector, index_, additional);
 
-    dark_cbuffer_vsnprintf(destination, additional + 1, format_, arguments_);
+    dark_cbuffer_vsnprintf(additional + 1, destination, format_, arguments_);
 
     DARK_VECTOR_AT(vector, index_ + additional, char) = overwritten;
 }
@@ -372,7 +372,7 @@ void dark_string_push_f(void* const string_, const size_t index_, const char* co
     va_list args;
 
     va_start(args, format_);
-    const size_t additional = dark_cbuffer_vsnprintf(NULL, 0, format_, args);
+    const size_t additional = dark_cbuffer_vsnprintf(0, NULL, format_, args);
     va_end(args);
 
     if(0 == additional)
@@ -392,7 +392,7 @@ void dark_string_push_f(void* const string_, const size_t index_, const char* co
     char* const destination = dark_vector_emplace(vector, index_, additional);
 
     va_start(args, format_);
-    dark_cbuffer_vsnprintf(destination, additional + 1, format_, args);
+    dark_cbuffer_vsnprintf(additional + 1, destination, format_, args);
     va_end(args);
 
     DARK_VECTOR_AT(vector, index_ + additional, char) = overwritten;
@@ -462,7 +462,7 @@ void dark_string_append_v(void* const string_, const char* const format_, va_lis
     va_list copy;
     va_copy(copy, arguments_);
 
-    const size_t additional = dark_cbuffer_vsnprintf(NULL, 0, format_, arguments_);
+    const size_t additional = dark_cbuffer_vsnprintf(0, NULL, format_, arguments_);
 
     if(0 == additional)
     {
@@ -477,7 +477,7 @@ void dark_string_append_v(void* const string_, const char* const format_, va_lis
 
     char* const destination = dark_vector_emplace(vector, dark_string_size(string_) - 1, additional + 1);
 
-    dark_cbuffer_vsnprintf(destination, additional + 1, format_, copy);
+    dark_cbuffer_vsnprintf(additional + 1, destination, format_, copy);
     va_end(copy);
 }
 
@@ -491,7 +491,7 @@ void dark_string_append_f(void* const string_, const char* const format_, ...)
     va_start(args, format_);
     va_copy(copy, args);
 
-    const size_t additional = dark_cbuffer_vsnprintf(NULL, 0, format_, args);
+    const size_t additional = dark_cbuffer_vsnprintf(0, NULL, format_, args);
     va_end(args);
 
     if(0 == additional)
@@ -507,7 +507,7 @@ void dark_string_append_f(void* const string_, const char* const format_, ...)
 
     char* const destination = dark_vector_emplace(vector, dark_string_size(string_), additional);
 
-    dark_cbuffer_vsnprintf(destination, additional + 1, format_, copy);
+    dark_cbuffer_vsnprintf(additional + 1, destination, format_, copy);
     va_end(copy);
 }
 
@@ -531,7 +531,7 @@ void dark_string_prepend_v(void* const string_, const char* const format_, va_li
     DARK_ASSERT(NULL != format_, DARK_ERROR_NULL);
     //arguments_
 
-    const size_t additional = dark_cbuffer_vsnprintf(NULL, 0, format_, arguments_);
+    const size_t additional = dark_cbuffer_vsnprintf(0, NULL, format_, arguments_);
 
     if(0 == additional)
     {
@@ -548,7 +548,7 @@ void dark_string_prepend_v(void* const string_, const char* const format_, va_li
 
     char* const destination = dark_vector_emplace(vector, 0, additional);
 
-    dark_cbuffer_vsnprintf(destination, additional + 1, format_, arguments_);
+    dark_cbuffer_vsnprintf(additional + 1, destination, format_, arguments_);
 
     DARK_VECTOR_AT(vector, additional, char) = overwritten;
 }
@@ -561,7 +561,7 @@ void dark_string_prepend_f(void* const string_, const char* const format_, ...)
     va_list args;
 
     va_start(args, format_);
-    const size_t additional = dark_cbuffer_vsnprintf(NULL, 0, format_, args);
+    const size_t additional = dark_cbuffer_vsnprintf(0, NULL, format_, args);
     va_end(args);
 
     if(0 == additional)
@@ -580,7 +580,7 @@ void dark_string_prepend_f(void* const string_, const char* const format_, ...)
     char* const destination = dark_vector_emplace(vector, 0, additional);
 
     va_start(args, format_);
-    dark_cbuffer_vsnprintf(destination, additional + 1, format_, args);
+    dark_cbuffer_vsnprintf(additional + 1, destination, format_, args);
     va_end(args);
 
     DARK_VECTOR_AT(vector, additional, char) = overwritten;

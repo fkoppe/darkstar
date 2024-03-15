@@ -60,7 +60,7 @@ void dark_test(const char* const func_, const int64_t line_, const bool cond_, c
         return;
     }
 
-    fprintf(stderr, "\n\n-------------------------TEST-------------------------\ntest#%zu failed - exit has been called\n\nname:\t%s\n\ncond:\t%s was false\n\nfunc:\t%s\nline:\t%" PRId64 "\n\n", DARK_TEST_NUMBER, DARK_TEST_NAME, conds_, func_, line_);
+    fprintf(stderr, "\n\n-------------------------TEST-------------------------\ntest failed - exit has been called\n\ntest:\t#%zu\nname:\t%s\n\ncond:\t%s was false\n\nfunc:\t%s\nline:\t%" PRId64 "\n\n", DARK_TEST_NUMBER, DARK_TEST_NAME, conds_, func_, line_);
 
     fputs("------------------------------------------------------\n\n\n", stderr);
 
@@ -105,7 +105,7 @@ void dark_test_p(const char* const func_, const int64_t line_, const char* const
         return;
     }
 
-    fprintf(stderr, "\n\n-------------------------TEST-------------------------\ntest#%zu failed - exit has been called\n\nname:\t%s\n\ncond:\t%s %s %s was false\n%s:\t%p\n%s:\t%p\n\nfunc:\t%s\nline:\t%" PRId64 "\n\n", DARK_TEST_NUMBER, DARK_TEST_NAME, as_, op_, bs_, as_, a_, bs_, b_, func_, line_);
+    fprintf(stderr, "\n\n-------------------------TEST-------------------------\ntest failed - exit has been called\n\ntest:\t#%zu\nname:\t%s\n\ncond:\t%s %s %s was false\n%s:\t%p\n%s:\t%p\n\nfunc:\t%s\nline:\t%" PRId64 "\n\n", DARK_TEST_NUMBER, DARK_TEST_NAME, as_, op_, bs_, as_, a_, bs_, b_, func_, line_);
 
     fputs("------------------------------------------------------\n\n\n", stderr);
 
@@ -148,7 +148,7 @@ void dark_test_u(const char* const func_, const int64_t line_, const char* const
         return;
     }
 
-    fprintf(stderr, "\n\n-------------------------TEST-------------------------\ntest#%zu failed - exit has been called\n\nname:\t%s\n\ncond:\t%s %s %s was false\n%s:\t%" PRIu64 "\n%s:\t%" PRIu64 "\n\nfunc:\t%s\nline:\t%" PRId64 "\n\n", DARK_TEST_NUMBER, DARK_TEST_NAME, as_, op_, bs_, as_, a_, bs_, b_, func_, line_);
+    fprintf(stderr, "\n\n-------------------------TEST-------------------------\ntest failed - exit has been called\n\ntest:\t#%zu\nname:\t%s\n\ncond:\t%s %s %s was false\n%s:\t%" PRIu64 "\n%s:\t%" PRIu64 "\n\nfunc:\t%s\nline:\t%" PRId64 "\n\n", DARK_TEST_NUMBER, DARK_TEST_NAME, as_, op_, bs_, as_, a_, bs_, b_, func_, line_);
 
     fputs("------------------------------------------------------\n\n\n", stderr);
 
@@ -191,7 +191,7 @@ void dark_test_i(const char* const func_, const int64_t line_, const char* const
         return;
     }
 
-    fprintf(stderr, "\n\n-------------------------TEST-------------------------\ntest#%zu failed - exit has been called\n\nname:\t%s\n\ncond:\t%s %s %s was false\n%s:\t%" PRId64 "\n%s:\t%" PRId64 "\n\nfunc:\t%s\nline:\t%" PRId64 "\n\n", DARK_TEST_NUMBER, DARK_TEST_NAME, as_, op_, bs_, as_, a_, bs_, b_, func_, line_);
+    fprintf(stderr, "\n\n-------------------------TEST-------------------------\ntest failed - exit has been called\n\ntest:\t#%zu\nname:\t%s\n\ncond:\t%s %s %s was false\n%s:\t%" PRId64 "\n%s:\t%" PRId64 "\n\nfunc:\t%s\nline:\t%" PRId64 "\n\n", DARK_TEST_NUMBER, DARK_TEST_NAME, as_, op_, bs_, as_, a_, bs_, b_, func_, line_);
 
     fputs("------------------------------------------------------\n\n\n", stderr);
 
@@ -234,7 +234,7 @@ void dark_test_f(const char* const func_, const int64_t line_, const char* const
         return;
     }
 
-    fprintf(stderr, "\n\n-------------------------TEST-------------------------\ntest#%zu failed - exit has been called\n\nname:\t%s\n\ncond:\t%s %s %s was false\n%s:\t%f\n%s:\t%f\n\nfunc:\t%s\nline:\t%" PRId64 "\n\n", DARK_TEST_NUMBER, DARK_TEST_NAME, as_, op_, bs_, as_, a_, bs_, b_, func_, line_);
+    fprintf(stderr, "\n\n-------------------------TEST-------------------------\ntest failed - exit has been called\n\ntest:\t#%zu\nname:\t%s\n\ncond:\t%s %s %s was false\n%s:\t%f\n%s:\t%f\n\nfunc:\t%s\nline:\t%" PRId64 "\n\n", DARK_TEST_NUMBER, DARK_TEST_NAME, as_, op_, bs_, as_, a_, bs_, b_, func_, line_);
 
     fputs("------------------------------------------------------\n\n\n", stderr);
 
@@ -277,7 +277,7 @@ void dark_test_d(const char* const func_, const int64_t line_, const char* const
         return;
     }
 
-    fprintf(stderr, "\n\n-------------------------TEST-------------------------\ntest#%zu failed - exit has been called\n\nname:\t%s\n\ncond:\t%s %s %s was false\n%s:\t%lf\n%s:\t%lf\n\nfunc:\t%s\nline:\t%" PRId64 "\n\n", DARK_TEST_NUMBER, DARK_TEST_NAME, as_, op_, bs_, as_, a_, bs_, b_, func_, line_);
+    fprintf(stderr, "\n\n-------------------------TEST-------------------------\ntest failed - exit has been called\n\ntest:\t#%zu\nname:\t%s\n\ncond:\t%s %s %s was false\n%s:\t%lf\n%s:\t%lf\n\nfunc:\t%s\nline:\t%" PRId64 "\n\n", DARK_TEST_NUMBER, DARK_TEST_NAME, as_, op_, bs_, as_, a_, bs_, b_, func_, line_);
 
     fputs("------------------------------------------------------\n\n\n", stderr);
 
@@ -326,7 +326,7 @@ void dark_test_s(const char* const func_, const int64_t line_, const char* const
         return;
     }
 
-    fprintf(stderr, "\n\n-------------------------TEST-------------------------\ntest#%zu failed - exit has been called\n\nname:\t%s\n\ncond:\t%s %s %s was false\n%s:\t%s\n%s:\t%s\n\nfunc:\t%s\nline:\t%" PRId64 "\n\n", DARK_TEST_NUMBER, DARK_TEST_NAME, as_, op_, bs_, as_, a_, bs_, b_, func_, line_);
+    fprintf(stderr, "\n\n-------------------------TEST-------------------------\ntest failed - exit has been called\n\ntest:\t#%zu\nname:\t%s\n\ncond:\t%s %s %s was false\n%s:\t%s\n%s:\t%s\n\nfunc:\t%s\nline:\t%" PRId64 "\n\n", DARK_TEST_NUMBER, DARK_TEST_NAME, as_, op_, bs_, as_, a_, bs_, b_, func_, line_);
 
     fputs("------------------------------------------------------\n\n\n", stderr);
 
@@ -377,7 +377,7 @@ void dark_test_m(const char* const func_, const int64_t line_, const char* const
         return;
     }
 
-    fprintf(stderr, "\n\n-------------------------TEST-------------------------\ntest#%zu failed - exit has been called\n\nname:\t%s\n\ncond:\t%s %s %s was false\n\nfunc:\t%s\nline:\t%" PRId64 "\n\n", DARK_TEST_NUMBER, DARK_TEST_NAME, as_, op_, bs_, func_, line_);
+    fprintf(stderr, "\n\n-------------------------TEST-------------------------\ntest failed - exit has been called\n\ntest:\t#%zu\nname:\t%s\n\ncond:\t%s %s %s was false\n\nfunc:\t%s\nline:\t%" PRId64 "\n\n", DARK_TEST_NUMBER, DARK_TEST_NAME, as_, op_, bs_, func_, line_);
 
     fputs("------------------------------------------------------\n\n\n", stderr);
 

@@ -62,7 +62,7 @@ int main()
     //----------TEST#6----------
     DARK_TEST("digit_count_u16")
     {
-        DARK_TEST_EQ_U(5, dark_digit_count_u16(325));
+        DARK_TEST_EQ_U(3, dark_digit_count_u16(325));
         DARK_TEST_EQ_U(1, dark_digit_count_u16(0));
     }
     //--------------------------
@@ -86,7 +86,7 @@ int main()
     //----------TEST#9----------
     DARK_TEST("digit_count_i8")
     {
-        DARK_TEST_EQ_U(3, dark_digit_count_i8(199));
+        DARK_TEST_EQ_U(3, dark_digit_count_i8(122));
         DARK_TEST_EQ_U(2, dark_digit_count_i8(-12));
         DARK_TEST_EQ_U(1, dark_digit_count_i8(1));
         DARK_TEST_EQ_U(1, dark_digit_count_i8(-1));
@@ -129,7 +129,7 @@ int main()
     DARK_TEST("digit_to_cbuffer_u")
     {
         const char* const cstring = "1234";
-        char cbuffer[DARK_DIGIT_COUNT_MAX_U64]= { 'a' };
+        char cbuffer[DARK_DIGIT_COUNT_MAX_U64]= "aaaaaaaaaaaaaaaaaaaa"; //20
         size_t lenght = 0;
 
         dark_digit_to_cbuffer_u(55435, 5, cbuffer);
@@ -142,7 +142,7 @@ int main()
     DARK_TEST("digit_to_cbuffer_u_terminated")
     {
         const char* const cstring = "1234";
-        char cbuffer[DARK_DIGIT_COUNT_MAX_U64] = { 'a' };
+        char cbuffer[DARK_DIGIT_COUNT_MAX_U64] = "aaaaaaaaaaaaaaaaaaaa"; //20
         size_t lenght = 0;
 
         dark_digit_to_cbuffer_u_terminated(955435, 6, cbuffer);
@@ -156,7 +156,7 @@ int main()
     DARK_TEST("digit_to_cbuffer_i")
     {
         const char* const cstring = "1234";
-        char cbuffer[DARK_DIGIT_COUNT_MAX_I64] = { 'a' };
+        char cbuffer[DARK_DIGIT_COUNT_MAX_I64] = "aaaaaaaaaaaaaaaaaaa"; //19
         size_t lenght = 0;
 
         dark_digit_to_cbuffer_i(-9555, 4, cbuffer);
@@ -169,13 +169,13 @@ int main()
     DARK_TEST("digit_to_cbuffer_i_terminated")
     {
         const char* const cstring = "1234";
-        char cbuffer[DARK_DIGIT_COUNT_MAX_I64] = {0};
+        char cbuffer[DARK_DIGIT_COUNT_MAX_I64] = "aaaaaaaaaaaaaaaaaaa"; //19
         size_t lenght = 0;
 
         dark_digit_to_cbuffer_i_terminated(955435, 6, cbuffer);
 
         DARK_TEST_TRUE(dark_cbuffer_terminated_is(DARK_DIGIT_COUNT_MAX_I64, cbuffer, &lenght));
-        DARK_TEST_EQ_U(6, lenght_4);
+        DARK_TEST_EQ_U(6, lenght);
     }
     //--------------------------
 

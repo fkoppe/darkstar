@@ -1,10 +1,10 @@
 #include <dark/darkstar.h>
 
-void va_helper(char* const buffer, const size_t count, const char* const format, ...)
+void va_helper(const size_t count_, char* const cbuffer_, const char* const format_, ...)
 {
     va_list args;
-    va_start(args, format);
-    const size_t result = dark_cbuffer_vsnprintf(buffer, count, format, args);
+    va_start(args, format_);
+    const size_t result = dark_cbuffer_vsnprintf(count_, cbuffer_, format_, args);
     va_end(args);
 }
 
@@ -16,7 +16,7 @@ int main()
         char cbuffer[16] = "merry christmas";
 
         size_t lenght = 0;
-        DARK_TEST(dark_cbuffer_terminated_is(16, cbuffer, &lenght));
+        DARK_TEST_TRUE(dark_cbuffer_terminated_is(16, cbuffer, &lenght));
 
         //16 - 1 because of '\0' not being counted for lenght
         DARK_TEST_EQ_U(lenght, 16 - 1);
@@ -30,7 +30,8 @@ int main()
         char cbuffer[14 + 1] = {0};
         cbuffer[14] = '\0';
 
-        DARK_TEST_EQ_U(14, dark_cbuffer_snprintf(cbuffer, 0, "hello %s %i", "world", 11));
+        DARK_TEST_EQ_U(14, dark_cbuffer_snprintf(0, NULL, "hello %s %i", "world", 11));
+        dark_cbuffer_snprintf(14 + 1, cbuffer, "hello %s %i", "world", 11);
 
         DARK_TEST_EQ_S(cbuffer, "hello world 11", 15);
     }
@@ -43,7 +44,7 @@ int main()
         char cbuffer[14+1];
         cbuffer[14] = '\0';
 
-        va_helper(cbuffer, 14+1, "hello %s %i", "world", 11);
+        va_helper(14+1, cbuffer, "hello %s %i", "world", 11);
 
         DARK_TEST_EQ_S(cbuffer, "hello world 11", 15);
     }
