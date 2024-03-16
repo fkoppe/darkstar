@@ -85,7 +85,7 @@ void dark_string_create_f(void* const string_, const Dark_Growth growth_, const 
 
     char* const destination = dark_vector_emplace(vector, 0, size);
 
-    dark_cbuffer_vsnprintf(size + 1, destination, format_, args);
+    dark_cbuffer_vsnprintf(size + 1, destination, format_, copy);
     va_end(copy);
 
     const char EOS = '\0';
@@ -138,7 +138,7 @@ void dark_string_create_size(void* const string_, const Dark_Growth growth_, con
 
     void* const vector = string_;
 
-    dark_vector_create_capacity(vector, growth_, sizeof(char), 1);
+    dark_vector_create_size(vector, growth_, sizeof(char), capacity_ + 1, size_);
 
     const char EOS = '\0';
     dark_vector_push_back(vector, (void*)&EOS);

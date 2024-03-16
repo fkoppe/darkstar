@@ -1,10 +1,13 @@
 #include <dark/darkstar.h>
 
-void va_helper(const size_t count_, char* const cbuffer_, const char* const format_, ...)
+void va_helper(const size_t count_, char* const destination_, const char* const format_, ...)
 {
+    DARK_ASSERT((0 == count_) || (NULL != destination_), DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != format_, DARK_ERROR_NULL);
+
     va_list args;
     va_start(args, format_);
-    const size_t result = dark_cbuffer_vsnprintf(count_, cbuffer_, format_, args);
+    const size_t result = dark_cbuffer_vsnprintf(count_, destination_, format_, args);
     va_end(args);
 }
 
@@ -27,7 +30,7 @@ int main()
     DARK_TEST("cbuffer_snprintf")
     {
         //14 + 1 for '\0'
-        char cbuffer[14 + 1] = {0};
+        char cbuffer[14 + 1] = { 0 };
         cbuffer[14] = '\0';
 
         DARK_TEST_EQ_U(14, dark_cbuffer_snprintf(0, NULL, "hello %s %i", "world", 11));
@@ -41,12 +44,26 @@ int main()
     DARK_TEST("cbuffer_vsnprintf")
     {
         //14 + 1 for '\0'
-        char cbuffer[14+1];
+        char cbuffer[14+1] = { 0 };
         cbuffer[14] = '\0';
 
         va_helper(14+1, cbuffer, "hello %s %i", "world", 11);
 
         DARK_TEST_EQ_S(cbuffer, "hello world 11", 15);
+    }
+    //--------------------------
+
+    //----------TEST#4----------
+    DARK_TEST("cbuffer_snprintf negative")
+    {
+        //14 + 1 for '\0'
+        char cbuffer[2 + 1] = {0};
+        cbuffer[2] = '\0';
+
+        DARK_TEST_EQ_U(2, dark_cbuffer_snprintf(0, NULL, "%i", -1));
+        dark_cbuffer_snprintf(2 + 1, cbuffer, "%i", -1);
+
+        DARK_TEST_EQ_S(cbuffer, "-1", 3);
     }
     //--------------------------
 
