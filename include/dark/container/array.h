@@ -84,6 +84,7 @@ size_t dark_array_capacity(void* array);
 void dark_array_reserve_exact(void* array, size_t capacity);
 void dark_array_shrink_to_fit(void* array);
 
+//TODO bool dark_array_empty_is(void* array);
 size_t dark_array_size(void* array);
 void dark_array_resize(void* array, size_t size);
 void dark_array_clear(void* array);
