@@ -81,6 +81,7 @@ dark_test_name_set(name);
 #define DARK_TEST_GE_M(a, b, s) dark_test_m(__func__, __LINE__, ">=", false, true, true, (a), (b), (s), #a, #b)
 
 void dark_test_name_set(const char* name);
+void dark_test_end(void);
 
 void dark_test(const char* func, int64_t line, bool cond, const char* conds);
 void dark_test_p(const char* func, int64_t line, const char* op, bool eq, bool lt, bool nt, const void* a, const void* b, const char* as, const char* bs);

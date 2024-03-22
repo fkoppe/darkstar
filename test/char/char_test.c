@@ -179,5 +179,7 @@ int main()
     }
     //--------------------------
 
+    dark_test_end();
+
     return EXIT_SUCCESS;
 }
