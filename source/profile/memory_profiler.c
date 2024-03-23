@@ -150,6 +150,13 @@ void dark_memory_profiler_print_info_stdout(void)
     //TODO
 }
 
+bool dark_memory_profile_leak_is(void)
+{
+    DARK_ASSERT(MEMORY_PROFILER.initialised_is, DARK_ERROR_NOSTATE);
+
+    return ((dark_memory_profiler_info_all().current.count - dark_memory_profiler_info_own().current.count) != 0) || ((dark_memory_profiler_info_all().current.usage - dark_memory_profiler_info_own().current.usage) != 0);
+}
+
 Dark_Memory_Info dark_memory_profiler_info_all(void)
 {
     DARK_ASSERT(MEMORY_PROFILER.initialised_is, DARK_ERROR_NOSTATE);

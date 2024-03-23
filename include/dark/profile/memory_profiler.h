@@ -70,7 +70,7 @@ void dark_memory_profiler_initialise(Dark_Memory_Profile_Level level, bool asser
 void dark_memory_profiler_shutdown(bool print_error_is);
 
 void dark_memory_profiler_print_info_stdout(void);
-//TODO bool leak_is()
+bool dark_memory_profile_leak_is(void);
 
 Dark_Memory_Info dark_memory_profiler_info_all(void);
 Dark_Memory_Info dark_memory_profiler_info_own(void);
