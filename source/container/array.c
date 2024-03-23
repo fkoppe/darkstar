@@ -370,12 +370,12 @@ void dark_array_pop(void* const array_, const size_t index_, const size_t count_
         return;
     }
 
-    if (index_ + count_ - 1 >= array->size)
+    if (index_ + count_ - 1 >= array->size + count_)
     {
         return;
     }
 
-    memmove(array->data + (array->element_size * index_), array->data + (array->element_size * (index_ + count_)), array->element_size * (array->size - index_ - count_ + 1));
+    memmove(array->data + (array->element_size * index_), array->data + (array->element_size * (index_ + count_)), array->element_size * (array->size - index_));
 }
 
 void dark_array_erase(void* const array_, const size_t index_)

@@ -322,7 +322,7 @@ char* dark_string_cbuffer_terminated(void* const string_)
     return DARK_VECTOR_DATA(vector, char);
 }
 
-char* dark_string_substr_terminated(void* const string_, const size_t index_)
+char* dark_string_substring_terminated(void* const string_, const size_t index_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
 
@@ -342,6 +342,9 @@ void dark_string_push_v(void* const string_, const size_t index_, const char* co
 
     void* const vector = string_;
 
+    va_list copy;
+    va_copy(copy, arguments_);
+
     const size_t additional = dark_cbuffer_vsnprintf(0, NULL, format_, arguments_);
 
     if(0 == additional)
@@ -358,7 +361,9 @@ void dark_string_push_v(void* const string_, const size_t index_, const char* co
 
     char* const destination = dark_vector_emplace(vector, index_, additional);
 
-    dark_cbuffer_vsnprintf(additional + 1, destination, format_, arguments_);
+    dark_cbuffer_vsnprintf(additional + 1, destination, format_, copy);
+
+    va_end(copy);
 
     DARK_VECTOR_AT(vector, index_ + additional, char) = overwritten;
 }
@@ -450,7 +455,7 @@ void dark_string_push_back(void* const string_, const char character_)
 
     DARK_ASSERT(dark_string_size(vector) < DARK_CONTAINER_SIZE_MAX, DARK_ERROR_OVERFLOW);
 
-    dark_string_insert(string_, dark_string_size(string_) - 1, character_);
+    dark_string_insert(string_, dark_string_size(string_), character_);
 }
 
 void dark_string_append_v(void* const string_, const char* const format_, va_list arguments_)
@@ -475,7 +480,7 @@ void dark_string_append_v(void* const string_, const char* const format_, va_lis
 
     dark_vector_reserve(vector, dark_vector_size(vector) + additional);
 
-    char* const destination = dark_vector_emplace(vector, dark_string_size(string_) - 1, additional + 1);
+    char* const destination = dark_vector_emplace(vector, dark_string_size(string_), additional);
 
     dark_cbuffer_vsnprintf(additional + 1, destination, format_, copy);
     va_end(copy);
@@ -522,7 +527,7 @@ void dark_string_append_cbuffer(void* const string_, const size_t count_, const 
 
     DARK_ASSERT(dark_string_size(vector) <= DARK_CONTAINER_SIZE_MAX - count_, DARK_ERROR_OVERFLOW);
 
-    dark_vector_push(vector, dark_string_size(string_) - 1, count_, source_);
+    dark_vector_push(vector, dark_string_size(string_), count_, source_);
 }
 
 void dark_string_prepend_v(void* const string_, const char* const format_, va_list arguments_)
@@ -530,6 +535,9 @@ void dark_string_prepend_v(void* const string_, const char* const format_, va_li
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != format_, DARK_ERROR_NULL);
     //arguments_
+
+    va_list copy;
+    va_copy(copy, arguments_);
 
     const size_t additional = dark_cbuffer_vsnprintf(0, NULL, format_, arguments_);
 
@@ -548,7 +556,8 @@ void dark_string_prepend_v(void* const string_, const char* const format_, va_li
 
     char* const destination = dark_vector_emplace(vector, 0, additional);
 
-    dark_cbuffer_vsnprintf(additional + 1, destination, format_, arguments_);
+    dark_cbuffer_vsnprintf(additional + 1, destination, format_, copy);
+    va_end(copy);
 
     DARK_VECTOR_AT(vector, additional, char) = overwritten;
 }
@@ -632,6 +641,18 @@ void dark_string_erase(void* const string_, const size_t index_)
     dark_string_pop(vector, index_, 1);
 }
 
+void dark_string_pop_front_c(void* const string_, const size_t count_)
+{
+    DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
+    //count_
+
+    void* const vector = string_;
+
+    DARK_ASSERT(dark_string_size(vector) > 0, DARK_ERROR_UNDERFLOW);
+
+    dark_string_pop(vector, 0, count_);
+}
+
 void dark_string_pop_front(void* const string_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
@@ -641,7 +662,19 @@ void dark_string_pop_front(void* const string_)
 
     DARK_ASSERT(dark_string_size(vector) > 0, DARK_ERROR_UNDERFLOW);
 
-    dark_string_pop(vector, 0, 1);
+    dark_string_pop_front_c(vector, 1);
+}
+
+void dark_string_pop_back_c(void* const string_, const size_t count_)
+{
+    DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
+    //count_
+
+    void* const vector = string_;
+
+    DARK_ASSERT(dark_string_size(vector) > 0, DARK_ERROR_UNDERFLOW);
+
+    dark_string_pop(vector, dark_string_size(vector) - count_, count_);
 }
 
 void dark_string_pop_back(void* const string_)
@@ -653,7 +686,7 @@ void dark_string_pop_back(void* const string_)
 
     DARK_ASSERT(dark_string_size(vector) > 0, DARK_ERROR_UNDERFLOW);
 
-    dark_string_pop(vector, dark_string_size(vector) - 1, 1);
+    dark_string_pop_back_c(vector, 1);
 }
 
 size_t dark_string_capacity(void* const string_)
@@ -671,7 +704,7 @@ void dark_string_reserve(void* const string_, const size_t capacity_)
 
     void* const vector = string_;
 
-    dark_vector_reserve(vector, capacity_+1);
+    dark_vector_reserve(vector, capacity_ + 1);
 }
 
 void dark_string_reserve_exact(void* const string_, const size_t capacity_)
@@ -680,7 +713,7 @@ void dark_string_reserve_exact(void* const string_, const size_t capacity_)
 
     void* const vector = string_;
 
-    dark_vector_reserve_exact(vector, capacity_+1);
+    dark_vector_reserve_exact(vector, capacity_ + 1);
 }
 
 void dark_string_shrink_to_fit(void* const string_)
@@ -708,7 +741,7 @@ void dark_string_resize(void* const string_, const size_t size_)
 
     void* const vector = string_;
 
-    dark_vector_resize(vector, size_+1);
+    dark_vector_resize(vector, size_ + 1);
 }
 
 void dark_string_resize_fill(void* const string_, const size_t size_, const char character_)
@@ -719,9 +752,16 @@ void dark_string_resize_fill(void* const string_, const size_t size_, const char
 
     void* const vector = string_;
 
+    if(size_ <= dark_string_size(vector))
+    {
+        dark_string_resize(vector, size_);
+
+        return;
+    }
+
     const uint64_t dif = size_ - dark_string_size(vector);
 
-    dark_vector_resize(vector, size_+1);
+    dark_vector_resize(vector, size_ + 1);
 
     for (size_t i = 0; i < dif; i++)
     {
@@ -736,4 +776,7 @@ void dark_string_clear(void* const string_)
     void* const vector = string_;
 
     dark_vector_clear(vector);
+
+    const char EOS = '\0';
+    dark_vector_push_back(vector, (void*)&EOS);
 }
