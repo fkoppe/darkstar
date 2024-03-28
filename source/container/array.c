@@ -391,6 +391,17 @@ void dark_array_erase(void* const array_, const size_t index_)
     dark_array_pop(array, index_, 1);
 }
 
+void dark_array_pop_front_c(void* const array_, const size_t count_)
+{
+    DARK_ASSERT(NULL != array_, DARK_ERROR_NULL);
+
+    Dark_Array_Struct* const array = array_;
+
+    DARK_ASSERT(array->size >= count_, DARK_ERROR_UNDERFLOW);
+
+    dark_array_pop(array, 0, count_);
+}
+
 void dark_array_pop_front(void* const array_)
 {
     DARK_ASSERT(NULL != array_, DARK_ERROR_NULL);
@@ -399,7 +410,18 @@ void dark_array_pop_front(void* const array_)
 
     DARK_ASSERT(array->size >= 1, DARK_ERROR_UNDERFLOW);
 
-    dark_array_erase(array, 0);
+    dark_array_pop_front_c(array, 1);
+}
+
+void dark_array_back_front_c(void* const array_, const size_t count_)
+{
+    DARK_ASSERT(NULL != array_, DARK_ERROR_NULL);
+
+    Dark_Array_Struct* const array = array_;
+
+    DARK_ASSERT(array->size >= count_, DARK_ERROR_UNDERFLOW);
+
+    dark_array_pop(array, array->size - count_, count_);
 }
 
 void dark_array_pop_back(void* const array_)
@@ -410,7 +432,7 @@ void dark_array_pop_back(void* const array_)
 
     DARK_ASSERT(array->size >= 1, DARK_ERROR_UNDERFLOW);
 
-    dark_array_erase(array, array->size - 1);
+    dark_array_back_front_c(array, 1);
 }
 
 size_t dark_array_capacity(void* const array_)

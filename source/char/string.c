@@ -648,7 +648,7 @@ void dark_string_pop_front_c(void* const string_, const size_t count_)
 
     void* const vector = string_;
 
-    DARK_ASSERT(dark_string_size(vector) > 0, DARK_ERROR_UNDERFLOW);
+    DARK_ASSERT(dark_string_size(vector) >= count_, DARK_ERROR_UNDERFLOW);
 
     dark_string_pop(vector, 0, count_);
 }
@@ -672,7 +672,7 @@ void dark_string_pop_back_c(void* const string_, const size_t count_)
 
     void* const vector = string_;
 
-    DARK_ASSERT(dark_string_size(vector) > 0, DARK_ERROR_UNDERFLOW);
+    DARK_ASSERT(dark_string_size(vector) >= count_, DARK_ERROR_UNDERFLOW);
 
     dark_string_pop(vector, dark_string_size(vector) - count_, count_);
 }

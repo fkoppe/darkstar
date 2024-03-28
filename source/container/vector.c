@@ -186,6 +186,11 @@ void* dark_vector_emplace(void* const vector_, const size_t index_, const size_t
     return dark_array_emplace(&vector->array, index_, count_);
 }
 
+void* dark_vector_emplace_front_c(void* vector, size_t count);
+void* dark_vector_emplace_front(void* vector);
+void* dark_vector_emplace_back_c(void* vector, size_t count);
+void* dark_vector_emplace_back(void* vector);
+
 void dark_vector_push(void* const vector_, const size_t index_, const size_t count_, const void* const source_)
 {
     DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
