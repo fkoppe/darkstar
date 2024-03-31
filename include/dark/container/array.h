@@ -79,7 +79,7 @@ void dark_array_pop(void* array, size_t index, size_t count);
 void dark_array_erase(void* array, size_t index);
 void dark_array_pop_front_c(void* array, size_t count);
 void dark_array_pop_front(void* array);
-void dark_array_back_front_c(void* array, size_t count);
+void dark_array_pop_back_c(void* array, size_t count);
 void dark_array_pop_back(void* array);
 
 size_t dark_array_capacity(void* array);

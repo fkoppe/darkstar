@@ -32,7 +32,7 @@
 uint8_t dark_digit_get_u(uint64_t integer_, const size_t position_)
 {
     //integer_
-    DARK_ASSERT_MSG((integer_ % dark_ppow_u(10, position_)) > 0, DARK_ERROR_VALUE, "leading zero at position");
+    DARK_ASSERT_MSG(dark_digit_count_u64(integer_) > position_, DARK_ERROR_VALUE, "leading zero at position");
 
     integer_ /= dark_ppow_u(10, position_);
 
@@ -42,7 +42,7 @@ uint8_t dark_digit_get_u(uint64_t integer_, const size_t position_)
 uint8_t dark_digit_get_i(const int64_t integer_, const size_t position_)
 {
     //integer_
-    DARK_ASSERT_MSG((integer_ % dark_ppow_u(10, position_)) > 0, DARK_ERROR_VALUE, "leading zero at position");
+    DARK_ASSERT_MSG(dark_digit_count_i64(integer_) > position_, DARK_ERROR_VALUE, "leading zero at position");
 
     return dark_digit_get_u(dark_abs_i64(integer_), position_);
 }

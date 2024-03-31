@@ -133,6 +133,7 @@ void* dark_vector_at(void* const vector_, const size_t index_)
 
     Dark_Vector_Struct* const vector = vector_;
 
+    DARK_ASSERT(vector->array.size > 0, DARK_ERROR_CONTAINER_EMPTY);
     DARK_ASSERT(index_ < vector->array.size, DARK_ERROR_CONTAINER_INDEX);
 
     return dark_array_at(&vector->array, index_);
@@ -144,6 +145,8 @@ void* dark_vector_front(void* const vector_)
 
     Dark_Vector_Struct* const vector = vector_;
 
+    DARK_ASSERT(vector->array.size > 0, DARK_ERROR_CONTAINER_EMPTY);
+
     return dark_array_front(&vector->array);
 }
 
@@ -152,6 +155,8 @@ void* dark_vector_back(void* const vector_)
     DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
 
     Dark_Vector_Struct* const vector = vector_;
+
+    DARK_ASSERT(vector->array.size > 0, DARK_ERROR_CONTAINER_EMPTY);
 
     return dark_array_back(&vector->array);
 }
@@ -162,6 +167,8 @@ void* dark_vector_data(void* const vector_)
 
     Dark_Vector_Struct* const vector = vector_;
 
+    DARK_ASSERT(vector->array.size > 0, DARK_ERROR_CONTAINER_EMPTY);
+
     return dark_array_data(&vector->array);
 }
 
@@ -169,14 +176,9 @@ void* dark_vector_emplace(void* const vector_, const size_t index_, const size_t
 {
     DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
     //index_!
-    //count_!
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
 
     Dark_Vector_Struct* const vector = vector_;
-
-    if (0 == count_)
-    {
-        return NULL;
-    }
 
     DARK_ASSERT(index_ <= vector->array.size, DARK_ERROR_CONTAINER_INDEX);
     DARK_ASSERT(vector->array.size <= DARK_CONTAINER_SIZE_MAX - count_, DARK_ERROR_OVERFLOW);
@@ -195,15 +197,10 @@ void dark_vector_push(void* const vector_, const size_t index_, const size_t cou
 {
     DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
     //index_!
-    //count_!
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != source_, DARK_ERROR_NULL);
 
     Dark_Vector_Struct* const vector = vector_;
-
-    if (0 == count_)
-    {
-        return;
-    }
 
     DARK_ASSERT(index_ <= vector->array.size, DARK_ERROR_CONTAINER_INDEX);
     DARK_ASSERT(vector->array.size <= DARK_CONTAINER_SIZE_MAX - count_, DARK_ERROR_OVERFLOW);
@@ -222,7 +219,7 @@ void dark_vector_insert(void* const vector_, const size_t index_, const void* co
     Dark_Vector_Struct* const vector = vector_;
 
     DARK_ASSERT(index_ <= vector->array.size, DARK_ERROR_CONTAINER_INDEX);
-    DARK_ASSERT(vector->array.size + 1 <= DARK_CONTAINER_SIZE_MAX, DARK_ERROR_OVERFLOW);
+    DARK_ASSERT(vector->array.size < DARK_CONTAINER_SIZE_MAX, DARK_ERROR_OVERFLOW);
 
     dark_vector_push(vector, index_, 1, element_);
 }
@@ -244,7 +241,7 @@ void dark_vector_push_back(void* const vector_, const void* const element_)
 
     Dark_Vector_Struct* const vector = vector_;
 
-    DARK_ASSERT(vector->array.size + 1 <= DARK_CONTAINER_SIZE_MAX, DARK_ERROR_OVERFLOW);
+    DARK_ASSERT(vector->array.size < DARK_CONTAINER_SIZE_MAX, DARK_ERROR_OVERFLOW);
 
     dark_vector_insert(vector, vector->array.size, element_);
 }
@@ -252,15 +249,10 @@ void dark_vector_push_back(void* const vector_, const void* const element_)
 void dark_vector_push_back_c(void* const vector_, const size_t count_, const void* const source_)
 {
     DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
-    //count_!
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != source_, DARK_ERROR_NULL);
 
     Dark_Vector_Struct* const vector = vector_;
-
-    if (0 == count_)
-    {
-        return;
-    }
 
     DARK_ASSERT(vector->array.size <= DARK_CONTAINER_SIZE_MAX - count_, DARK_ERROR_OVERFLOW);
 
@@ -271,14 +263,9 @@ void dark_vector_pop(void* const vector_, const size_t index_, const size_t coun
 {
     DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
     //index_!
-    //count_!
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
 
     Dark_Vector_Struct* const vector = vector_;
-
-    if (0 == count_)
-    {
-        return;
-    }
 
     DARK_ASSERT(vector->array.size >= count_, DARK_ERROR_UNDERFLOW);
     DARK_ASSERT(index_ + count_ <= vector->array.size, DARK_ERROR_VALUE);

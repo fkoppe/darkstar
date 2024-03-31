@@ -30,6 +30,7 @@
 #define DARK_CONTAINER_SIZE_MAX (1024*16)
 #endif // !defined(DARK_CONTAINER_SIZE_MAX)
 
+static const Dark_Error DARK_ERROR_CONTAINER_EMPTY = { &DARK_ERROR_LOGIC, "container_empty", "size has to be >0"};
 static const Dark_Error DARK_ERROR_CONTAINER_INDEX = { &DARK_ERROR_RANGE, "container_index", "index has to be <size"};
 
 #endif // !defined(___DARK___CONTAINER_DATA_H)
