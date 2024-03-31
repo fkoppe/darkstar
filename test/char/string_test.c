@@ -17,7 +17,7 @@ void* va_new_helper(const char* const format_, ...)
 
     va_list args;
     va_start(args, format_);
-    void* result = dark_string_new_v(DARK_GROWTH_STANDARD, format_, args);
+    void* const result = dark_string_new_v(DARK_GROWTH_STANDARD, format_, args);
     va_end(args);
 
     return result;
@@ -177,7 +177,7 @@ int main()
     //----------TEST#9----------
     DARK_TEST("string_new_v/_delete")
     {
-        void* string = va_new_helper("hello %s %i", "from", -123);
+        void* const string = va_new_helper("hello %s %i", "from", -123);
 
         DARK_TEST_EQ_S(dark_string_cbuffer_terminated(string), "hello from -123", 16);
 
@@ -188,7 +188,7 @@ int main()
     //----------TEST#10----------
     DARK_TEST("string_create_f")
     {
-        void* string = dark_string_new_f(DARK_GROWTH_STANDARD, "hello %s %i", "from", -123);
+        void* const string = dark_string_new_f(DARK_GROWTH_STANDARD, "hello %s %i", "from", -123);
 
         DARK_TEST_EQ_S(dark_string_cbuffer_terminated(string), "hello from -123", 16);
 
@@ -199,7 +199,7 @@ int main()
     //----------TEST#11----------
     DARK_TEST("string_create_cbuffer")
     {
-        void* string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 4, "nooo");
+        void* const string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 4, "nooo");
 
         DARK_TEST_EQ_S(dark_string_cbuffer_terminated(string), "nooo", 5);
 
@@ -210,7 +210,7 @@ int main()
     //----------TEST#12----------
     DARK_TEST("string_create_char")
     {
-        void* string = dark_string_new_char(DARK_GROWTH_STANDARD, 'x');
+        void* const string = dark_string_new_char(DARK_GROWTH_STANDARD, 'x');
 
         DARK_TEST_EQ_S(dark_string_cbuffer_terminated(string), "x", 2);
 
@@ -221,7 +221,7 @@ int main()
     //----------TEST#13----------
     DARK_TEST("string_create_size/_destroy")
     {
-        void* string = dark_string_new_size(DARK_GROWTH_STANDARD, 10, 2);
+        void* const string = dark_string_new_size(DARK_GROWTH_STANDARD, 10, 2);
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 10);
         DARK_TEST_EQ_U(dark_string_size(string), 2);
@@ -233,7 +233,7 @@ int main()
     //----------TEST#14----------
     DARK_TEST("string_create_capacity")
     {
-        void* string = dark_string_new_capacity(DARK_GROWTH_STANDARD, 2);
+        void* const string = dark_string_new_capacity(DARK_GROWTH_STANDARD, 2);
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 2);
         DARK_TEST_EQ_U(dark_string_size(string), 0);
@@ -245,7 +245,7 @@ int main()
     //----------TEST#15----------
     DARK_TEST("string_create_capacity")
     {
-        void* string = dark_string_new(DARK_GROWTH_STANDARD);
+        void* const string = dark_string_new(DARK_GROWTH_STANDARD);
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 0);
         DARK_TEST_EQ_U(dark_string_size(string), 0);
@@ -257,7 +257,7 @@ int main()
     //----------TEST#16----------
     DARK_TEST("string_at")
     {
-        void* string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 5, "abcde");
+        void* const string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 5, "abcde");
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 5);
         DARK_TEST_EQ_U(dark_string_size(string), 5);
@@ -275,7 +275,7 @@ int main()
     //----------TEST#17----------
     DARK_TEST("string_front")
     {
-        void* string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 5, "abcde");
+        void* const string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 5, "abcde");
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 5);
         DARK_TEST_EQ_U(dark_string_size(string), 5);
@@ -289,7 +289,7 @@ int main()
     //----------TEST#18----------
     DARK_TEST("string_back")
     {
-        void* string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 5, "abcde");
+        void* const string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 5, "abcde");
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 5);
         DARK_TEST_EQ_U(dark_string_size(string), 5);
@@ -303,7 +303,7 @@ int main()
     //----------TEST#19----------
     DARK_TEST("string_substring")
     {
-        void* string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 3, "xyz");
+        void* const string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 3, "xyz");
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 3);
         DARK_TEST_EQ_U(dark_string_size(string), 3);
@@ -319,7 +319,7 @@ int main()
     //----------TEST#20----------
     DARK_TEST("string_push_v")
     {
-        void* string = dark_string_new_capacity(DARK_GROWTH_STANDARD, 7);
+        void* const string = dark_string_new_capacity(DARK_GROWTH_STANDARD, 7);
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 7);
         DARK_TEST_EQ_U(dark_string_size(string), 0);
@@ -342,7 +342,7 @@ int main()
     //----------TEST#21----------
     DARK_TEST("string_push_f")
     {
-        void* string = dark_string_new_capacity(DARK_GROWTH_STANDARD, 7);
+        void* const string = dark_string_new_capacity(DARK_GROWTH_STANDARD, 7);
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 7);
         DARK_TEST_EQ_U(dark_string_size(string), 0);
@@ -365,7 +365,7 @@ int main()
     //----------TEST#22----------
     DARK_TEST("string_push_cbuffer")
     {
-        void* string = dark_string_new_capacity(DARK_GROWTH_STANDARD, 7);
+        void* const string = dark_string_new_capacity(DARK_GROWTH_STANDARD, 7);
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 7);
         DARK_TEST_EQ_U(dark_string_size(string), 0);
@@ -386,7 +386,7 @@ int main()
     //----------TEST#23----------
     DARK_TEST("string_insert")
     {
-        void* string = dark_string_new_capacity(DARK_GROWTH_STANDARD, 3);
+        void* const string = dark_string_new_capacity(DARK_GROWTH_STANDARD, 3);
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 3);
         DARK_TEST_EQ_U(dark_string_size(string), 0);
@@ -418,7 +418,7 @@ int main()
     //----------TEST#24----------
     DARK_TEST("string_push_front")
     {
-        void* string = dark_string_new_capacity(DARK_GROWTH_STANDARD, 0);
+        void* const string = dark_string_new_capacity(DARK_GROWTH_STANDARD, 0);
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 0);
         DARK_TEST_EQ_U(dark_string_size(string), 0);
@@ -439,7 +439,7 @@ int main()
     //----------TEST#25----------
     DARK_TEST("string_push_back")
     {
-        void* string = dark_string_new_capacity(DARK_GROWTH_STANDARD, 2);
+        void* const string = dark_string_new_capacity(DARK_GROWTH_STANDARD, 2);
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 2);
         DARK_TEST_EQ_U(dark_string_size(string), 0);
@@ -460,7 +460,7 @@ int main()
     //----------TEST#26----------
     DARK_TEST("string_append_v")
     {
-        void* string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 2, "cc");
+        void* const string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 2, "cc");
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 2);
         DARK_TEST_EQ_U(dark_string_size(string), 2);
@@ -479,7 +479,7 @@ int main()
     //----------TEST#27----------
     DARK_TEST("string_append_f")
     {
-        void* string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 2, "cc");
+        void* const string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 2, "cc");
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 2);
         DARK_TEST_EQ_U(dark_string_size(string), 2);
@@ -498,7 +498,7 @@ int main()
     //----------TEST#28----------
     DARK_TEST("string_append_cbuffer")
     {
-        void* string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 2, "cc");
+        void* const string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 2, "cc");
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 2);
         DARK_TEST_EQ_U(dark_string_size(string), 2);
@@ -518,7 +518,7 @@ int main()
     //----------TEST#29----------
     DARK_TEST("string_prepend_v")
     {
-        void* string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 2, "cc");
+        void* const string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 2, "cc");
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 2);
         DARK_TEST_EQ_U(dark_string_size(string), 2);
@@ -537,7 +537,7 @@ int main()
     //----------TEST#30----------
     DARK_TEST("string_prepend_f")
     {
-        void* string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 2, "cc");
+        void* const string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 2, "cc");
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 2);
         DARK_TEST_EQ_U(dark_string_size(string), 2);
@@ -556,7 +556,7 @@ int main()
     //----------TEST#31----------
     DARK_TEST("string_prepend_cbuffer")
     {
-        void* string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 2, "cc");
+        void* const string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 2, "cc");
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 2);
         DARK_TEST_EQ_U(dark_string_size(string), 2);
@@ -576,7 +576,7 @@ int main()
     //----------TEST#32----------
     DARK_TEST("string_pop")
     {
-        void* string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 6, "abcxyz");
+        void* const string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 6, "abcxyz");
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 6);
         DARK_TEST_EQ_U(dark_string_size(string), 6);
@@ -609,7 +609,7 @@ int main()
     //----------TEST#33----------
     DARK_TEST("string_erase")
     {
-        void* string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 6, "abcxyz");
+        void* const string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 6, "abcxyz");
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 6);
         DARK_TEST_EQ_U(dark_string_size(string), 6);
@@ -642,7 +642,7 @@ int main()
     //----------TEST#34----------
     DARK_TEST("string_pop_front_c")
     {
-        void* string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 6, "abcxyz");
+        void* const string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 6, "abcxyz");
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 6);
         DARK_TEST_EQ_U(dark_string_size(string), 6);
@@ -689,7 +689,7 @@ int main()
     //----------TEST#35----------
     DARK_TEST("string_pop_front")
     {
-        void* string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 6, "abcxyz");
+        void* const string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 6, "abcxyz");
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 6);
         DARK_TEST_EQ_U(dark_string_size(string), 6);
@@ -722,7 +722,7 @@ int main()
         //----------TEST#36----------
     DARK_TEST("string_pop_back_c")
     {
-        void* string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 6, "abcxyz");
+        void* const string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 6, "abcxyz");
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 6);
         DARK_TEST_EQ_U(dark_string_size(string), 6);
@@ -769,7 +769,7 @@ int main()
     //----------TEST#37----------
     DARK_TEST("string_pop_back")
     {
-        void* string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 6, "abcxyz");
+        void* const string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 6, "abcxyz");
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 6);
         DARK_TEST_EQ_U(dark_string_size(string), 6);
@@ -802,7 +802,7 @@ int main()
     //----------TEST#38----------
     DARK_TEST("string_reserve")
     {
-        void* string = dark_string_new(DARK_GROWTH_STANDARD);
+        void* const string = dark_string_new(DARK_GROWTH_STANDARD);
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 0);
         DARK_TEST_EQ_U(dark_string_size(string), 0);
@@ -829,7 +829,7 @@ int main()
     //----------TEST#39----------
     DARK_TEST("string_reserve_exact")
     {
-        void* string = dark_string_new(DARK_GROWTH_STANDARD);
+        void* const string = dark_string_new(DARK_GROWTH_STANDARD);
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 0);
         DARK_TEST_EQ_U(dark_string_size(string), 0);
@@ -856,7 +856,7 @@ int main()
     //----------TEST#40----------
     DARK_TEST("string_shrink_to_fit")
     {
-        void* string = dark_string_new(DARK_GROWTH_STANDARD);
+        void* const string = dark_string_new(DARK_GROWTH_STANDARD);
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 0);
         DARK_TEST_EQ_U(dark_string_size(string), 0);
@@ -885,7 +885,7 @@ int main()
     //----------TEST#41----------
     DARK_TEST("string_resize")
     {
-        void* string = dark_string_new(DARK_GROWTH_STANDARD);
+        void* const string = dark_string_new(DARK_GROWTH_STANDARD);
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 0);
         DARK_TEST_EQ_U(dark_string_size(string), 0);
@@ -919,7 +919,7 @@ int main()
     //----------TEST#42----------
     DARK_TEST("string_resize_fill")
     {
-        void* string = dark_string_new(DARK_GROWTH_STANDARD);
+        void* const string = dark_string_new(DARK_GROWTH_STANDARD);
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 0);
         DARK_TEST_EQ_U(dark_string_size(string), 0);
@@ -953,7 +953,7 @@ int main()
     //----------TEST#42----------
     DARK_TEST("string_clear")
     {
-        void* string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 5, "hijkl");
+        void* const string = dark_string_new_cbuffer(DARK_GROWTH_STANDARD, 5, "hijkl");
 
         DARK_TEST_EQ_U(dark_string_capacity(string), 5);
         DARK_TEST_EQ_U(dark_string_size(string), 5);

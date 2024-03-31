@@ -32,7 +32,7 @@
 uint8_t dark_digit_get_u(uint64_t integer_, const size_t position_)
 {
     //integer_
-    //position_
+    DARK_ASSERT_MSG((integer_ % dark_ppow_u(10, position_)) > 0, DARK_ERROR_VALUE, "leading zero at position");
 
     integer_ /= dark_ppow_u(10, position_);
 
@@ -42,7 +42,7 @@ uint8_t dark_digit_get_u(uint64_t integer_, const size_t position_)
 uint8_t dark_digit_get_i(const int64_t integer_, const size_t position_)
 {
     //integer_
-    //position_
+    DARK_ASSERT_MSG((integer_ % dark_ppow_u(10, position_)) > 0, DARK_ERROR_VALUE, "leading zero at position");
 
     return dark_digit_get_u(dark_abs_i64(integer_), position_);
 }
@@ -250,7 +250,7 @@ size_t dark_digit_count_i64(int64_t integer_)
 void dark_digit_to_cbuffer_u(uint64_t integer_, const size_t count_, char* const destination_)
 {
     //integer_
-    //count_
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
 
     for(size_t i = 0; i < count_; i++)
@@ -271,7 +271,7 @@ void dark_digit_to_cbuffer_u(uint64_t integer_, const size_t count_, char* const
 void dark_digit_to_cbuffer_u_terminated(const uint64_t integer_, const size_t count_, char* const destination_)
 {
     //integer_
-    //count_
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
 
     dark_digit_to_cbuffer_u(integer_, count_, destination_);
@@ -282,7 +282,7 @@ void dark_digit_to_cbuffer_u_terminated(const uint64_t integer_, const size_t co
 void dark_digit_to_cbuffer_i(const int64_t integer_, const size_t count_, char* const destination_)
 {
     //integer_
-    //count_
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
 
     dark_digit_to_cbuffer_u(dark_abs_i64(integer_), count_, destination_);
@@ -291,7 +291,7 @@ void dark_digit_to_cbuffer_i(const int64_t integer_, const size_t count_, char* 
 void dark_digit_to_cbuffer_i_terminated(const int64_t integer_, const size_t count_, char* const destination_)
 {
     //integer_
-    //count_
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
 
     dark_digit_to_cbuffer_i(integer_, count_, destination_);

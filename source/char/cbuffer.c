@@ -36,7 +36,7 @@ bool dark_cbuffer_terminated_is(const size_t count_, char* const source_, size_t
 {
     //byte_
     DARK_ASSERT(NULL != source_, DARK_ERROR_NULL);
-    //count_
+    DARK_ASSERT(0 != lenght_, DARK_ERROR_ZERO);
 
     const char element = '\0';
 

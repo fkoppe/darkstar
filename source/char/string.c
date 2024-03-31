@@ -97,7 +97,7 @@ void dark_string_create_cbuffer(void* const string_, const Dark_Growth growth_, 
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
     DARK_ASSERT(growth_.min <= growth_.max || 0 == growth_.max, DARK_ERROR_GROWTH);
     DARK_ASSERT(growth_.factor || growth_.min, DARK_ERROR_GROWTH);
-    //count_
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != source_, DARK_ERROR_NULL);
 
     void* const vector = string_;
@@ -212,7 +212,7 @@ void* dark_string_new_cbuffer(const Dark_Growth growth_, const size_t count_, co
 {
     DARK_ASSERT(growth_.min <= growth_.max || 0 == growth_.max, DARK_ERROR_GROWTH);
     DARK_ASSERT(growth_.factor || growth_.min, DARK_ERROR_GROWTH);
-    //count_
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != source_, DARK_ERROR_NULL);
 
     void* vector = malloc(sizeof(Dark_Vector_Struct));
@@ -407,7 +407,7 @@ void dark_string_push_cbuffer(void* const string_, const size_t index_, const si
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
     //index_!
-    //count_
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != source_, DARK_ERROR_NULL);
 
     void* const vector = string_;
@@ -520,7 +520,7 @@ void dark_string_append_cbuffer(void* const string_, const size_t count_, const 
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
     //index_!
-    //count_
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != source_, DARK_ERROR_NULL);
 
     void* const vector = string_;
@@ -599,7 +599,7 @@ void dark_string_prepend_cbuffer(void* const string_, const size_t count_, const
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
     //index_!
-    //count_
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != source_, DARK_ERROR_NULL);
 
     void* const vector = string_;
@@ -613,7 +613,7 @@ void dark_string_pop(void* const string_, const size_t index_, const size_t coun
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
     //index_!
-    //count_!
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
 
     void* const vector = string_;
 
@@ -644,7 +644,7 @@ void dark_string_erase(void* const string_, const size_t index_)
 void dark_string_pop_front_c(void* const string_, const size_t count_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
-    //count_
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
 
     void* const vector = string_;
 
@@ -668,7 +668,7 @@ void dark_string_pop_front(void* const string_)
 void dark_string_pop_back_c(void* const string_, const size_t count_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
-    //count_
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
 
     void* const vector = string_;
 
