@@ -32,7 +32,7 @@ bool dark_find_linear_index(const void* const element_, const size_t element_siz
 {
     DARK_ASSERT(element_ != NULL, DARK_ERROR_NULL);
     DARK_ASSERT(element_size_ > 0, DARK_ERROR_ZERO);
-    //count_
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(data_ != NULL, DARK_ERROR_NULL);
     DARK_ASSERT(compare_ != NULL, DARK_ERROR_NULL);
     //index_
@@ -57,7 +57,7 @@ bool dark_find_linear_reverse_index(const void* const element_, const size_t ele
 {
     DARK_ASSERT(element_ != NULL, DARK_ERROR_NULL);
     DARK_ASSERT(element_size_ > 0, DARK_ERROR_ZERO);
-    //count_
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(data_ != NULL, DARK_ERROR_NULL);
     DARK_ASSERT(compare_ != NULL, DARK_ERROR_NULL);
     //index_
@@ -82,7 +82,7 @@ bool dark_find_binary_index(const void* const element_, const size_t element_siz
 {
     DARK_ASSERT(element_ != NULL, DARK_ERROR_NULL);
     DARK_ASSERT(element_size_ > 0, DARK_ERROR_ZERO);
-    //count_
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(data_ != NULL, DARK_ERROR_NULL);
     DARK_ASSERT(compare_ != NULL, DARK_ERROR_NULL);
     //index_
@@ -117,7 +117,7 @@ void* dark_find_linear(const void* const element_, const size_t element_size_, c
 {
     DARK_ASSERT(element_ != NULL, DARK_ERROR_NULL);
     DARK_ASSERT(element_size_ > 0, DARK_ERROR_ZERO);
-    //count_
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(data_ != NULL, DARK_ERROR_NULL);
     DARK_ASSERT(compare_ != NULL, DARK_ERROR_NULL);
 
@@ -135,7 +135,7 @@ void* dark_find_linear_reverse(const void* const element_, const size_t element_
 {
     DARK_ASSERT(element_ != NULL, DARK_ERROR_NULL);
     DARK_ASSERT(element_size_ > 0, DARK_ERROR_ZERO);
-    //count_
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(data_ != NULL, DARK_ERROR_NULL);
     DARK_ASSERT(compare_ != NULL, DARK_ERROR_NULL);
 
@@ -153,7 +153,7 @@ void* dark_find_binary(const void* const element_, const size_t element_size_, c
 {
     DARK_ASSERT(element_ != NULL, DARK_ERROR_NULL);
     DARK_ASSERT(element_size_ > 0, DARK_ERROR_ZERO);
-    //count_
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(data_ != NULL, DARK_ERROR_NULL);
     DARK_ASSERT(compare_ != NULL, DARK_ERROR_NULL);
 

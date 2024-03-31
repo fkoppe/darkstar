@@ -30,7 +30,7 @@
 
 uint32_t dark_hash_fnv1_32(const size_t byte_, const void* const data_)
 {
-    //byte_
+    DARK_ASSERT(byte_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
 
     uint32_t hash = 0x811C9DC5;
@@ -45,7 +45,7 @@ uint32_t dark_hash_fnv1_32(const size_t byte_, const void* const data_)
 
 uint64_t dark_hash_fnv1_64(const size_t byte_, const void* const data_)
 {
-    //byte_
+    DARK_ASSERT(byte_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
 
     uint64_t hash = 0xCBF29CE484222325;
@@ -60,7 +60,7 @@ uint64_t dark_hash_fnv1_64(const size_t byte_, const void* const data_)
 
 uint32_t dark_hash_fnv1a_32(const size_t byte_, const void* const data_)
 {
-    //byte_
+    DARK_ASSERT(byte_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
 
     uint32_t hash = 0x811C9DC5;
@@ -75,7 +75,7 @@ uint32_t dark_hash_fnv1a_32(const size_t byte_, const void* const data_)
 
 uint64_t dark_hash_fnv1a_64(const size_t byte_, const void* const data_)
 {
-    //byte_
+    DARK_ASSERT(byte_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
 
     uint64_t hash = 0xCBF29CE484222325;

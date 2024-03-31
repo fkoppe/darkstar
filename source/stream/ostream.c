@@ -103,7 +103,7 @@ void dark_ostream_delete(void* const ostream_)
 void dark_ostream_write(void* const ostream_, const size_t byte_, const void* const data_)
 {
     DARK_ASSERT(NULL != ostream_, DARK_ERROR_NULL);
-    //byte_
+    DARK_ASSERT(byte_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
 
     if(byte_ == 0)
@@ -159,7 +159,7 @@ void dark_ostream_flush(void* const ostream_)
 void dark_ostream_flush_unbuffered(void* const ostream_, const size_t byte_, const void* const data_)
 {
     DARK_ASSERT(NULL != ostream_, DARK_ERROR_NULL);
-    //byte_
+    DARK_ASSERT(byte_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
 
     Dark_Ostream* const ostream = ostream_;

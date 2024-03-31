@@ -30,7 +30,7 @@
 
 uint32_t dark_hash_djb2_32(const size_t byte_, const void* const data_)
 {
-    //byte_
+    DARK_ASSERT(byte_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
 
     uint32_t hash = 0x1505;
@@ -45,7 +45,7 @@ uint32_t dark_hash_djb2_32(const size_t byte_, const void* const data_)
 
 uint32_t dark_hash_djb2a_32(const size_t byte_, const void* const data_)
 {
-    //byte_
+    DARK_ASSERT(byte_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
 
     uint32_t hash = 0x1505;

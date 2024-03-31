@@ -30,7 +30,7 @@
 
 uint32_t dark_hash_murmur2_32(const size_t byte_, const void* const data_, const uint32_t seed_)
 {
-    //byte_
+    DARK_ASSERT(byte_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
     //seed_
 
@@ -71,7 +71,7 @@ uint32_t dark_hash_murmur2_32(const size_t byte_, const void* const data_, const
 
 uint32_t dark_hash_murmur2a_32(const size_t byte_, const void* const data_, const uint32_t seed_)
 {
-    //byte_
+    DARK_ASSERT(byte_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
     //seed_
 
@@ -124,7 +124,7 @@ uint32_t dark_hash_murmur2a_32(const size_t byte_, const void* const data_, cons
 
 uint64_t dark_hash_murmur2a_64(const size_t byte_, const void* const data_, const uint64_t seed_)
 {
-    //byte_
+    DARK_ASSERT(byte_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
     //seed_
 

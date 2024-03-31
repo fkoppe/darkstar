@@ -33,7 +33,7 @@
 bool dark_sort_is(const size_t element_size_, const size_t count_, void* const data_, const Dark_Compare compare_)
 {
     DARK_ASSERT(element_size_ > 0, DARK_ERROR_ZERO);
-    //count_
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(data_ != NULL, DARK_ERROR_NULL);
     DARK_ASSERT(compare_ != NULL, DARK_ERROR_NULL);
 
@@ -51,7 +51,7 @@ bool dark_sort_is(const size_t element_size_, const size_t count_, void* const d
 void dark_sort_insertion(const size_t element_size_, const size_t count_, void* const data_, const Dark_Compare compare_)
 {
     DARK_ASSERT(element_size_ > 0, DARK_ERROR_ZERO);
-    //count_
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(data_ != NULL, DARK_ERROR_NULL);
     DARK_ASSERT(compare_ != NULL, DARK_ERROR_NULL);
 
