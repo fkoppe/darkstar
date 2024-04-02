@@ -41,7 +41,7 @@
 Dark_Oserror dark_oserror_occured(void)
 {
 #if defined(___DARK_WINDOWS)
-    switch(error_code)
+    switch(errno)
     {
         case 1:
             return DARK_OSERROR_EPERM;
