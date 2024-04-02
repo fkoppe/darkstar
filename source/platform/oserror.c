@@ -737,6 +737,14 @@ const char* dark_oserror_name(const Dark_Oserror oserror_)
         return "owner died";
     case DARK_OSERROR_ENOTRECOVERABLE:
         return "state not recoverable";
+    case DARK_OSERROR_STRUNCATE:
+        return "string copy or concatenation resulted in a truncated string (win32 only)";
+    case DARK_OSERROR_ENOTSUP:
+        return "not supported (win32 only)";
+    case DARK_OSERROR_EOTHER:
+        return "other (win32 only)";
+    case DARK_OSERROR_EWOULDBLOCK:
+        return "operation would block (win32 only)";
     case DARK_OSERROR_UNKNOWN:
         return "unknown error";
     default:
