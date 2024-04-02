@@ -27,6 +27,7 @@
 #include <dark/platform/console.h>
 #include <dark/platform/file.h>
 #include <dark/platform/mutex.h>
+#include <dark/platform/oserror.h>
 #include <dark/platform/platform_data.h>
 #include <dark/platform/process.h>
 #include <dark/platform/thread.h>

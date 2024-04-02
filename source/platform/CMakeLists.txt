@@ -7,6 +7,7 @@ target_sources(
     ${CMAKE_CURRENT_LIST_DIR}/file_helper.h
     ${CMAKE_CURRENT_LIST_DIR}/file.c
     ${CMAKE_CURRENT_LIST_DIR}/mutex.c
+    ${CMAKE_CURRENT_LIST_DIR}/oserror.c
     ${CMAKE_CURRENT_LIST_DIR}/platform_module.h
     ${CMAKE_CURRENT_LIST_DIR}/process.c
 	${CMAKE_CURRENT_LIST_DIR}/thread.c
