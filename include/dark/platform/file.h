@@ -24,6 +24,7 @@
 #define ___DARK___FILE_H
 
 #include <dark/core/essential.h>
+#include <dark/platform/oserror.h>
 
 typedef enum Dark_File_Mode
 {
@@ -41,8 +42,6 @@ typedef enum Dark_File_Flag
     ___DARK_FILE_FLAG_MAX,
 } Dark_File_Flag;
 
-//TODO errors
-
 size_t dark_file_struct_size(void);
 
 void dark_file_create(void* file);
@@ -51,19 +50,19 @@ void dark_file_destroy(void* file);
 void* dark_file_new(void);
 void dark_file_delete(void* file);
 
-bool dark_file_open(void* file, const char* path, Dark_File_Mode mode, Dark_File_Flag flag);
-bool dark_file_close(void* file);
+Dark_Oserror dark_file_open(void* file, const char* path, Dark_File_Mode mode, Dark_File_Flag flag);
+Dark_Oserror dark_file_close(void* file);
 
 bool dark_file_open_is(void* file);
 
-bool dark_file_write(void* file, size_t size, size_t count, const void* data);
+Dark_Oserror dark_file_write(void* file, size_t size, size_t count, const void* data);
 
-bool dark_file_read(void* file, size_t max, char* destination);
-bool dark_file_binary_read(void* file, size_t size, size_t max, size_t* count, char* destination);
+Dark_Oserror dark_file_read(void* file, size_t max, char* destination);
+Dark_Oserror dark_file_binary_read(void* file, size_t element_size, size_t element_count, size_t* count, char* destination);
 
-bool dark_file_mmap(void* file, const char** destination);
+Dark_Oserror dark_file_mmap(void* file, const char** destination);
 
-bool dark_file_size_get(void* file, size_t* destination);
+Dark_Oserror dark_file_size_get(void* file, size_t* destination);
 
 size_t dark_file_count_max(void);
 
