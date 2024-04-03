@@ -130,6 +130,8 @@ int main()
     }
     //--------------------------
 
+    dark_test_end();
+
 #if defined(___DARK_DEBUG)
     DARK_TEST_EQ_U(0, dark_memory_profiler_info_all().current.count - dark_memory_profiler_info_own().current.count);
     DARK_TEST_EQ_U(0, dark_memory_profiler_info_all().current.usage - dark_memory_profiler_info_own().current.usage);
