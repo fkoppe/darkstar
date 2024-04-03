@@ -40,8 +40,11 @@
 
 Dark_Oserror dark_oserror_occured(void)
 {
+    const int64_t value = errno;
+    errno = 0;
+
 #if defined(___DARK_WINDOWS)
-    switch(errno)
+    switch(value))
     {
         case 1:
             return DARK_OSERROR_EPERM;
@@ -205,7 +208,7 @@ Dark_Oserror dark_oserror_occured(void)
 #endif // defined(___DARK_WINDOWS)
 
 #if defined(___DARK_UNIX)
-    switch (errno)
+    switch (value)
     {
     case EPERM:
         return DARK_OSERROR_EPERM;
