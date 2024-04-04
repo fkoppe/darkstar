@@ -20,10 +20,16 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___TIME_H)
-#define ___DARK___TIME_H
+#if !defined(___DARK___STAMP_H)
+#define ___DARK___STAMP_H
 
-#include <dark/time/stamp.h>
-#include <dark/time/stopwatch.h>
+#include <dark/core/essential.h>
 
-#endif // !defined(___DARK___TIME_H)
+#define DARK_STAMP_HMS_SIZE 8
+#define DARK_STAMP_HMS_SIZE_TERMINATED 9
+
+void dark_stamp_hms(char* destination);
+void dark_stamp_hms_terminated(char* destination);
+
+#endif // !defined(___DARK___STAMP_H)
+

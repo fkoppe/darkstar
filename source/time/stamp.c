@@ -20,10 +20,66 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___TIME_H)
-#define ___DARK___TIME_H
+#include "time_module.h"
 
-#include <dark/time/stamp.h>
-#include <dark/time/stopwatch.h>
+#include <dark/char/char.h>
+#include <dark/core/core.h>
+#include <dark/platform/platform.h>
 
-#endif // !defined(___DARK___TIME_H)
+#include <time.h>
+
+#undef DARK_UNIT
+#define DARK_UNIT "stamp"
+
+void dark_stamp_hms(char* const destination_)
+{
+    DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
+
+    const time_t now = time(NULL);
+    DARK_ASSERT((time_t)(-1) != now, DARK_ERROR_API);
+
+    struct tm* tm = localtime(&now);
+    DARK_ASSERT(NULL != tm, DARK_ERROR_API);
+
+    const size_t hcount = dark_digit_count_i32(tm->tm_hour);
+    const size_t mcount = dark_digit_count_i32(tm->tm_min);
+    const size_t scount = dark_digit_count_i32(tm->tm_sec);
+
+    DARK_ASSERT(hcount <= 2 && hcount > 0, DARK_ERROR_VALUE);
+    DARK_ASSERT(mcount <= 2 && mcount > 0, DARK_ERROR_VALUE);
+    DARK_ASSERT(scount <= 2 && scount > 0, DARK_ERROR_VALUE);
+
+    if(hcount < 2)
+    {
+        destination_[0] = '0';
+    }
+
+    dark_digit_to_cbuffer_i(tm->tm_hour, hcount, destination_ + 2 - hcount);
+
+    destination_[2] = ':';
+
+    if(mcount < 2)
+    {
+        destination_[3] = '0';
+    }
+
+    dark_digit_to_cbuffer_i(tm->tm_min, mcount, destination_ + 5 - mcount);
+
+    destination_[5] = ':';
+
+    if(scount < 2)
+    {
+        destination_[6] = '0';
+    }
+
+    dark_digit_to_cbuffer_i(tm->tm_sec, scount, destination_ + 8 - scount);
+}
+
+void dark_stamp_hms_terminated(char* const destination_)
+{
+    DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
+
+    dark_stamp_hms(destination_);
+
+    destination_[7] = '\0';
+}
