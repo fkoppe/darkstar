@@ -66,3 +66,20 @@ size_t dark_cbuffer_vsnprintf(const size_t count_, char* const destination_, con
 
     return result;
 }
+
+int8_t dark_cbuffer_compare(const char* const cstring_, const char* const other_, const size_t lenght_)
+{
+    DARK_ASSERT(NULL != cstring_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != other_, DARK_ERROR_NULL);
+    DARK_ASSERT(lenght_ > 0, DARK_ERROR_ZERO);
+
+    for(size_t i = 0; i < lenght_; i++)
+    {
+        const int8_t result = dark_compare_i8(cstring_, other_);
+
+        if(result != 0)
+        {
+            return result;
+        }
+    }
+}

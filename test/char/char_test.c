@@ -11,6 +11,13 @@ int main()
     //--------------------------
 
     //----------TEST#2----------
+    DARK_TEST("cstring_compare")
+    {
+        DARK_TEST_EQ_U(0, dark_cstring_compare());
+    }
+    //--------------------------
+
+    //----------TEST#3----------
     DARK_TEST("digit_get_u")
     {
         DARK_TEST_EQ_U(1, dark_digit_get_u(4711, 0));
@@ -20,7 +27,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#3----------
+    //----------TEST#4----------
     DARK_TEST("digit_get_i")
     {
         DARK_TEST_EQ_U(1, dark_digit_get_i(4711, 0));
@@ -33,7 +40,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#4----------
+    //----------TEST#5----------
     DARK_TEST("digit_to_char")
     {
         DARK_TEST_EQ_U('0', dark_digit_to_char(0));
@@ -49,7 +56,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#5----------
+    //----------TEST#6----------
     DARK_TEST("digit_count_u8")
     {
         DARK_TEST_EQ_U(3, dark_digit_count_u8(145));
@@ -59,7 +66,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#6----------
+    //----------TEST#7----------
     DARK_TEST("digit_count_u16")
     {
         DARK_TEST_EQ_U(3, dark_digit_count_u16(325));
@@ -67,7 +74,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#7----------
+    //----------TEST#8----------
     DARK_TEST("digit_count_u32")
     {
         DARK_TEST_EQ_U(5, dark_digit_count_u32(12345));
@@ -75,7 +82,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#8----------
+    //----------TEST#9----------
     DARK_TEST("digit_count_u64")
     {
         DARK_TEST_EQ_U(5, dark_digit_count_u64(12345));
@@ -83,7 +90,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#9----------
+    //----------TEST#10----------
     DARK_TEST("digit_count_i8")
     {
         DARK_TEST_EQ_U(3, dark_digit_count_i8(122));
@@ -95,7 +102,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#10---------
+    //----------TEST#11---------
     DARK_TEST("digit_count_i16")
     {
         DARK_TEST_EQ_U(3, dark_digit_count_i16(199));
@@ -105,7 +112,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#11---------
+    //----------TEST#12---------
     DARK_TEST("digit_count_i32")
     {
         DARK_TEST_EQ_U(6, dark_digit_count_i32(195659));
@@ -115,7 +122,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#12---------
+    //----------TEST#13---------
     DARK_TEST("digit_count_i64")
     {
         DARK_TEST_EQ_U(6, dark_digit_count_i64(196669));
@@ -125,7 +132,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#13---------
+    //----------TEST#14---------
     DARK_TEST("digit_to_cbuffer_u")
     {
         const char* const cstring = "1234";
@@ -138,7 +145,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#14---------
+    //----------TEST#15---------
     DARK_TEST("digit_to_cbuffer_u_terminated")
     {
         const char* const cstring = "1234";
@@ -152,7 +159,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#15---------
+    //----------TEST#16---------
     DARK_TEST("digit_to_cbuffer_i")
     {
         const char* const cstring = "1234";
@@ -165,7 +172,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#16---------
+    //----------TEST#17---------
     DARK_TEST("digit_to_cbuffer_i_terminated")
     {
         const char* const cstring = "1234";

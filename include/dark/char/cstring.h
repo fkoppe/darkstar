@@ -31,4 +31,6 @@
 
 size_t dark_cstring_lenght(const char* cstring);
 
+int8_t dark_cstring_compare(const char* cstring, const char* other);
+
 #endif // !defined(___DARK___CSTRING_H)

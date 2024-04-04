@@ -24,6 +24,7 @@
 
 #include <dark/char/char.h>
 #include <dark/core/core.h>
+#include <dark/order/order.h>
 
 #undef DARK_UNIT
 #define DARK_UNIT "cstring"
@@ -41,4 +42,24 @@ size_t dark_cstring_lenght(const char* const cstring_)
     }
 
     DARK_EXIT_MSG(-1, DARK_ERROR_RUNTIME, "cstring lost integrity");
+}
+
+int8_t dark_cstring_compare(const char* const cstring_, const char* const other_)
+{
+    DARK_ASSERT(NULL != cstring_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != other_, DARK_ERROR_NULL);
+
+    size_t l1 = dark_cstring_lenght(cstring_);
+    size_t l2 = dark_cstring_lenght(other_);
+
+    if(l1 < l2)
+    {
+        return -1;
+    }
+    else if(l1 > l2)
+    {
+        return 1;
+    }
+
+    dark_cbuffer_compare(cstring_, other_, l1);
 }

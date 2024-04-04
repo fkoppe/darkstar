@@ -32,4 +32,6 @@ bool dark_cbuffer_terminated_is(size_t count, char* source, size_t* lenght);
 size_t dark_cbuffer_snprintf(size_t count, char* destination, const char* format, ...);
 size_t dark_cbuffer_vsnprintf(size_t count, char* destination, const char* format, va_list arguments);
 
+int8_t dark_cbuffer_compare(const char* cstring, const char* other, size_t lenght);
+
 #endif // !defined(___DARK___CBUFFER_H)
