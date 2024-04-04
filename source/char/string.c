@@ -333,6 +333,67 @@ char* dark_string_substring_terminated(void* const string_, const size_t index_)
     return &DARK_VECTOR_AT(string_, index_, char);
 }
 
+char* dark_string_emplace(void* const string_, const size_t index_, const size_t count_)
+{
+    DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
+    //index_!
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
+
+    void* const vector = string_;
+
+    DARK_ASSERT(index_ <= dark_string_size(vector), DARK_ERROR_CONTAINER_INDEX);
+    DARK_ASSERT(dark_string_size(vector) <= DARK_CONTAINER_SIZE_MAX - count_, DARK_ERROR_OVERFLOW);
+
+    return dark_vector_emplace(vector, index_, count_);
+}
+
+char* dark_string_emplace_front_c(void* string_, const size_t count_)
+{
+    DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
+
+    void* const vector = string_;
+
+    DARK_ASSERT(dark_string_size(vector) <= DARK_CONTAINER_SIZE_MAX - count_, DARK_ERROR_OVERFLOW);
+
+    return dark_string_emplace(string_, 0, count_);
+}
+
+char* dark_string_emplace_front(void* const string_)
+{
+    DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
+
+    void* const vector = string_;
+
+    DARK_ASSERT(dark_string_size(vector) < DARK_CONTAINER_SIZE_MAX, DARK_ERROR_OVERFLOW);
+
+    return dark_string_emplace(string_, 0, 1);
+}
+
+char* dark_string_emplace_back_c(void* const string_, const size_t count_)
+{
+    DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
+
+    void* const vector = string_;
+
+    DARK_ASSERT(dark_string_size(vector) <= DARK_CONTAINER_SIZE_MAX - count_, DARK_ERROR_OVERFLOW);
+
+    return dark_string_emplace(string_, dark_string_size(vector), count_);
+}
+
+char* dark_string_emplace_back(void* const string_)
+{
+    DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
+    //index_!
+
+    void* const vector = string_;
+
+    DARK_ASSERT(dark_string_size(vector) < DARK_CONTAINER_SIZE_MAX, DARK_ERROR_OVERFLOW);
+
+    return dark_string_emplace(string_, dark_string_size(vector), 1);
+}
+
 void dark_string_push_v(void* const string_, const size_t index_, const char* const format_, va_list arguments_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);

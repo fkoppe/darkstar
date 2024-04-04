@@ -54,6 +54,12 @@ char dark_string_back(void* string);
 char* dark_string_cbuffer_terminated(void* string);
 char* dark_string_substring_terminated(void* string, size_t index);
 
+char* dark_string_emplace(void* string, size_t index, size_t count);
+char* dark_string_emplace_front_c(void* string, size_t count);
+char* dark_string_emplace_front(void* string);
+char* dark_string_emplace_back_c(void* string, size_t count);
+char* dark_string_emplace_back(void* string);
+
 void dark_string_push_v(void* string, size_t index, const char* format, va_list arguments);
 void dark_string_push_f(void* string, size_t index, const char* format, ...);
 void dark_string_push_cbuffer(void* string, size_t index, size_t count, const char* source);
