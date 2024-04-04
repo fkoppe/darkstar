@@ -75,11 +75,13 @@ int8_t dark_cbuffer_compare(const char* const cstring_, const char* const other_
 
     for(size_t i = 0; i < lenght_; i++)
     {
-        const int8_t result = dark_compare_i8(cstring_, other_);
+        const int8_t result = dark_compare_i8(cstring_ + i, other_ + i);
 
         if(result != 0)
         {
             return result;
         }
     }
+
+    return 0;
 }

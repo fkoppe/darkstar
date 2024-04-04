@@ -67,6 +67,14 @@ int main()
     }
     //--------------------------
 
+    //----------TEST#5----------
+    DARK_TEST("cbuffer_compare")
+    {
+        DARK_TEST_EQ_U(0, dark_cbuffer_compare("abcd", "abcd", 4));
+        DARK_TEST_NE_U(0, dark_cbuffer_compare("abcdy", "abcdx", 5));
+    }
+    //--------------------------
+
     dark_test_end();
 
     return EXIT_SUCCESS;

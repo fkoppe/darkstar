@@ -61,5 +61,5 @@ int8_t dark_cstring_compare(const char* const cstring_, const char* const other_
         return 1;
     }
 
-    dark_cbuffer_compare(cstring_, other_, l1);
+    return dark_cbuffer_compare(cstring_, other_, l1);
 }

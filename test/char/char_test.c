@@ -13,7 +13,8 @@ int main()
     //----------TEST#2----------
     DARK_TEST("cstring_compare")
     {
-        DARK_TEST_EQ_U(0, dark_cstring_compare());
+        DARK_TEST_EQ_U(0, dark_cstring_compare("abcd", "abcd"));
+        DARK_TEST_NE_U(0, dark_cstring_compare("abcdy", "abcdx"));
     }
     //--------------------------
 
