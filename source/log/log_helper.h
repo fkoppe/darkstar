@@ -20,11 +20,20 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___LOG_H)
-#define ___DARK___LOG_H
+#if !defined(___DARK___LOG_HELPER_H)
+#define ___DARK___LOG_HELPER_H
 
-#include <dark/log/logger.h>
+#include <dark/core/essential.h>
+#include <dark/core/library.h>
+#include <dark/core/module.h>
+#include <dark/core/unit.h>
 #include <dark/log/log_data.h>
-#include <dark/log/static_log.h>
 
-#endif // !defined(___DARK___LOG_H)
+static const size_t LOG_BUFFER_SIZE = 64;
+
+void dark_log_general(const Dark_Library* library, const char* module, const char* unit, const char* name, Dark_Log_Format lformat, Dark_Log_Level level, void* ostream, void* ostream_mutex, size_t count, const char* cbuffer, const char* color, const char* stamp, void* string);
+
+const char* dark_level_name(Dark_Log_Level level);
+const char* dark_level_color(Dark_Log_Level level);
+
+#endif // !defined(___DARK___LOG_HELPER_H)

@@ -20,11 +20,12 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___LOG_H)
-#define ___DARK___LOG_H
+#if !defined(___DARK___LOG_MODULE_H)
+#define ___DARK___LOG_MODULE_H
 
-#include <dark/log/logger.h>
-#include <dark/log/log_data.h>
-#include <dark/log/static_log.h>
+#include <dark/core/essential.h>
 
-#endif // !defined(___DARK___LOG_H)
+#undef DARK_MODULE
+#define DARK_MODULE "log"
+
+#endif // !defined(___DARK___LOG_MODULE_H)

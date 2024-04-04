@@ -20,11 +20,47 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___LOG_H)
-#define ___DARK___LOG_H
+#if !defined(___DARK___LOG_DATA_H)
+#define ___DARK___LOG_DATA_H
 
-#include <dark/log/logger.h>
-#include <dark/log/log_data.h>
-#include <dark/log/static_log.h>
+#include <dark/core/essential.h>
 
-#endif // !defined(___DARK___LOG_H)
+typedef enum Dark_Log_Level
+{
+    DARK_LOG_LEVEL_COMMENT,
+    DARK_LOG_LEVEL_INTERNAL,
+    DARK_LOG_LEVEL_DEBUG,
+    DARK_LOG_LEVEL_TRACE,
+    DARK_LOG_LEVEL_INFO,
+    DARK_LOG_LEVEL_NOTICE,
+    DARK_LOG_LEVEL_WARN,
+    DARK_LOG_LEVEL_ERROR,
+    DARK_LOG_LEVEL_CRITICAL,
+    DARK_LOG_LEVEL_ALERT,
+    DARK_LOG_LEVEL_EMERGENCY,
+    ___DARK_LOG_LEVEL_MAX,
+} Dark_Log_Level;
+
+typedef enum Dark_Log_Thread
+{
+    DARK_LOG_THREAD_NOT,
+    DARK_LOG_THREAD_UINT,
+    DARK_LOG_THREAD_HEX,
+    ___DARK_LOG_THREAD_MAX,
+} Dark_Log_Thread;
+
+typedef struct Dark_Log_Format
+{
+    bool timestamp;
+    Dark_Log_Thread thread;
+    bool library;
+    bool module;
+    bool unit;
+    bool name;
+} Dark_Log_Format;
+
+static const Dark_Log_Format DARK_LOG_FORMAT_FULL = { true, DARK_LOG_THREAD_HEX, true, true, true, true };
+static const Dark_Log_Format DARK_LOG_FORMAT_UNIT = { true, DARK_LOG_THREAD_HEX, true, false, true, false };
+static const Dark_Log_Format DARK_LOG_FORMAT_NAME = { true, DARK_LOG_THREAD_HEX, true, false, false, true };
+
+#endif // !defined(___DARK___LOG_DATA_H)
