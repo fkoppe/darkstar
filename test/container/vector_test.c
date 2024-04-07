@@ -1,5 +1,7 @@
 #include <dark/darkstar.h>
 
+//TODO update tests
+
 int main()
 {
 #if defined(___DARK_DEBUG)
