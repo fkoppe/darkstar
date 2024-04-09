@@ -40,6 +40,7 @@ static const Dark_Error DARK_ERROR_UNDEFINED = { NULL, "undefined", NULL};
 
 static const Dark_Error DARK_ERROR_UNKNOWN = { NULL, "unknown", NULL };
 
+//unreachable error
 static const Dark_Error DARK_ERROR_UNREACHABLE = { NULL, "unreachable", "unreachable part of code reached" };
 static const Dark_Error DARK_ERROR_SWITCH = { &DARK_ERROR_UNREACHABLE, "switch", "unhandled switch value" };
 
