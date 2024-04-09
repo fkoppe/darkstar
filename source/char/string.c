@@ -290,6 +290,8 @@ char dark_string_at(void* const string_, const size_t index_)
 
     void* const vector = string_;
 
+#error
+    DARK_ASSERT(dark_vector_size(vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
     DARK_ASSERT(index_ < dark_string_size(vector), DARK_ERROR_CONTAINER_INDEX);
 
     return DARK_VECTOR_AT(string_, index_, char);
