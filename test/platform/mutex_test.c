@@ -9,7 +9,7 @@ int main()
     //----------TEST#1----------
     DARK_TEST("mutex_create/destroy")
     {
-        void* mutex = malloc(dark_file_struct_size());
+        Dark_Mutex* mutex = malloc(dark_file_struct_size());
         DARK_ASSERT(NULL != mutex, DARK_ERROR_ALLOCATION);
 
         dark_file_create(mutex);
@@ -22,7 +22,7 @@ int main()
     //----------TEST#2----------
     DARK_TEST("mutex_new/delete")
     {
-        void* const mutex = dark_mutex_new();
+        Dark_Mutex* const mutex = dark_mutex_new();
         dark_mutex_delete(mutex);
     }
     //--------------------------
@@ -30,7 +30,7 @@ int main()
     //----------TEST#3----------
     DARK_TEST("mutex_lock/unlock")
     {
-        void* const mutex = dark_mutex_new();
+        Dark_Mutex* const mutex = dark_mutex_new();
 
         dark_mutex_lock(mutex);
 
@@ -46,7 +46,7 @@ int main()
     //----------TEST#4----------
     DARK_TEST("mutex_trylock")
     {
-        void* const mutex = dark_mutex_new();
+        Dark_Mutex* const mutex = dark_mutex_new();
 
         dark_mutex_lock(mutex);
         dark_mutex_unlock(mutex);

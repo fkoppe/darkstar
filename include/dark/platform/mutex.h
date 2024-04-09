@@ -25,13 +25,15 @@
 
 #include <dark/core/essential.h>
 
+typedef struct Dark_Mutex Dark_Mutex;
+
 size_t dark_mutex_struct_size(void);
 
-void* dark_mutex_new(void);
-void dark_mutex_delete(void* mutex);
+Dark_Mutex* dark_mutex_new(void);
+void dark_mutex_delete(Dark_Mutex* mutex);
 
-bool dark_mutex_trylock(void* mutex);
-void dark_mutex_lock(void* mutex);
-void dark_mutex_unlock(void* mutex);
+bool dark_mutex_trylock(Dark_Mutex* mutex);
+void dark_mutex_lock(Dark_Mutex* mutex);
+void dark_mutex_unlock(Dark_Mutex* mutex);
 
 #endif // !defined(___DARK___MUTEX_H)

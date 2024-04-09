@@ -37,6 +37,8 @@
 #define DARK_ARRAY_DATA(array, type) \
 ((type*)dark_array_data((array)))
 
+typedef struct Dark_Array Dark_Array;
+
 typedef struct Dark_Array_Struct
 {
     size_t element_size;
@@ -44,8 +46,6 @@ typedef struct Dark_Array_Struct
     size_t size;
     char* data;
 } Dark_Array_Struct;
-
-typedef struct Dark_Array Dark_Array;
 
 size_t dark_array_struct_size(void);
 

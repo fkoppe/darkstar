@@ -50,65 +50,65 @@
 #include <sys/stat.h>
 #endif // defined(___DARK_UNIX)
 
-typedef struct Dark_File
+typedef struct Dark_File_Struct
 {
     Dark_File_Mode mode;
     Dark_File_Flag flag;
     FILE* handle;
-} Dark_File;
+} Dark_File_Struct;
 
 size_t dark_file_struct_size(void)
 {
-    return sizeof(Dark_File);
+    return sizeof(Dark_File_Struct);
 }
 
-void dark_file_create(void* const file_)
+void dark_file_create(Dark_File* const file_)
 {
     DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
 
-    Dark_File* const file = file_;
+    Dark_File_Struct* const file = (Dark_File_Struct*)file_;
 
     file->mode = ___DARK_FILE_MODE_MAX;
     file->flag = DARK_FILE_FLAG_NONE;
     file->handle = NULL;
 }
 
-void dark_file_destroy(void* const file_)
+void dark_file_destroy(Dark_File* const file_)
 {
     DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
 
     //nothing
 }
 
-void* dark_file_new(void)
+Dark_File* dark_file_new(void)
 {
-    Dark_File* const file = malloc(sizeof(*file));
+    Dark_File_Struct* const file = malloc(sizeof(*file));
     DARK_ASSERT(NULL != file, DARK_ERROR_ALLOCATION);
 
-    dark_file_create(file);
+    dark_file_create((Dark_File*)file);
 
-    return file;
+    return (Dark_File*)file;
 }
 
-void dark_file_delete(void* const file_)
+void dark_file_delete(Dark_File* const file_)
 {
     DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
 
-    Dark_File* const file = file_;
+    Dark_File_Struct* const file = (Dark_File_Struct*)file_;
 
-    dark_file_destroy(file);
+    dark_file_destroy((Dark_File*)file);
 
     free(file);
 }
 
-Dark_Oserror dark_file_open(void* const file_, const char* const path_, const Dark_File_Mode mode_, const Dark_File_Flag flag_)
+Dark_Oserror dark_file_open(Dark_File* const file_, const char* const path_, const Dark_File_Mode mode_, const Dark_File_Flag flag_)
 {
     DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != path_, DARK_ERROR_NULL);
     DARK_ASSERT(mode_ < ___DARK_FILE_MODE_MAX, DARK_ERROR_ENUM);
     DARK_ASSERT(flag_ < ___DARK_FILE_FLAG_MAX, DARK_ERROR_ENUM);
 
-    Dark_File* const file = file_;
+    Dark_File_Struct* const file = (Dark_File_Struct*)file_;
 
     DARK_ASSERT_MSG(NULL == file->handle, DARK_ERROR_STATE, "already opened");
 
@@ -128,11 +128,11 @@ Dark_Oserror dark_file_open(void* const file_, const char* const path_, const Da
     return DARK_OSERROR_NONE;
 }
 
-Dark_Oserror dark_file_close(void* const file_)
+Dark_Oserror dark_file_close(Dark_File* const file_)
 {
     DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
 
-    Dark_File* const file = file_;
+    Dark_File_Struct* const file = (Dark_File_Struct*)file_;
 
     DARK_ASSERT_MSG(NULL != file->handle, DARK_ERROR_STATE, "not opened");
 
@@ -146,23 +146,23 @@ Dark_Oserror dark_file_close(void* const file_)
     return DARK_OSERROR_NONE;
 }
 
-bool dark_file_open_is(void* const file_)
+bool dark_file_open_is(Dark_File* const file_)
 {
     DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
 
-    Dark_File* const file = file_;
+    Dark_File_Struct* const file = (Dark_File_Struct*)file_;
 
     return file->handle;
 }
 
-Dark_Oserror dark_file_write(void* const file_, const size_t size_, const size_t count_, const void* const data_)
+Dark_Oserror dark_file_write(Dark_File* const file_, const size_t size_, const size_t count_, const void* const data_)
 {
     DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
     DARK_ASSERT(size_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
 
-    Dark_File* const file = file_;
+    Dark_File_Struct* const file = (Dark_File_Struct*)file_;
 
     DARK_ASSERT_MSG(NULL != file->handle, DARK_ERROR_STATE, "not opened");
     DARK_ASSERT_MSG((file->flag & DARK_FILE_FLAG_UPDATE) || DARK_FILE_MODE_WRITE == file->mode || DARK_FILE_MODE_APPEND == file->mode, DARK_ERROR_STATE, "no write mode nor update flag set");
@@ -180,13 +180,13 @@ Dark_Oserror dark_file_write(void* const file_, const size_t size_, const size_t
     return DARK_OSERROR_NONE;
 }
 
-Dark_Oserror dark_file_read(void* const file_, const size_t max_, char* const destination_)
+Dark_Oserror dark_file_read(Dark_File* const file_, const size_t max_, char* const destination_)
 {
     DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
     DARK_ASSERT(max_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
 
-    Dark_File* const file = file_;
+    Dark_File_Struct* const file = (Dark_File_Struct*)file_;
 
     DARK_ASSERT_MSG(NULL != file->handle, DARK_ERROR_STATE, "not opened");
     DARK_ASSERT_MSG((file->flag & DARK_FILE_FLAG_UPDATE) || DARK_FILE_MODE_READ == file->mode, DARK_ERROR_STATE, "no read mode nor update flag set");
@@ -205,7 +205,7 @@ Dark_Oserror dark_file_read(void* const file_, const size_t max_, char* const de
     return DARK_OSERROR_NONE;
 }
 
-Dark_Oserror dark_file_binary_read(void* const file_, const size_t element_size_, const size_t element_count_, size_t* const count_, char* const destination_)
+Dark_Oserror dark_file_binary_read(Dark_File* const file_, const size_t element_size_, const size_t element_count_, size_t* const count_, char* const destination_)
 {
     DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
     DARK_ASSERT(element_size_ > 0, DARK_ERROR_ZERO);
@@ -213,7 +213,7 @@ Dark_Oserror dark_file_binary_read(void* const file_, const size_t element_size_
     DARK_ASSERT(NULL != count_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
 
-    Dark_File* const file = file_;
+    Dark_File_Struct* const file = (Dark_File_Struct*)file_;
 
     DARK_ASSERT_MSG(NULL != file->handle, DARK_ERROR_STATE, "not opened");
     DARK_ASSERT_MSG((file->flag & DARK_FILE_FLAG_UPDATE) || DARK_FILE_MODE_READ == file->mode, DARK_ERROR_STATE, "no read mode nor update flag set");
@@ -229,12 +229,12 @@ Dark_Oserror dark_file_binary_read(void* const file_, const size_t element_size_
     return DARK_OSERROR_NONE;
 }
 
-Dark_Oserror dark_file_mmap(void* const file_, const char** const destination_)
+Dark_Oserror dark_file_mmap(Dark_File* const file_, const char** const destination_)
 {
     DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
 
-    Dark_File* file = file_;
+    Dark_File_Struct* const file = (Dark_File_Struct*)file_;
 
     DARK_ASSERT_MSG(NULL != file->handle, DARK_ERROR_STATE, "not opened");
     DARK_ASSERT_MSG((file->flag & DARK_FILE_FLAG_UPDATE || DARK_FILE_MODE_READ) == file->mode, DARK_ERROR_STATE, "no read mode nor update flag set");
@@ -272,12 +272,12 @@ Dark_Oserror dark_file_mmap(void* const file_, const char** const destination_)
     return DARK_OSERROR_NONE;
 }
 
-Dark_Oserror dark_file_size_get(void* const file_, size_t* const destination_)
+Dark_Oserror dark_file_size_get(Dark_File* const file_, size_t* const destination_)
 {
     DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
 
-    Dark_File* const file = file_;
+    Dark_File_Struct* const file = (Dark_File_Struct*)file_;
 
     DARK_ASSERT_MSG(NULL != file->handle, DARK_ERROR_STATE, "not opened");
     DARK_ASSERT_MSG((file->flag & DARK_FILE_FLAG_UPDATE) || DARK_FILE_MODE_READ == file->mode, DARK_ERROR_STATE, "no read mode nor update flag set");

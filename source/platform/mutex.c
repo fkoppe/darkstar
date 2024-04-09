@@ -44,7 +44,7 @@
 #include <pthread.h>
 #endif // defined(___DARK_UNIX)
 
-typedef struct Dark_Mutex
+typedef struct Dark_Mutex_Struct
 {
 #if defined(___DARK_WINDOWS)
     CRITICAL_SECTION section;
@@ -53,16 +53,16 @@ typedef struct Dark_Mutex
 #if defined(___DARK_UNIX)
     pthread_mutex_t lock;
 #endif // defined(___DARK_UNIX)
-} Dark_Mutex;
+} Dark_Mutex_Struct;
 
 size_t dark_mutex_struct_size(void)
 {
-    return sizeof(Dark_Mutex);
+    return sizeof(Dark_Mutex_Struct);
 }
 
-void* dark_mutex_new(void)
+Dark_Mutex* dark_mutex_new(void)
 {
-    Dark_Mutex* const mutex = malloc(sizeof(*mutex));
+    Dark_Mutex_Struct* const mutex = malloc(sizeof(*mutex));
     DARK_ASSERT(NULL != mutex, DARK_ERROR_ALLOCATION);
 
 #if defined(___DARK_WINDOWS)
@@ -74,14 +74,14 @@ void* dark_mutex_new(void)
     DARK_ASSERT_MSG(0 == result, DARK_ERROR_PLATFORM, "pthread_mutex_init");
 #endif // defined(___DARK_UNIX)
 
-    return mutex;
+    return (Dark_Mutex*)mutex;
 }
 
-void dark_mutex_delete(void* const mutex_)
+void dark_mutex_delete(Dark_Mutex* const mutex_)
 {
     DARK_ASSERT(NULL != mutex_, DARK_ERROR_NULL);
 
-    Dark_Mutex* const mutex = mutex_;
+    Dark_Mutex_Struct* const mutex = (Dark_Mutex_Struct*)mutex_;
 
 #if defined(___DARK_WINDOWS)
     DeleteCriticalSection(&mutex->section);
@@ -94,11 +94,11 @@ void dark_mutex_delete(void* const mutex_)
     free(mutex);
 }
 
-bool dark_mutex_trylock(void* const mutex_)
+bool dark_mutex_trylock(Dark_Mutex* const mutex_)
 {
     DARK_ASSERT(NULL != mutex_, DARK_ERROR_NULL);
 
-    Dark_Mutex* const mutex = mutex_;
+    Dark_Mutex_Struct* const mutex = (Dark_Mutex_Struct*)mutex_;
 
 #if defined(___DARK_WINDOWS)
     return TryEnterCriticalSection(&mutex->section);
@@ -109,11 +109,11 @@ bool dark_mutex_trylock(void* const mutex_)
 #endif // defined(___DARK_UNIX)
 }
 
-void dark_mutex_lock(void* const mutex_)
+void dark_mutex_lock(Dark_Mutex* const mutex_)
 {
     DARK_ASSERT(NULL != mutex_, DARK_ERROR_NULL);
 
-    Dark_Mutex* const mutex = mutex_;
+    Dark_Mutex_Struct* const mutex = (Dark_Mutex_Struct*)mutex_;
 
 #if defined(___DARK_WINDOWS)
     EnterCriticalSection(&mutex->section);
@@ -125,11 +125,11 @@ void dark_mutex_lock(void* const mutex_)
 #endif // defined(___DARK_UNIX)
 }
 
-void dark_mutex_unlock(void* const mutex_)
+void dark_mutex_unlock(Dark_Mutex* const mutex_)
 {
     DARK_ASSERT(NULL != mutex_, DARK_ERROR_NULL);
 
-    Dark_Mutex* const mutex = mutex_;
+    Dark_Mutex_Struct* const mutex = (Dark_Mutex_Struct*)mutex_;
 
 #if defined(___DARK_WINDOWS)
     LeaveCriticalSection(&mutex->section);

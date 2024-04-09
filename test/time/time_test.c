@@ -9,11 +9,11 @@ int main()
     //----------TEST#1----------
     DARK_TEST("stopwatch")
     {
-        void* stopwatch = dark_stopwatch_new();
+        Dark_Stopwatch* stopwatch = dark_stopwatch_new();
 
         dark_stopwatch_start(stopwatch);
 
-        void* other = dark_stopwatch_new_start();
+        Dark_Stopwatch* other = dark_stopwatch_new_start();
         while (dark_stopwatch_ms(other) < 1)
         {
 

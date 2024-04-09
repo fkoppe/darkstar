@@ -6,7 +6,7 @@ int main()
     dark_memory_profiler_initialise(DARK_MEMORY_PROFILE_LEVEL_FULL, true);
 #endif // defined(___DARK_DEBUG)
 
-    void* mutex = dark_mutex_new();
+    Dark_Mutex* mutex = dark_mutex_new();
 
     char buf[] = { "test message larger than buffer" };
 
@@ -15,7 +15,7 @@ int main()
     stream_settings.force_size_is = false;
     stream_settings.buffer_size = 10;
 
-    void* stream = dark_ostream_new(stream_settings);
+    Dark_Stream* stream = dark_ostream_new(stream_settings);
 
     dark_ostream_add_stdout(stream, NULL);
     dark_ostream_add_file(stream, "output.txt", NULL);
@@ -30,7 +30,7 @@ int main()
     stream2_settings.force_size_is = true;
     stream2_settings.buffer_size = 10;
 
-    void* stream2 = dark_ostream_new(stream2_settings);
+    Dark_Stream* stream2 = dark_ostream_new(stream2_settings);
 
     dark_ostream_add_stdout(stream2, NULL);
     dark_ostream_add_file(stream2, "output.txt", NULL);

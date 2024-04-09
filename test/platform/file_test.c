@@ -9,7 +9,7 @@ int main()
     //----------TEST#1----------
     DARK_TEST("file_create/destroy")
     {
-        void* const file = malloc(dark_file_struct_size());
+        Dark_File* const file = malloc(dark_file_struct_size());
         DARK_ASSERT(NULL != file, DARK_ERROR_ALLOCATION);
 
         dark_file_create(file);
@@ -22,7 +22,7 @@ int main()
     //----------TEST#2----------
     DARK_TEST("file_new/delete")
     {
-        void* const file = dark_file_new();
+        Dark_File* const file = dark_file_new();
         dark_file_delete(file);
     }
     //--------------------------
@@ -30,7 +30,7 @@ int main()
     //----------TEST#3----------
     DARK_TEST("file_open/close")
     {
-        void* const file = dark_file_new();
+        Dark_File* const file = dark_file_new();
 
         Dark_Oserror result = dark_file_open(file, "test_file", DARK_FILE_MODE_WRITE, DARK_FILE_FLAG_NONE);
         DARK_TEST_TRUE(DARK_OSERROR_NONE == result);
@@ -47,7 +47,7 @@ int main()
     {
         char buffer[] = "blablablupp";
 
-        void* const file = dark_file_new();
+        Dark_File* const file = dark_file_new();
 
         Dark_Oserror result = dark_file_open(file, "test_file", DARK_FILE_MODE_WRITE, DARK_FILE_FLAG_NONE);
         DARK_TEST_TRUE(DARK_OSERROR_NONE == result);
@@ -67,7 +67,7 @@ int main()
     {
         char buffer[] = "blablablupp";
 
-        void* const file = dark_file_new();
+        Dark_File* const file = dark_file_new();
 
         Dark_Oserror result = dark_file_open(file, "test_file", DARK_FILE_MODE_READ, DARK_FILE_FLAG_NONE);
         DARK_TEST_TRUE(DARK_OSERROR_NONE == result);
@@ -89,7 +89,7 @@ int main()
     //----------TEST#6----------
     DARK_TEST("file_open_is")
     {
-        void* const file = dark_file_new();
+        Dark_File* const file = dark_file_new();
 
         Dark_Oserror result = dark_file_open(file, "test_file", DARK_FILE_MODE_READ, DARK_FILE_FLAG_NONE);
         DARK_TEST_TRUE(DARK_OSERROR_NONE == result);
@@ -106,7 +106,7 @@ int main()
     //----------TEST#7----------
     DARK_TEST("file_open_is")
     {
-        void* const file = dark_file_new();
+        Dark_File* const file = dark_file_new();
 
         Dark_Oserror result = dark_file_open(file, "test_file", DARK_FILE_MODE_READ, DARK_FILE_FLAG_NONE);
         DARK_TEST_TRUE(DARK_OSERROR_NONE == result);

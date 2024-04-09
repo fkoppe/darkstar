@@ -23,7 +23,7 @@ int main()
         ostream_settings.force_size_is = false;
         ostream_settings.buffer_size = 1024;
 
-        void* const ostream_stdout = dark_ostream_new(ostream_settings);
+        Dark_Ostream* const ostream_stdout = dark_ostream_new(ostream_settings);
         dark_ostream_add_stdout(ostream_stdout, NULL);
 
         const Dark_Log_Format custom = { true, DARK_LOG_THREAD_HEX, true, true, true, true };
@@ -35,7 +35,7 @@ int main()
         logger_settings.level_min = DARK_LOG_LEVEL_COMMENT;
         logger_settings.format = custom;
 
-        void* const logger = dark_logger_new(logger_settings, ostream_stdout, NULL);
+        Dark_Logger* const logger = dark_logger_new(logger_settings, ostream_stdout, NULL);
 
         DARK_LOG(logger, DARK_LOG_LEVEL_INFO, 5, "test");
         DARK_LOG_CSTRING(logger, DARK_LOG_LEVEL_INFO, "test");

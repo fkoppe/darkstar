@@ -30,87 +30,87 @@
 #undef DARK_UNIT
 #define DARK_UNIT "stopwatch"
 
-typedef struct Dark_Stopwatch
+typedef struct Dark_Stopwatch_Struct
 {
     uint64_t time;
     uint64_t stamp;
     bool running_is;
-} Dark_Stopwatch;
+} Dark_Stopwatch_Struct;
 
 size_t dark_stopwatch_struct_size(void)
 {
-    return sizeof(Dark_Stopwatch);
+    return sizeof(Dark_Stopwatch_Struct);
 }
 
-void* dark_stopwatch_new(void)
+Dark_Stopwatch* dark_stopwatch_new(void)
 {
-    Dark_Stopwatch* const stopwatch = malloc(sizeof(*stopwatch));
+    Dark_Stopwatch_Struct* const stopwatch = malloc(sizeof(*stopwatch));
     DARK_ASSERT(NULL != stopwatch, DARK_ERROR_ALLOCATION);
 
     stopwatch->time = 0;
     stopwatch->stamp = 0;
     stopwatch->running_is = false;
 
-    return stopwatch;
+    return (Dark_Stopwatch*)stopwatch;
 }
 
-void* dark_stopwatch_new_start(void)
+Dark_Stopwatch* dark_stopwatch_new_start(void)
 {
-    Dark_Stopwatch* const stopwatch = malloc(sizeof(*stopwatch));
+    Dark_Stopwatch_Struct* const stopwatch = malloc(sizeof(*stopwatch));
     DARK_ASSERT(NULL != stopwatch, DARK_ERROR_ALLOCATION);
 
     stopwatch->time = 0;
     stopwatch->stamp = dark_clock_ns();
     stopwatch->running_is = true;
 
-    return stopwatch;
+    return (Dark_Stopwatch*)stopwatch;
 }
 
-void dark_stopwatch_delete(void* const stopwatch_)
+void dark_stopwatch_delete(Dark_Stopwatch* const stopwatch_)
 {
     DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
 
-    Dark_Stopwatch* const stopwatch = stopwatch_;
+    Dark_Stopwatch_Struct* const stopwatch = (Dark_Stopwatch_Struct* )stopwatch_;
 
     free(stopwatch);
 }
 
-uint64_t dark_stopwatch_delete_ns(void* const stopwatch_)
+uint64_t dark_stopwatch_delete_ns(Dark_Stopwatch* const stopwatch_)
 {
     DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
 
-    Dark_Stopwatch* const stopwatch = stopwatch_;
+    Dark_Stopwatch_Struct* const stopwatch = (Dark_Stopwatch_Struct* )stopwatch_;
 
-    const uint64_t ns = dark_stopwatch_ns(stopwatch);
+    const uint64_t ns = dark_stopwatch_ns((Dark_Stopwatch*)stopwatch);
 
     free(stopwatch);
 
     return ns;
 }
 
-uint64_t dark_stopwatch_delete_ms(void* const stopwatch_)
+uint64_t dark_stopwatch_delete_ms(Dark_Stopwatch* const stopwatch_)
 {
     DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
 
-    Dark_Stopwatch* const stopwatch = stopwatch_;
+    Dark_Stopwatch_Struct* const stopwatch = (Dark_Stopwatch_Struct* )stopwatch_;
 
-    return dark_stopwatch_delete_ns(stopwatch) / DARK_MEGA;
+    return dark_stopwatch_delete_ns((Dark_Stopwatch*)stopwatch) / DARK_MEGA;
 }
 
-uint64_t dark_stopwatch_delete_s(void* const stopwatch_)
+uint64_t dark_stopwatch_delete_s(Dark_Stopwatch* const stopwatch_)
 {
     DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
 
-    Dark_Stopwatch* const stopwatch = stopwatch_;
+    Dark_Stopwatch_Struct* const stopwatch = (Dark_Stopwatch_Struct* )stopwatch_;
 
-    return dark_stopwatch_delete_ns(stopwatch) / DARK_GIGA;
+    return dark_stopwatch_delete_ns((Dark_Stopwatch*)stopwatch) / DARK_GIGA;
 }
 
-void dark_stopwatch_start(void* const stopwatch_)
+void dark_stopwatch_start(Dark_Stopwatch* const stopwatch_)
 {
     DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
 
-    Dark_Stopwatch* const stopwatch = stopwatch_;
+    Dark_Stopwatch_Struct* const stopwatch = (Dark_Stopwatch_Struct* )stopwatch_;
 
     if (!stopwatch->running_is)
     {
@@ -119,11 +119,11 @@ void dark_stopwatch_start(void* const stopwatch_)
     }
 }
 
-void dark_stopwatch_stop(void* const stopwatch_)
+void dark_stopwatch_stop(Dark_Stopwatch* const stopwatch_)
 {
     DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
 
-    Dark_Stopwatch* const stopwatch = stopwatch_;
+    Dark_Stopwatch_Struct* const stopwatch = (Dark_Stopwatch_Struct* )stopwatch_;
 
     if (stopwatch->running_is)
     {
@@ -132,104 +132,104 @@ void dark_stopwatch_stop(void* const stopwatch_)
     }
 }
 
-void dark_stopwatch_reset(void* const stopwatch_)
+void dark_stopwatch_reset(Dark_Stopwatch* const stopwatch_)
 {
     DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
 
-    Dark_Stopwatch* const stopwatch = stopwatch_;
+    Dark_Stopwatch_Struct* const stopwatch = (Dark_Stopwatch_Struct* )stopwatch_;
 
     stopwatch->time = 0;
     stopwatch->stamp = 0;
     stopwatch->running_is = false;
 }
 
-uint64_t dark_stopwatch_reset_ns(void* const stopwatch_)
+uint64_t dark_stopwatch_reset_ns(Dark_Stopwatch* const stopwatch_)
 {
     DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
 
-    Dark_Stopwatch* const stopwatch = stopwatch_;
+    Dark_Stopwatch_Struct* const stopwatch = (Dark_Stopwatch_Struct* )stopwatch_;
 
-    const uint64_t ns = dark_stopwatch_ns(stopwatch);
+    const uint64_t ns = dark_stopwatch_ns((Dark_Stopwatch*)stopwatch);
 
-    dark_stopwatch_reset(stopwatch);
+    dark_stopwatch_reset((Dark_Stopwatch*)stopwatch);
 
     return ns;
 }
 
-uint64_t dark_stopwatch_reset_ms(void* const stopwatch_)
+uint64_t dark_stopwatch_reset_ms(Dark_Stopwatch* const stopwatch_)
 {
     DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
 
-    Dark_Stopwatch* const stopwatch = stopwatch_;
+    Dark_Stopwatch_Struct* const stopwatch = (Dark_Stopwatch_Struct* )stopwatch_;
 
-    return dark_stopwatch_reset_ns(stopwatch) / DARK_MEGA;
+    return dark_stopwatch_reset_ns((Dark_Stopwatch*)stopwatch) / DARK_MEGA;
 }
 
-uint64_t dark_stopwatch_reset_s(void* const stopwatch_)
+uint64_t dark_stopwatch_reset_s(Dark_Stopwatch* const stopwatch_)
 {
     DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
 
-    Dark_Stopwatch* const stopwatch = stopwatch_;
+    Dark_Stopwatch_Struct* const stopwatch = (Dark_Stopwatch_Struct* )stopwatch_;
 
-    return dark_stopwatch_reset_ns(stopwatch) / DARK_GIGA;
+    return dark_stopwatch_reset_ns((Dark_Stopwatch*)stopwatch) / DARK_GIGA;
 }
 
-void dark_stopwatch_restart(void* const stopwatch_)
+void dark_stopwatch_restart(Dark_Stopwatch* const stopwatch_)
 {
     DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
 
-    Dark_Stopwatch* const stopwatch = stopwatch_;
+    Dark_Stopwatch_Struct* const stopwatch = (Dark_Stopwatch_Struct* )stopwatch_;
 
     stopwatch->time = 0;
     stopwatch->stamp = dark_clock_ns();
     stopwatch->running_is = true;
 }
 
-uint64_t dark_stopwatch_restart_ns(void* const stopwatch_)
+uint64_t dark_stopwatch_restart_ns(Dark_Stopwatch* const stopwatch_)
 {
     DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
 
-    Dark_Stopwatch* const stopwatch = stopwatch_;
+    Dark_Stopwatch_Struct* const stopwatch = (Dark_Stopwatch_Struct* )stopwatch_;
 
-    const uint64_t ns = dark_stopwatch_ns(stopwatch);
+    const uint64_t ns = dark_stopwatch_ns((Dark_Stopwatch*)stopwatch);
 
-    dark_stopwatch_restart(stopwatch);
+    dark_stopwatch_restart((Dark_Stopwatch*)stopwatch);
 
     return ns;
 }
 
-uint64_t dark_stopwatch_restart_ms(void* const stopwatch_)
+uint64_t dark_stopwatch_restart_ms(Dark_Stopwatch* const stopwatch_)
 {
     DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
 
-    Dark_Stopwatch* const stopwatch = stopwatch_;
+    Dark_Stopwatch_Struct* const stopwatch = (Dark_Stopwatch_Struct* )stopwatch_;
 
-    return dark_stopwatch_restart_ns(stopwatch) / DARK_MEGA;
+    return dark_stopwatch_restart_ns((Dark_Stopwatch*)stopwatch) / DARK_MEGA;
 }
 
-uint64_t dark_stopwatch_restart_s(void* const stopwatch_)
+uint64_t dark_stopwatch_restart_s(Dark_Stopwatch* const stopwatch_)
 {
     DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
 
-    Dark_Stopwatch* const stopwatch = stopwatch_;
+    Dark_Stopwatch_Struct* const stopwatch = (Dark_Stopwatch_Struct* )stopwatch_;
 
-    return dark_stopwatch_restart_ns(stopwatch) / DARK_GIGA;
+    return dark_stopwatch_restart_ns((Dark_Stopwatch*)stopwatch) / DARK_GIGA;
 }
 
-bool dark_stopwatch_running_is(void* const stopwatch_)
+bool dark_stopwatch_running_is(Dark_Stopwatch* const stopwatch_)
 {
     DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
 
-    Dark_Stopwatch* const stopwatch = stopwatch_;
+    Dark_Stopwatch_Struct* const stopwatch = (Dark_Stopwatch_Struct* )stopwatch_;
 
     return stopwatch->running_is;
 }
 
-uint64_t dark_stopwatch_ns(void* const stopwatch_)
+uint64_t dark_stopwatch_ns(Dark_Stopwatch* const stopwatch_)
 {
     DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
 
-    Dark_Stopwatch* const stopwatch = stopwatch_;
+    Dark_Stopwatch_Struct* const stopwatch = (Dark_Stopwatch_Struct* )stopwatch_;
 
     if (stopwatch->running_is)
     {
@@ -241,20 +241,20 @@ uint64_t dark_stopwatch_ns(void* const stopwatch_)
     }
 }
 
-uint64_t dark_stopwatch_ms(void* const stopwatch_)
+uint64_t dark_stopwatch_ms(Dark_Stopwatch* const stopwatch_)
 {
     DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
 
-    Dark_Stopwatch* const stopwatch = stopwatch_;
+    Dark_Stopwatch_Struct* const stopwatch = (Dark_Stopwatch_Struct* )stopwatch_;
 
-    return dark_stopwatch_ns(stopwatch) / DARK_MEGA;
+    return dark_stopwatch_ns((Dark_Stopwatch*)stopwatch) / DARK_MEGA;
 }
 
-uint64_t dark_stopwatch_s(void* const stopwatch_)
+uint64_t dark_stopwatch_s(Dark_Stopwatch* const stopwatch_)
 {
     DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
 
-    Dark_Stopwatch* const stopwatch = stopwatch_;
+    Dark_Stopwatch_Struct* const stopwatch = (Dark_Stopwatch_Struct* )stopwatch_;
 
-    return dark_stopwatch_ns(stopwatch) / DARK_GIGA;
+    return dark_stopwatch_ns((Dark_Stopwatch*)stopwatch) / DARK_GIGA;
 }

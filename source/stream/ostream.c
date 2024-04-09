@@ -32,11 +32,11 @@
 #undef DARK_UNIT
 #define DARK_UNIT "ostream"
 
-typedef struct Dark_Ostream
+typedef struct Dark_Ostream_Struct
 {
     Dark_Stream_Setting settings;
-    void* file_array;
-    void* buffer_array;
+    Dark_Array* file_array;
+    Dark_Array* buffer_array;
     struct
     {
         bool out_is;
@@ -44,18 +44,18 @@ typedef struct Dark_Ostream
         void* out_mutex;
         void* err_mutex;
     } std;
-} Dark_Ostream;
+} Dark_Ostream_Struct;
 
 size_t dark_ostream_struct_size(void)
 {
-    return sizeof(Dark_Ostream);
+    return sizeof(Dark_Ostream_Struct);
 }
 
-void* dark_ostream_new(const Dark_Stream_Setting settings_)
+Dark_Ostream* dark_ostream_new(const Dark_Stream_Setting settings_)
 {
     DARK_ASSERT_MSG(!(0 == settings_.buffer_size) || !settings_.force_size_is, DARK_ERROR_LOGIC, "can not force size to 0");
 
-    Dark_Ostream* const ostream = malloc(sizeof(*ostream));
+    Dark_Ostream_Struct* const ostream = malloc(sizeof(*ostream));
     DARK_ASSERT(NULL != ostream, DARK_ERROR_ALLOCATION);
 
     ostream->settings = settings_;
@@ -70,16 +70,16 @@ void* dark_ostream_new(const Dark_Stream_Setting settings_)
     ostream->std.out_mutex = NULL;
     ostream->std.err_mutex = NULL;
 
-    return ostream;
+    return (Dark_Ostream*)ostream;
 }
 
-void dark_ostream_delete(void* const ostream_)
+void dark_ostream_delete(Dark_Ostream* const ostream_)
 {
     DARK_ASSERT(NULL != ostream_, DARK_ERROR_NULL);
 
-    Dark_Ostream* const ostream = ostream_;
+    Dark_Ostream_Struct* const ostream = (Dark_Ostream_Struct*)ostream_;
 
-    dark_ostream_flush(ostream);
+    dark_ostream_flush((Dark_Ostream*)ostream);
 
     for(size_t i = 0; i < dark_array_size(ostream->file_array); i++)
     {
@@ -100,7 +100,7 @@ void dark_ostream_delete(void* const ostream_)
     free(ostream);
 }
 
-void dark_ostream_write(void* const ostream_, const size_t byte_, const void* const data_)
+void dark_ostream_write(Dark_Ostream* const ostream_, const size_t byte_, const void* const data_)
 {
     DARK_ASSERT(NULL != ostream_, DARK_ERROR_NULL);
     DARK_ASSERT(byte_ > 0, DARK_ERROR_ZERO);
@@ -111,7 +111,7 @@ void dark_ostream_write(void* const ostream_, const size_t byte_, const void* co
         return;
     }
 
-    Dark_Ostream* const ostream = ostream_;
+    Dark_Ostream_Struct* const ostream = (Dark_Ostream_Struct*)ostream_;
 
     if(dark_array_size(ostream->buffer_array) + byte_ < ostream->settings.buffer_size)
     {
@@ -128,41 +128,41 @@ void dark_ostream_write(void* const ostream_, const size_t byte_, const void* co
 
         for(size_t written = fit; written < byte_; written += DARK_MIN(byte_ - written, ostream->settings.buffer_size))
         {
-            dark_ostream_flush(ostream);
+            dark_ostream_flush((Dark_Ostream*)ostream);
 
             dark_array_push_back_c(ostream->buffer_array, DARK_MIN(byte_ - written, ostream->settings.buffer_size), (char*)data_ + written);
         }
     }
     else
     {
-        dark_ostream_flush(ostream);
-        dark_ostream_flush_unbuffered(ostream, byte_, data_);
+        dark_ostream_flush((Dark_Ostream*)ostream);
+        dark_ostream_flush_unbuffered((Dark_Ostream*)ostream, byte_, data_);
     }
 }
 
-void dark_ostream_flush(void* const ostream_)
+void dark_ostream_flush(Dark_Ostream* const ostream_)
 {
     DARK_ASSERT(NULL != ostream_, DARK_ERROR_NULL);
 
-    Dark_Ostream* const ostream = ostream_;
+    Dark_Ostream_Struct* const ostream = (Dark_Ostream_Struct*)ostream_;
 
     if(0 == dark_array_size(ostream->buffer_array))
     {
         return;
     }
 
-    dark_ostream_flush_unbuffered(ostream, dark_array_size(ostream->buffer_array), dark_array_data(ostream->buffer_array));
+    dark_ostream_flush_unbuffered((Dark_Ostream*)ostream, dark_array_size(ostream->buffer_array), dark_array_data(ostream->buffer_array));
 
     dark_array_clear(ostream->buffer_array);
 }
 
-void dark_ostream_flush_unbuffered(void* const ostream_, const size_t byte_, const void* const data_)
+void dark_ostream_flush_unbuffered(Dark_Ostream* const ostream_, const size_t byte_, const void* const data_)
 {
     DARK_ASSERT(NULL != ostream_, DARK_ERROR_NULL);
     DARK_ASSERT(byte_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
 
-    Dark_Ostream* const ostream = ostream_;
+    Dark_Ostream_Struct* const ostream = (Dark_Ostream_Struct*)ostream_;
 
     if(byte_ == 0)
     {
@@ -226,13 +226,13 @@ void dark_ostream_flush_unbuffered(void* const ostream_, const size_t byte_, con
     }
 }
 
-void dark_ostream_add_file(void* const ostream_, const char* const path_, void* const mutex_)
+void dark_ostream_add_file(Dark_Ostream* const ostream_, const char* const path_, Dark_Mutex* const mutex_)
 {
     DARK_ASSERT(NULL != ostream_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != path_, DARK_ERROR_NULL);
     //mutex_
 
-    Dark_Ostream* const ostream = ostream_;
+    Dark_Ostream_Struct* const ostream = (Dark_Ostream_Struct*)ostream_;
 
     void* file = dark_array_emplace(ostream->file_array, dark_array_size(ostream->file_array), 1);
     dark_file_create(file);
@@ -249,23 +249,23 @@ void dark_ostream_add_file(void* const ostream_, const char* const path_, void* 
     DARK_ASSERT_MSG(b, DARK_ERROR_UNKNOWN, "could not open file");
 }
 
-void dark_ostream_add_stdout(void* const ostream_, void* const mutex_)
+void dark_ostream_add_stdout(Dark_Ostream* const ostream_, Dark_Mutex* const mutex_)
 {
     DARK_ASSERT(NULL != ostream_, DARK_ERROR_NULL);
     //mutex_
 
-    Dark_Ostream* const ostream = ostream_;
+    Dark_Ostream_Struct* const ostream = (Dark_Ostream_Struct*)ostream_;
 
     ostream->std.out_is = true;
     ostream->std.out_mutex = mutex_;
 }
 
-void dark_ostream_add_sterr(void* const ostream_, void* const mutex_)
+void dark_ostream_add_sterr(Dark_Ostream* const ostream_, Dark_Mutex* const mutex_)
 {
     DARK_ASSERT(NULL != ostream_, DARK_ERROR_NULL);
     //mutex_
 
-    Dark_Ostream* const ostream = ostream_;
+    Dark_Ostream_Struct* const ostream = (Dark_Ostream_Struct*)ostream_;
 
     ostream->std.err_is = true;
     ostream->std.err_mutex = mutex_;

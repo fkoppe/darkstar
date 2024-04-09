@@ -24,18 +24,23 @@
 #define ___DARK___OSTREAM_H
 
 #include <dark/core/essential.h>
+#include <dark/platform/mutex.h>
 #include <dark/stream/stream_data.h>
 
-void* dark_ostream_new(Dark_Stream_Setting settings);
-void dark_ostream_delete(void* ostream);
+typedef struct Dark_Ostream Dark_Ostream;
 
-void dark_ostream_write(void* ostream, size_t byte, const void* data);
+size_t dark_ostream_struct_size(void);
 
-void dark_ostream_flush(void* ostream);
-void dark_ostream_flush_unbuffered(void* ostream, size_t byte, const void* data);
+Dark_Ostream* dark_ostream_new(Dark_Stream_Setting settings);
+void dark_ostream_delete(Dark_Ostream* ostream);
 
-void dark_ostream_add_file(void* ostream, const char* path, void* mutex);
-void dark_ostream_add_stdout(void* ostream, void* mutex);
-void dark_ostream_add_sterr(void* ostream, void* mutex);
+void dark_ostream_write(Dark_Ostream* ostream, size_t byte, const void* data);
+
+void dark_ostream_flush(Dark_Ostream* ostream);
+void dark_ostream_flush_unbuffered(Dark_Ostream* ostream, size_t byte, const void* data);
+
+void dark_ostream_add_file(Dark_Ostream* ostream, const char* path, Dark_Mutex* mutex);
+void dark_ostream_add_stdout(Dark_Ostream* ostream, Dark_Mutex* mutex);
+void dark_ostream_add_sterr(Dark_Ostream* ostream, Dark_Mutex* mutex);
 
 #endif // !defined(___DARK___OSTREAM_H)

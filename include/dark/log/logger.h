@@ -28,6 +28,8 @@
 #include <dark/core/module.h>
 #include <dark/core/unit.h>
 #include <dark/log/log_data.h>
+#include <dark/platform/mutex.h>
+#include <dark/stream/ostream.h>
 
 #include <stdarg.h>
 
@@ -51,6 +53,8 @@
 #define DARK_NLOG_V(logger, name, level, format, args)
 #endif // !defined(___DARK_LOG_NOLOG)
 
+typedef struct Dark_Logger Dark_Logger;
+
 typedef struct Dark_Logger_Settings
 {
     const char* color;
@@ -62,16 +66,16 @@ typedef struct Dark_Logger_Settings
 
 size_t dark_logger_struct_size(void);
 
-void* dark_logger_new(Dark_Logger_Settings settings, void* stream, void* mutex);
-void dark_logger_delete(void* logger);
+Dark_Logger* dark_logger_new(Dark_Logger_Settings settings, Dark_Ostream* stream, Dark_Mutex* mutex);
+void dark_logger_delete(Dark_Logger* logger);
 
-void dark_logger_update(void* logger);
+void dark_logger_update(Dark_Logger* logger);
 
-void dark_logger_log(const Dark_Library* library, const char* module, const char* unit, const char* name, void* logger, Dark_Log_Level level, size_t count, const char* cbuffer);
-void dark_logger_log_cstring(const Dark_Library* library, const char* module, const char* unit, const char* name, void* logger, Dark_Log_Level level, const char* cstring);
-void dark_logger_log_f(const Dark_Library* library, const char* module, const char* unit, const char* name, void* logger, Dark_Log_Level level, const char* format, ...);
-void dark_logger_log_v(const Dark_Library* library, const char* module, const char* unit, const char* name, void* logger, Dark_Log_Level level, const char* format, va_list arguments);
+void dark_logger_log(const Dark_Library* library, const char* module, const char* unit, const char* name, Dark_Logger* logger, Dark_Log_Level level, size_t count, const char* cbuffer);
+void dark_logger_log_cstring(const Dark_Library* library, const char* module, const char* unit, const char* name, Dark_Logger* logger, Dark_Log_Level level, const char* cstring);
+void dark_logger_log_f(const Dark_Library* library, const char* module, const char* unit, const char* name, Dark_Logger* logger, Dark_Log_Level level, const char* format, ...);
+void dark_logger_log_v(const Dark_Library* library, const char* module, const char* unit, const char* name, Dark_Logger* logger, Dark_Log_Level level, const char* format, va_list arguments);
 
-void dark_logger_stamp_recent_make(void* logger);
+void dark_logger_stamp_recent_make(Dark_Logger* logger);
 
 #endif // !defined(___DARK___LOGGER_H)

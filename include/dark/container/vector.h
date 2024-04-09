@@ -39,13 +39,13 @@
 #define DARK_VECTOR_DATA(vector, type) \
 ((type*)dark_vector_data((vector)))
 
+typedef struct Dark_Vector Dark_Vector;
+
 typedef struct Dark_Vector_Struct
 {
     Dark_Array_Struct array;
     Dark_Growth growth;
 } Dark_Vector_Struct;
-
-typedef struct Dark_Vector Dark_Vector;
 
 size_t dark_vector_struct_size(void);
 
