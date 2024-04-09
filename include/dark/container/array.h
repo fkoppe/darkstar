@@ -45,50 +45,52 @@ typedef struct Dark_Array_Struct
     char* data;
 } Dark_Array_Struct;
 
+typedef struct Dark_Array Dark_Array;
+
 size_t dark_array_struct_size(void);
 
-void dark_array_create_size(void* array, size_t element_size, size_t capacity, size_t size);
-void dark_array_create_capacity(void* array, size_t element_size, size_t capacity);
-void dark_array_create(void* array, size_t element_size);
-void dark_array_destroy(void* array);
+void dark_array_create_size(Dark_Array* array, size_t element_size, size_t capacity, size_t size);
+void dark_array_create_capacity(Dark_Array* array, size_t element_size, size_t capacity);
+void dark_array_create(Dark_Array* array, size_t element_size);
+void dark_array_destroy(Dark_Array* array);
 
-void* dark_array_new_size(size_t element_size, size_t capacity, size_t size);
-void* dark_array_new_capacity(size_t element_size, size_t capacity);
-void* dark_array_new(size_t element_size);
-void dark_array_delete(void* array);
+Dark_Array* dark_array_new_size(size_t element_size, size_t capacity, size_t size);
+Dark_Array* dark_array_new_capacity(size_t element_size, size_t capacity);
+Dark_Array* dark_array_new(size_t element_size);
+void dark_array_delete(Dark_Array* array);
 
-void* dark_array_at(void* array, size_t index);
-void* dark_array_front(void* array);
-void* dark_array_back(void* array);
-void* dark_array_data(void* array);
+void* dark_array_at(Dark_Array* array, size_t index);
+void* dark_array_front(Dark_Array* array);
+void* dark_array_back(Dark_Array* array);
+void* dark_array_data(Dark_Array* array);
 
-void* dark_array_emplace(void* array, size_t index, size_t count);
-void* dark_array_emplace_front_c(void* array, size_t count);
-void* dark_array_emplace_front(void* array);
-void* dark_array_emplace_back_c(void* array, size_t count);
-void* dark_array_emplace_back(void* array);
+void* dark_array_emplace(Dark_Array* array, size_t index, size_t count);
+void* dark_array_emplace_front_c(Dark_Array* array, size_t count);
+void* dark_array_emplace_front(Dark_Array* array);
+void* dark_array_emplace_back_c(Dark_Array* array, size_t count);
+void* dark_array_emplace_back(Dark_Array* array);
 
-void dark_array_push(void* array, size_t index, size_t count, const void* source);
-void dark_array_insert(void* array, size_t index, const void* element);
-void dark_array_push_front_c(void* array, size_t count, const void* source);
-void dark_array_push_front(void* array, const void* element);
-void dark_array_push_back_c(void* array, size_t count, const void* source);
-void dark_array_push_back(void* array, const void* element);
+void dark_array_push(Dark_Array* array, size_t index, size_t count, const void* source);
+void dark_array_insert(Dark_Array* array, size_t index, const void* element);
+void dark_array_push_front_c(Dark_Array* array, size_t count, const void* source);
+void dark_array_push_front(Dark_Array* array, const void* element);
+void dark_array_push_back_c(Dark_Array* array, size_t count, const void* source);
+void dark_array_push_back(Dark_Array* array, const void* element);
 
-void dark_array_pop(void* array, size_t index, size_t count);
-void dark_array_erase(void* array, size_t index);
-void dark_array_pop_front_c(void* array, size_t count);
-void dark_array_pop_front(void* array);
-void dark_array_pop_back_c(void* array, size_t count);
-void dark_array_pop_back(void* array);
+void dark_array_pop(Dark_Array* array, size_t index, size_t count);
+void dark_array_erase(Dark_Array* array, size_t index);
+void dark_array_pop_front_c(Dark_Array* array, size_t count);
+void dark_array_pop_front(Dark_Array* array);
+void dark_array_pop_back_c(Dark_Array* array, size_t count);
+void dark_array_pop_back(Dark_Array* array);
 
-size_t dark_array_capacity(void* array);
-void dark_array_reserve_exact(void* array, size_t capacity);
-void dark_array_shrink_to_fit(void* array);
+size_t dark_array_capacity(Dark_Array* array);
+void dark_array_reserve_exact(Dark_Array* array, size_t capacity);
+void dark_array_shrink_to_fit(Dark_Array* array);
 
-size_t dark_array_size(void* array);
-void dark_array_resize(void* array, size_t size);
-void dark_array_clear(void* array);
-size_t dark_array_element_size(void* array);
+size_t dark_array_size(Dark_Array* array);
+void dark_array_resize(Dark_Array* array, size_t size);
+void dark_array_clear(Dark_Array* array);
+size_t dark_array_element_size(Dark_Array* array);
 
 #endif // !defined(___DARK___ARRAY_H)

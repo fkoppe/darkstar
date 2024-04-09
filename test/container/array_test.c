@@ -16,49 +16,52 @@ int main()
     //----------TEST#2----------
     DARK_TEST("array_create_size/_capacity/_size/_destroy")
     {
-        Dark_Array_Struct array;
+        Dark_Array_Struct array_struct;
+        Dark_Array* const array = (Dark_Array*)&array_struct;
 
-        dark_array_create_size(&array, sizeof(int), 10, 10);
+        dark_array_create_size(array, sizeof(int), 10, 10);
 
-        DARK_TEST_EQ_U(dark_array_capacity(&array), 10);
-        DARK_TEST_EQ_U(dark_array_size(&array), 10);
+        DARK_TEST_EQ_U(dark_array_capacity(array), 10);
+        DARK_TEST_EQ_U(dark_array_size(array), 10);
 
-        dark_array_destroy(&array);
+        dark_array_destroy(array);
     }
     //--------------------------
 
     //----------TEST#3----------
     DARK_TEST("array_create_capacity")
     {
-        Dark_Array_Struct array;
+        Dark_Array_Struct array_struct;
+        Dark_Array* const array = (Dark_Array*)&array_struct;
 
-        dark_array_create_capacity(&array, sizeof(int), 10);
+        dark_array_create_capacity(array, sizeof(int), 10);
 
-        DARK_TEST_EQ_U(dark_array_capacity(&array), 10);
-        DARK_TEST_EQ_U(dark_array_size(&array), 0);
+        DARK_TEST_EQ_U(dark_array_capacity(array), 10);
+        DARK_TEST_EQ_U(dark_array_size(array), 0);
 
-        dark_array_destroy(&array);
+        dark_array_destroy(array);
     }
     //--------------------------
 
     //----------TEST#4----------
     DARK_TEST("array_create")
     {
-        Dark_Array_Struct array;
+        Dark_Array_Struct array_struct;
+        Dark_Array* const array = (Dark_Array*)&array_struct;
 
-        dark_array_create(&array, sizeof(int));
+        dark_array_create(array, sizeof(int));
 
-        DARK_TEST_EQ_U(dark_array_capacity(&array), 0);
-        DARK_TEST_EQ_U(dark_array_size(&array), 0);
+        DARK_TEST_EQ_U(dark_array_capacity(array), 0);
+        DARK_TEST_EQ_U(dark_array_size(array), 0);
 
-        dark_array_destroy(&array);
+        dark_array_destroy(array);
     }
     //--------------------------
 
     //----------TEST#5----------
     DARK_TEST("array_new_size/_delete")
     {
-        void* const array = dark_array_new_size(sizeof(int), 10, 10);
+        Dark_Array* const array = dark_array_new_size(sizeof(int), 10, 10);
 
         DARK_TEST_EQ_U(dark_array_capacity(array), 10);
         DARK_TEST_EQ_U(dark_array_size(array), 10);
@@ -70,7 +73,7 @@ int main()
     //----------TEST#6----------
     DARK_TEST("array_new_capacity")
     {
-        void* const array = dark_array_new_capacity(sizeof(int), 10);
+        Dark_Array* const array = dark_array_new_capacity(sizeof(int), 10);
 
         DARK_TEST_EQ_U(dark_array_capacity(array), 10);
         DARK_TEST_EQ_U(dark_array_size(array), 0);
@@ -82,7 +85,7 @@ int main()
     //----------TEST#7----------
     DARK_TEST("array_new")
     {
-        void* const array = dark_array_new(sizeof(int));
+        Dark_Array* const array = dark_array_new(sizeof(int));
 
         DARK_TEST_EQ_U(dark_array_capacity(array), 0);
         DARK_TEST_EQ_U(dark_array_size(array), 0);
@@ -94,7 +97,7 @@ int main()
     //----------TEST#8----------
     DARK_TEST("array_at/ARRAY_AT")
     {
-        void* const array = dark_array_new_size(sizeof(int), 5, 5);
+        Dark_Array* const array = dark_array_new_size(sizeof(int), 5, 5);
 
         DARK_TEST_EQ_U(dark_array_capacity(array), 5);
         DARK_TEST_EQ_U(dark_array_size(array), 5);
@@ -118,7 +121,7 @@ int main()
     //----------TEST#9----------
     DARK_TEST("array_front/ARRAY_FRONT")
     {
-        void* const array = dark_array_new_size(sizeof(int), 5, 5);
+        Dark_Array* const array = dark_array_new_size(sizeof(int), 5, 5);
 
         DARK_TEST_EQ_U(dark_array_capacity(array), 5);
         DARK_TEST_EQ_U(dark_array_size(array), 5);
@@ -142,7 +145,7 @@ int main()
     //----------TEST#10----------
     DARK_TEST("array_back/ARRAY_BACK")
     {
-        void* const array = dark_array_new_size(sizeof(int), 5, 5);
+        Dark_Array* const array = dark_array_new_size(sizeof(int), 5, 5);
 
         DARK_TEST_EQ_U(dark_array_capacity(array), 5);
         DARK_TEST_EQ_U(dark_array_size(array), 5);
@@ -166,7 +169,7 @@ int main()
     //----------TEST#11----------
     DARK_TEST("array_data/ARRAY_DATA")
     {
-        void* const array = dark_array_new_size(sizeof(int), 5, 5);
+        Dark_Array* const array = dark_array_new_size(sizeof(int), 5, 5);
 
         DARK_TEST_EQ_U(dark_array_capacity(array), 5);
         DARK_TEST_EQ_U(dark_array_size(array), 5);
@@ -186,7 +189,7 @@ int main()
     //----------TEST#12----------
     DARK_TEST("array_emplace")
     {
-        void* const array = dark_array_new(sizeof(int));
+        Dark_Array* const array = dark_array_new(sizeof(int));
 
         DARK_TEST_EQ_U(dark_array_capacity(array), 0);
         DARK_TEST_EQ_U(dark_array_size(array), 0);
@@ -214,7 +217,7 @@ int main()
         int buffer_1[2] = { 33, 35 };
         int buffer_2[4] = { 1, 2, 3, 4 };
 
-        void* const array = dark_array_new(sizeof(int));
+        Dark_Array* const array = dark_array_new(sizeof(int));
 
         DARK_TEST_EQ_U(dark_array_capacity(array), 0);
         DARK_TEST_EQ_U(dark_array_size(array), 0);
@@ -249,7 +252,7 @@ int main()
     //----------TEST#14----------
     DARK_TEST("array_emplace_front")
     {
-        void* const array = dark_array_new(sizeof(int));
+        Dark_Array* const array = dark_array_new(sizeof(int));
 
         DARK_TEST_EQ_U(dark_array_capacity(array), 0);
         DARK_TEST_EQ_U(dark_array_size(array), 0);
@@ -276,7 +279,7 @@ int main()
         int buffer_1[2] = { 33, 35 };
         int buffer_2[4] = { 1, 2, 3, 4 };
 
-        void* const array = dark_array_new(sizeof(int));
+        Dark_Array* const array = dark_array_new(sizeof(int));
 
         DARK_TEST_EQ_U(dark_array_capacity(array), 0);
         DARK_TEST_EQ_U(dark_array_size(array), 0);
@@ -311,7 +314,7 @@ int main()
     //----------TEST#16----------
     DARK_TEST("array_emplace_back")
     {
-        void* const array = dark_array_new(sizeof(int));
+        Dark_Array* const array = dark_array_new(sizeof(int));
 
         DARK_TEST_EQ_U(dark_array_capacity(array), 0);
         DARK_TEST_EQ_U(dark_array_size(array), 0);
@@ -337,7 +340,7 @@ int main()
     {
         int buffer[2] = { 333, 666666 };
 
-        void* const array = dark_array_new(sizeof(int));
+        Dark_Array* const array = dark_array_new(sizeof(int));
 
         DARK_TEST_EQ_U(dark_array_capacity(array), 0);
         DARK_TEST_EQ_U(dark_array_size(array), 0);
@@ -367,7 +370,7 @@ int main()
         int a = 333;
         int b  = 666666;
 
-        void* const array = dark_array_new(sizeof(int));
+        Dark_Array* const array = dark_array_new(sizeof(int));
 
         DARK_TEST_EQ_U(dark_array_capacity(array), 0);
         DARK_TEST_EQ_U(dark_array_size(array), 0);
@@ -393,7 +396,7 @@ int main()
     {
         int buffer[2] = { 333, 666666 };
 
-        void* const array = dark_array_new(sizeof(int));
+        Dark_Array* const array = dark_array_new(sizeof(int));
 
         DARK_TEST_EQ_U(dark_array_capacity(array), 0);
         DARK_TEST_EQ_U(dark_array_size(array), 0);
@@ -423,7 +426,7 @@ int main()
         int a = 333;
         int b  = 666666;
 
-        void* const array = dark_array_new(sizeof(int));
+        Dark_Array* const array = dark_array_new(sizeof(int));
 
         DARK_TEST_EQ_U(dark_array_capacity(array), 0);
         DARK_TEST_EQ_U(dark_array_size(array), 0);
@@ -449,7 +452,7 @@ int main()
     {
         int buffer[2] = { 333, 666666 };
 
-        void* const array = dark_array_new(sizeof(int));
+        Dark_Array* const array = dark_array_new(sizeof(int));
 
         DARK_TEST_EQ_U(dark_array_capacity(array), 0);
         DARK_TEST_EQ_U(dark_array_size(array), 0);
@@ -479,7 +482,7 @@ int main()
         int a = 333;
         int b  = 666666;
 
-        void* const array = dark_array_new(sizeof(int));
+        Dark_Array* const array = dark_array_new(sizeof(int));
 
         DARK_TEST_EQ_U(dark_array_capacity(array), 0);
         DARK_TEST_EQ_U(dark_array_size(array), 0);
@@ -503,7 +506,7 @@ int main()
     //----------TEST#23----------
     DARK_TEST("array_pop")
     {
-        void* const array = dark_array_new_capacity(sizeof(int), 5);
+        Dark_Array* const array = dark_array_new_capacity(sizeof(int), 5);
 
         DARK_TEST_EQ_U(dark_array_capacity(array), 5);
         DARK_TEST_EQ_U(dark_array_size(array), 0);
@@ -530,7 +533,7 @@ int main()
     //----------TEST#24----------
     DARK_TEST("array_erase")
     {
-        void* const array = dark_array_new_capacity(sizeof(int), 5);
+        Dark_Array* const array = dark_array_new_capacity(sizeof(int), 5);
 
         DARK_TEST_EQ_U(dark_array_capacity(array), 5);
         DARK_TEST_EQ_U(dark_array_size(array), 0);
@@ -575,7 +578,7 @@ int main()
     //----------TEST#25----------
     DARK_TEST("array_pop_front_c")
     {
-        void* const array = dark_array_new_capacity(sizeof(int), 5);
+        Dark_Array* const array = dark_array_new_capacity(sizeof(int), 5);
 
         DARK_TEST_EQ_U(dark_array_capacity(array), 5);
         DARK_TEST_EQ_U(dark_array_size(array), 0);
@@ -606,7 +609,7 @@ int main()
     //----------TEST#26----------
     DARK_TEST("array_pop_front")
     {
-        void* const array = dark_array_new_capacity(sizeof(int), 5);
+        Dark_Array* const array = dark_array_new_capacity(sizeof(int), 5);
 
         DARK_TEST_EQ_U(dark_array_capacity(array), 5);
         DARK_TEST_EQ_U(dark_array_size(array), 0);
@@ -640,7 +643,7 @@ int main()
     //----------TEST#27----------
     DARK_TEST("array_pop_back_c")
     {
-        void* const array = dark_array_new_capacity(sizeof(int), 5);
+        Dark_Array* const array = dark_array_new_capacity(sizeof(int), 5);
 
         DARK_TEST_EQ_U(dark_array_capacity(array), 5);
         DARK_TEST_EQ_U(dark_array_size(array), 0);
@@ -671,7 +674,7 @@ int main()
     //----------TEST#28----------
     DARK_TEST("array_pop_back")
     {
-        void* const array = dark_array_new_capacity(sizeof(int), 5);
+        Dark_Array* const array = dark_array_new_capacity(sizeof(int), 5);
 
         DARK_TEST_EQ_U(dark_array_capacity(array), 5);
         DARK_TEST_EQ_U(dark_array_size(array), 0);
@@ -705,7 +708,7 @@ int main()
     //----------TEST#29----------
     DARK_TEST("array_reserve_exact")
     {
-        void* const array = dark_array_new(sizeof(int));
+        Dark_Array* const array = dark_array_new(sizeof(int));
 
         DARK_TEST_EQ_U(dark_array_capacity(array), 0);
         DARK_TEST_EQ_U(dark_array_size(array), 0);
@@ -732,7 +735,7 @@ int main()
     //----------TEST#30----------
     DARK_TEST("array_shrink_to_fit")
     {
-        void* const array = dark_array_new(sizeof(int));
+        Dark_Array* const array = dark_array_new(sizeof(int));
 
         DARK_TEST_EQ_U(dark_array_capacity(array), 0);
         DARK_TEST_EQ_U(dark_array_size(array), 0);
@@ -750,7 +753,7 @@ int main()
     //----------TEST#31----------
     DARK_TEST("array_resize")
     {
-        void* const array = dark_array_new(sizeof(int));
+        Dark_Array* const array = dark_array_new(sizeof(int));
 
         DARK_TEST_EQ_U(dark_array_capacity(array), 0);
         DARK_TEST_EQ_U(dark_array_size(array), 0);
@@ -777,7 +780,7 @@ int main()
     //----------TEST#32----------
     DARK_TEST("array_clear")
     {
-        void* const array = dark_array_new_size(sizeof(int), 5, 4);
+        Dark_Array* const array = dark_array_new_size(sizeof(int), 5, 4);
 
         DARK_TEST_EQ_U(dark_array_capacity(array), 5);
         DARK_TEST_EQ_U(dark_array_size(array), 4);

@@ -45,53 +45,55 @@ typedef struct Dark_Vector_Struct
     Dark_Growth growth;
 } Dark_Vector_Struct;
 
+typedef struct Dark_Vector Dark_Vector;
+
 size_t dark_vector_struct_size(void);
 
-void dark_vector_create_size(void* vector, Dark_Growth growth, size_t element_size, size_t capacity, size_t size);
-void dark_vector_create_capacity(void* vector, Dark_Growth growth, size_t element_size, size_t capacity);
-void dark_vector_create(void* vector, Dark_Growth growth, size_t element_size);
-void dark_vector_destroy(void* vector);
+void dark_vector_create_size(Dark_Vector* vector, Dark_Growth growth, size_t element_size, size_t capacity, size_t size);
+void dark_vector_create_capacity(Dark_Vector* vector, Dark_Growth growth, size_t element_size, size_t capacity);
+void dark_vector_create(Dark_Vector* vector, Dark_Growth growth, size_t element_size);
+void dark_vector_destroy(Dark_Vector* vector);
 
-void* dark_vector_new_size(Dark_Growth growth, size_t element_size, size_t capacity, size_t size);
-void* dark_vector_new_capacity(Dark_Growth growth, size_t element_size, size_t capacity);
-void* dark_vector_new(Dark_Growth growth, size_t element_size);
-void dark_vector_delete(void* vector);
+Dark_Vector* dark_vector_new_size(Dark_Growth growth, size_t element_size, size_t capacity, size_t size);
+Dark_Vector* dark_vector_new_capacity(Dark_Growth growth, size_t element_size, size_t capacity);
+Dark_Vector* dark_vector_new(Dark_Growth growth, size_t element_size);
+void dark_vector_delete(Dark_Vector* vector);
 
-void* dark_vector_at(void* vector, size_t index);
-void* dark_vector_front(void* vector);
-void* dark_vector_back(void* vector);
-void* dark_vector_data(void* vector);
+void* dark_vector_at(Dark_Vector* vector, size_t index);
+void* dark_vector_front(Dark_Vector* vector);
+void* dark_vector_back(Dark_Vector* vector);
+void* dark_vector_data(Dark_Vector* vector);
 
-void* dark_vector_emplace(void* vector, size_t index, size_t count);
-void* dark_vector_emplace_front_c(void* vector, size_t count);
-void* dark_vector_emplace_front(void* vector);
-void* dark_vector_emplace_back_c(void* vector, size_t count);
-void* dark_vector_emplace_back(void* vector);
+void* dark_vector_emplace(Dark_Vector* vector, size_t index, size_t count);
+void* dark_vector_emplace_front_c(Dark_Vector* vector, size_t count);
+void* dark_vector_emplace_front(Dark_Vector* vector);
+void* dark_vector_emplace_back_c(Dark_Vector* vector, size_t count);
+void* dark_vector_emplace_back(Dark_Vector* vector);
 
-void dark_vector_push(void* vector, size_t index, size_t count, const void* source);
-void dark_vector_insert(void* vector, size_t index, const void* element);
-void dark_vector_push_front_c(void* vector, const void* element);
-void dark_vector_push_front(void* vector, const void* element);
-void dark_vector_push_back_c(void* vector, size_t count, const void* source);
-void dark_vector_push_back(void* vector, const void* element);
+void dark_vector_push(Dark_Vector* vector, size_t index, size_t count, const void* source);
+void dark_vector_insert(Dark_Vector* vector, size_t index, const void* element);
+void dark_vector_push_front_c(Dark_Vector* vector, const void* element);
+void dark_vector_push_front(Dark_Vector* vector, const void* element);
+void dark_vector_push_back_c(Dark_Vector* vector, size_t count, const void* source);
+void dark_vector_push_back(Dark_Vector* vector, const void* element);
 
-void dark_vector_pop(void* vector, size_t index, size_t count);
-void dark_vector_erase(void* vector, size_t index);
-void dark_vector_pop_front_c(void* vector, size_t count);
-void dark_vector_pop_front(void* vector);
-void dark_vector_pop_back_c(void* vector, size_t count);
-void dark_vector_pop_back(void* vector);
+void dark_vector_pop(Dark_Vector* vector, size_t index, size_t count);
+void dark_vector_erase(Dark_Vector* vector, size_t index);
+void dark_vector_pop_front_c(Dark_Vector* vector, size_t count);
+void dark_vector_pop_front(Dark_Vector* vector);
+void dark_vector_pop_back_c(Dark_Vector* vector, size_t count);
+void dark_vector_pop_back(Dark_Vector* vector);
 
-size_t dark_vector_capacity(void* vector);
-void dark_vector_reserve(void* vector, size_t capacity);
-void dark_vector_reserve_exact(void* vector, size_t capacity);
-void dark_vector_shrink_to_fit(void* vector);
+size_t dark_vector_capacity(Dark_Vector* vector);
+void dark_vector_reserve(Dark_Vector* vector, size_t capacity);
+void dark_vector_reserve_exact(Dark_Vector* vector, size_t capacity);
+void dark_vector_shrink_to_fit(Dark_Vector* vector);
 
-size_t dark_vector_size(void* vector);
-void dark_vector_resize(void* vector, size_t size);
-void dark_vector_clear(void* vector);
+size_t dark_vector_size(Dark_Vector* vector);
+void dark_vector_resize(Dark_Vector* vector, size_t size);
+void dark_vector_clear(Dark_Vector* vector);
 
-size_t dark_vector_element_size(void* vector);
+size_t dark_vector_element_size(Dark_Vector* vector);
 
 #endif // !defined(___DARK___VECTOR_H)
 
