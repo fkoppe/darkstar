@@ -65,6 +65,7 @@ void* dark_array_back(Dark_Array* array);
 void* dark_array_data(Dark_Array* array);
 
 void* dark_array_emplace(Dark_Array* array, size_t index, size_t count);
+//TODO void* dark_array_inplace(Dark_Array* array, size_t index);
 void* dark_array_emplace_front_c(Dark_Array* array, size_t count);
 void* dark_array_emplace_front(Dark_Array* array);
 void* dark_array_emplace_back_c(Dark_Array* array, size_t count);
