@@ -115,7 +115,7 @@ void dark_ostream_write(Dark_Ostream* const ostream_, const size_t byte_, const 
 
     if(dark_array_size(ostream->buffer_array) + byte_ < ostream->settings.buffer_size)
     {
-        dark_array_push_back_c(ostream->buffer_array, byte_, data_);
+        dark_array_push_back(ostream->buffer_array, byte_, data_);
 
         return;
     }
@@ -124,13 +124,13 @@ void dark_ostream_write(Dark_Ostream* const ostream_, const size_t byte_, const 
     {
         const size_t fit = ostream->settings.buffer_size - dark_array_size(ostream->buffer_array);
 
-        dark_array_push_back_c(ostream->buffer_array, fit, data_);
+        dark_array_push_back(ostream->buffer_array, fit, data_);
 
         for(size_t written = fit; written < byte_; written += DARK_MIN(byte_ - written, ostream->settings.buffer_size))
         {
             dark_ostream_flush((Dark_Ostream*)ostream);
 
-            dark_array_push_back_c(ostream->buffer_array, DARK_MIN(byte_ - written, ostream->settings.buffer_size), (char*)data_ + written);
+            dark_array_push_back(ostream->buffer_array, DARK_MIN(byte_ - written, ostream->settings.buffer_size), (char*)data_ + written);
         }
     }
     else
