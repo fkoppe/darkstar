@@ -80,7 +80,7 @@ void dark_log_general(const Dark_Library* const library_, const char* const modu
 
     if(lformat_.timestamp)
     {
-        dark_string_push_back(string, '[');
+        dark_string_insert_back(string, '[');
 
         if(NULL == stamp_)
         {
@@ -93,7 +93,7 @@ void dark_log_general(const Dark_Library* const library_, const char* const modu
             dark_string_append_cbuffer(string, DARK_STAMP_HMS_SIZE, stamp_);
         }
 
-        dark_string_push_back(string, ']');
+        dark_string_insert_back(string, ']');
     }
 
     if(lformat_.thread)
@@ -117,7 +117,7 @@ void dark_log_general(const Dark_Library* const library_, const char* const modu
 
     if(lformat_.library && NULL != library_)
     {
-        dark_string_push_back(string, '[');
+        dark_string_insert_back(string, '[');
 
         if(dark_cbuffer_compare("", module_color, 1))
         {
@@ -131,13 +131,13 @@ void dark_log_general(const Dark_Library* const library_, const char* const modu
             dark_string_append_cbuffer(string, dark_cstring_lenght(DARK_CONSOLE_COLOR_RESET), DARK_CONSOLE_COLOR_RESET);
         }
 
-        dark_string_push_back(string, ']');
+        dark_string_insert_back(string, ']');
     }
 
     const char* level_name = dark_level_name(level_);
     const char* level_color = dark_level_color(level_);
 
-    dark_string_push_back(string, '[');
+    dark_string_insert_back(string, '[');
 
     if(dark_cbuffer_compare("", level_color, 1))
     {
@@ -151,28 +151,28 @@ void dark_log_general(const Dark_Library* const library_, const char* const modu
         dark_string_append_cbuffer(string, dark_cstring_lenght(DARK_CONSOLE_COLOR_RESET), DARK_CONSOLE_COLOR_RESET);
     }
 
-    dark_string_push_back(string, ']');
-    dark_string_push_back(string, ' ');
+    dark_string_insert_back(string, ']');
+    dark_string_insert_back(string, ' ');
 
     if(lformat_.module && NULL != module_)
     {
         dark_string_append_cbuffer(string, dark_cstring_lenght(module_), module_);
-        dark_string_push_back(string, ':');
-        dark_string_push_back(string, ' ');
+        dark_string_insert_back(string, ':');
+        dark_string_insert_back(string, ' ');
     }
 
     if(lformat_.unit && NULL != unit_)
     {
         dark_string_append_cbuffer(string, dark_cstring_lenght(unit_), unit_);
-        dark_string_push_back(string, ':');
-        dark_string_push_back(string, ' ');
+        dark_string_insert_back(string, ':');
+        dark_string_insert_back(string, ' ');
     }
 
     if(lformat_.name && NULL != name_)
     {
         dark_string_append_cbuffer(string, dark_cstring_lenght(name_), name_);
-        dark_string_push_back(string, ':');
-        dark_string_push_back(string, ' ');
+        dark_string_insert_back(string, ':');
+        dark_string_insert_back(string, ' ');
     }
 
     if(NULL != ostream_mutex_)
@@ -181,7 +181,7 @@ void dark_log_general(const Dark_Library* const library_, const char* const modu
     }
 
     dark_string_append_cbuffer(string, count_, cbuffer_);
-    dark_string_push_back(string, '\n');
+    dark_string_insert_back(string, '\n');
 
     dark_ostream_write(ostream_, dark_string_size(string) + 1, dark_string_cbuffer_terminated(string));
 

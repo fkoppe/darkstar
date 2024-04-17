@@ -65,24 +65,25 @@ void* dark_vector_back(Dark_Vector* vector);
 void* dark_vector_data(Dark_Vector* vector);
 
 void* dark_vector_emplace(Dark_Vector* vector, size_t index, size_t count);
-void* dark_vector_emplace_front_c(Dark_Vector* vector, size_t count);
-void* dark_vector_emplace_front(Dark_Vector* vector);
-void* dark_vector_emplace_back_c(Dark_Vector* vector, size_t count);
-void* dark_vector_emplace_back(Dark_Vector* vector);
+void* dark_vector_emplace_front(Dark_Vector* vector, size_t count);
+void* dark_vector_emplace_back(Dark_Vector* vector, size_t count);
+void* dark_vector_inplace(Dark_Vector* vector, size_t index);
+void* dark_vector_inplace_front(Dark_Vector* vector);
+void* dark_vector_inplace_back(Dark_Vector* vector);
 
 void dark_vector_push(Dark_Vector* vector, size_t index, size_t count, const void* source);
+void dark_vector_push_front(Dark_Vector* vector, size_t count, const void* element);
+void dark_vector_push_back(Dark_Vector* vector, size_t count, const void* source);
 void dark_vector_insert(Dark_Vector* vector, size_t index, const void* element);
-void dark_vector_push_front_c(Dark_Vector* vector, const void* element);
-void dark_vector_push_front(Dark_Vector* vector, const void* element);
-void dark_vector_push_back_c(Dark_Vector* vector, size_t count, const void* source);
-void dark_vector_push_back(Dark_Vector* vector, const void* element);
+void dark_vector_insert_front(Dark_Vector* vector, const void* element);
+void dark_vector_insert_back(Dark_Vector* vector, const void* element);
 
 void dark_vector_pop(Dark_Vector* vector, size_t index, size_t count);
+void dark_vector_pop_front(Dark_Vector* vector, size_t count);
+void dark_vector_pop_back(Dark_Vector* vector, size_t count);
 void dark_vector_erase(Dark_Vector* vector, size_t index);
-void dark_vector_pop_front_c(Dark_Vector* vector, size_t count);
-void dark_vector_pop_front(Dark_Vector* vector);
-void dark_vector_pop_back_c(Dark_Vector* vector, size_t count);
-void dark_vector_pop_back(Dark_Vector* vector);
+void dark_vector_erase_front(Dark_Vector* vector);
+void dark_vector_erase_back(Dark_Vector* vector);
 
 size_t dark_vector_capacity(Dark_Vector* vector);
 void dark_vector_reserve(Dark_Vector* vector, size_t capacity);
