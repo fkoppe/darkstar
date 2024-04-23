@@ -732,7 +732,7 @@ int main()
     //--------------------------
 
     //----------TEST#30----------
-    DARK_TEST("vector_reserve")
+    DARK_TEST("vector_reserve/_additional")
     {
         Dark_Vector* const vector = dark_vector_new(DARK_GROWTH_STANDARD, sizeof(int));
 
@@ -752,6 +752,12 @@ int main()
         dark_vector_reserve(vector, 101);
 
         DARK_TEST_GE_U(dark_vector_capacity(vector), 101);
+        DARK_TEST_EQ_U(dark_vector_size(vector), 0);
+
+        dark_vector_reserve_additional(vector, 101);
+
+        DARK_TEST_GE_U(dark_vector_capacity(vector), 101);
+        DARK_TEST_LT_U(dark_vector_capacity(vector), 202);
         DARK_TEST_EQ_U(dark_vector_size(vector), 0);
 
         dark_vector_delete(vector);

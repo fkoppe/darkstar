@@ -939,7 +939,7 @@ int main()
     //--------------------------
 
     //----------TEST#44----------
-    DARK_TEST("string_reserve")
+    DARK_TEST("string_reserve/_additional")
     {
         Dark_String* const string = dark_string_new(DARK_GROWTH_STANDARD);
 
@@ -959,6 +959,12 @@ int main()
         dark_string_reserve(string, 101);
 
         DARK_TEST_GE_U(dark_string_capacity(string), 100);
+        DARK_TEST_EQ_U(dark_string_size(string), 0);
+
+        dark_string_reserve_additional(string, 101);
+
+        DARK_TEST_GE_U(dark_string_capacity(string), 101);
+        DARK_TEST_LT_U(dark_string_capacity(string), 202);
         DARK_TEST_EQ_U(dark_string_size(string), 0);
 
         dark_string_delete(string);
