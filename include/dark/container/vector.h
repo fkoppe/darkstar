@@ -87,6 +87,7 @@ void dark_vector_erase_back(Dark_Vector* vector);
 
 size_t dark_vector_capacity(Dark_Vector* vector);
 void dark_vector_reserve(Dark_Vector* vector, size_t capacity);
+void dark_vector_reserve_additional(Dark_Vector* vector, size_t additional);
 void dark_vector_reserve_exact(Dark_Vector* vector, size_t capacity);
 void dark_vector_shrink_to_fit(Dark_Vector* vector);
 

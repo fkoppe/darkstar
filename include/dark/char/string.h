@@ -86,6 +86,7 @@ void dark_string_erase_back(Dark_String* string);
 
 size_t dark_string_capacity(Dark_String* string);
 void dark_string_reserve(Dark_String* string, size_t capacity);
+void dark_string_reserve_additional(Dark_String* string, size_t additional);
 void dark_string_reserve_exact(Dark_String* string, size_t capacity);
 void dark_string_shrink_to_fit(Dark_String* string);
 

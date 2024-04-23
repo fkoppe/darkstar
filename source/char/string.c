@@ -21,6 +21,7 @@
 ************************************************************************************/
 
 #include "char_module.h"
+#include "dark/container/vector.h"
 
 #include <dark/char/char.h>
 #include <dark/container/container.h>
@@ -445,7 +446,7 @@ void dark_string_push_v(Dark_String* const string_, const size_t index_, const c
     DARK_ASSERT(index_ <= dark_string_size((Dark_String*)vector), DARK_ERROR_CONTAINER_INDEX);
     DARK_ASSERT(dark_string_size((Dark_String*)vector) <= DARK_CONTAINER_SIZE_MAX - additional, DARK_ERROR_OVERFLOW);
 
-    dark_vector_reserve(vector, dark_vector_size(vector) + additional);
+    dark_vector_reserve_additional(vector, additional);
 
     const char overwritten = DARK_VECTOR_AT(vector, index_, char);
 
@@ -481,7 +482,7 @@ void dark_string_push_f(Dark_String* const string_, const size_t index_, const c
     DARK_ASSERT(index_ <= dark_string_size((Dark_String*)vector), DARK_ERROR_CONTAINER_INDEX);
     DARK_ASSERT(dark_string_size((Dark_String*)vector) <= DARK_CONTAINER_SIZE_MAX - additional, DARK_ERROR_OVERFLOW);
 
-    dark_vector_reserve(vector, dark_vector_size(vector) + additional);
+    dark_vector_reserve_additional(vector, additional);
 
     const char overwritten = DARK_VECTOR_AT(vector, index_, char);
 
@@ -531,7 +532,7 @@ void dark_string_append_v(Dark_String* const string_, const char* const format_,
     DARK_ASSERT(dark_vector_size(vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
     DARK_ASSERT(dark_string_size((Dark_String*)vector) <= DARK_CONTAINER_SIZE_MAX - additional, DARK_ERROR_OVERFLOW);
 
-    dark_vector_reserve(vector, dark_vector_size(vector) + additional);
+    dark_vector_reserve_additional(vector, additional);
 
     char* const destination = dark_vector_emplace(vector, dark_string_size((Dark_String*)vector), additional);
 
@@ -562,7 +563,7 @@ void dark_string_append_f(Dark_String* const string_, const char* const format_,
     DARK_ASSERT(dark_vector_size(vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
     DARK_ASSERT(dark_string_size((Dark_String*)vector) <= DARK_CONTAINER_SIZE_MAX - additional, DARK_ERROR_OVERFLOW);
 
-    dark_vector_reserve(vector, dark_vector_size(vector) + additional);
+    dark_vector_reserve_additional(vector, additional);
 
     char* const destination = dark_vector_emplace(vector, dark_string_size((Dark_String*)vector), additional);
 
@@ -606,7 +607,7 @@ void dark_string_prepend_v(Dark_String* const string_, const char* const format_
     DARK_ASSERT(dark_vector_size(vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
     DARK_ASSERT(dark_string_size((Dark_String*)vector) <= DARK_CONTAINER_SIZE_MAX - additional, DARK_ERROR_OVERFLOW);
 
-    dark_vector_reserve(vector, dark_vector_size(vector) + additional);
+    dark_vector_reserve_additional(vector, additional);
 
     const char overwritten = DARK_VECTOR_AT(vector, 0, char);
 
@@ -639,7 +640,7 @@ void dark_string_prepend_f(Dark_String* const string_, const char* const format_
     DARK_ASSERT(dark_vector_size(vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
     DARK_ASSERT(dark_string_size((Dark_String*)vector) <= DARK_CONTAINER_SIZE_MAX - additional, DARK_ERROR_OVERFLOW);
 
-    dark_vector_reserve(vector, dark_vector_size(vector) + additional);
+    dark_vector_reserve_additional(vector, additional);
 
     const char overwritten = DARK_VECTOR_AT(vector, 0, char);
 
@@ -816,6 +817,17 @@ void dark_string_reserve(Dark_String* const string_, const size_t capacity_)
     DARK_ASSERT(dark_vector_size(vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
 
     dark_vector_reserve(vector, capacity_ + 1);
+}
+
+void dark_string_reserve_additional(Dark_String* const string_, const size_t additional_)
+{
+    DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
+
+    Dark_Vector* const vector = (Dark_Vector*)string_;
+
+    DARK_ASSERT(dark_vector_size(vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
+
+    dark_vector_reserve_additional(vector, additional_);
 }
 
 void dark_string_reserve_exact(Dark_String* const string_, const size_t capacity_)
