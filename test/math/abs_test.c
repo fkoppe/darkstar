@@ -2,7 +2,7 @@
 
 int main()
 {
-    //----------TEST#1----------
+    //----------TEST----------
     DARK_TEST("abs")
     {
         DARK_TEST_EQ_U((uint8_t)-(INT8_MIN+1)+1, dark_abs_i8(INT8_MIN));

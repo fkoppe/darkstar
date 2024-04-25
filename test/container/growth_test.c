@@ -2,7 +2,7 @@
 
 int main()
 {
-    //----------TEST#1----------
+    //----------TEST----------
     DARK_TEST("GROWTH_VALUE#1")
     {
         const Dark_Growth growth = { 0.0f, 10, 0 };
@@ -10,7 +10,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#2----------
+    //----------TEST----------
     DARK_TEST("GROWTH_VALUE#2")
     {
         const Dark_Growth growth = { 2.0f, 0, 4};
@@ -18,7 +18,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#3----------
+    //----------TEST----------
     DARK_TEST("GROWTH_VALUE#3")
     {
         const Dark_Growth growth = { 2.0f, 20, 20};
@@ -26,7 +26,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#4----------
+    //----------TEST----------
     DARK_TEST("GROWTH_VALUE#4")
     {
         const Dark_Growth growth = { 2.0f, 0, 0};
@@ -34,7 +34,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#5----------
+    //----------TEST----------
     DARK_TEST("GROWTH_APPLIED")
     {
         const Dark_Growth growth = { 2.0f, 0, 0};
@@ -42,7 +42,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#6----------
+    //----------TEST----------
     DARK_TEST("GROWTH_STANDARD")
     {
         DARK_TEST_EQ_U(DARK_GROWTH_VALUE(0, DARK_GROWTH_STANDARD), 1);

@@ -15,7 +15,7 @@ int main()
     dark_memory_profiler_initialise(DARK_MEMORY_PROFILE_LEVEL_FULL, true);
 #endif // defined(___DARK_DEBUG)
 
-    //----------TEST#1----------
+    //----------TEST----------
     DARK_TEST("logger_test")
     {
         Dark_Stream_Setting ostream_settings;

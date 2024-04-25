@@ -6,7 +6,7 @@ int main()
     dark_memory_profiler_initialise(DARK_MEMORY_PROFILE_LEVEL_FULL, true);
 #endif // defined(___DARK_DEBUG)
 
-    //----------TEST#1----------
+    //----------TEST----------
     DARK_TEST("stopwatch")
     {
         Dark_Stopwatch* stopwatch = dark_stopwatch_new();
@@ -24,7 +24,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#2----------
+    //----------TEST----------
     DARK_TEST("stamp_hms")
     {
         char buffer[DARK_STAMP_HMS_SIZE];
@@ -33,7 +33,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#3----------
+    //----------TEST----------
     DARK_TEST("stamp_hms_terminated")
     {
         char buffer[DARK_STAMP_HMS_SIZE_TERMINATED];
@@ -47,8 +47,7 @@ int main()
     dark_test_end();
 
 #if defined(___DARK_DEBUG)
-    DARK_TEST_EQ_U(0, dark_memory_profiler_info_all().current.count - dark_memory_profiler_info_own().current.count);
-    DARK_TEST_EQ_U(0, dark_memory_profiler_info_all().current.usage - dark_memory_profiler_info_own().current.usage);
+    DARK_TEST_FALSE(dark_memory_profile_leak_is());
 
     dark_memory_profiler_shutdown(false);
 #endif // defined(___DARK_DEBUG)

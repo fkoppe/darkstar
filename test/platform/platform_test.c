@@ -15,28 +15,51 @@ int main()
     dark_memory_profiler_initialise(DARK_MEMORY_PROFILE_LEVEL_FULL, true);
 #endif // defined(___DARK_DEBUG)
 
-    dark_console_hide();
-    dark_console_show();
+    //----------TEST----------
+    DARK_TEST("console_show/_hide")
+    {
+        dark_console_hide();
+        dark_console_show();
+    }
+    //--------------------------
 
-    dark_clock_ns();
+    //----------TEST----------
+    DARK_TEST("clock")
+    {
+        dark_clock_ns();
+        dark_clock_ms();
+        dark_clock_s();
+    }
+    //--------------------------
 
-    dark_process_id();
-    dark_thread_id_current();
+    //----------TEST----------
+    DARK_TEST("process")
+    {
+        dark_process_id();
+    }
+    //--------------------------
 
-    int integer = 0;
-    void* thread = dark_thread_new(test, &integer);
+    //----------TEST----------
+    DARK_TEST("thread")
+    {
+        dark_thread_id_current();
 
-    DARK_TEST_NE_U(dark_thread_id(thread), dark_thread_id_current());
+        int integer = 0;
+        void* thread = dark_thread_new(test, &integer);
 
-    dark_thread_join(thread);
+        DARK_TEST_NE_U(dark_thread_id(thread), dark_thread_id_current());
 
-    DARK_TEST_EQ_I(integer, 42);
+        dark_thread_join(thread);
 
-    dark_thread_delete(thread);
+        DARK_TEST_EQ_I(integer, 42);
+
+        dark_thread_delete(thread);
+
+    }
+    //--------------------------
 
 #if defined(___DARK_DEBUG)
-    DARK_TEST_EQ_U(0, dark_memory_profiler_info_all().current.count - dark_memory_profiler_info_own().current.count);
-    DARK_TEST_EQ_U(0, dark_memory_profiler_info_all().current.usage - dark_memory_profiler_info_own().current.usage);
+    DARK_TEST_FALSE(dark_memory_profile_leak_is());
 
     dark_memory_profiler_shutdown(false);
 #endif // defined(___DARK_DEBUG)

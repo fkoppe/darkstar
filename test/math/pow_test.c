@@ -2,7 +2,7 @@
 
 int main()
 {
-    //----------TEST#1----------
+    //----------TEST----------
     DARK_TEST("ppow_u")
     {
         DARK_TEST_EQ_U(1, dark_ppow_u(112, 0));
@@ -13,7 +13,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#2----------
+    //----------TEST----------
     DARK_TEST("ppow_i")
     {
         DARK_TEST_EQ_I(1, dark_ppow_i(-112, 0));

@@ -13,7 +13,7 @@ void va_helper(const size_t count_, char* const destination_, const char* const 
 
 int main()
 {
-    //----------TEST#1----------
+    //----------TEST----------
     DARK_TEST("cbuffer_terminated_is")
     {
         char cbuffer[16] = "merry christmas";
@@ -26,7 +26,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#2----------
+    //----------TEST----------
     DARK_TEST("cbuffer_snprintf")
     {
         //14 + 1 for '\0'
@@ -40,7 +40,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#3----------
+    //----------TEST----------
     DARK_TEST("cbuffer_vsnprintf")
     {
         //14 + 1 for '\0'
@@ -53,7 +53,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#4----------
+    //----------TEST----------
     DARK_TEST("cbuffer_snprintf negative")
     {
         //14 + 1 for '\0'
@@ -67,7 +67,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#5----------
+    //----------TEST----------
     DARK_TEST("cbuffer_compare")
     {
         DARK_TEST_EQ_U(0, dark_cbuffer_compare("abcd", "abcd", 4));

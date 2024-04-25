@@ -6,7 +6,7 @@ int main()
     dark_memory_profiler_initialise(DARK_MEMORY_PROFILE_LEVEL_FULL, true);
 #endif // defined(___DARK_DEBUG)
 
-    //----------TEST#1----------
+    //----------TEST----------
     DARK_TEST("file_create/destroy")
     {
         Dark_File* const file = malloc(dark_file_struct_size());
@@ -19,7 +19,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#2----------
+    //----------TEST----------
     DARK_TEST("file_new/delete")
     {
         Dark_File* const file = dark_file_new();
@@ -27,7 +27,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#3----------
+    //----------TEST----------
     DARK_TEST("file_open/close")
     {
         Dark_File* const file = dark_file_new();
@@ -42,7 +42,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#4----------
+    //----------TEST----------
     DARK_TEST("file_write")
     {
         char buffer[] = "blablablupp";
@@ -62,7 +62,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#5----------
+    //----------TEST----------
     DARK_TEST("file_mmap")
     {
         char buffer[] = "blablablupp";
@@ -86,7 +86,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#6----------
+    //----------TEST----------
     DARK_TEST("file_open_is")
     {
         Dark_File* const file = dark_file_new();
@@ -103,7 +103,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#7----------
+    //----------TEST----------
     DARK_TEST("file_open_is")
     {
         Dark_File* const file = dark_file_new();
@@ -123,7 +123,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#8----------
+    //----------TEST----------
     DARK_TEST("file_count_max")
     {
         DARK_TEST_NE_U(dark_file_count_max(), 0);
@@ -133,8 +133,7 @@ int main()
     dark_test_end();
 
 #if defined(___DARK_DEBUG)
-    DARK_TEST_EQ_U(0, dark_memory_profiler_info_all().current.count - dark_memory_profiler_info_own().current.count);
-    DARK_TEST_EQ_U(0, dark_memory_profiler_info_all().current.usage - dark_memory_profiler_info_own().current.usage);
+    DARK_TEST_FALSE(dark_memory_profile_leak_is());
 
     dark_memory_profiler_shutdown(false);
 #endif // defined(___DARK_DEBUG)

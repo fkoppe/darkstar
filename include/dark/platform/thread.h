@@ -25,16 +25,21 @@
 
 #include <dark/core/essential.h>
 
+typedef struct Dark_Thread Dark_Thread;
+
 size_t dark_thread_struct_size(void);
 
-void* dark_thread_new(void (* function), void* argument);
-void dark_thread_delete(void* thread);
+void dark_thread_create(Dark_Thread* thread, void (* function), void* argument);
+void dark_thread_destroy(Dark_Thread* thread);
 
-uint64_t dark_thread_id(void* thread);
+void* dark_thread_new(void (* function), void* argument);
+void dark_thread_delete(Dark_Thread* thread);
+
+uint64_t dark_thread_id(Dark_Thread* thread);
 uint64_t dark_thread_id_current(void);
 
-bool dark_thread_joinable(void* thread);
-void dark_thread_join(void* thread);
-void dark_thread_detach(void* thread);
+bool dark_thread_joinable(Dark_Thread* thread);
+void dark_thread_join(Dark_Thread* thread);
+void dark_thread_detach(Dark_Thread* thread);
 
 #endif // !defined(___DARK___THREAD_H)

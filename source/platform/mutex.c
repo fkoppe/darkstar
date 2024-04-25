@@ -60,10 +60,11 @@ size_t dark_mutex_struct_size(void)
     return sizeof(Dark_Mutex_Struct);
 }
 
-Dark_Mutex* dark_mutex_new(void)
+void dark_mutex_create(Dark_Mutex* const mutex_)
 {
-    Dark_Mutex_Struct* const mutex = malloc(sizeof(*mutex));
-    DARK_ASSERT(NULL != mutex, DARK_ERROR_ALLOCATION);
+    DARK_ASSERT(NULL != mutex_, DARK_ERROR_NULL);
+
+    Dark_Mutex_Struct* const mutex = (Dark_Mutex_Struct*)mutex_;
 
 #if defined(___DARK_WINDOWS)
     InitializeCriticalSectionAndSpinCount(&mutex->section, 128);
@@ -73,11 +74,9 @@ Dark_Mutex* dark_mutex_new(void)
     int result = pthread_mutex_init(&mutex->lock, NULL);
     DARK_ASSERT_MSG(0 == result, DARK_ERROR_PLATFORM, "pthread_mutex_init");
 #endif // defined(___DARK_UNIX)
-
-    return (Dark_Mutex*)mutex;
 }
 
-void dark_mutex_delete(Dark_Mutex* const mutex_)
+void dark_mutex_destroy(Dark_Mutex* const mutex_)
 {
     DARK_ASSERT(NULL != mutex_, DARK_ERROR_NULL);
 
@@ -90,6 +89,25 @@ void dark_mutex_delete(Dark_Mutex* const mutex_)
 #if defined(___DARK_UNIX)
     pthread_mutex_destroy(&mutex->lock);
 #endif // defined(___DARK_UNIX)
+}
+
+Dark_Mutex* dark_mutex_new(void)
+{
+    Dark_Mutex_Struct* const mutex = malloc(sizeof(*mutex));
+    DARK_ASSERT(NULL != mutex, DARK_ERROR_ALLOCATION);
+
+    dark_mutex_create((Dark_Mutex*)mutex);
+
+    return (Dark_Mutex*)mutex;
+}
+
+void dark_mutex_delete(Dark_Mutex* const mutex_)
+{
+    DARK_ASSERT(NULL != mutex_, DARK_ERROR_NULL);
+
+    Dark_Mutex_Struct* const mutex = (Dark_Mutex_Struct*)mutex_;
+
+    dark_mutex_destroy((Dark_Mutex*)mutex);
 
     free(mutex);
 }

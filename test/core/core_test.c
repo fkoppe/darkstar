@@ -2,7 +2,7 @@
 
 int main()
 {
-    //----------TEST#1----------
+    //----------TEST----------
     DARK_TEST("TEST")
     {
         DARK_TEST_TRUE(true);
@@ -28,14 +28,14 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#2----------
+    //----------TEST----------
     DARK_TEST("ASSERT")
     {
         DARK_ASSERT(0 == 0, DARK_ERROR_UNKNOWN);
     }
     //--------------------------
 
-    //----------TEST#3----------
+    //----------TEST----------
     DARK_TEST("MIN/MAX")
     {
         DARK_TEST_EQ_U(DARK_MAX(10, 1), 10);
@@ -43,7 +43,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST#4----------
+    //----------TEST----------
     DARK_TEST("version")
     {
         const uint8_t major_max = 255;
