@@ -25,6 +25,8 @@
 #include <dark/core/core.h>
 #include <dark/random/random.h>
 
+#include <string.h>
+
 #undef DARK_UNIT
 #define DARK_UNIT "uuid4"
 
@@ -43,7 +45,7 @@ Dark_Uuid4 dark_uuid4_generate(uint64_t* const random_)
     return uuid4;
 }
 
-void dark_uuid4_write(const Dark_Uuid4 uuid4_, char* const destination_)
+void dark_uuid4_write_cbuffer(const Dark_Uuid4 uuid4_, char* const destination_)
 {
     //uuid4_
     DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
@@ -68,4 +70,12 @@ void dark_uuid4_write(const Dark_Uuid4 uuid4_, char* const destination_)
     }
 
     *--ptr = 0;
+}
+
+int dark_uuid4_compare(const Dark_Uuid4* const element_, const Dark_Uuid4* const other_)
+{
+    DARK_ASSERT(NULL != element_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != other_, DARK_ERROR_NULL);
+
+    return memcmp(element_, other_, sizeof(Dark_Uuid4));
 }

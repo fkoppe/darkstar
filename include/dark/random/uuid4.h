@@ -34,8 +34,12 @@ typedef union Dark_Uuid4
     uint64_t oct[2];
 } Dark_Uuid4;
 
+static const Dark_Uuid4 DARK_UUID4_NULL = { .oct[0] = 0, .oct[1] = 0 };
+
 Dark_Uuid4 dark_uuid4_generate(uint64_t* random);
 
-void dark_uuid4_write(Dark_Uuid4 uuid4, char* destination);
+void dark_uuid4_write_cbuffer(Dark_Uuid4 uuid4, char* destination);
+
+int dark_uuid4_compare(const Dark_Uuid4* element, const Dark_Uuid4* other);
 
 #endif // !defined(___DARK___UUID4_H)

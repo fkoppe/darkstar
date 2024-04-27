@@ -22,6 +22,7 @@
 
 #include "char_module.h"
 
+#include <bits/stdint-intn.h>
 #include <dark/char/char.h>
 #include <dark/core/core.h>
 #include <dark/order/order.h>
@@ -75,7 +76,7 @@ int8_t dark_cbuffer_compare(const char* const cstring_, const char* const other_
 
     for(size_t i = 0; i < lenght_; i++)
     {
-        const int8_t result = dark_compare_i8(cstring_ + i, other_ + i);
+        const int8_t result = dark_compare_i8((int8_t*)cstring_ + i, (int8_t*)other_ + i);
 
         if(result != 0)
         {
