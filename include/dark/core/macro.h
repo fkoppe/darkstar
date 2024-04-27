@@ -25,6 +25,16 @@
 
 #include <dark/core/essential.h>
 
+#if defined(_MSC_VER)
+    #define DARK_NORETURN __declspec(noreturn)
+#elif defined(__clang__)
+    #define DARK_NORETURN _Noreturn
+#elif defined(__GNUC__)
+    #define DARK_NORETURN __attribute__((noreturn))
+#else
+    #define DARK_NORETURN
+#endif // !defined(_MSC_VER)
+
 #define DARK_MIN(x, y) \
 ((x) < (y) ? (x) : (y))
 

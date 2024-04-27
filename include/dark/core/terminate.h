@@ -26,6 +26,7 @@
 #include <dark/core/error.h>
 #include <dark/core/essential.h>
 #include <dark/core/library.h>
+#include <dark/core/macro.h>
 #include <dark/core/module.h>
 #include <dark/core/unit.h>
 
@@ -45,6 +46,6 @@
 #define DARK_ABORT_MSG(error, message) abort()
 #endif // defined(___DARK_DEBINFO)
 
-void dark_terminate(const char* file, const char* func, int64_t line, const char* date, const char* time, const Dark_Library* library, const char* module, const char* unit, int64_t code, const Dark_Error* error, bool abort_is, const char* message);
+DARK_NORETURN void dark_terminate(const char* file, const char* func, int64_t line, const char* date, const char* time, const Dark_Library* library, const char* module, const char* unit, int64_t code, const Dark_Error* error, bool abort_is, const char* message);
 
 #endif // !defined(___DARK___TERMINATE_H)
