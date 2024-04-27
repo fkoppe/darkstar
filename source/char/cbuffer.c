@@ -22,7 +22,6 @@
 
 #include "char_module.h"
 
-#include <bits/stdint-intn.h>
 #include <dark/char/char.h>
 #include <dark/core/core.h>
 #include <dark/order/order.h>
