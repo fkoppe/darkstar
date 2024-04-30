@@ -55,6 +55,7 @@ void dark_sort_insertion(const size_t element_size_, const size_t count_, void* 
     DARK_ASSERT(data_ != NULL, DARK_ERROR_NULL);
     DARK_ASSERT(compare_ != NULL, DARK_ERROR_NULL);
 
+    //TODO why not alloca for stack mem?
     void* elem = malloc(element_size_);
     DARK_ASSERT(NULL != elem, DARK_ERROR_ALLOCATION);
 
