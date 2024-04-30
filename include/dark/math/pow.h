@@ -25,7 +25,10 @@
 
 #include <dark/core/essential.h>
 
+//TODO rename ppow to upow
 uint64_t dark_ppow_u(uint64_t base, uint64_t exponent);
 int64_t dark_ppow_i(int64_t base, uint64_t exponent);
+
+//TODO add spow
 
 #endif // !defined(___DARK___POW_H)
