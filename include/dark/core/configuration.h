@@ -20,19 +20,34 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___CORE_H)
-#define ___DARK___CORE_H
+#if !defined(___DARK___CONFIGURATION_H)
+#define ___DARK___CONFIGURATION_H
 
-#include <dark/core/assert.h>
-#include <dark/core/configuration.h>
-#include <dark/core/error.h>
 #include <dark/core/essential.h>
-#include <dark/core/library.h>
-#include <dark/core/macro.h>
-#include <dark/core/module.h>
-#include <dark/core/terminate.h>
-#include <dark/core/test.h>
-#include <dark/core/unit.h>
-#include <dark/core/version.h>
 
-#endif // !defined(___DARK___CORE_H)
+#if defined(___DARK_DEBUG)
+static const bool DARK_DEBUG_IS = true;
+#else
+static const bool DARK_DEBUG_IS = false;
+#endif // defined(___DARK_DEBUG)
+
+#if defined(___DARK_DEBINFO)
+static const bool DARK_DEBINFO_IS = true;
+#else
+static const bool DARK_DEBINFO_IS = false;
+#endif // defined(___DARK_DEBINFO)
+
+#if defined(___DARK_RELEASE)
+static const bool DARK_RELEASE_IS = true;
+#else
+static const bool DARK_RELEASE_IS = false;
+#endif // defined(___DARK_RELEASE)
+
+#if defined(___DARK_MINSIZE)
+static const bool DARK_MINSIZE_IS = true;
+#else
+static const bool DARK_MINSIZE_IS = false;
+#endif // defined(___DARK_MINSIZE)
+
+#endif // !defined(___DARK___CONFIGURATION_H)
+
