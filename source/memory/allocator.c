@@ -114,7 +114,7 @@ void* dark_bcalloc(Dark_Allocator* const allocator_, const size_t size_, const s
 
     Dark_Allocator_Struct* const allocator = (Dark_Allocator_Struct*)allocator_;
 
-    return allocator->allocate(allocator->context, NULL, 0, count_ * size_);
+    return allocator->callocate(allocator->context, NULL, 0, count_ * size_);
 }
 
 void* dark_recalloc(Dark_Allocator* const allocator_, void* const address_, const size_t byte_old_, const size_t byte_new_)
