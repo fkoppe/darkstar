@@ -47,6 +47,8 @@ void dark_test_name_set(const char* const name_)
 
     DARK_TEST_NUMBER++;
     DARK_TEST_NAME = name_;
+
+    fprintf(stdout, "test#%zu: %s\n", DARK_TEST_NUMBER, DARK_TEST_NAME);
 }
 
 void dark_test_end(void)
