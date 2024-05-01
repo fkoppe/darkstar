@@ -23,9 +23,9 @@
 #if !defined(___DARK___ESSENTIAL_H)
 #define ___DARK___ESSENTIAL_H
 
-#include <stdlib.h>
-
 #include <stdbool.h>
+
+#include <stddef.h>
 
 #include <stdint.h>
 #include <inttypes.h>

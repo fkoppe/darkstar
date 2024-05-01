@@ -46,18 +46,21 @@ static const Dark_Error DARK_ERROR_SWITCH = { &DARK_ERROR_UNREACHABLE, "switch",
 
 //runtime error
 static const Dark_Error DARK_ERROR_RUNTIME = { NULL, "runtime", NULL };
-static const Dark_Error DARK_ERROR_ALLOCATION = { &DARK_ERROR_RUNTIME, "allocation", "m-/ca-/realloc failed" };
 static const Dark_Error DARK_ERROR_OVERFLOW = { &DARK_ERROR_RUNTIME, "overflow", "exeeded size limit" };
 static const Dark_Error DARK_ERROR_UNDERFLOW = { &DARK_ERROR_RUNTIME, "underflow", "undercut size limit" };
+static const Dark_Error DARK_ERROR_ALLOCATION = { &DARK_ERROR_RUNTIME, "allocation", "allocation failed" };
+static const Dark_Error DARK_ERROR_INTERNAL = { NULL, "internal", NULL };
 
 static const Dark_Error DARK_ERROR_API = { &DARK_ERROR_RUNTIME, "api", "api failed" };
 static const Dark_Error DARK_ERROR_DARK = { &DARK_ERROR_API, "dark", NULL};
 
 //logic error
 static const Dark_Error DARK_ERROR_LOGIC = { NULL, "logic", NULL };
-static const Dark_Error DARK_ERROR_STATE = { &DARK_ERROR_LOGIC, "state", "already in requested state" };
-static const Dark_Error DARK_ERROR_NOSTATE = { &DARK_ERROR_LOGIC, "state", "not in required state" };
 static const Dark_Error DARK_ERROR_MATH = { &DARK_ERROR_LOGIC, "math", "undefined operation" };
+
+static const Dark_Error DARK_ERROR_STATE = { &DARK_ERROR_LOGIC, "state", NULL};
+static const Dark_Error DARK_ERROR_INSTATE = { &DARK_ERROR_STATE, "instate", "already in requested state" };
+static const Dark_Error DARK_ERROR_NOSTATE = { &DARK_ERROR_STATE, "nostate", "not in required state" };
 
 static const Dark_Error DARK_ERROR_VALUE = { &DARK_ERROR_LOGIC, "value", "invalid value" };
 static const Dark_Error DARK_ERROR_NULL = { &DARK_ERROR_VALUE, "null", "unexpected null-pointer" };

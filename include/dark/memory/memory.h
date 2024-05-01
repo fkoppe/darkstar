@@ -20,23 +20,10 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___MEMORY_H)
+#define ___DARK___MEMORY_H
 
-//#include <dark/char/char.h>
-//#include <dark/container/container.h>
-#include <dark/core/core.h>
-//#include <dark/hash/hash.h>
-//#include <dark/log/log.h>
-//#include <dark/math/math.h>
-#include <dark/memory/memory.h>
-//#include <dark/order/order.h>
-//#include <dark/platform/platform.h>
-//#include <dark/profile/profile.h>
-//#include <dark/random/random.h>
-//#include <dark/stream/stream.h>
-//#include <dark/time/time.h>
+#include <dark/memory/allocator.h>
+#include <dark/memory/os_allocator.h>
 
-#include <dark/info.h>
-
-#endif // !defined(___DARK___DARKSTAR_H)
+#endif // !defined(___DARK___MEMORY_H)

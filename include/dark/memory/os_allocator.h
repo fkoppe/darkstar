@@ -20,23 +20,27 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___OS_ALLOCATOR_H)
+#define ___DARK___OS_ALLOCATOR_H
 
-//#include <dark/char/char.h>
-//#include <dark/container/container.h>
-#include <dark/core/core.h>
-//#include <dark/hash/hash.h>
-//#include <dark/log/log.h>
-//#include <dark/math/math.h>
-#include <dark/memory/memory.h>
-//#include <dark/order/order.h>
-//#include <dark/platform/platform.h>
-//#include <dark/profile/profile.h>
-//#include <dark/random/random.h>
-//#include <dark/stream/stream.h>
-//#include <dark/time/time.h>
+#include <dark/core/essential.h>
+#include <dark/memory/allocator.h>
 
-#include <dark/info.h>
+void* dark_os_allocator_allocate(void* context, void* address, size_t size_old, size_t size_new);
+void* dark_os_allocator_callocate(void* context, void* address, size_t size_old, size_t size_new);
 
-#endif // !defined(___DARK___DARKSTAR_H)
+static const Dark_Allocator_Struct DARK_ALLOCATOR_NATIVE_STRUCT = { dark_os_allocator_allocate, dark_os_allocator_callocate, NULL };
+static Dark_Allocator* const DARK_ALLOCATOR_NATIVE = (Dark_Allocator*)&DARK_ALLOCATOR_NATIVE_STRUCT;
+
+size_t dark_os_allocator_context_size(void);
+
+void dark_os_allocator_create(Dark_Allocator* allocator, bool debug_is);
+void dark_os_allocator_destroy(Dark_Allocator* allocator);
+
+Dark_Allocator* dark_os_allocator_new(bool debug_is);
+void dark_os_allocator_delete(Dark_Allocator* allocator);
+
+Dark_Allocator_Info dark_os_allocator_info(Dark_Allocator* allocator);
+
+#endif // !defined(___DARK___OS_ALLOCATOR_H)
+

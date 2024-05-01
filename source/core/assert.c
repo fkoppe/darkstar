@@ -33,6 +33,7 @@ X X X X X X X X X X X X X X*/
 
 #include <assert.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #undef DARK_UNIT
 

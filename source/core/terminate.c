@@ -33,6 +33,7 @@ X X X X X X X X X X X X X X*/
 
 #include <assert.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #undef DARK_UNIT
 
@@ -50,7 +51,7 @@ void dark_terminate(const char* const file_, const char* const func_, const int6
     assert(NULL != error_);
     //abort_is_
     //message_
-    
+
     fputs("-------------------------TERMINATE-------------------------\n", stderr);
 
     if (abort_is_)

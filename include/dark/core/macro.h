@@ -35,6 +35,9 @@
     #define DARK_NORETURN
 #endif // !defined(_MSC_VER)
 
+#define DARK_EXIT_SUCCESS 0
+#define DARK_EXIT_FAILURE -1
+
 #define DARK_MIN(x, y) \
 ((x) < (y) ? (x) : (y))
 
