@@ -5,7 +5,7 @@ macro(dark_test_add filename)
 endmacro(dark_test_add)
 
 add_subdirectory(core)
-#add_subdirectory(memory)
+add_subdirectory(memory)
 add_subdirectory(math)
 #add_subdirectory(monitor)
 
