@@ -40,7 +40,8 @@ int main()
         char* data = dark_malloc(DARK_ALLOCATOR_NATIVE, 5);
         DARK_ASSERT(NULL != data, DARK_ERROR_ALLOCATION);
 
-        dark_realloc(DARK_ALLOCATOR_NATIVE, data, 5, 6);
+        data = dark_realloc(DARK_ALLOCATOR_NATIVE, data, 5, 6);
+        DARK_ASSERT(NULL != data, DARK_ERROR_ALLOCATION);
 
         data[0] = 'a';
         data[1] = 'b';
