@@ -77,7 +77,7 @@ int main()
     //----------TEST----------
     DARK_TEST("calloc")
     {
-        char* data = dark_calloc(DARK_ALLOCATOR_NATIVE, 5);
+        char* const data = dark_calloc(DARK_ALLOCATOR_NATIVE, 5);
         DARK_ASSERT(NULL != data, DARK_ERROR_ALLOCATION);
 
         DARK_TEST_EQ_I(data[0], 0);
@@ -93,7 +93,7 @@ int main()
     //----------TEST----------
     DARK_TEST("bcalloc")
     {
-        int64_t* data = dark_bcalloc(DARK_ALLOCATOR_NATIVE, sizeof(int64_t), 5);
+        int64_t* const data = dark_bcalloc(DARK_ALLOCATOR_NATIVE, sizeof(int64_t), 5);
         DARK_ASSERT(NULL != data, DARK_ERROR_ALLOCATION);
 
         DARK_TEST_EQ_I(data[0], 0);
@@ -132,7 +132,7 @@ int main()
 
         data = dark_brecalloc(DARK_ALLOCATOR_NATIVE, data, sizeof(uint64_t), 5, 6);
 
-        data[5] = 0;
+        DARK_TEST_EQ_I(data[5], 0);
 
         dark_bfree(DARK_ALLOCATOR_NATIVE, data, sizeof(uint64_t), 6);
     }
