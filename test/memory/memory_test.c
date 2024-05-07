@@ -134,7 +134,7 @@ int main()
 
 //        data[5] = 0;
 
-        dark_bfree(DARK_ALLOCATOR_NATIVE, data, sizeof(uint64_t), 6);
+//        dark_bfree(DARK_ALLOCATOR_NATIVE, data, sizeof(uint64_t), 6);
 //    }
     //--------------------------
 
