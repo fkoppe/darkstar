@@ -31,7 +31,7 @@
 #include <dark/math/math.h>
 #include <dark/memory/memory.h>
 //#include <dark/monitor/monitor.h>
-//#include <dark/order/order.h>
+#include <dark/order/order.h>
 //#include <dark/platform/platform.h>
 //#include <dark/profile/profile.h>
 //#include <dark/random/random.h>

@@ -27,6 +27,6 @@
 
 bool dark_sort_is(size_t element_size, size_t count, void* data, Dark_Compare compare);
 
-void dark_sort_insertion(size_t element_size, size_t count, void* data, Dark_Compare compare);
+void dark_sort_insertion(size_t element_size, size_t count, void* data, Dark_Compare compare, void* element_buffer);
 
 #endif // !defined(___DARK___SORT_H)

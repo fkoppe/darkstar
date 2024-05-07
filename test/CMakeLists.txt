@@ -5,15 +5,16 @@ macro(dark_test_add filename)
 endmacro(dark_test_add)
 
 add_subdirectory(core)
+#-----
 add_subdirectory(memory)
 add_subdirectory(math)
+add_subdirectory(order)
+#add_subdirectory(hash)
+#-----
 #add_subdirectory(monitor)
-
 #add_subdirectory(char)
 #add_subdirectory(container)
-#add_subdirectory(hash)
 #add_subdirectory(log)
-#add_subdirectory(order)
 #add_subdirectory(platform)
 #add_subdirectory(random)
 #add_subdirectory(stream)

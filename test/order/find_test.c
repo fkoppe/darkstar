@@ -1,7 +1,5 @@
 #include <dark/darkstar.h>
 
-#include <dark/darkstar.h>
-
 int main()
 {
     //----------TEST----------
@@ -46,5 +44,5 @@ int main()
 
     dark_test_end();
 
-    return EXIT_SUCCESS;
+    return DARK_EXIT_SUCCESS;
 }

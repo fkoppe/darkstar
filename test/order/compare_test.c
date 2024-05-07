@@ -134,25 +134,5 @@ int main()
 
     dark_test_end();
 
-    return EXIT_SUCCESS;
+    return DARK_EXIT_SUCCESS;
 }
-
-
-
-
-
-
-/*
-int8_t dark_compare_i8(const int8_t* element, const int8_t* other);
-int8_t dark_compare_i16(const int16_t* element, const int16_t* other);
-int8_t dark_compare_i32(const int32_t* element, const int32_t* other);
-int8_t dark_compare_i64(const int64_t* element, const int64_t* other);
-
-int8_t dark_compare_u8(const uint8_t* element, const uint8_t* other);
-int8_t dark_compare_u16(const uint16_t* element, const uint16_t* other);
-int8_t dark_compare_u32(const uint32_t* element, const uint32_t* other);
-int8_t dark_compare_u64(const uint64_t* element, const uint64_t* other);
-
-int8_t dark_compare_f(const float* element, const float* other);
-int8_t dark_compare_d(const double* element, const double* other);
-*/

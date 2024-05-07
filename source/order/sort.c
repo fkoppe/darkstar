@@ -48,33 +48,28 @@ bool dark_sort_is(const size_t element_size_, const size_t count_, void* const d
     return true;
 }
 
-void dark_sort_insertion(const size_t element_size_, const size_t count_, void* const data_, const Dark_Compare compare_)
+void dark_sort_insertion(const size_t element_size_, const size_t count_, void* const data_, const Dark_Compare compare_, void* const element_buffer_)
 {
     DARK_ASSERT(element_size_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(data_ != NULL, DARK_ERROR_NULL);
     DARK_ASSERT(compare_ != NULL, DARK_ERROR_NULL);
-
-    //TODO why not alloca for stack mem?
-    void* elem = malloc(element_size_);
-    DARK_ASSERT(NULL != elem, DARK_ERROR_ALLOCATION);
+    DARK_ASSERT(element_buffer_ != NULL, DARK_ERROR_NULL);
 
     for(size_t i = 1; i < count_; i++)
     {
-        memcpy(elem, (char*)data_ + (i * element_size_), element_size_);
+        memcpy(element_buffer_, (char*)data_ + (i * element_size_), element_size_);
 
         size_t iter = i;
 
-        while (iter > 0 && 0 < compare_((char*)data_ + ((iter - 1) * element_size_), elem))
+        while (iter > 0 && 0 < compare_((char*)data_ + ((iter - 1) * element_size_), element_buffer_))
         {
             memcpy((char*)data_ + (iter * element_size_), (char*)data_ + ((iter - 1) * element_size_), element_size_);
             iter--;
         }
 
-        memcpy((char*)data_ + (iter * element_size_), elem, element_size_);
+        memcpy((char*)data_ + (iter * element_size_), element_buffer_, element_size_);
     }
-
-    free(elem);
 }
 
 

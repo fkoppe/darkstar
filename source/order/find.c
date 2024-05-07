@@ -87,20 +87,20 @@ bool dark_find_binary_index(const void* const element_, const size_t element_siz
     DARK_ASSERT(compare_ != NULL, DARK_ERROR_NULL);
     //index_
 
-    size_t low = 0;
-    size_t high = count_;
+    size_t lower = 0;
+    size_t upper = count_;
 
-    while(low <= high)
+    while(lower <= upper)
     {
-        size_t mid = low + (high - low) / 2;
+        size_t mid = lower + (upper - lower) / 2;
 
         switch(compare_((char*)data_ + (mid * element_size_), element_))
         {
             case -1:
-                low = mid + 1;
+                lower = mid + 1;
                 break;
             case 1:
-                high = mid - 1;
+                upper = mid - 1;
                 break;
             case 0:
                 *index_ = mid;
