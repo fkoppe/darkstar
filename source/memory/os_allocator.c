@@ -36,7 +36,7 @@ typedef struct Dark_Os_Allocator_Context
     int i;
 } Dark_Os_Allocator_Context;
 
-void* dark_os_allocator_allocate(void* const context_, void* const address_, const size_t size_old_, const size_t size_new_)
+void* dark_os_allocator_allocate(void* const context_, void* const address_, const size_t byte_old_, const size_t byte_new_)
 {
     //NO ASSERT
 
@@ -47,23 +47,23 @@ void* dark_os_allocator_allocate(void* const context_, void* const address_, con
 
     void* pointer = NULL;
 
-    if(NULL == address_ || 0 == size_old_)
+    if(NULL == address_ || 0 == byte_old_)
     {
         DARK_ASSERT(NULL == address_, DARK_ERROR_LOGIC);
-        DARK_ASSERT(0 == size_old_, DARK_ERROR_LOGIC);
-        DARK_ASSERT(size_new_ > 0, DARK_ERROR_LOGIC);
+        DARK_ASSERT(0 == byte_old_, DARK_ERROR_LOGIC);
+        DARK_ASSERT(byte_new_ > 0, DARK_ERROR_LOGIC);
 
-        pointer = malloc(size_new_);
+        pointer = malloc(byte_new_);
     }
-    else if(NULL != address_ && 0 == size_new_)
+    else if(NULL != address_ && 0 == byte_new_)
     {
-        DARK_ASSERT(size_old_ > 0, DARK_ERROR_ALLOCATOR_FREE);
+        DARK_ASSERT(byte_old_ > 0, DARK_ERROR_ALLOCATOR_FREE);
 
         free(address_);
     }
-    else if(NULL != address_ && size_old_ > 0 && size_new_ > 0)
+    else if(NULL != address_ && byte_old_ > 0 && byte_new_ > byte_old_)
     {
-        pointer = realloc(address_, size_new_);
+        pointer = realloc(address_, byte_new_);
     }
     else
     {
@@ -73,7 +73,7 @@ void* dark_os_allocator_allocate(void* const context_, void* const address_, con
     return pointer;
 }
 
-void* dark_os_allocator_callocate(void* const context_, void* const address_, const size_t size_old_, const size_t size_new_)
+void* dark_os_allocator_callocate(void* const context_, void* const address_, const size_t byte_old_, const size_t byte_new_)
 {
     //NO ASSERT
 
@@ -84,27 +84,27 @@ void* dark_os_allocator_callocate(void* const context_, void* const address_, co
 
     void* pointer = NULL;
 
-    if(NULL == address_ || 0 == size_old_)
+    if(NULL == address_ || 0 == byte_old_)
     {
         DARK_ASSERT(NULL == address_, DARK_ERROR_LOGIC);
-        DARK_ASSERT(0 == size_old_, DARK_ERROR_LOGIC);
-        DARK_ASSERT(size_new_ > 0, DARK_ERROR_LOGIC);
+        DARK_ASSERT(0 == byte_old_, DARK_ERROR_LOGIC);
+        DARK_ASSERT(byte_new_ > 0, DARK_ERROR_LOGIC);
 
-        pointer = calloc(1, size_new_);
+        pointer = calloc(1, byte_new_);
     }
-    else if(NULL != address_ && 0 == size_new_)
+    else if(NULL != address_ && 0 == byte_new_)
     {
-        DARK_ASSERT(size_old_ > 0, DARK_ERROR_ALLOCATOR_FREE);
+        DARK_ASSERT(byte_old_ > 0, DARK_ERROR_ALLOCATOR_FREE);
 
         free(address_);
     }
-    else if(NULL != address_ && size_old_ > 0 && size_new_ > 0)
+    else if(NULL != address_ && byte_old_ > 0 && byte_new_ > byte_old_)
     {
-        pointer = realloc(address_, size_new_);
+        pointer = realloc(address_, byte_new_);
 
-        if(size_new_ > size_old_)
+        if(byte_new_ > byte_old_)
         {
-            memset((char*)pointer + size_old_, 0, size_new_ - size_old_);
+            memset((char*)pointer + byte_old_, 0, byte_new_ - byte_old_);
         }
     }
     else
