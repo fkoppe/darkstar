@@ -26,8 +26,8 @@
 #include <dark/core/essential.h>
 #include <dark/memory/allocator.h>
 
-void* dark_os_allocator_allocate(void* context, void* address, size_t size_old, size_t size_new);
-void* dark_os_allocator_callocate(void* context, void* address, size_t size_old, size_t size_new);
+void* dark_os_allocator_allocate(void* context, void* address, size_t byte_old, size_t byte_new);
+void* dark_os_allocator_callocate(void* context, void* address, size_t byte_old, size_t byte_new);
 
 static const Dark_Allocator_Struct DARK_ALLOCATOR_NATIVE_STRUCT = { dark_os_allocator_allocate, dark_os_allocator_callocate, NULL };
 static Dark_Allocator* const DARK_ALLOCATOR_NATIVE = (Dark_Allocator*)&DARK_ALLOCATOR_NATIVE_STRUCT;
