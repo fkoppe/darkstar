@@ -34,26 +34,26 @@ int main()
     }
     //--------------------------
 
-    ////----------TEST----------
-    //DARK_TEST("realloc")
-    //{
-    //    char* data = dark_malloc(DARK_ALLOCATOR_NATIVE, 5);
-    //    DARK_ASSERT(NULL != data, DARK_ERROR_ALLOCATION);
-    //
-    //    dark_realloc(DARK_ALLOCATOR_NATIVE, data, 5, 6);
-    //
-    //    data[0] = 'a';
-    //    data[1] = 'b';
-    //    data[2] = 'c';
-    //    data[3] = 'd';
-    //    data[4] = 'e';
-    //
-    //    data[5] = 'x';
-    //
-    //    dark_free(DARK_ALLOCATOR_NATIVE, data, 6);
-    //}
-    ////--------------------------
-    //
+    //----------TEST----------
+    DARK_TEST("realloc")
+    {
+        char* data = dark_malloc(DARK_ALLOCATOR_NATIVE, 5);
+        DARK_ASSERT(NULL != data, DARK_ERROR_ALLOCATION);
+
+        dark_realloc(DARK_ALLOCATOR_NATIVE, data, 5, 6);
+
+        data[0] = 'a';
+        data[1] = 'b';
+        data[2] = 'c';
+        data[3] = 'd';
+        data[4] = 'e';
+
+        data[5] = 'x';
+
+        dark_free(DARK_ALLOCATOR_NATIVE, data, 6);
+    }
+    //--------------------------
+
     ////----------TEST----------
     //DARK_TEST("brealloc")
     //{
