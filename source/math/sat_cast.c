@@ -20,12 +20,122 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___POW_H)
-#define ___DARK___POW_H
+#include "math_module.h"
 
-#include <dark/core/essential.h>
+#include <dark/core/core.h>
+#include <dark/math/math.h>
 
-uint64_t dark_upow_u(uint64_t base, uint64_t exponent);
-int64_t dark_upow_i(int64_t base, uint64_t exponent);
+#undef DARK_UNIT
+#define DARK_UNIT "sat_cast"
 
-#endif // !defined(___DARK___POW_H)
+uint8_t dark_sat_ucast_u8(const uint64_t u_)
+{
+    //u_
+
+    return DARK_MIN(u_, UINT8_MAX);
+}
+
+uint16_t dark_sat_ucast_u16(const uint64_t u_)
+{
+    //u_
+
+    return DARK_MIN(u_, UINT16_MAX);
+}
+
+uint32_t dark_sat_ucast_u32(const uint64_t u_)
+{
+    //u_
+
+    return DARK_MIN(u_, UINT32_MAX);
+}
+
+uint64_t dark_sat_ucast_u64(const uint64_t u_)
+{
+    //u_
+
+    return DARK_MIN(u_, UINT64_MAX);
+}
+
+int8_t dark_sat_ucast_i8(const uint64_t u_)
+{
+    //u_
+
+    return DARK_MIN(u_, INT8_MAX);
+}
+
+int16_t dark_sat_ucast_i16(const uint64_t u_)
+{
+    //u_
+
+    return DARK_MIN(u_, INT16_MAX);
+}
+
+int32_t dark_sat_ucast_i32(const uint64_t u_)
+{
+    //u_
+
+    return DARK_MIN(u_, INT32_MAX);
+}
+
+int64_t dark_sat_ucast_i64(const uint64_t u_)
+{
+    //u_
+
+    return DARK_MIN(u_, INT64_MAX);
+}
+
+uint8_t dark_sat_icast_u8(const int64_t i_)
+{
+    //i_
+
+    return dark_range_clamp_i(i_, 0, UINT8_MAX);
+}
+
+uint16_t dark_sat_icast_u16(const int64_t i_)
+{
+    //i_
+
+    return dark_range_clamp_i(i_, 0, UINT16_MAX);
+}
+
+uint32_t dark_sat_icast_u32(const int64_t i_)
+{
+    //i_
+
+    return dark_range_clamp_i(i_, 0, UINT32_MAX);
+}
+
+uint64_t dark_sat_icast_u64(const int64_t i_)
+{
+    //i_
+
+    return DARK_MAX(0, i_);
+}
+
+int8_t dark_sat_icast_i8(const int64_t i_)
+{
+    //i_
+
+    return dark_range_clamp_i(i_, INT8_MIN, INT8_MAX);
+}
+
+int16_t dark_sat_icast_i16(const int64_t i_)
+{
+    //i_
+
+    return dark_range_clamp_i(i_, INT16_MIN, INT16_MAX);
+}
+
+int32_t dark_sat_icast_i32(const int64_t i_)
+{
+    //i_
+
+    return dark_range_clamp_i(i_, INT32_MIN, INT32_MAX);
+}
+
+int64_t dark_sat_icast_i64(const int64_t i_)
+{
+    //i_
+
+    return dark_range_clamp_i(i_, INT64_MIN, INT64_MAX);
+}

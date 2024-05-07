@@ -20,12 +20,72 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___POW_H)
-#define ___DARK___POW_H
+#include "math_module.h"
 
-#include <dark/core/essential.h>
+#include <dark/core/core.h>
+#include <dark/math/math.h>
 
-uint64_t dark_upow_u(uint64_t base, uint64_t exponent);
-int64_t dark_upow_i(int64_t base, uint64_t exponent);
+#undef DARK_UNIT
+#define DARK_UNIT "min"
 
-#endif // !defined(___DARK___POW_H)
+uint8_t dark_min_u8(const uint8_t a_, const uint8_t b_)
+{
+    //a_
+    //b_
+
+    return DARK_MIN(a_, b_);
+}
+uint16_t dark_min_u16(const uint16_t a_, const uint16_t b_)
+{
+    //a_
+    //b_
+
+    return DARK_MIN(a_, b_);
+}
+
+uint32_t dark_min_u32(const uint32_t a_, const uint32_t b_)
+{
+    //a_
+    //b_
+
+    return DARK_MIN(a_, b_);
+}
+uint64_t dark_min_u64(const uint64_t a_, const uint64_t b_)
+{
+    //a_
+    //b_
+
+    return DARK_MIN(a_, b_);
+}
+
+int8_t dark_min_i8(const int8_t a_, const int8_t b_)
+{
+    //a_
+    //b_
+
+    return DARK_MIN(a_, b_);
+}
+
+int16_t dark_min_i16(const int16_t a_, const int16_t b_)
+{
+    //a_
+    //b_
+
+    return DARK_MIN(a_, b_);
+}
+
+int32_t dark_min_i32(const int32_t a_, const int32_t b_)
+{
+    //a_
+    //b_
+
+    return DARK_MIN(a_, b_);
+}
+
+int64_t dark_min_i64(const int64_t a_, const int64_t b_)
+{
+    //a_
+    //b_
+
+    return DARK_MIN(a_, b_);
+}

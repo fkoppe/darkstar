@@ -20,12 +20,19 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___POW_H)
-#define ___DARK___POW_H
+#if !defined(___DARK___MAX_H)
+#define ___DARK___MAX_H
 
 #include <dark/core/essential.h>
 
-uint64_t dark_upow_u(uint64_t base, uint64_t exponent);
-int64_t dark_upow_i(int64_t base, uint64_t exponent);
+uint8_t dark_max_u8(uint8_t a, uint8_t b);
+uint16_t dark_max_u16(uint16_t a, uint16_t b);
+uint32_t dark_max_u32(uint32_t a, uint32_t b);
+uint64_t dark_max_u64(uint64_t a, uint64_t b);
 
-#endif // !defined(___DARK___POW_H)
+int8_t dark_max_i8(int8_t a, int8_t b);
+int16_t dark_max_i16(int16_t a, int16_t b);
+int32_t dark_max_i32(int32_t a, int32_t b);
+int64_t dark_max_i64(int64_t a, int64_t b);
+
+#endif // !defined(___DARK___MAX_H)

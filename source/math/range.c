@@ -20,12 +20,55 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___POW_H)
-#define ___DARK___POW_H
+#include "math_module.h"
 
-#include <dark/core/essential.h>
+#include <dark/core/core.h>
+#include <dark/math/math.h>
 
-uint64_t dark_upow_u(uint64_t base, uint64_t exponent);
-int64_t dark_upow_i(int64_t base, uint64_t exponent);
+#undef DARK_UNIT
+#define DARK_UNIT "range"
 
-#endif // !defined(___DARK___POW_H)
+bool dark_range_is_u(const uint64_t u_, const uint64_t lower_, const uint64_t upper_)
+{
+    //u_
+    DARK_ASSERT(lower_ <= upper_, DARK_ERROR_LOGIC);
+
+    return u_ >= lower_ && u_ <= upper_;
+}
+
+bool dark_range_is_i(const int64_t i_, const int64_t lower_, const int64_t upper_)
+{
+    DARK_ASSERT(lower_ <= upper_, DARK_ERROR_LOGIC);
+
+    return i_ >= lower_ && i_ <= upper_;
+}
+
+uint64_t dark_range_clamp_u(const uint64_t u_, const uint64_t lower_, const uint64_t upper_)
+{
+    //u_
+    DARK_ASSERT(lower_ <= upper_, DARK_ERROR_LOGIC);
+
+    if(u_ < lower_)
+    {
+        return dark_max_u64(lower_, dark_min_u64(upper_, u_));
+    }
+    else
+    {
+        return dark_min_u64(upper_, dark_max_u64(lower_, u_));
+    }
+}
+
+int64_t dark_range_clamp_i(const int64_t i_, const int64_t lower_, const int64_t upper_)
+{
+    //u_
+    DARK_ASSERT(lower_ <= upper_, DARK_ERROR_LOGIC);
+
+    if(i_ < lower_)
+    {
+        return dark_max_i64(lower_, dark_min_i64(upper_, i_));
+    }
+    else
+    {
+        return dark_min_i64(upper_, dark_max_i64(lower_, i_));
+    }
+}

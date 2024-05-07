@@ -1,2 +1,7 @@
 dark_test_add(abs_test)
+dark_test_add(add_test)
+dark_test_add(cast_test)
 dark_test_add(pow_test)
+dark_test_add(range_test)
+dark_test_add(sat_add_test)
+dark_test_add(sat_cast_test)

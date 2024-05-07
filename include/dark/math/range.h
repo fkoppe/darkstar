@@ -20,12 +20,15 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___POW_H)
-#define ___DARK___POW_H
+#if !defined(___DARK___RANGE_H)
+#define ___DARK___RANGE_H
 
 #include <dark/core/essential.h>
 
-uint64_t dark_upow_u(uint64_t base, uint64_t exponent);
-int64_t dark_upow_i(int64_t base, uint64_t exponent);
+bool dark_range_is_u(uint64_t u, uint64_t lower, uint64_t upper);
+bool dark_range_is_i(int64_t i, int64_t lower, int64_t upper);
 
-#endif // !defined(___DARK___POW_H)
+uint64_t dark_range_clamp_u(uint64_t u, uint64_t lower, uint64_t upper);
+int64_t dark_range_clamp_i(int64_t i, int64_t lower, int64_t upper);
+
+#endif // !defined(___DARK___RANGE_H)

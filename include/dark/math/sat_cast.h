@@ -20,12 +20,29 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___POW_H)
-#define ___DARK___POW_H
+#if !defined(___DARK___SAT_CAST_H)
+#define ___DARK___SAT_CAST_H
 
 #include <dark/core/essential.h>
 
-uint64_t dark_upow_u(uint64_t base, uint64_t exponent);
-int64_t dark_upow_i(int64_t base, uint64_t exponent);
+uint8_t dark_sat_ucast_u8(uint64_t u);
+uint16_t dark_sat_ucast_u16(uint64_t u);
+uint32_t dark_sat_ucast_u32(uint64_t u);
+uint64_t dark_sat_ucast_u64(uint64_t u);
 
-#endif // !defined(___DARK___POW_H)
+int8_t dark_sat_ucast_i8(uint64_t i);
+int16_t dark_sat_ucast_i16(uint64_t i);
+int32_t dark_sat_ucast_i32(uint64_t i);
+int64_t dark_sat_ucast_i64(uint64_t i);
+
+uint8_t dark_sat_icast_u8(int64_t u);
+uint16_t dark_sat_icast_u16(int64_t u);
+uint32_t dark_sat_icast_u32(int64_t u);
+uint64_t dark_sat_icast_u64(int64_t u);
+
+int8_t dark_sat_icast_i8(int64_t i);
+int16_t dark_sat_icast_i16(int64_t i);
+int32_t dark_sat_icast_i32(int64_t i);
+int64_t dark_sat_icast_i64(int64_t i);
+
+#endif // !defined(___DARK___SAT_CAST_H)

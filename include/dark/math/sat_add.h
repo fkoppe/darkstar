@@ -20,12 +20,39 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___POW_H)
-#define ___DARK___POW_H
+#if !defined(___DARK___SAT_ADD_H)
+#define ___DARK___SAT_ADD_H
 
 #include <dark/core/essential.h>
 
-uint64_t dark_upow_u(uint64_t base, uint64_t exponent);
-int64_t dark_upow_i(int64_t base, uint64_t exponent);
+uint8_t dark_sat_add_u8(uint64_t u, int64_t i);
+uint16_t dark_sat_add_u16(uint64_t u, int64_t i);
+uint32_t dark_sat_add_u32(uint64_t u, int64_t i);
+uint64_t dark_sat_add_u64(uint64_t u, int64_t i);
 
-#endif // !defined(___DARK___POW_H)
+uint8_t dark_sat_uadd_u8(uint64_t a, uint64_t b);
+uint16_t dark_sat_uadd_u16(uint64_t a, uint64_t b);
+uint32_t dark_sat_uadd_u32(uint64_t a, uint64_t b);
+uint64_t dark_sat_uadd_u64(uint64_t a, uint64_t b);
+
+uint8_t dark_sat_iadd_u8(int64_t a, int64_t b);
+uint16_t dark_sat_iadd_u16(int64_t a, int64_t b);
+uint32_t dark_sat_iadd_u32(int64_t a, int64_t b);
+uint64_t dark_sat_iadd_u64(int64_t a, int64_t b);
+
+int8_t dark_sat_add_i8(uint64_t u, int64_t i);
+int16_t dark_sat_add_i16(uint64_t u, int64_t i);
+int32_t dark_sat_add_i32(uint64_t u, int64_t i);
+int64_t dark_sat_add_i64(uint64_t u, int64_t i);
+
+int8_t dark_sat_uadd_i8(uint64_t a, uint64_t b);
+int16_t dark_sat_uadd_i16(uint64_t a, uint64_t b);
+int32_t dark_sat_uadd_i32(uint64_t a, uint64_t b);
+int64_t dark_sat_uadd_i64(uint64_t a, uint64_t b);
+
+int8_t dark_sat_iadd_i8(int64_t a, int64_t b);
+int16_t dark_sat_iadd_i16(int64_t a, int64_t b);
+int32_t dark_sat_iadd_i32(int64_t a, int64_t b);
+int64_t dark_sat_iadd_i64(int64_t a, int64_t b);
+
+#endif // !defined(___DARK___SAT_ADD_H)
