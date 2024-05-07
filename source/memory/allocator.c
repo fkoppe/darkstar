@@ -28,6 +28,17 @@
 #undef DARK_UNIT
 #define DARK_UNIT "allocator"
 
+#undef dark_malloc
+#undef dark_bmalloc
+#undef dark_realloc
+#undef dark_brealloc
+#undef dark_free
+#undef dark_bfree
+#undef dark_calloc
+#undef dark_bcalloc
+#undef dark_recalloc
+#undef dark_brecalloc
+
 void* dark_malloc(Dark_Allocator* const allocator_, const size_t byte_)
 {
     DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);

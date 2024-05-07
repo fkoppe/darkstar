@@ -38,8 +38,8 @@ typedef struct Dark_Allocator_Struct
 typedef struct Dark_Allocator_Info
 {
     bool debug_is;
-    const size_t count;
-    const size_t usage;
+    size_t count;
+    size_t usage;
 } Dark_Allocator_Info;
 
 static const Dark_Error DARK_ERROR_ALLOCATOR_INTEGRITY = { &DARK_ERROR_RUNTIME, "allocator_integrity", "allocator memory corrupted"};

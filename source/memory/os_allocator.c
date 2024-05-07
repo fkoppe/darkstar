@@ -25,8 +25,8 @@
 #include <dark/memory/memory.h>
 #include <dark/core/core.h>
 
-#include <stdlib.h>
 #include <string.h>
+#include <stdlib.h>
 
 #undef DARK_UNIT
 #define DARK_UNIT "os_allocator"
