@@ -51,7 +51,7 @@ int main()
         const uint8_t stage_max = 3;
         const uint16_t patch_max = 4095;
 
-        uint32_t version =  dark_version_make(major_max, minor_max, stage_max, patch_max);
+        const uint32_t version =  dark_version_make(major_max, minor_max, stage_max, patch_max);
 
         DARK_TEST_EQ_U(major_max, dark_version_major(version));
         DARK_TEST_EQ_U(minor_max, dark_version_minor(version));
