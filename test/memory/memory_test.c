@@ -48,7 +48,7 @@ int main()
         data[3] = 'd';
         data[4] = 'e';
 
-        data[5] = 'x';
+        //data[5] = 'x';
 
         dark_free(DARK_ALLOCATOR_NATIVE, data, 6);
     }
