@@ -25,25 +25,22 @@
 #include <dark/memory/memory.h>
 #include <dark/core/core.h>
 
+#undef malloc
+#undef calloc
+#undef realloc
+#undef free
+
 #include <string.h>
 #include <stdlib.h>
 
 #undef DARK_UNIT
 #define DARK_UNIT "os_allocator"
 
-typedef struct Dark_Os_Allocator_Context
-{
-    int i;
-} Dark_Os_Allocator_Context;
-
 void* dark_os_allocator_allocate(void* const context_, void* const address_, const size_t byte_old_, const size_t byte_new_)
 {
-    //NO ASSERT
+    DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
 
-    if(NULL != context_)
-    {
-        //TODO debug is on
-    }
+    Dark_Allocator_Info* context = (Dark_Allocator_Info*)context_;
 
     void* pointer = NULL;
 
@@ -54,16 +51,24 @@ void* dark_os_allocator_allocate(void* const context_, void* const address_, con
         DARK_ASSERT(byte_new_ > 0, DARK_ERROR_LOGIC);
 
         pointer = malloc(byte_new_);
+
+        context->count++;
+        context->usage += byte_new_;
     }
     else if(NULL != address_ && 0 == byte_new_)
     {
-        DARK_ASSERT(byte_old_ > 0, DARK_ERROR_ALLOCATOR_FREE);
+        DARK_ASSERT(byte_old_ > 0, DARK_ERROR_LOGIC);
 
         free(address_);
+
+        context->count--;
+        context->usage -= byte_old_;
     }
-    else if(NULL != address_ && byte_old_ > 0 && byte_new_ > byte_old_)
+    else if(NULL != address_ && byte_old_ > 0 && byte_new_ > 0)
     {
         pointer = realloc(address_, byte_new_);
+
+        context->usage += (int64_t)(byte_new_ - byte_old_);
     }
     else
     {
@@ -75,12 +80,9 @@ void* dark_os_allocator_allocate(void* const context_, void* const address_, con
 
 void* dark_os_allocator_callocate(void* const context_, void* const address_, const size_t byte_old_, const size_t byte_new_)
 {
-    //NO ASSERT
+    DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
 
-    if(NULL != context_)
-    {
-        //TODO debug is true
-    }
+    Dark_Allocator_Info* const context = (Dark_Allocator_Info*)context_;
 
     void* pointer = NULL;
 
@@ -91,16 +93,24 @@ void* dark_os_allocator_callocate(void* const context_, void* const address_, co
         DARK_ASSERT(byte_new_ > 0, DARK_ERROR_LOGIC);
 
         pointer = calloc(1, byte_new_);
+
+        context->count++;
+        context->usage += byte_new_;
     }
     else if(NULL != address_ && 0 == byte_new_)
     {
-        DARK_ASSERT(byte_old_ > 0, DARK_ERROR_ALLOCATOR_FREE);
+        DARK_ASSERT(byte_old_ > 0, DARK_ERROR_LOGIC);
 
         free(address_);
+
+        context->count--;
+        context->usage -= byte_old_;
     }
-    else if(NULL != address_ && byte_old_ > 0 && byte_new_ > byte_old_)
+    else if(NULL != address_ && byte_old_ > 0 && byte_new_ > 0)
     {
         pointer = realloc(address_, byte_new_);
+
+        context->usage += (int64_t)(byte_new_ - byte_old_);
 
         if(byte_new_ > byte_old_)
         {
@@ -117,82 +127,51 @@ void* dark_os_allocator_callocate(void* const context_, void* const address_, co
 
 size_t dark_os_allocator_context_size(void)
 {
-    return sizeof(Dark_Os_Allocator_Context);
+    return sizeof(Dark_Allocator_Info);
 }
 
-void dark_os_allocator_create(Dark_Allocator* const allocator_, const bool debug_is_)
+void dark_os_allocator_create(Dark_Allocator* const os_allocator_)
 {
-    DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
-    //debug_is_
+    DARK_ASSERT(NULL != os_allocator_, DARK_ERROR_NULL);
 
-    Dark_Allocator_Struct* const allocator = (Dark_Allocator_Struct*)allocator_;
+    Dark_Allocator_Struct* const allocator = (Dark_Allocator_Struct*)os_allocator_;
     allocator->allocate = dark_os_allocator_allocate;
     allocator->callocate = dark_os_allocator_callocate;
-    allocator->context = NULL;
+    allocator->context = (char*)allocator + sizeof(Dark_Allocator_Struct);
 
-    if(debug_is_)
-    {
-        //TODO
-        allocator->context = dark_os_allocator_create;
-
-        //allocator->context = malloc(sizeof(Dark_Os_Allocator_Context));
-        //DARK_ASSERT(NULL != allocator->context, DARK_ERROR_ALLOCATION);
-    }
+    Dark_Allocator_Info* const context = (Dark_Allocator_Info*)allocator->context;
+    context->count = 0;
+    context->usage = 0;
 }
 
-void dark_os_allocator_destroy(Dark_Allocator* const allocator_)
+void dark_os_allocator_destroy(Dark_Allocator* const os_allocator_)
 {
-    DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != os_allocator_, DARK_ERROR_NULL);
 
-    Dark_Allocator_Struct* const allocator = (Dark_Allocator_Struct*)allocator_;
-
-    if(NULL != allocator->context)
-    {
-        //TODO
-
-        //free(allocator->context);
-    }
+    Dark_Allocator_Struct* const allocator = (Dark_Allocator_Struct*)os_allocator_;
 }
 
-Dark_Allocator* dark_os_allocator_new(const bool debug_is_)
+Dark_Allocator* dark_os_allocator_new(void)
 {
-    //debug_is_
-
-    Dark_Allocator_Struct* const allocator = malloc(sizeof(Dark_Allocator_Struct));
+    Dark_Allocator_Struct* const allocator = malloc(sizeof(Dark_Allocator_Struct) + sizeof(dark_os_allocator_context_size()));
     DARK_ASSERT(NULL != allocator, DARK_ERROR_ALLOCATION);
 
-    dark_os_allocator_create((Dark_Allocator*)allocator, debug_is_);
+    dark_os_allocator_create((Dark_Allocator*)allocator);
+
+    Dark_Allocator_Info* const context = (Dark_Allocator_Info*)allocator->context;
+    context->count = 1;
+    context->usage = sizeof(Dark_Allocator_Struct) + sizeof(dark_os_allocator_context_size());
 
     return (Dark_Allocator*)allocator;
 }
 
-void dark_os_allocator_delete(Dark_Allocator* const allocator_)
+void dark_os_allocator_delete(Dark_Allocator* const os_allocator_)
 {
-    DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != os_allocator_, DARK_ERROR_NULL);
 
-    Dark_Allocator_Struct* const allocator = (Dark_Allocator_Struct*)allocator_;
+    Dark_Allocator_Struct* const allocator = (Dark_Allocator_Struct*)os_allocator_;
 
     dark_os_allocator_destroy((Dark_Allocator*)allocator);
 
     free(allocator);
-}
-
-Dark_Allocator_Info dark_os_allocator_info(Dark_Allocator* const allocator_)
-{
-    DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
-
-    Dark_Allocator_Struct* const allocator = (Dark_Allocator_Struct*)allocator_;
-
-    Dark_Os_Allocator_Context* const context = allocator->context;
-
-    Dark_Allocator_Info info = { 0 };
-
-    if(NULL != context)
-    {
-        //TODO debug is true
-
-        info.debug_is = true;
-    }
-
-    return info;
 }

@@ -29,18 +29,15 @@
 void* dark_os_allocator_allocate(void* context, void* address, size_t byte_old, size_t byte_new);
 void* dark_os_allocator_callocate(void* context, void* address, size_t byte_old, size_t byte_new);
 
-static const Dark_Allocator_Struct DARK_ALLOCATOR_NATIVE_STRUCT = { dark_os_allocator_allocate, dark_os_allocator_callocate, NULL };
-static Dark_Allocator* const DARK_ALLOCATOR_NATIVE = (Dark_Allocator*)&DARK_ALLOCATOR_NATIVE_STRUCT;
-
 size_t dark_os_allocator_context_size(void);
 
-void dark_os_allocator_create(Dark_Allocator* allocator, bool debug_is);
-void dark_os_allocator_destroy(Dark_Allocator* allocator);
+void dark_os_allocator_create(Dark_Allocator* os_allocator);
+void dark_os_allocator_destroy(Dark_Allocator* os_allocator);
 
-Dark_Allocator* dark_os_allocator_new(bool debug_is);
-void dark_os_allocator_delete(Dark_Allocator* allocator);
+Dark_Allocator* dark_os_allocator_new(void);
+void dark_os_allocator_delete(Dark_Allocator* os_allocator);
 
-Dark_Allocator_Info dark_os_allocator_info(Dark_Allocator* allocator);
+Dark_Allocator_Info dark_os_allocator_info(Dark_Allocator* os_allocator);
 
 #endif // !defined(___DARK___OS_ALLOCATOR_H)
 

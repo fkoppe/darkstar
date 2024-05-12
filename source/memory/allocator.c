@@ -65,7 +65,7 @@ void* dark_realloc(Dark_Allocator* const allocator_, void* const address_, const
     DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != address_, DARK_ERROR_NULL);
     DARK_ASSERT(byte_old_ > 0, DARK_ERROR_ZERO);
-    DARK_ASSERT(byte_new_ > byte_old_, DARK_ERROR_ZERO);
+    DARK_ASSERT(byte_new_ > 0, DARK_ERROR_ZERO);
 
     Dark_Allocator_Struct* const allocator = (Dark_Allocator_Struct*)allocator_;
 
@@ -78,7 +78,7 @@ void* dark_brealloc(Dark_Allocator* const allocator_, void* const address_, cons
     DARK_ASSERT(NULL != address_, DARK_ERROR_NULL);
     DARK_ASSERT(size_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(count_old_ > 0, DARK_ERROR_ZERO);
-    DARK_ASSERT(count_new_ > count_old_, DARK_ERROR_ZERO);
+    DARK_ASSERT(count_new_ > 0, DARK_ERROR_ZERO);
 
     Dark_Allocator_Struct* const allocator = (Dark_Allocator_Struct*)allocator_;
 
@@ -93,7 +93,7 @@ void dark_free(Dark_Allocator* const  allocator_, void* const address_, const si
 
     Dark_Allocator_Struct* const allocator = (Dark_Allocator_Struct*)allocator_;
 
-    DARK_ASSERT(NULL == allocator->allocate(allocator->context, address_, byte_, 0), DARK_ERROR_ALLOCATOR_INTERNAL);
+    DARK_ASSERT(NULL == allocator->allocate(allocator->context, address_, byte_, 0), DARK_ERROR_INTERNAL);
 }
 
 void dark_bfree(Dark_Allocator* const allocator_, void* const address_, const size_t size_, const size_t count_)
@@ -104,7 +104,7 @@ void dark_bfree(Dark_Allocator* const allocator_, void* const address_, const si
 
     Dark_Allocator_Struct* const allocator = (Dark_Allocator_Struct*)allocator_;
 
-    DARK_ASSERT(NULL == allocator->allocate(allocator->context, address_, size_ * count_, 0), DARK_ERROR_ALLOCATOR_INTERNAL);
+    DARK_ASSERT(NULL == allocator->allocate(allocator->context, address_, size_ * count_, 0), DARK_ERROR_INTERNAL);
 }
 
 void* dark_calloc(Dark_Allocator* const allocator_, const size_t byte_)
@@ -133,7 +133,7 @@ void* dark_recalloc(Dark_Allocator* const allocator_, void* const address_, cons
     DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != address_, DARK_ERROR_NULL);
     DARK_ASSERT(byte_old_ > 0, DARK_ERROR_ZERO);
-    DARK_ASSERT(byte_new_ > byte_old_, DARK_ERROR_ZERO);
+    DARK_ASSERT(byte_new_ > 0, DARK_ERROR_ZERO);
 
     Dark_Allocator_Struct* const allocator = (Dark_Allocator_Struct*)allocator_;
 
@@ -146,7 +146,7 @@ void* dark_brecalloc(Dark_Allocator* const allocator_, void* const address_, con
     DARK_ASSERT(NULL != address_, DARK_ERROR_NULL);
     DARK_ASSERT(size_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(count_old_ > 0, DARK_ERROR_ZERO);
-    DARK_ASSERT(count_new_ > count_old_, DARK_ERROR_ZERO);
+    DARK_ASSERT(count_new_ > 0, DARK_ERROR_ZERO);
 
     Dark_Allocator_Struct* const allocator = (Dark_Allocator_Struct*)allocator_;
 
