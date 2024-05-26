@@ -32,7 +32,7 @@
 #define DARK_DEBUG_MEMORY_WARN(call_info, message) dark_debug_memory_warn((call_info), (message))
 #else
 #define DARK_DEBUG_MEMORY_ASSERT(call_info, condition)
-#define DARK_DEBUG_MEMORY_MATCHING(call_info, condition)
+#define DARK_DEBUG_MEMORY_MATCHING(call_info, mem_info, condition)
 #define DARK_DEBUG_MEMORY_EXIT(call_info, message)
 #define DARK_DEBUG_MEMORY_WARN(call_info, message)
 #endif // defined(___DARK_DEBUG)

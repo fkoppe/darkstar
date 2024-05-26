@@ -148,6 +148,56 @@ int main()
     //--------------------------
 
     //----------TEST----------
+    DARK_TEST("OS: recalloc")
+    {
+        Dark_Allocator* os_allocator = dark_os_allocator_new();
+
+        char* data = dark_calloc(os_allocator, 5);
+        DARK_ASSERT(NULL != data, DARK_ERROR_ALLOCATION);
+
+        data = dark_recalloc(os_allocator, data, 5, 6);
+        DARK_ASSERT(NULL != data, DARK_ERROR_ALLOCATION);
+
+        data[0] = 'a';
+        data[1] = 'b';
+        data[2] = 'c';
+        data[3] = 'd';
+        data[4] = 'e';
+
+        data[5] = 'x';
+
+        dark_free(os_allocator, data, 6);
+
+        dark_os_allocator_delete(os_allocator);
+    }
+    //--------------------------
+
+    //----------TEST----------
+    DARK_TEST("OS: brecalloc")
+    {
+        Dark_Allocator* os_allocator = dark_os_allocator_new();
+
+        uint64_t* data = dark_bcalloc(os_allocator, sizeof(uint64_t), 5);
+        DARK_ASSERT(NULL != data, DARK_ERROR_ALLOCATION);
+
+        data = dark_brecalloc(os_allocator, data, sizeof(uint64_t), 5, 6);
+        DARK_ASSERT(NULL != data, DARK_ERROR_ALLOCATION);
+
+        data[0] = 1;
+        data[1] = 2;
+        data[2] = 3;
+        data[3] = 4;
+        data[4] = 5;
+
+        data[5] = 'x';
+
+        dark_bfree(os_allocator, data, sizeof(uint64_t), 6);
+
+        dark_os_allocator_delete(os_allocator);
+    }
+    //--------------------------
+
+    //----------TEST----------
     DARK_TEST("os_allocator_info")
     {
         Dark_Allocator* os_allocator = dark_os_allocator_new();
