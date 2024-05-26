@@ -153,7 +153,7 @@ void dark_os_allocator_destroy(Dark_Allocator* const os_allocator_)
 
 Dark_Allocator* dark_os_allocator_new(void)
 {
-    Dark_Allocator_Struct* const allocator = malloc(sizeof(Dark_Allocator_Struct) + sizeof(dark_os_allocator_context_size()));
+    Dark_Allocator_Struct* const allocator = malloc(sizeof(Dark_Allocator_Struct) + dark_os_allocator_context_size());
     DARK_ASSERT(NULL != allocator, DARK_ERROR_ALLOCATION);
 
     dark_os_allocator_create((Dark_Allocator*)allocator);
