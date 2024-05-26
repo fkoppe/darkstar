@@ -12,7 +12,7 @@ int main()
     //----------TEST----------
     DARK_TEST("os_allocator_new/delete")
     {
-        Dark_Allocator* os_allocator = dark_os_allocator_new(true);
+        Dark_Allocator* os_allocator = dark_os_allocator_new();
         dark_os_allocator_delete(os_allocator);
     }
     //--------------------------
@@ -20,7 +20,7 @@ int main()
     //----------TEST----------
     DARK_TEST("OS: malloc/free")
     {
-        Dark_Allocator* os_allocator = dark_os_allocator_new(true);
+        Dark_Allocator* os_allocator = dark_os_allocator_new();
 
         char* data = dark_malloc(os_allocator, 5);
         DARK_ASSERT(NULL != data, DARK_ERROR_ALLOCATION);
@@ -40,7 +40,7 @@ int main()
     //----------TEST----------
     DARK_TEST("OS: balloc/bfree")
     {
-        Dark_Allocator* os_allocator = dark_os_allocator_new(true);
+        Dark_Allocator* os_allocator = dark_os_allocator_new();
 
         uint64_t* data = dark_balloc(os_allocator, sizeof(uint64_t), 5);
         DARK_ASSERT(NULL != data, DARK_ERROR_ALLOCATION);
@@ -60,7 +60,7 @@ int main()
     //----------TEST----------
     DARK_TEST("OS: realloc")
     {
-        Dark_Allocator* os_allocator = dark_os_allocator_new(true);
+        Dark_Allocator* os_allocator = dark_os_allocator_new();
 
         char* data = dark_malloc(os_allocator, 5);
         DARK_ASSERT(NULL != data, DARK_ERROR_ALLOCATION);
@@ -85,7 +85,7 @@ int main()
     //----------TEST----------
     DARK_TEST("OS: brealloc")
     {
-        Dark_Allocator* os_allocator = dark_os_allocator_new(true);
+        Dark_Allocator* os_allocator = dark_os_allocator_new();
 
         uint64_t* data = dark_balloc(os_allocator, sizeof(uint64_t), 5);
         DARK_ASSERT(NULL != data, DARK_ERROR_ALLOCATION);
@@ -110,7 +110,7 @@ int main()
     //----------TEST----------
     DARK_TEST("OS: calloc")
     {
-        Dark_Allocator* os_allocator = dark_os_allocator_new(true);
+        Dark_Allocator* os_allocator = dark_os_allocator_new();
 
         char* data = dark_calloc(os_allocator, 5);
         DARK_ASSERT(NULL != data, DARK_ERROR_ALLOCATION);
@@ -130,7 +130,7 @@ int main()
     //----------TEST----------
     DARK_TEST("OS: bcalloc")
     {
-        Dark_Allocator* os_allocator = dark_os_allocator_new(true);
+        Dark_Allocator* os_allocator = dark_os_allocator_new();
 
         int64_t* data = dark_bcalloc(os_allocator, sizeof(int64_t), 5);
         DARK_ASSERT(NULL != data, DARK_ERROR_ALLOCATION);
@@ -150,11 +150,12 @@ int main()
     //----------TEST----------
     DARK_TEST("os_allocator_info")
     {
-        Dark_Allocator* os_allocator = dark_os_allocator_new(true);
+        Dark_Allocator* os_allocator = dark_os_allocator_new();
 
         Dark_Allocator_Info info = dark_os_allocator_info(os_allocator);
 
-        DARK_TEST_TRUE(info.debug_is);
+        DARK_TEST_EQ_U(info.count, 1);
+        DARK_TEST_GT_U(info.usage, 0);
 
         dark_os_allocator_delete(os_allocator);
     }

@@ -112,7 +112,7 @@ void* dark_os_allocator_callocate(void* const context_, void* const address_, co
 
         context->usage += (int64_t)(byte_new_ - byte_old_);
 
-        if(byte_new_ > byte_old_)
+        if(byte_new_ > byte_old_ && NULL != pointer)
         {
             memset((char*)pointer + byte_old_, 0, byte_new_ - byte_old_);
         }
@@ -174,4 +174,13 @@ void dark_os_allocator_delete(Dark_Allocator* const os_allocator_)
     dark_os_allocator_destroy((Dark_Allocator*)allocator);
 
     free(allocator);
+}
+
+Dark_Allocator_Info dark_os_allocator_info(Dark_Allocator* const os_allocator_)
+{
+    DARK_ASSERT(NULL != os_allocator_, DARK_ERROR_NULL);
+
+    Dark_Allocator_Struct* const allocator = (Dark_Allocator_Struct*)os_allocator_;
+
+    return *(Dark_Allocator_Info*)allocator->context;
 }

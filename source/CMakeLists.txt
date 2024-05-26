@@ -13,6 +13,7 @@ target_precompile_headers(
 #add_subdirectory(char)
 #add_subdirectory(container)
 add_subdirectory(core)
+add_subdirectory(debug)
 #add_subdirectory(hash)
 #add_subdirectory(log)
 add_subdirectory(math)

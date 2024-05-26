@@ -20,23 +20,17 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___DEBUG_PRINT_H)
+#define ___DARK___DEBUG_PRINT_H
 
-//#include <dark/char/char.h>
-//#include <dark/container/container.h>
-#include <dark/core/core.h>
-#include <dark/debug/debug.h>
-//#include <dark/hash/hash.h>
-//#include <dark/log/log.h>
-#include <dark/math/math.h>
-#include <dark/memory/memory.h>
-#include <dark/order/order.h>
-//#include <dark/platform/platform.h>
-//#include <dark/random/random.h>
-//#include <dark/stream/stream.h>
-//#include <dark/time/time.h>
+#include <dark/core/essential.h>
 
-#include <dark/info.h>
+#if defined(___DARK_DEBUG)
+#define DARK_DEBUG_PRINT(message) dark_debug_print_stdout(message)
+#define DARK_DEBUG_PRINTF(format, ...) dark_debug_printf_stdout((format), __VA_ARGS__);
+#endif // defined(___DARK_DEBUG)
 
-#endif // !defined(___DARK___DARKSTAR_H)
+void dark_debug_print_stdout(const char* message);
+void dark_debug_printf_stdout(const char* format, ...);
+
+#endif // !defined(___DARK___DEBUG_PRINT_H)

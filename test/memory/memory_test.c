@@ -1,144 +1,113 @@
 #include <dark/darkstar.h>
 
+static int buffer;
+
+void* allocate_helper(void* context, void* address, size_t byte_old, size_t byte_new)
+{
+    if(0 == byte_new)
+    {
+        return NULL;
+    }
+    else
+    {
+        return &buffer;
+    }
+}
+
+static const Dark_Allocator_Struct custom_allocator_struct = { allocate_helper, allocate_helper, NULL };
+static Dark_Allocator* const custom_allocator = (Dark_Allocator*)&custom_allocator_struct;
+
 int main()
 {
     //----------TEST----------
-    DARK_TEST("ALLOCATOR_NATIVE/malloc/free")
+    DARK_TEST("malloc/free")
     {
-        char* data = dark_malloc(DARK_ALLOCATOR_NATIVE, 5);
+        char* data = dark_malloc(custom_allocator, 5);
         DARK_ASSERT(NULL != data, DARK_ERROR_ALLOCATION);
 
-        data[0] = 'a';
-        data[1] = 'b';
-        data[2] = 'c';
-        data[3] = 'd';
-        data[4] = 'e';
-
-        dark_free(DARK_ALLOCATOR_NATIVE, data, 5);
+        dark_free(custom_allocator, data, 5);
     }
     //--------------------------
 
     //----------TEST----------
     DARK_TEST("balloc/bfree")
     {
-        uint64_t* data = dark_balloc(DARK_ALLOCATOR_NATIVE, sizeof(uint64_t), 5);
+        uint64_t* data = dark_balloc(custom_allocator, sizeof(uint64_t), 5);
         DARK_ASSERT(NULL != data, DARK_ERROR_ALLOCATION);
 
-        data[0] = 1;
-        data[1] = 2;
-        data[2] = 3;
-        data[3] = 4;
-        data[4] = 5;
-
-        dark_bfree(DARK_ALLOCATOR_NATIVE, data, sizeof(uint64_t), 5);
+        dark_bfree(custom_allocator, data, sizeof(uint64_t), 5);
     }
     //--------------------------
 
     //----------TEST----------
     DARK_TEST("realloc")
     {
-        char* data = dark_malloc(DARK_ALLOCATOR_NATIVE, 5);
+        char* data = dark_malloc(custom_allocator, 5);
         DARK_ASSERT(NULL != data, DARK_ERROR_ALLOCATION);
 
-        data = dark_realloc(DARK_ALLOCATOR_NATIVE, data, 5, 6);
+        data = dark_realloc(custom_allocator, data, 5, 6);
         DARK_ASSERT(NULL != data, DARK_ERROR_ALLOCATION);
 
-        data[0] = 'a';
-        data[1] = 'b';
-        data[2] = 'c';
-        data[3] = 'd';
-        data[4] = 'e';
-
-        data[5] = 'x';
-
-        dark_free(DARK_ALLOCATOR_NATIVE, data, 6);
+        dark_free(custom_allocator, data, 6);
     }
     //--------------------------
 
     //----------TEST----------
     DARK_TEST("brealloc")
     {
-        uint64_t* data = dark_balloc(DARK_ALLOCATOR_NATIVE, sizeof(uint64_t), 5);
+        uint64_t* data = dark_balloc(custom_allocator, sizeof(uint64_t), 5);
         DARK_ASSERT(NULL != data, DARK_ERROR_ALLOCATION);
 
-        data = dark_brealloc(DARK_ALLOCATOR_NATIVE, data, sizeof(uint64_t), 5, 6);
+        data = dark_brealloc(custom_allocator, data, sizeof(uint64_t), 5, 6);
         DARK_ASSERT(NULL != data, DARK_ERROR_ALLOCATION);
 
-        data[0] = 1;
-        data[1] = 2;
-        data[2] = 3;
-        data[3] = 4;
-        data[4] = 5;
-
-        data[5] = 'x';
-
-        dark_bfree(DARK_ALLOCATOR_NATIVE, data, sizeof(uint64_t), 6);
+        dark_bfree(custom_allocator, data, sizeof(uint64_t), 6);
     }
     //--------------------------
 
     //----------TEST----------
     DARK_TEST("calloc")
     {
-        char* data = dark_calloc(DARK_ALLOCATOR_NATIVE, 5);
+        char* data = dark_calloc(custom_allocator, 5);
         DARK_ASSERT(NULL != data, DARK_ERROR_ALLOCATION);
 
-        DARK_TEST_EQ_I(data[0], 0);
-        DARK_TEST_EQ_I(data[1], 0);
-        DARK_TEST_EQ_I(data[2], 0);
-        DARK_TEST_EQ_I(data[3], 0);
-        DARK_TEST_EQ_I(data[4], 0);
-
-        dark_free(DARK_ALLOCATOR_NATIVE, data, 5);
+        dark_free(custom_allocator, data, 5);
     }
     //--------------------------
 
     //----------TEST----------
     DARK_TEST("bcalloc")
     {
-        int64_t* data = dark_bcalloc(DARK_ALLOCATOR_NATIVE, sizeof(int64_t), 5);
+        int64_t* data = dark_bcalloc(custom_allocator, sizeof(int64_t), 5);
         DARK_ASSERT(NULL != data, DARK_ERROR_ALLOCATION);
 
-        DARK_TEST_EQ_I(data[0], 0);
-        DARK_TEST_EQ_I(data[1], 0);
-        DARK_TEST_EQ_I(data[2], 0);
-        DARK_TEST_EQ_I(data[3], 0);
-        DARK_TEST_EQ_I(data[4], 0);
-
-        dark_bfree(DARK_ALLOCATOR_NATIVE, data, sizeof(int64_t), 5);
+        dark_bfree(custom_allocator, data, sizeof(int64_t), 5);
     }
     //--------------------------
 
     //----------TEST----------
     DARK_TEST("recalloc")
     {
-        char* data = dark_malloc(DARK_ALLOCATOR_NATIVE, 5);
+        char* data = dark_malloc(custom_allocator, 5);
         DARK_ASSERT(NULL != data, DARK_ERROR_ALLOCATION);
 
-        data = dark_recalloc(DARK_ALLOCATOR_NATIVE, data, 5, 10);
+        data = dark_recalloc(custom_allocator, data, 5, 10);
         DARK_ASSERT(NULL != data, DARK_ERROR_ALLOCATION);
 
-        DARK_TEST_EQ_I(data[5], 0);
-        DARK_TEST_EQ_I(data[6], 0);
-        DARK_TEST_EQ_I(data[7], 0);
-        DARK_TEST_EQ_I(data[8], 0);
-        DARK_TEST_EQ_I(data[9], 0);
-
-        dark_free(DARK_ALLOCATOR_NATIVE, data, 5);
+        dark_free(custom_allocator, data, 5);
     }
     //--------------------------
 
     //----------TEST----------
     DARK_TEST("brecalloc")
     {
-        uint64_t* data = dark_balloc(DARK_ALLOCATOR_NATIVE, sizeof(uint64_t), 5);
+        uint64_t* data = dark_balloc(custom_allocator, sizeof(uint64_t), 5);
         DARK_ASSERT(NULL != data, DARK_ERROR_ALLOCATION);
 
-        data = dark_brecalloc(DARK_ALLOCATOR_NATIVE, data, sizeof(uint64_t), 5, 6);
+        data = dark_brecalloc(custom_allocator, data, sizeof(uint64_t), 5, 6);
         DARK_ASSERT(NULL != data, DARK_ERROR_ALLOCATION);
 
-        data[5] = 0;
-
-        dark_bfree(DARK_ALLOCATOR_NATIVE, data, sizeof(uint64_t), 6);
+        dark_bfree(custom_allocator, data, sizeof(uint64_t), 6);
     }
     //--------------------------
 

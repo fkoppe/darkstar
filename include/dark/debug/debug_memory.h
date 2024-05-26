@@ -20,23 +20,28 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___DEBUG_MEMORY_H)
+#define ___DARK___DEBUG_MEMORY_H
 
-//#include <dark/char/char.h>
-//#include <dark/container/container.h>
-#include <dark/core/core.h>
-#include <dark/debug/debug.h>
-//#include <dark/hash/hash.h>
-//#include <dark/log/log.h>
-#include <dark/math/math.h>
-#include <dark/memory/memory.h>
-#include <dark/order/order.h>
-//#include <dark/platform/platform.h>
-//#include <dark/random/random.h>
-//#include <dark/stream/stream.h>
-//#include <dark/time/time.h>
+#include <dark/core/essential.h>
+#include <dark/core/library.h>
+#include <dark/core/module.h>
+#include <dark/core/unit.h>
+#include <dark/memory/allocator.h>
 
-#include <dark/info.h>
+#if defined(___DARK_DEBUG)
+#define DARK_DEBUG_MEMORY_INITIALISE dark_debug_memory_initialise()
+#define DARK_DEBUG_MEMORY_SHUTDOWN dark_debug_memory_shutdown()
+#else
+#define DARK_DEBUG_MEMORY_INITIALISE
+#define DARK_DEBUG_MEMORY_SHUTDOWN
+#endif // defined(___DARK_DEBUG)
 
-#endif // !defined(___DARK___DARKSTAR_H)
+void dark_debug_memory_initialise(void);
+void dark_debug_memory_shutdown(void);
+
+void* dark_debug_memory_allocate(const char* file, const char* func, int64_t line, const char* date, const char* time, const Dark_Library* library, const char* module, const char* unit, const char* func_name, Dark_Allocator* allocator, void* address, size_t byte_old, size_t byte_new);
+
+void* dark_debug_memory_callocate(const char* file, const char* func, int64_t line, const char* date, const char* time, const Dark_Library* library, const char* module, const char* unit, const char* func_name, Dark_Allocator* allocator, void* address, size_t byte_old, size_t byte_new);
+
+#endif // !defined(___DARK___DEBUG_MEMORY_H)
