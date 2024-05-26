@@ -30,6 +30,10 @@
 #define DARK_LIBRARY NULL
 #endif // !defined(DARK_LIBRARY)
 
+#if !defined(DARK_CONFIGURATION)
+#define DARK_CONFIGURATION NULL
+#endif // !defined(DARK_CONFIGURATION)
+
 typedef struct Dark_Library
 {
     const char* name;

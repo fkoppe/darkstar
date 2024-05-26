@@ -72,8 +72,23 @@ void dark_debug_memory_shutdown(void)
     free(DEBUG_MEMORY.info.array);
 }
 
-void* dark_debug_memory_allocate(const char* const file_, const char* const func_, const int64_t line_, const char* const date_, const char* const time_, const Dark_Library* const library_, const char* const module_, const char* const unit_, const char* const func_name_, Dark_Allocator* const allocator_, void* const address_, const size_t byte_old_, const size_t byte_new_)
+void* dark_debug_memory_allocate(const char* const file_, const char* const func_, const int64_t line_, const char* const date_, const char* const time_, const Dark_Library* const library_, const char* const configuration_, const char* const module_, const char* const unit_, const char* const func_name_, Dark_Allocator* const allocator_, void* const address_, const size_t byte_old_, const size_t byte_new_)
 {
+    DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != func_, DARK_ERROR_NULL);
+    DARK_ASSERT(0 != line_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != date_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != time_, DARK_ERROR_NULL);
+    //library_
+    //configuration_
+    //module_
+    //unit_
+    DARK_ASSERT(NULL != func_name_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
+    //address_
+    //byte_old_
+    //byte_new_
+
     Dark_Allocator_Struct* const allocator = (Dark_Allocator_Struct*)allocator_;
 
     Dark_Debug_Memory_Info call_info;
@@ -85,6 +100,7 @@ void* dark_debug_memory_allocate(const char* const file_, const char* const func
     call_info.at.date = date_;
     call_info.at.time = time_;
     call_info.at.library = library_;
+    call_info.at.configuration = configuration_;
     call_info.at.module = module_;
     call_info.at.unit = unit_;
     call_info.at.func_name = func_name_;
@@ -219,8 +235,23 @@ void* dark_debug_memory_allocate(const char* const file_, const char* const func
     }
 }
 
-void* dark_debug_memory_callocate(const char* const file_, const char* const func_, const int64_t line_, const char* const date_, const char* const time_, const Dark_Library* const library_, const char* const module_, const char* const unit_, const char* const func_name_, Dark_Allocator* const allocator_, void* const address_, const size_t byte_old_, const size_t byte_new_)
+void* dark_debug_memory_callocate(const char* const file_, const char* const func_, const int64_t line_, const char* const date_, const char* const time_, const Dark_Library* const library_, const char* const configuration_, const char* const module_, const char* const unit_, const char* const func_name_, Dark_Allocator* const allocator_, void* const address_, const size_t byte_old_, const size_t byte_new_)
 {
+    DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != func_, DARK_ERROR_NULL);
+    DARK_ASSERT(0 != line_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != date_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != time_, DARK_ERROR_NULL);
+    //library_
+    //configuration_
+    //module_
+    //unit_
+    DARK_ASSERT(NULL != func_name_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
+    //address_
+    //byte_old_
+    //byte_new_
+
     Dark_Allocator_Struct* const allocator = (Dark_Allocator_Struct*)allocator_;
 
     Dark_Debug_Memory_Info call_info;

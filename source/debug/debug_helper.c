@@ -105,6 +105,11 @@ void dark_debug_memory_print_info(const Dark_Debug_Memory_Info info_, const char
         fprintf(stderr, "----------\n\nname:\t%s\nvers:\t%" PRId8 ".%" PRId16 ".%" PRId8 ".%" PRId16 "\n\n", info_.at.library->name, dark_version_major(info_.at.library->version), dark_version_minor(info_.at.library->version), dark_version_stage(info_.at.library->version), dark_version_patch(info_.at.library->version));
     }
 
+    if (NULL != info_.at.configuration)
+    {
+        fprintf(stderr, "conf:\t%s\n\n", info_.at.configuration);
+    }
+
     if (NULL != info_.at.module)
     {
         fprintf(stderr, "modl:\t%s\n", info_.at.module);

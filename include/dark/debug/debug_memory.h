@@ -40,8 +40,8 @@
 void dark_debug_memory_initialise(void);
 void dark_debug_memory_shutdown(void);
 
-void* dark_debug_memory_allocate(const char* file, const char* func, int64_t line, const char* date, const char* time, const Dark_Library* library, const char* module, const char* unit, const char* func_name, Dark_Allocator* allocator, void* address, size_t byte_old, size_t byte_new);
+void* dark_debug_memory_allocate(const char* file, const char* func, int64_t line, const char* date, const char* time, const Dark_Library* library, const char* module, const char* configuration, const char* unit, const char* func_name, Dark_Allocator* allocator, void* address, size_t byte_old, size_t byte_new);
 
-void* dark_debug_memory_callocate(const char* file, const char* func, int64_t line, const char* date, const char* time, const Dark_Library* library, const char* module, const char* unit, const char* func_name, Dark_Allocator* allocator, void* address, size_t byte_old, size_t byte_new);
+void* dark_debug_memory_callocate(const char* file, const char* func, int64_t line, const char* date, const char* time, const Dark_Library* library, const char* module, const char* configuration, const char* unit, const char* func_name, Dark_Allocator* allocator, void* address, size_t byte_old, size_t byte_new);
 
 #endif // !defined(___DARK___DEBUG_MEMORY_H)

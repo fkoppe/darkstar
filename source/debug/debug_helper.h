@@ -50,6 +50,7 @@ typedef struct Dark_Debug_Memory_Info
         const char* date;
         const char* time;
         const Dark_Library* library;
+        const char* configuration;
         const char* module;
         const char* unit;
         const char* func_name;

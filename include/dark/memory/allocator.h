@@ -41,9 +41,8 @@ typedef struct Dark_Allocator_Info
     size_t usage;
 } Dark_Allocator_Info;
 
-static const Dark_Error DARK_ERROR_ALLOCATOR_INTEGRITY = { &DARK_ERROR_RUNTIME, "allocator_integrity", "allocator memory corrupted"};
-static const Dark_Error DARK_ERROR_ALLOCATOR_NOMEMORY = { &DARK_ERROR_RUNTIME, "allocator_nomemory", "out of memory"};
-static const Dark_Error DARK_ERROR_ALLOCATOR_ADDRESS = { &DARK_ERROR_RANGE, "allocator_address", "address is not known"};
+static const Dark_Error DARK_ERROR_ALLOCATOR_NOMEMORY = { &DARK_ERROR_RUNTIME, "allocator_nomemory", "out of memory" };
+static const Dark_Error DARK_ERROR_ALLOCATOR_ADDRESS = { &DARK_ERROR_RANGE, "allocator_address", "address is not known" };
 
 void* dark_malloc(Dark_Allocator* allocator, size_t byte);
 void* dark_balloc(Dark_Allocator* allocator, size_t count, size_t size);

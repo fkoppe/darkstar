@@ -36,7 +36,7 @@ X X X X X X X X X X X X X X*/
 
 #undef DARK_UNIT
 
-void dark_core_enviroment_print(FILE* stream_, const char* file_, const char* func_, int64_t line_, const char* date_, const char* time_, const Dark_Library* library_, const char* module_, const char* unit_)
+void dark_core_enviroment_print(FILE* stream_, const char* file_, const char* func_, int64_t line_, const char* date_, const char* time_, const Dark_Library* library_, const char* configuration_, const char* module_, const char* unit_)
 {
     assert(NULL != stream_);
     assert(NULL != file_);
@@ -45,14 +45,20 @@ void dark_core_enviroment_print(FILE* stream_, const char* file_, const char* fu
     assert(NULL != date_);
     assert(NULL != time_);
     //library_
+    //configuration_
     //module_
     //unit_
 
-    fprintf(stderr, "file:\t%s\nfunc:\t%s\nline:\t%" PRId64 "\ndate:\t%s\ntime:\t%s\n\nconf:\t%s\n\n", file_, func_, line_, date_, time_, ___DARK_CONFIGURATION);
+    fprintf(stderr, "file:\t%s\nfunc:\t%s\nline:\t%" PRId64 "\ndate:\t%s\ntime:\t%s\n\n", file_, func_, line_, date_, time_);
 
     if (NULL != library_)
     {
         fprintf(stderr, "----------\n\nname:\t%s\nvers:\t%" PRId8 ".%" PRId16 ".%" PRId8 ".%" PRId16 "\n\n", library_->name, dark_version_major(library_->version), dark_version_minor(library_->version), dark_version_stage(library_->version), dark_version_patch(library_->version));
+    }
+
+    if (NULL != configuration_)
+    {
+        fprintf(stderr, "conf:\t%s\n\n", configuration_);
     }
 
     if (NULL != module_)
