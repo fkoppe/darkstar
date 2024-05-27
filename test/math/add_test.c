@@ -41,6 +41,15 @@ int main()
     //--------------------------
 
     //----------TEST----------
+    DARK_TEST("add_umax")
+    {
+        DARK_TEST_EQ_U(dark_add_umax(0, 0), 0);
+        DARK_TEST_EQ_U(dark_add_umax(UINTMAX_MAX - 1, 1), UINTMAX_MAX);
+        DARK_TEST_EQ_U(dark_add_umax(255, -30), 225);
+    }
+    //--------------------------
+
+    //----------TEST----------
     DARK_TEST("uadd_u8")
     {
         DARK_TEST_EQ_U(dark_uadd_u8(0, 0), 0);
@@ -73,6 +82,14 @@ int main()
     //--------------------------
 
     //----------TEST----------
+    DARK_TEST("uadd_umax")
+    {
+        DARK_TEST_EQ_U(dark_uadd_umax(0, 0), 0);
+        DARK_TEST_EQ_U(dark_uadd_umax(UINTMAX_MAX - 1, 1), UINTMAX_MAX);
+    }
+    //--------------------------
+
+    //----------TEST----------
     DARK_TEST("iadd_u8")
     {
         DARK_TEST_EQ_U(dark_iadd_u8(0, 0), 0);
@@ -101,6 +118,14 @@ int main()
     {
         DARK_TEST_EQ_U(dark_iadd_u64(0, 0), 0);
         DARK_TEST_EQ_U(dark_iadd_u64(-200, 201), 1);
+    }
+    //--------------------------
+
+    //----------TEST----------
+    DARK_TEST("iadd_umax")
+    {
+        DARK_TEST_EQ_U(dark_iadd_umax(0, 0), 0);
+        DARK_TEST_EQ_U(dark_iadd_umax(-200, 201), 1);
     }
     //--------------------------
 
@@ -151,6 +176,17 @@ int main()
     //--------------------------
 
     //----------TEST----------
+    DARK_TEST("add_imax")
+    {
+        DARK_TEST_EQ_I(dark_add_imax(0, 0), 0);
+        DARK_TEST_EQ_I(dark_add_imax(INTMAX_MAX - 1, 1), INTMAX_MAX);
+        DARK_TEST_EQ_I(dark_add_imax(255, -30), 225);
+
+        DARK_TEST_EQ_I(dark_add_imax(50, -60), -10);
+    }
+    //--------------------------
+
+    //----------TEST----------
     DARK_TEST("uadd_i8")
     {
         DARK_TEST_EQ_I(dark_uadd_i8(0, 0), 0);
@@ -179,6 +215,14 @@ int main()
     {
         DARK_TEST_EQ_I(dark_uadd_i64(0, 0), 0);
         DARK_TEST_EQ_I(dark_uadd_i64(INT64_MAX - 1, 1), INT64_MAX);
+    }
+    //--------------------------
+
+    //----------TEST----------
+    DARK_TEST("uadd_imax")
+    {
+        DARK_TEST_EQ_I(dark_uadd_imax(0, 0), 0);
+        DARK_TEST_EQ_I(dark_uadd_imax(INTMAX_MAX - 1, 1), INTMAX_MAX);
     }
     //--------------------------
 
@@ -223,6 +267,17 @@ int main()
 
         DARK_TEST_EQ_I(dark_iadd_i64(-50, -50), -100);
         DARK_TEST_EQ_I(dark_iadd_i64(50, -60), -10);
+    }
+    //--------------------------
+
+    //----------TEST----------
+    DARK_TEST("iadd_imax")
+    {
+        DARK_TEST_EQ_I(dark_iadd_imax(0, 0), 0);
+        DARK_TEST_EQ_I(dark_iadd_imax(-200, 201), 1);
+
+        DARK_TEST_EQ_I(dark_iadd_imax(-50, -50), -100);
+        DARK_TEST_EQ_I(dark_iadd_imax(50, -60), -10);
     }
     //--------------------------
 

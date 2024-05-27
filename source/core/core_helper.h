@@ -35,7 +35,7 @@ X X X X X X X X X X X X X X*/
 
 #include <stdio.h>
 
-void dark_core_enviroment_print(FILE* stream, const char* file, const char* func, int64_t line, const char* date, const char* time, const Dark_Library* library, const char* configuration , const char* module, const char* unit);
+void dark_core_enviroment_print(FILE* stream, const char* file, const char* func, intmax_t line, const char* date, const char* time, const Dark_Library* library, const char* configuration , const char* module, const char* unit);
 void dark_core_error_print(FILE* stream, const Dark_Error* error);
 
 #endif // !defined(___DARK___CORE_HELPER_H)

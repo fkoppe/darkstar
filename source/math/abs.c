@@ -82,3 +82,17 @@ uint64_t dark_abs_i64(const int64_t integer_)
         return integer_;
     }
 }
+
+uintmax_t dark_abs_imax(const intmax_t integer_)
+{
+    //interger_
+
+    if(integer_ < 0)
+    {
+        return -integer_;
+    }
+    else
+    {
+        return integer_;
+    }
+}

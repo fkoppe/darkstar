@@ -29,10 +29,12 @@ uint8_t dark_min_u8(uint8_t a, uint8_t b);
 uint16_t dark_min_u16(uint16_t a, uint16_t b);
 uint32_t dark_min_u32(uint32_t a, uint32_t b);
 uint64_t dark_min_u64(uint64_t a, uint64_t b);
+uintmax_t dark_min_umax(uintmax_t a, uintmax_t b);
 
 int8_t dark_min_i8(int8_t a, int8_t b);
 int16_t dark_min_i16(int16_t a, int16_t b);
 int32_t dark_min_i32(int32_t a, int32_t b);
 int64_t dark_min_i64(int64_t a, int64_t b);
+intmax_t dark_min_imax(intmax_t a, intmax_t b);
 
 #endif // !defined(___DARK___MIN_H)

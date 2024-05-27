@@ -37,7 +37,7 @@ X X X X X X X X X X X X X X*/
 
 #undef DARK_UNIT
 
-void dark_assert(const char* const file_, const char* const func_, const int64_t line_, const char* const date_, const char* const time_, const Dark_Library* const library_, const char* const configuration_, const char* const module_, const char* const unit_, const char* const condition_, const Dark_Error* const error_, const char* const message_)
+void dark_assert(const char* const file_, const char* const func_, const intmax_t line_, const char* const date_, const char* const time_, const Dark_Library* const library_, const char* const configuration_, const char* const module_, const char* const unit_, const char* const condition_, const Dark_Error* const error_, const char* const message_)
 {
     assert(NULL != file_);
     assert(NULL != func_);

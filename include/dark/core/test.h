@@ -85,8 +85,8 @@ void dark_test_end(void);
 
 void dark_test(const char* func, int64_t line, bool cond, const char* conds);
 void dark_test_p(const char* func, int64_t line, const char* op, bool eq, bool lt, bool nt, const void* a, const void* b, const char* as, const char* bs);
-void dark_test_u(const char* func, int64_t line, const char* op, bool eq, bool lt, bool nt, uint64_t a, uint64_t b, const char* as, const char* bs);
-void dark_test_i(const char* func, int64_t line, const char* op, bool eq, bool lt, bool nt, int64_t a, int64_t b, const char* as, const char* bs);
+void dark_test_u(const char* func, int64_t line, const char* op, bool eq, bool lt, bool nt, uintmax_t a, uintmax_t b, const char* as, const char* bs);
+void dark_test_i(const char* func, int64_t line, const char* op, bool eq, bool lt, bool nt, intmax_t a, intmax_t b, const char* as, const char* bs);
 void dark_test_f(const char* func, int64_t line, const char* op, bool eq, bool lt, bool nt, float a, float b, const char* as, const char* bs);
 void dark_test_d(const char* func, int64_t line, const char* op, bool eq, bool lt, bool nt, double a, double b, const char* as, const char* bs);
 void dark_test_s(const char* func, int64_t line, const char* op, bool eq, bool lt, bool nt, const char* a, const char* b, size_t size, const char* as, const char* bs);

@@ -28,7 +28,7 @@
 #undef DARK_UNIT
 #define DARK_UNIT "cast"
 
-uint8_t dark_ucast_u8(const uint64_t u_)
+uint8_t dark_ucast_u8(const uintmax_t u_)
 {
     //u_
 
@@ -37,7 +37,7 @@ uint8_t dark_ucast_u8(const uint64_t u_)
     return u_;
 }
 
-uint16_t dark_ucast_u16(const uint64_t u_)
+uint16_t dark_ucast_u16(const uintmax_t u_)
 {
     //u_
 
@@ -46,7 +46,7 @@ uint16_t dark_ucast_u16(const uint64_t u_)
     return u_;
 }
 
-uint32_t dark_ucast_u32(const uint64_t u_)
+uint32_t dark_ucast_u32(const uintmax_t u_)
 {
     //u_
 
@@ -55,7 +55,7 @@ uint32_t dark_ucast_u32(const uint64_t u_)
     return u_;
 }
 
-uint64_t dark_ucast_u64(const uint64_t u_)
+uint64_t dark_ucast_u64(const uintmax_t u_)
 {
     //u_
 
@@ -64,7 +64,7 @@ uint64_t dark_ucast_u64(const uint64_t u_)
     return u_;
 }
 
-int8_t dark_ucast_i8(const uint64_t u_)
+int8_t dark_ucast_i8(const uintmax_t u_)
 {
     //u_
 
@@ -73,7 +73,7 @@ int8_t dark_ucast_i8(const uint64_t u_)
     return u_;
 }
 
-int16_t dark_ucast_i16(const uint64_t u_)
+int16_t dark_ucast_i16(const uintmax_t u_)
 {
     //u_
 
@@ -82,7 +82,7 @@ int16_t dark_ucast_i16(const uint64_t u_)
     return u_;
 }
 
-int32_t dark_ucast_i32(const uint64_t u_)
+int32_t dark_ucast_i32(const uintmax_t u_)
 {
     //u_
 
@@ -91,7 +91,7 @@ int32_t dark_ucast_i32(const uint64_t u_)
     return u_;
 }
 
-int64_t dark_ucast_i64(const uint64_t u_)
+int64_t dark_ucast_i64(const uintmax_t u_)
 {
     //u_
 
@@ -100,47 +100,47 @@ int64_t dark_ucast_i64(const uint64_t u_)
     return u_;
 }
 
-uint8_t dark_icast_u8(const int64_t i_)
+uint8_t dark_icast_u8(const intmax_t i_)
 {
     //i_
 
-    DARK_ASSERT(0 >= i_, DARK_ERROR_UNDERFLOW);
+    DARK_ASSERT(i_ >= 0, DARK_ERROR_UNDERFLOW);
     DARK_ASSERT(i_ <= UINT8_MAX, DARK_ERROR_OVERFLOW);
 
     return i_;
 }
 
-uint16_t dark_icast_u16(const int64_t i_)
+uint16_t dark_icast_u16(const intmax_t i_)
 {
     //i_
 
-    DARK_ASSERT(0 >= i_, DARK_ERROR_UNDERFLOW);
+    DARK_ASSERT(i_ >= 0, DARK_ERROR_UNDERFLOW);
     DARK_ASSERT(i_ <= UINT16_MAX, DARK_ERROR_OVERFLOW);
 
     return i_;
 }
 
-uint32_t dark_icast_u32(const int64_t i_)
+uint32_t dark_icast_u32(const intmax_t i_)
 {
     //i_
 
-    DARK_ASSERT(0 >= i_, DARK_ERROR_UNDERFLOW);
+    DARK_ASSERT(i_ >= 0, DARK_ERROR_UNDERFLOW);
     DARK_ASSERT(i_ <= UINT32_MAX, DARK_ERROR_OVERFLOW);
 
     return i_;
 }
 
-uint64_t dark_icast_u64(const int64_t i_)
+uint64_t dark_icast_u64(const intmax_t i_)
 {
     //i_
 
-    DARK_ASSERT(0 >= i_, DARK_ERROR_UNDERFLOW);
+    DARK_ASSERT(i_ >= 0, DARK_ERROR_UNDERFLOW);
     DARK_ASSERT(i_ <= UINT64_MAX, DARK_ERROR_OVERFLOW);
 
     return i_;
 }
 
-int8_t dark_icast_i8(const int64_t i_)
+int8_t dark_icast_i8(const intmax_t i_)
 {
     //i_
 
@@ -150,7 +150,7 @@ int8_t dark_icast_i8(const int64_t i_)
     return i_;
 }
 
-int16_t dark_icast_i16(const int64_t i_)
+int16_t dark_icast_i16(const intmax_t i_)
 {
     //i_
 
@@ -160,7 +160,7 @@ int16_t dark_icast_i16(const int64_t i_)
     return i_;
 }
 
-int32_t dark_icast_i32(const int64_t i_)
+int32_t dark_icast_i32(const intmax_t i_)
 {
     //i_
     DARK_ASSERT(i_ >= INT32_MIN, DARK_ERROR_UNDERFLOW);
@@ -169,7 +169,7 @@ int32_t dark_icast_i32(const int64_t i_)
     return i_;
 }
 
-int64_t dark_icast_i64(const int64_t i_)
+int64_t dark_icast_i64(const intmax_t i_)
 {
     //i_
 

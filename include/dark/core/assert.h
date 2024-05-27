@@ -38,6 +38,6 @@
 #define DARK_ASSERT_MSG(condition, error, message)
 #endif // defined(___DARK_DEBUG)
 
-DARK_NORETURN void dark_assert(const char* file, const char* func, int64_t line, const char* date, const char* time, const Dark_Library* library, const char* configuration, const char* module, const char* unit, const char* condition, const Dark_Error* error, const char* message);
+DARK_NORETURN void dark_assert(const char* file, const char* func, intmax_t line, const char* date, const char* time, const Dark_Library* library, const char* configuration, const char* module, const char* unit, const char* condition, const Dark_Error* error, const char* message);
 
 #endif // !defined(___DARK___ASSERT_H)

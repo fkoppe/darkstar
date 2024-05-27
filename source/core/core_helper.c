@@ -36,7 +36,7 @@ X X X X X X X X X X X X X X*/
 
 #undef DARK_UNIT
 
-void dark_core_enviroment_print(FILE* stream_, const char* file_, const char* func_, int64_t line_, const char* date_, const char* time_, const Dark_Library* library_, const char* configuration_, const char* module_, const char* unit_)
+void dark_core_enviroment_print(FILE* stream_, const char* file_, const char* func_, intmax_t line_, const char* date_, const char* time_, const Dark_Library* library_, const char* configuration_, const char* module_, const char* unit_)
 {
     assert(NULL != stream_);
     assert(NULL != file_);
@@ -49,7 +49,7 @@ void dark_core_enviroment_print(FILE* stream_, const char* file_, const char* fu
     //module_
     //unit_
 
-    fprintf(stderr, "file:\t%s\nfunc:\t%s\nline:\t%" PRId64 "\ndate:\t%s\ntime:\t%s\n\n", file_, func_, line_, date_, time_);
+    fprintf(stderr, "file:\t%s\nfunc:\t%s\nline:\t%" PRIdMAX "\ndate:\t%s\ntime:\t%s\n\n", file_, func_, line_, date_, time_);
 
     if (NULL != library_)
     {

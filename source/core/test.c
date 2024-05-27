@@ -135,7 +135,7 @@ void dark_test_p(const char* const func_, const int64_t line_, const char* const
     exit(-1);
 }
 
-void dark_test_u(const char* const func_, const int64_t line_, const char* const op_, const bool eq_, const bool lt_, const bool nt_, const uint64_t a_, const uint64_t b_, const char* const as_, const char* const bs_)
+void dark_test_u(const char* const func_, const int64_t line_, const char* const op_, const bool eq_, const bool lt_, const bool nt_, const uintmax_t a_, const uintmax_t b_, const char* const as_, const char* const bs_)
 {
     assert(NULL != func_);
     assert(0 != line_);
@@ -178,7 +178,7 @@ void dark_test_u(const char* const func_, const int64_t line_, const char* const
         fprintf(stderr, "test:\t#%zu\nname:\t%s\n\n", DARK_TEST_NUMBER, DARK_TEST_NAME);
     }
 
-    fprintf(stderr, "cond:\t%s %s %s was false\n%s:\t%" PRIu64 "\n%s:\t%" PRIu64 "\n\nfunc:\t%s\nline:\t%" PRId64 "\n\n", as_, op_, bs_, as_, a_, bs_, b_, func_, line_);
+    fprintf(stderr, "cond:\t%s %s %s was false\n%s:\t%" PRIuMAX "\n%s:\t%" PRIuMAX "\n\nfunc:\t%s\nline:\t%" PRId64 "\n\n", as_, op_, bs_, as_, a_, bs_, b_, func_, line_);
 
     fputs("------------------------------------------------------\n\n\n", stderr);
 
@@ -228,7 +228,7 @@ void dark_test_i(const char* const func_, const int64_t line_, const char* const
         fprintf(stderr, "test:\t#%zu\nname:\t%s\n\n", DARK_TEST_NUMBER, DARK_TEST_NAME);
     }
 
-    fprintf(stderr, "cond:\t%s %s %s was false\n%s:\t%" PRId64 "\n%s:\t%" PRId64 "\n\nfunc:\t%s\nline:\t%" PRId64 "\n\n", as_, op_, bs_, as_, a_, bs_, b_, func_, line_);
+    fprintf(stderr, "cond:\t%s %s %s was false\n%s:\t%" PRIdMAX "\n%s:\t%" PRIdMAX "\n\nfunc:\t%s\nline:\t%" PRId64 "\n\n", as_, op_, bs_, as_, a_, bs_, b_, func_, line_);
 
     fputs("------------------------------------------------------\n\n\n", stderr);
 

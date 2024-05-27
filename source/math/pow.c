@@ -28,7 +28,7 @@
 #undef DARK_UNIT
 #define DARK_UNIT "pow"
 
-uint64_t dark_upow_u(uint64_t base_, uint64_t exponent_)
+uintmax_t dark_upow_u(uintmax_t base_, uintmax_t exponent_)
 {
     //base_
     //exponent_
@@ -45,17 +45,17 @@ uint64_t dark_upow_u(uint64_t base_, uint64_t exponent_)
         return 0;
     }
 
-    uint64_t val = base_;
+    uintmax_t val = base_;
     for(size_t i = 1; i < exponent_; i++)
     {
-        DARK_ASSERT(val <= (UINT64_MAX - (val * base_)), DARK_ERROR_OVERFLOW);
+        DARK_ASSERT(val <= (UINTMAX_MAX - (val * base_)), DARK_ERROR_OVERFLOW);
         val *= base_;
     }
 
     return val;
 }
 
-int64_t dark_upow_i(int64_t base_, uint64_t exponent_)
+uintmax_t dark_upow_i(intmax_t base_, uintmax_t exponent_)
 {
     //base_
     //exponent_
@@ -72,16 +72,16 @@ int64_t dark_upow_i(int64_t base_, uint64_t exponent_)
         return 0;
     }
 
-    int64_t val = base_;
+    intmax_t val = base_;
     for(size_t i = 1; i < exponent_; i++)
     {
         if (val > 0)
         {
-            DARK_ASSERT(val <= (INT64_MAX - (val * dark_abs_i64(base_))), DARK_ERROR_OVERFLOW);
+            DARK_ASSERT(val <= (INTMAX_MAX - (val * dark_abs_imax(base_))), DARK_ERROR_OVERFLOW);
         }
         else
         {
-            DARK_ASSERT(val >= (INT64_MIN + (val * dark_abs_i64(base_))), DARK_ERROR_UNDERFLOW);
+            DARK_ASSERT(val >= (INTMAX_MAX + (val * dark_abs_imax(base_))), DARK_ERROR_UNDERFLOW);
         }
 
         val *= base_;

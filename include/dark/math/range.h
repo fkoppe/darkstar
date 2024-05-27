@@ -25,10 +25,10 @@
 
 #include <dark/core/essential.h>
 
-bool dark_range_is_u(uint64_t u, uint64_t lower, uint64_t upper);
-bool dark_range_is_i(int64_t i, int64_t lower, int64_t upper);
+bool dark_range_is_u(uintmax_t u, uintmax_t lower, uintmax_t upper);
+bool dark_range_is_i(intmax_t i, intmax_t lower, intmax_t upper);
 
-uint64_t dark_range_clamp_u(uint64_t u, uint64_t lower, uint64_t upper);
-int64_t dark_range_clamp_i(int64_t i, int64_t lower, int64_t upper);
+uintmax_t dark_range_clamp_u(uintmax_t u, uintmax_t lower, uintmax_t upper);
+intmax_t dark_range_clamp_i(intmax_t i, intmax_t lower, intmax_t upper);
 
 #endif // !defined(___DARK___RANGE_H)

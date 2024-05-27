@@ -25,24 +25,24 @@
 
 #include <dark/core/essential.h>
 
-uint8_t dark_sat_ucast_u8(uint64_t u);
-uint16_t dark_sat_ucast_u16(uint64_t u);
-uint32_t dark_sat_ucast_u32(uint64_t u);
-uint64_t dark_sat_ucast_u64(uint64_t u);
+uint8_t dark_sat_ucast_u8(uintmax_t u);
+uint16_t dark_sat_ucast_u16(uintmax_t u);
+uint32_t dark_sat_ucast_u32(uintmax_t u);
+uint64_t dark_sat_ucast_u64(uintmax_t u);
 
-int8_t dark_sat_ucast_i8(uint64_t i);
-int16_t dark_sat_ucast_i16(uint64_t i);
-int32_t dark_sat_ucast_i32(uint64_t i);
-int64_t dark_sat_ucast_i64(uint64_t i);
+int8_t dark_sat_ucast_i8(uintmax_t i);
+int16_t dark_sat_ucast_i16(uintmax_t i);
+int32_t dark_sat_ucast_i32(uintmax_t i);
+int64_t dark_sat_ucast_i64(uintmax_t i);
 
-uint8_t dark_sat_icast_u8(int64_t u);
-uint16_t dark_sat_icast_u16(int64_t u);
-uint32_t dark_sat_icast_u32(int64_t u);
-uint64_t dark_sat_icast_u64(int64_t u);
+uint8_t dark_sat_icast_u8(intmax_t u);
+uint16_t dark_sat_icast_u16(intmax_t u);
+uint32_t dark_sat_icast_u32(intmax_t u);
+uint64_t dark_sat_icast_u64(intmax_t u);
 
-int8_t dark_sat_icast_i8(int64_t i);
-int16_t dark_sat_icast_i16(int64_t i);
-int32_t dark_sat_icast_i32(int64_t i);
-int64_t dark_sat_icast_i64(int64_t i);
+int8_t dark_sat_icast_i8(intmax_t i);
+int16_t dark_sat_icast_i16(intmax_t i);
+int32_t dark_sat_icast_i32(intmax_t i);
+int64_t dark_sat_icast_i64(intmax_t i);
 
 #endif // !defined(___DARK___SAT_CAST_H)

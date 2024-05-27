@@ -29,5 +29,6 @@ uint8_t dark_abs_i8(int8_t integer);
 uint16_t dark_abs_i16(int16_t integer);
 uint32_t dark_abs_i32(int32_t integer);
 uint64_t dark_abs_i64(int64_t integer);
+uintmax_t dark_abs_imax(intmax_t integer);
 
 #endif // !defined(___DARK___ABS_H)

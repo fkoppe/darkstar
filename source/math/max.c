@@ -50,7 +50,16 @@ uint32_t dark_max_u32(const uint32_t a_, const uint32_t b_)
 
     return DARK_MAX(a_, b_);
 }
+
 uint64_t dark_max_u64(const uint64_t a_, const uint64_t b_)
+{
+    //a_
+    //b_
+
+    return DARK_MAX(a_, b_);
+}
+
+uintmax_t dark_max_umax(const uintmax_t a_, const uintmax_t b_)
 {
     //a_
     //b_
@@ -83,6 +92,14 @@ int32_t dark_max_i32(const int32_t a_, const int32_t b_)
 }
 
 int64_t dark_max_i64(const int64_t a_, const int64_t b_)
+{
+    //a_
+    //b_
+
+    return DARK_MAX(a_, b_);
+}
+
+intmax_t dark_max_imax(const intmax_t a_, const intmax_t b_)
 {
     //a_
     //b_
