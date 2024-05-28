@@ -27,7 +27,7 @@
 
 #if defined(___DARK_DEBUG)
 #define DARK_DEBUG_MEMORY_ASSERT(call_info, condition) if(!(condition)) dark_debug_memory_assert((call_info), (#condition))
-#define DARK_DEBUG_MEMORY_MATCHING(call_info, mem_info, condition) if(!(condition)) dark_debug_memory_matching((call_info), (mem_info), (#condition))
+#define DARK_DEBUG_MEMORY_MATCH(call_info, mem_info, condition) if(!(condition)) dark_debug_memory_match((call_info), (mem_info), (#condition))
 #define DARK_DEBUG_MEMORY_EXIT(call_info, message) dark_debug_memory_exit((call_info), (message))
 #define DARK_DEBUG_MEMORY_WARN(call_info, message) dark_debug_memory_warn((call_info), (message))
 #else
@@ -58,11 +58,11 @@ typedef struct Dark_Debug_Memory_Info
 } Dark_Debug_Memory_Info;
 
 void dark_debug_memory_assert(Dark_Debug_Memory_Info call_info, const char* condition);
-void dark_debug_memory_matching(Dark_Debug_Memory_Info call_info, Dark_Debug_Memory_Info mem_info, const char* condition);
+void dark_debug_memory_match(Dark_Debug_Memory_Info call_info, Dark_Debug_Memory_Info mem_info, const char* condition);
 void dark_debug_memory_exit(Dark_Debug_Memory_Info call_info, const char* message);
 void dark_debug_memory_warn(Dark_Debug_Memory_Info call_info, const char* message);
 
 void dark_debug_memory_print_info(Dark_Debug_Memory_Info info, const char* text);
-void dark_debug_memory_print_leak(Dark_Debug_Memory_Info info);
+void dark_debug_memory_print_leak(Dark_Debug_Memory_Info info, size_t index);
 
 #endif // !defined(___DARK___DEBUG_HELPER_H)

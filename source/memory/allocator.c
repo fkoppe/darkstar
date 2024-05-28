@@ -29,7 +29,7 @@
 #define DARK_UNIT "allocator"
 
 #undef dark_malloc
-#undef dark_bmalloc
+#undef dark_balloc
 #undef dark_realloc
 #undef dark_brealloc
 #undef dark_free

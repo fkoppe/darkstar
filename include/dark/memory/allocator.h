@@ -45,7 +45,7 @@ static const Dark_Error DARK_ERROR_ALLOCATOR_NOMEMORY = { &DARK_ERROR_RUNTIME, "
 static const Dark_Error DARK_ERROR_ALLOCATOR_ADDRESS = { &DARK_ERROR_RANGE, "allocator_address", "address is not known" };
 
 void* dark_malloc(Dark_Allocator* allocator, size_t byte);
-void* dark_balloc(Dark_Allocator* allocator, size_t count, size_t size);
+void* dark_balloc(Dark_Allocator* allocator, size_t size, size_t count);
 
 void* dark_realloc(Dark_Allocator* allocator, void* address, size_t byte_old, size_t byte_new);
 void* dark_brealloc(Dark_Allocator* allocator, void* address, size_t size, size_t count_old, size_t count_new);

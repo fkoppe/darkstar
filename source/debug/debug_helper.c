@@ -46,21 +46,21 @@ void dark_debug_memory_assert(const Dark_Debug_Memory_Info call_info_, const cha
     abort();
 }
 
-void dark_debug_memory_matching(Dark_Debug_Memory_Info call_info_, Dark_Debug_Memory_Info mem_info_, const char* const condition_)
+void dark_debug_memory_match(Dark_Debug_Memory_Info call_info_, Dark_Debug_Memory_Info mem_info_, const char* const condition_)
 {
     //call_info_
     //mem_info_
     DARK_ASSERT(NULL != condition_, DARK_ERROR_NULL);
 
-    fprintf(stderr, "---------------MEMORY_DEBUG---------------\nexit has been called\n\ncond:\t(%s) was false\n\n", condition_);
+    fprintf(stderr, "---------------MEMORY_DEBUG---------------\ninfo mismatch - exit has been called\n\ncond:\t(%s) was false\n\n", condition_);
 
-    fputs("----------", stderr);
+    fputs("----------INFO#1", stderr);
 
-    dark_debug_memory_print_info(call_info_, "INFO_1: function called from");
+    dark_debug_memory_print_info(call_info_, "function called from");
 
-    fputs("----------", stderr);
+    fputs("----------INFO#2", stderr);
 
-    dark_debug_memory_print_info(mem_info_, "INFO_2: last function call");
+    dark_debug_memory_print_info(mem_info_, "last function call");
 
     fputs("------------------------------------------\n", stderr);
 
@@ -98,7 +98,7 @@ void dark_debug_memory_print_info(const Dark_Debug_Memory_Info info_, const char
     //info_
     DARK_ASSERT(NULL != text_, DARK_ERROR_NULL);
 
-    fprintf(stderr, "----------\nallo:\t%p\naddr:\t%p\nbyte:\t%zu\n\n----------\n%s:\n\nfile:\t%s\nfunc:\t%s\nline:\t%" PRId64 "\ndate:\t%s\ntime:\t%s\n\nconf:\t%s\n\nname:\t%s\n\n", info_.allocator, info_.address, info_.byte, text_, info_.at.file, info_.at.func, info_.at.line, info_.at.date, info_.at.time, ___DARK_CONFIGURATION, info_.at.func_name);
+    fprintf(stderr, "----------\n%s:\n\nfile:\t%s\nfunc:\t%s\nline:\t%" PRId64 "\ndate:\t%s\ntime:\t%s\n\nconf:\t%s\n\nname:\t%s\n\n----------\nallo:\t%p\naddr:\t%p\nbyte:\t%zu\n\n", text_, info_.at.file, info_.at.func, info_.at.line, info_.at.date, info_.at.time, ___DARK_CONFIGURATION, info_.at.func_name, info_.allocator, info_.address, info_.byte);
 
     if (NULL != info_.at.library)
     {
@@ -126,11 +126,12 @@ void dark_debug_memory_print_info(const Dark_Debug_Memory_Info info_, const char
     }
 }
 
-void dark_debug_memory_print_leak(const Dark_Debug_Memory_Info info_)
+void dark_debug_memory_print_leak(const Dark_Debug_Memory_Info info_, const size_t index_)
 {
     //info_
+    //index_
 
-    fprintf(stderr, "---------------MEMORY_DEBUG_LEAK---------------\n%s\n\n", "memory leak detected");
+    fprintf(stderr, "---------------MEMORY_DEBUG_LEAK---------------\nmemory leak#%zu detected\n\n", index_);
 
     dark_debug_memory_print_info(info_, "last function call");
 

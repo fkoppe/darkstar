@@ -29,7 +29,8 @@
 #undef DARK_UNIT
 #define DARK_UNIT "debug_memory"
 
-#include "stdlib.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 typedef struct Dark_Debug_Memory
 {
@@ -66,7 +67,12 @@ void dark_debug_memory_shutdown(void)
 
     for(size_t i = 0; i < DEBUG_MEMORY.info.count; i++)
     {
-        dark_debug_memory_print_leak(DEBUG_MEMORY.info.array[i]);
+        dark_debug_memory_print_leak(DEBUG_MEMORY.info.array[i], i);
+    }
+
+    if(DEBUG_MEMORY.info.count > 0)
+    {
+        fprintf(stderr, "----------MEMORY_DEBUG----------\nmemory leaked\n\ninfo:\t%zu leaks\n--------------------------------\n", DEBUG_MEMORY.info.count);
     }
 
     free(DEBUG_MEMORY.info.array);
@@ -93,7 +99,8 @@ void* dark_debug_memory_allocate(const char* const file_, const char* const func
 
     Dark_Debug_Memory_Info call_info;
     call_info.allocator = allocator_;
-    call_info.byte = byte_new_;
+    call_info.address = NULL;
+    call_info.byte = byte_old_;
     call_info.at.func = func_;
     call_info.at.file = file_;
     call_info.at.line = line_;
@@ -136,6 +143,7 @@ void* dark_debug_memory_allocate(const char* const file_, const char* const func
         DEBUG_MEMORY.info.count++;
 
         call_info.address = pointer;
+        call_info.byte = byte_new_;
         DEBUG_MEMORY.info.array[DEBUG_MEMORY.info.count - 1] = call_info;
 
         return pointer;
@@ -153,8 +161,8 @@ void* dark_debug_memory_allocate(const char* const file_, const char* const func
             {
                 if(address_ == DEBUG_MEMORY.info.array[i].address)
                 {
-                    DARK_DEBUG_MEMORY_MATCHING(call_info, DEBUG_MEMORY.info.array[i], DEBUG_MEMORY.info.array[i].allocator == allocator_);
-                    DARK_DEBUG_MEMORY_MATCHING(call_info, DEBUG_MEMORY.info.array[i], DEBUG_MEMORY.info.array[i].byte == byte_old_);
+                    DARK_DEBUG_MEMORY_MATCH(call_info, DEBUG_MEMORY.info.array[i], DEBUG_MEMORY.info.array[i].allocator == allocator_);
+                    DARK_DEBUG_MEMORY_MATCH(call_info, DEBUG_MEMORY.info.array[i], DEBUG_MEMORY.info.array[i].byte == byte_old_);
 
                     known_is = true;
                     index = i;
@@ -196,8 +204,8 @@ void* dark_debug_memory_allocate(const char* const file_, const char* const func
             {
                 if(address_ == DEBUG_MEMORY.info.array[i].address)
                 {
-                    DARK_DEBUG_MEMORY_MATCHING(call_info, DEBUG_MEMORY.info.array[i], DEBUG_MEMORY.info.array[i].allocator == allocator_);
-                    DARK_DEBUG_MEMORY_MATCHING(call_info, DEBUG_MEMORY.info.array[i], DEBUG_MEMORY.info.array[i].byte == byte_old_);
+                    DARK_DEBUG_MEMORY_MATCH(call_info, DEBUG_MEMORY.info.array[i], DEBUG_MEMORY.info.array[i].allocator == allocator_);
+                    DARK_DEBUG_MEMORY_MATCH(call_info, DEBUG_MEMORY.info.array[i], DEBUG_MEMORY.info.array[i].byte == byte_old_);
 
                     known_is = true;
                     index = i;
@@ -222,6 +230,7 @@ void* dark_debug_memory_allocate(const char* const file_, const char* const func
         if(known_is)
         {
             call_info.address = pointer;
+            call_info.byte = byte_new_;
             DEBUG_MEMORY.info.array[index] = call_info;
         }
 
@@ -256,7 +265,7 @@ void* dark_debug_memory_callocate(const char* const file_, const char* const fun
 
     Dark_Debug_Memory_Info call_info;
     call_info.allocator = allocator_;
-    call_info.byte = byte_new_;
+    call_info.byte = byte_old_;
     call_info.at.func = func_;
     call_info.at.file = file_;
     call_info.at.line = line_;
@@ -315,8 +324,8 @@ void* dark_debug_memory_callocate(const char* const file_, const char* const fun
             {
                 if(address_ == DEBUG_MEMORY.info.array[i].address)
                 {
-                    DARK_DEBUG_MEMORY_MATCHING(call_info, DEBUG_MEMORY.info.array[i], DEBUG_MEMORY.info.array[i].allocator == allocator_);
-                    DARK_DEBUG_MEMORY_MATCHING(call_info, DEBUG_MEMORY.info.array[i], DEBUG_MEMORY.info.array[i].byte == byte_old_);
+                    DARK_DEBUG_MEMORY_MATCH(call_info, DEBUG_MEMORY.info.array[i], DEBUG_MEMORY.info.array[i].allocator == allocator_);
+                    DARK_DEBUG_MEMORY_MATCH(call_info, DEBUG_MEMORY.info.array[i], DEBUG_MEMORY.info.array[i].byte == byte_old_);
 
                     known_is = true;
                     index = i;
@@ -358,8 +367,8 @@ void* dark_debug_memory_callocate(const char* const file_, const char* const fun
             {
                 if(address_ == DEBUG_MEMORY.info.array[i].address)
                 {
-                    DARK_DEBUG_MEMORY_MATCHING(call_info, DEBUG_MEMORY.info.array[i], DEBUG_MEMORY.info.array[i].allocator == allocator_);
-                    DARK_DEBUG_MEMORY_MATCHING(call_info, DEBUG_MEMORY.info.array[i], DEBUG_MEMORY.info.array[i].byte == byte_old_);
+                    DARK_DEBUG_MEMORY_MATCH(call_info, DEBUG_MEMORY.info.array[i], DEBUG_MEMORY.info.array[i].allocator == allocator_);
+                    DARK_DEBUG_MEMORY_MATCH(call_info, DEBUG_MEMORY.info.array[i], DEBUG_MEMORY.info.array[i].byte == byte_old_);
 
                     known_is = true;
                     index = i;
