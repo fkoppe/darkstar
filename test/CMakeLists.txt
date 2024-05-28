@@ -12,9 +12,10 @@ add_subdirectory(order)
 #-----
 add_subdirectory(debug)
 #-----
-
+add_subdirectory(container)
+#-----
 #add_subdirectory(char)
-#add_subdirectory(container)
+
 #add_subdirectory(log)
 #add_subdirectory(platform)
 #add_subdirectory(random)

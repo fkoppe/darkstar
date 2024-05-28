@@ -3,69 +3,42 @@
 int main()
 {
     //----------TEST----------
-    DARK_TEST("GROWTH_VALUE#1")
+    DARK_TEST("growth_simple")
     {
-        const Dark_Growth growth = { 0.0f, 10, 0 };
-        DARK_TEST_EQ_U(DARK_GROWTH_VALUE(0, growth), 10);
+        DARK_TEST_EQ_U(dark_growth_simple(0, 0), 0);
+        DARK_TEST_EQ_U(dark_growth_simple(1, 0), 0);
+        DARK_TEST_EQ_U(dark_growth_simple(1, 1), 0);
+        DARK_TEST_EQ_U(dark_growth_simple(10, 20), 10);
+        DARK_TEST_EQ_U(dark_growth_simple(100, 101), 1);
+        DARK_TEST_EQ_U(dark_growth_simple(10, 5), 0);
     }
     //--------------------------
 
     //----------TEST----------
-    DARK_TEST("GROWTH_VALUE#2")
+    DARK_TEST("growth_standard")
     {
-        const Dark_Growth growth = { 2.0f, 0, 4};
-        DARK_TEST_EQ_U(DARK_GROWTH_VALUE(8, growth), 4);
+        DARK_TEST_EQ_U(dark_growth_standard(0, 0), 0);
+        DARK_TEST_EQ_U(dark_growth_standard(1, 0), 0);
+        DARK_TEST_EQ_U(dark_growth_standard(1, 1), 0);
+        DARK_TEST_EQ_U(dark_growth_standard(10, 20), 12);
+        DARK_TEST_EQ_U(dark_growth_standard(100, 101), 50);
+        DARK_TEST_EQ_U(dark_growth_standard(10, 5), 0);
     }
     //--------------------------
 
     //----------TEST----------
-    DARK_TEST("GROWTH_VALUE#3")
+    DARK_TEST("growth_exponential")
     {
-        const Dark_Growth growth = { 2.0f, 20, 20};
-        DARK_TEST_EQ_U(DARK_GROWTH_VALUE(8, growth), 20);
-    }
-    //--------------------------
-
-    //----------TEST----------
-    DARK_TEST("GROWTH_VALUE#4")
-    {
-        const Dark_Growth growth = { 2.0f, 0, 0};
-        DARK_TEST_EQ_U(DARK_GROWTH_VALUE(8, growth), 16);
-    }
-    //--------------------------
-
-    //----------TEST----------
-    DARK_TEST("GROWTH_APPLIED")
-    {
-        const Dark_Growth growth = { 2.0f, 0, 0};
-        DARK_TEST_EQ_U(DARK_GROWTH_APPLIED(8, growth), 24);
-    }
-    //--------------------------
-
-    //----------TEST----------
-    DARK_TEST("GROWTH_STANDARD")
-    {
-        DARK_TEST_EQ_U(DARK_GROWTH_VALUE(0, DARK_GROWTH_STANDARD), 1);
-        DARK_TEST_EQ_U(DARK_GROWTH_VALUE(1, DARK_GROWTH_STANDARD), 1);
-        DARK_TEST_EQ_U(DARK_GROWTH_VALUE(2, DARK_GROWTH_STANDARD), 1);
-        DARK_TEST_EQ_U(DARK_GROWTH_VALUE(3, DARK_GROWTH_STANDARD), 1);
-        DARK_TEST_EQ_U(DARK_GROWTH_VALUE(4, DARK_GROWTH_STANDARD), 2);
-        DARK_TEST_EQ_U(DARK_GROWTH_VALUE(5, DARK_GROWTH_STANDARD), 2);
-        DARK_TEST_EQ_U(DARK_GROWTH_VALUE(6, DARK_GROWTH_STANDARD), 3);
-        DARK_TEST_EQ_U(DARK_GROWTH_VALUE(100, DARK_GROWTH_STANDARD), 50);
-
-        DARK_TEST_EQ_U(DARK_GROWTH_APPLIED(0, DARK_GROWTH_STANDARD), 1);
-        DARK_TEST_EQ_U(DARK_GROWTH_APPLIED(1, DARK_GROWTH_STANDARD), 2);
-        DARK_TEST_EQ_U(DARK_GROWTH_APPLIED(2, DARK_GROWTH_STANDARD), 3);
-        DARK_TEST_EQ_U(DARK_GROWTH_APPLIED(3, DARK_GROWTH_STANDARD), 4);
-        DARK_TEST_EQ_U(DARK_GROWTH_APPLIED(4, DARK_GROWTH_STANDARD), 6);
-        DARK_TEST_EQ_U(DARK_GROWTH_APPLIED(5, DARK_GROWTH_STANDARD), 7);
-        DARK_TEST_EQ_U(DARK_GROWTH_APPLIED(6, DARK_GROWTH_STANDARD), 9);
-        DARK_TEST_EQ_U(DARK_GROWTH_APPLIED(100, DARK_GROWTH_STANDARD), 150);
+        DARK_TEST_EQ_U(dark_growth_exponential(0, 0), 0);
+        DARK_TEST_EQ_U(dark_growth_exponential(1, 0), 0);
+        DARK_TEST_EQ_U(dark_growth_exponential(1, 1), 0);
+        DARK_TEST_EQ_U(dark_growth_exponential(10, 20),10);
+        DARK_TEST_EQ_U(dark_growth_exponential(100, 101), 100);
+        DARK_TEST_EQ_U(dark_growth_exponential(10, 5), 0);
     }
     //--------------------------
 
     dark_test_end();
 
-    return EXIT_SUCCESS;
+    return DARK_EXIT_SUCCESS;
 }

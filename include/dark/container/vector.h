@@ -43,8 +43,9 @@ typedef struct Dark_Vector Dark_Vector;
 
 typedef struct Dark_Vector_Struct
 {
-    Dark_Array_Struct array;
-    Dark_Growth growth;
+    //Dark_Array_Struct array;
+    //Dark_Growth growth;
+    int i;
 } Dark_Vector_Struct;
 
 size_t dark_vector_struct_size(void);
