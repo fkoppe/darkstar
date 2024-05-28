@@ -47,7 +47,7 @@ typedef struct Dark_Box_Struct
     Dark_Allocator* allocator;
     size_t element_size;
     size_t size;
-    void* data;
+    char* data;
 } Dark_Box_Struct;
 
 size_t dark_box_struct_size(void);
