@@ -32,11 +32,10 @@ X X X X X X X X X X X X X X*/
 
 #include <assert.h>
 #include <stdio.h>
-#include <stdlib.h>
 
 #undef DARK_UNIT
 
-void dark_assert(const char* const file_, const char* const func_, const intmax_t line_, const char* const date_, const char* const time_, const Dark_Library* const library_, const char* const configuration_, const char* const module_, const char* const unit_, const char* const condition_, const Dark_Error* const error_, const char* const message_)
+void dark_core_enviroment_print_stderr(const char* const file_, const char* const func_, const intmax_t line_, const char* const date_, const char* const time_, const Dark_Library* const library_, const char* const configuration_, const char* const module_, const char* const unit_)
 {
     assert(NULL != file_);
     assert(NULL != func_);
@@ -47,24 +46,31 @@ void dark_assert(const char* const file_, const char* const func_, const intmax_
     //configuration_
     //module_
     //unit_
-    assert(NULL != condition_);
-    assert(NULL != error_);
-    //message_
 
-    fprintf(stderr, "-------------------------ASSERT-------------------------\nassertion failed - abort has been called\n\ncond:\t(%s) was false\n\n", condition_);
+    fprintf(stderr, "file:\t%s\nfunc:\t%s\nline:\t%" PRIdMAX "\ndate:\t%s\ntime:\t%s\n\n", file_, func_, line_, date_, time_);
 
-    dark_core_enviroment_print_stderr(file_, func_, line_, date_, time_, library_, configuration_, module_, unit_);
-
-    fputs("----------\n\n", stderr);
-
-    dark_core_error_print_stderr(error_);
-
-    if (NULL != message_)
+    if (NULL != library_)
     {
-        fprintf(stderr, "\nmesg:\t%s\n", message_);
+        fprintf(stderr, "----------\n\nname:\t%s\nvers:\t%" PRId8 ".%" PRId16 ".%" PRId8 ".%" PRId16 "\n\n", library_->name, dark_version_major(library_->version), dark_version_minor(library_->version), dark_version_stage(library_->version), dark_version_patch(library_->version));
     }
 
-    fputs("--------------------------------------------------------\n", stderr);
+    if (NULL != configuration_)
+    {
+        fprintf(stderr, "conf:\t%s\n\n", configuration_);
+    }
 
-    abort();
+    if (NULL != module_)
+    {
+        fprintf(stderr, "modl:\t%s\n", module_);
+    }
+
+    if (NULL != unit_)
+    {
+        fprintf(stderr, "unit:\t%s\n", unit_);
+    }
+
+    if (NULL != unit_ || module_)
+    {
+        fputs("\n", stderr);
+    }
 }

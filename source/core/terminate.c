@@ -26,7 +26,6 @@ X   THIS IS A CORE FILE     X
 X                           X
 X X X X X X X X X X X X X X*/
 
-#include "core_helper.h"
 #include "core_module.h"
 
 #include <dark/core/core.h>
@@ -69,11 +68,11 @@ void dark_terminate(const char* const file_, const char* const func_, const intm
         fprintf(stderr, "code:\t%" PRId64 "\n\n", code_);
     }
 
-    dark_core_enviroment_print(stderr, file_, func_, line_, date_, time_, library_, configuration_, module_, unit_);
+    dark_core_enviroment_print_stderr(file_, func_, line_, date_, time_, library_, configuration_, module_, unit_);
 
     fputs("----------\n\n", stderr);
 
-    dark_core_error_print(stderr, error_);
+    dark_core_error_print_stderr(error_);
 
     if (NULL != message_)
     {

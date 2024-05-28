@@ -73,4 +73,6 @@ static const Dark_Error DARK_ERROR_NOSUPPORT = { NULL, "no support", NULL };
 static const Dark_Error DARK_ERROR_HARDWARE = { &DARK_ERROR_NOSUPPORT, "hardware", NULL };
 static const Dark_Error DARK_ERROR_SOFTWARE = { &DARK_ERROR_NOSUPPORT, "software", NULL };
 
+void dark_core_error_print_stderr(const Dark_Error* error);
+
 #endif // !defined(___DARK___ERROR_H)

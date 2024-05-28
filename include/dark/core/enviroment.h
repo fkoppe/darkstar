@@ -20,22 +20,16 @@
 *                                                                                   *
 ************************************************************************************/
 
-/*X X X X X X X X X X X X X X
-X                           X
-X   THIS IS A CORE FILE     X
-X                           X
-X X X X X X X X X X X X X X*/
+#if !defined(___DARK___ENVIROMENT_H)
+#define ___DARK___ENVIROMENT_H
 
-#if !defined(___DARK___CORE_HELPER_H)
-#define ___DARK___CORE_HELPER_H
-
-#include <dark/core/error.h>
 #include <dark/core/essential.h>
 #include <dark/core/library.h>
+#include <dark/core/module.h>
+#include <dark/core/unit.h>
 
 #include <stdio.h>
 
-void dark_core_enviroment_print(FILE* stream, const char* file, const char* func, intmax_t line, const char* date, const char* time, const Dark_Library* library, const char* configuration , const char* module, const char* unit);
-void dark_core_error_print(FILE* stream, const Dark_Error* error);
+void dark_core_enviroment_print_stderr(const char* file, const char* func, intmax_t line, const char* date, const char* time, const Dark_Library* library, const char* configuration, const char* module, const char* unit);
 
-#endif // !defined(___DARK___CORE_HELPER_H)
+#endif // !defined(___DARK___ENVIROMENT_H)

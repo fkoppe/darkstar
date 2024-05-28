@@ -25,6 +25,7 @@
 
 #include <dark/core/assert.h>
 #include <dark/core/configuration.h>
+#include <dark/core/enviroment.h>
 #include <dark/core/error.h>
 #include <dark/core/essential.h>
 #include <dark/core/library.h>

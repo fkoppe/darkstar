@@ -26,7 +26,6 @@ X   THIS IS A CORE FILE     X
 X                           X
 X X X X X X X X X X X X X X*/
 
-#include "core_helper.h"
 #include "core_module.h"
 
 #include <dark/core/core.h>

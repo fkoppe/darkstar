@@ -72,10 +72,12 @@ void dark_debug_memory_shutdown(void)
 
     if(DEBUG_MEMORY.info.count > 0)
     {
-        fprintf(stderr, "----------MEMORY_DEBUG----------\nmemory leaked\n\ninfo:\t%zu leaks\n--------------------------------\n", DEBUG_MEMORY.info.count);
+        fprintf(stderr, "---------------MEMORY_DEBUG---------------\nabort has been called - memory leaked\n\ninfo:\t%zu leaks\n------------------------------------------\n", DEBUG_MEMORY.info.count);
     }
 
     free(DEBUG_MEMORY.info.array);
+
+    abort();
 }
 
 void* dark_debug_memory_allocate(const char* const file_, const char* const func_, const int64_t line_, const char* const date_, const char* const time_, const Dark_Library* const library_, const char* const configuration_, const char* const module_, const char* const unit_, const char* const func_name_, Dark_Allocator* const allocator_, void* const address_, const size_t byte_old_, const size_t byte_new_)

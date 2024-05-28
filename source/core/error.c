@@ -26,7 +26,6 @@ X   THIS IS A CORE FILE     X
 X                           X
 X X X X X X X X X X X X X X*/
 
-#include "core_helper.h"
 #include "core_module.h"
 
 #include <dark/core/core.h>
@@ -36,50 +35,8 @@ X X X X X X X X X X X X X X*/
 
 #undef DARK_UNIT
 
-void dark_core_enviroment_print(FILE* stream_, const char* file_, const char* func_, intmax_t line_, const char* date_, const char* time_, const Dark_Library* library_, const char* configuration_, const char* module_, const char* unit_)
+void dark_core_error_print_stderr(const Dark_Error* error_)
 {
-    assert(NULL != stream_);
-    assert(NULL != file_);
-    assert(NULL != func_);
-    assert(0 != line_);
-    assert(NULL != date_);
-    assert(NULL != time_);
-    //library_
-    //configuration_
-    //module_
-    //unit_
-
-    fprintf(stderr, "file:\t%s\nfunc:\t%s\nline:\t%" PRIdMAX "\ndate:\t%s\ntime:\t%s\n\n", file_, func_, line_, date_, time_);
-
-    if (NULL != library_)
-    {
-        fprintf(stderr, "----------\n\nname:\t%s\nvers:\t%" PRId8 ".%" PRId16 ".%" PRId8 ".%" PRId16 "\n\n", library_->name, dark_version_major(library_->version), dark_version_minor(library_->version), dark_version_stage(library_->version), dark_version_patch(library_->version));
-    }
-
-    if (NULL != configuration_)
-    {
-        fprintf(stderr, "conf:\t%s\n\n", configuration_);
-    }
-
-    if (NULL != module_)
-    {
-        fprintf(stderr, "modl:\t%s\n", module_);
-    }
-
-    if (NULL != unit_)
-    {
-        fprintf(stderr, "unit:\t%s\n", unit_);
-    }
-
-    if (NULL != unit_ || module_)
-    {
-        fputs("\n", stderr);
-    }
-}
-
-void dark_core_error_print(FILE* stream_, const Dark_Error* error_)
-{
-    assert(NULL != stream_);
     assert(NULL != error_);
 
     const Dark_Error* err = error_;
