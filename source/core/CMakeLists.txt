@@ -6,6 +6,5 @@ target_sources(
     ${CMAKE_CURRENT_LIST_DIR}/enviroment.c
     ${CMAKE_CURRENT_LIST_DIR}/error.c
     ${CMAKE_CURRENT_LIST_DIR}/terminate.c
-    ${CMAKE_CURRENT_LIST_DIR}/test.c
     ${CMAKE_CURRENT_LIST_DIR}/version.c
 )

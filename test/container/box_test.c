@@ -1,10 +1,11 @@
 #include <dark/darkstar.h>
+#include <dark/test.h>
 
 int main()
 {
-    DARK_DEBUG_MEMORY_INITIALISE;
-
     Dark_Allocator* os_allocator = dark_os_allocator_new();
+
+    dark_test_initialise();
 
     //----------TEST----------
     DARK_TEST("box_struct_size")
@@ -695,11 +696,9 @@ int main()
     }
     //--------------------------
 
-    dark_test_end();
+    dark_test_shutdown();
 
     dark_os_allocator_delete(os_allocator);
 
-    DARK_DEBUG_MEMORY_SHUTDOWN;
-
-    return DARK_EXIT_SUCCESS;
+    return dark_test_return();
 }

@@ -1,0 +1,37 @@
+#include <dark/darkstar.h>
+#include <dark/test.h>
+
+int main()
+{
+     dark_test_initialise();
+
+    //----------TEST----------
+    DARK_TEST("TEST")
+    {
+        DARK_TEST_TRUE(true);
+        DARK_TEST_FALSE(false);
+
+        DARK_TEST_EQ_U(1, 1);
+        DARK_TEST_NE_U(2, 1);
+        DARK_TEST_LT_U(1, 2);
+        DARK_TEST_LE_U(1, 1);
+        DARK_TEST_LE_U(1, 2);
+        DARK_TEST_GT_U(2, 1);
+        DARK_TEST_GE_U(2, 2);
+        DARK_TEST_GE_U(2, 1);
+
+        DARK_TEST_EQ_I(-1, 2-3);
+        DARK_TEST_NE_I(2, 1);
+        DARK_TEST_LT_I(1, 2);
+        DARK_TEST_LE_I(1, 1);
+        DARK_TEST_LE_I(1, 2);
+        DARK_TEST_GT_I(2, 1);
+        DARK_TEST_GE_I(2, 2);
+        DARK_TEST_GE_I(2, 1);
+    }
+    //--------------------------
+
+    dark_test_shutdown();
+
+    return dark_test_return();
+}

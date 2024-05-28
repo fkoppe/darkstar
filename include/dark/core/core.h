@@ -28,11 +28,11 @@
 #include <dark/core/enviroment.h>
 #include <dark/core/error.h>
 #include <dark/core/essential.h>
+#include <dark/core/info.h>
 #include <dark/core/library.h>
 #include <dark/core/macro.h>
 #include <dark/core/module.h>
 #include <dark/core/terminate.h>
-#include <dark/core/test.h>
 #include <dark/core/unit.h>
 #include <dark/core/version.h>
 

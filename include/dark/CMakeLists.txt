@@ -2,7 +2,7 @@ target_sources(
     darkstar
     PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/darkstar.h
-    ${CMAKE_CURRENT_LIST_DIR}/info.h
+    ${CMAKE_CURRENT_LIST_DIR}/test.h
 )
 
 #add_subdirectory(char)

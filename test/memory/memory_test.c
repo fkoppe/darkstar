@@ -1,4 +1,5 @@
 #include <dark/darkstar.h>
+#include <dark/test.h>
 
 static int buffer;
 
@@ -19,6 +20,8 @@ static Dark_Allocator* const custom_allocator = (Dark_Allocator*)&custom_allocat
 
 int main()
 {
+    dark_test_initialise();
+
     //----------TEST----------
     DARK_TEST("malloc/free")
     {
@@ -111,7 +114,7 @@ int main()
     }
     //--------------------------
 
-    dark_test_end();
+    dark_test_shutdown();
 
-    return DARK_EXIT_SUCCESS;
+    return dark_test_return();
 }

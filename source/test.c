@@ -20,15 +20,8 @@
 *                                                                                   *
 ************************************************************************************/
 
-/*X X X X X X X X X X X X X X
-X                           X
-X   THIS IS A CORE FILE     X
-X                           X
-X X X X X X X X X X X X X X*/
-
-#include "core_module.h"
-
 #include <dark/core/core.h>
+#include <dark/test.h>
 
 #include <assert.h>
 #include <stdio.h>
@@ -38,7 +31,42 @@ X X X X X X X X X X X X X X*/
 #undef DARK_UNIT
 
 static size_t DARK_TEST_NUMBER = 0;
-static const char* DARK_TEST_NAME = "unknown";
+static const char* DARK_TEST_NAME = NULL;
+
+void dark_test_initialise(void)
+{
+    if(NULL != DARK_TEST_NAME)
+    {
+        fputs("test_initialise failed: test already initialised", stderr);
+        abort();
+    }
+
+    DARK_TEST_NUMBER = 0;
+    DARK_TEST_NAME = "unknown";
+}
+
+void dark_test_shutdown(void)
+{
+    if(NULL == DARK_TEST_NAME)
+    {
+        fputs("test_shutdown failed: test not initialised", stderr);
+        abort();
+    }
+
+    DARK_TEST_NUMBER = 0;
+    DARK_TEST_NAME = NULL;
+}
+
+int64_t dark_test_return(void)
+{
+    if(NULL != DARK_TEST_NAME)
+    {
+        fputs("test_return failed: test not shutdown", stderr);
+        abort();
+    }
+
+    return DARK_EXIT_SUCCESS_VALUE;
+}
 
 void dark_test_name_set(const char* const name_)
 {
@@ -48,11 +76,6 @@ void dark_test_name_set(const char* const name_)
     DARK_TEST_NAME = name_;
 
     fprintf(stderr, "test#%zu: %s\n", DARK_TEST_NUMBER, DARK_TEST_NAME);
-}
-
-void dark_test_end(void)
-{
-    DARK_TEST_NAME = NULL;
 }
 
 void dark_test(const char* const func_, const int64_t line_, const bool cond_, const char* const conds_)

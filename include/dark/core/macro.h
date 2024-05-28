@@ -35,8 +35,11 @@
     #define DARK_NORETURN
 #endif // !defined(_MSC_VER)
 
-static const int64_t DARK_EXIT_SUCCESS = 0;
-static const int64_t DARK_EXIT_FAILURE = -1;
+static const int64_t DARK_EXIT_SUCCESS_VALUE = 0;
+static const int64_t DARK_EXIT_FAILURE_VALUE = -1;
+
+#define DARK_EXIT_SUCCESS DARK_EXIT_SUCCESS_VALUE
+#define DARK_EXIT_FAILURE DARK_EXIT_FAILURE_VALUE
 
 #define DARK_MIN(x, y) \
 ((x) < (y) ? (x) : (y))

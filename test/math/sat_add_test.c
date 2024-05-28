@@ -1,7 +1,10 @@
 #include <dark/darkstar.h>
+#include <dark/test.h>
 
 int main()
 {
+    dark_test_initialise();
+
     //----------TEST----------
     DARK_TEST("sat_add_u8")
     {
@@ -375,7 +378,7 @@ int main()
     }
     //--------------------------
 
-    dark_test_end();
+    dark_test_shutdown();
 
-    return DARK_EXIT_SUCCESS;
+    return dark_test_return();
 }

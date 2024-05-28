@@ -37,6 +37,4 @@
 //#include <dark/stream/stream.h>
 //#include <dark/time/time.h>
 
-#include <dark/info.h>
-
 #endif // !defined(___DARK___DARKSTAR_H)

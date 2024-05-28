@@ -4,6 +4,9 @@ macro(dark_test_add filename)
    add_test(NAME ${filename} COMMAND $<TARGET_FILE:${filename}>)
 endmacro(dark_test_add)
 
+#-----test order-----
+dark_test_add(test_test)
+#-----
 add_subdirectory(core)
 #-----
 add_subdirectory(memory)
@@ -21,3 +24,5 @@ add_subdirectory(container)
 #add_subdirectory(random)
 #add_subdirectory(stream)
 #add_subdirectory(time)
+#add_subdirectory(hash)
+#--------------------

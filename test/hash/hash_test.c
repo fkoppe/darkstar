@@ -1,4 +1,5 @@
 #include <dark/darkstar.h>
+#include <dark/test.h>
 
 int main()
 {
