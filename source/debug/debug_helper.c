@@ -98,32 +98,11 @@ void dark_debug_memory_print_info(const Dark_Debug_Memory_Info info_, const char
     //info_
     DARK_ASSERT(NULL != text_, DARK_ERROR_NULL);
 
-    fprintf(stderr, "----------\n%s:\n\nfile:\t%s\nfunc:\t%s\nline:\t%" PRId64 "\ndate:\t%s\ntime:\t%s\n\nconf:\t%s\n\nname:\t%s\n\n----------\nallo:\t%p\naddr:\t%p\nbyte:\t%zu\n\n", text_, info_.at.file, info_.at.func, info_.at.line, info_.at.date, info_.at.time, ___DARK_CONFIGURATION, info_.at.func_name, info_.allocator, info_.address, info_.byte);
+    fprintf(stderr, "----------\n%s:\n\n", text_);
 
-    if (NULL != info_.at.library)
-    {
-        fprintf(stderr, "----------\n\nname:\t%s\nvers:\t%" PRId8 ".%" PRId16 ".%" PRId8 ".%" PRId16 "\n\n", info_.at.library->name, dark_version_major(info_.at.library->version), dark_version_minor(info_.at.library->version), dark_version_stage(info_.at.library->version), dark_version_patch(info_.at.library->version));
-    }
+    dark_core_enviroment_print_stderr(info_.at.file, info_.at.func, info_.at.line, info_.at.date, info_.at.time, info_.at.library, info_.at.configuration, info_.at.module, info_.at.unit);
 
-    if (NULL != info_.at.configuration)
-    {
-        fprintf(stderr, "conf:\t%s\n\n", info_.at.configuration);
-    }
-
-    if (NULL != info_.at.module)
-    {
-        fprintf(stderr, "modl:\t%s\n", info_.at.module);
-    }
-
-    if (NULL != info_.at.unit)
-    {
-        fprintf(stderr, "unit:\t%s\n", info_.at.unit);
-    }
-
-    if (NULL != info_.at.unit || info_.at.module)
-    {
-        fputs("\n", stderr);
-    }
+    fprintf(stderr, "----------\nlast:\t%s:\nallo:\t%p\naddr:\t%p\nbyte:\t%zu\n\n", info_.at.func_name, info_.allocator, info_.address, info_.byte);
 }
 
 void dark_debug_memory_print_leak(const Dark_Debug_Memory_Info info_, const size_t index_)
