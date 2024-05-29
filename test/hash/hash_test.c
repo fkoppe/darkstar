@@ -3,6 +3,8 @@
 
 int main()
 {
+    dark_test_initialise();
+
     //----------TEST----------
     DARK_TEST("djb2_32")
     {
@@ -173,7 +175,7 @@ int main()
     }
     //--------------------------
 
-    dark_test_end();
+    dark_test_shutdown();
 
-    return EXIT_SUCCESS;
+    return dark_test_return();
 }

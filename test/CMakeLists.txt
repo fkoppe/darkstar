@@ -9,6 +9,7 @@ dark_test_add(test_test)
 #-----
 add_subdirectory(core)
 #-----
+add_subdirectory(hash)
 add_subdirectory(memory)
 add_subdirectory(math)
 add_subdirectory(order)

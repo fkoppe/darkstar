@@ -25,6 +25,8 @@
 
 #include <dark/core/essential.h>
 
+typedef void (*Dark_Sort)(size_t element_size, size_t count, void* data, Dark_Compare compare, void* element_buffer);
+
 bool dark_sort_is(size_t element_size, size_t count, void* data, Dark_Compare compare);
 
 void dark_sort_insertion(size_t element_size, size_t count, void* data, Dark_Compare compare, void* element_buffer);

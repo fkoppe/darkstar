@@ -34,9 +34,10 @@ uint32_t dark_hash_murmur3_32(const size_t byte_, const void* const data_, const
     DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
     //seed_
 
-    uint32_t c1 = 0xcc9e2d51;
-    uint32_t c2 = 0x1b873593;
-    uint32_t r1 = 15;
+    const uint32_t c1 = 0xcc9e2d51;
+    const uint32_t c2 = 0x1b873593;
+    const uint32_t r1 = 15;
+
     uint32_t h = seed_;
     uint32_t k = 0;
 

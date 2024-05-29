@@ -39,9 +39,9 @@ uint32_t dark_hash_superfast_32(const size_t byte_, const void* const data_)
     }
 
     const uint16_t* data = data_;
+    const uint32_t rem = byte_ & 3;
 
     uint32_t hash = byte_;
-    uint32_t rem = byte_ & 3;
     uint32_t index = 0;
     uint32_t temp = 0;
 

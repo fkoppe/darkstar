@@ -20,15 +20,13 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___PRNG_H)
-#define ___DARK___PRNG_H
+#if !defined(___DARK___HASH_DATA_H)
+#define ___DARK___HASH_DATA_H
 
-#include <dark/core/essential.h>
+typedef uint32_t (*Dark_Hash32)(size_t byte, const void* data);
+typedef uint32_t (*Dark_Hash32_Seed)(size_t byte, const void* data, uint32_t seed);
 
-typedef uint32_t (*Dark_Prng32)(uint32_t* random);
-typedef uint64_t (*Dark_Prng64)(uint64_t* random);
+typedef uint64_t (*Dark_Hash64)(size_t byte, const void* data);
+typedef uint64_t (*Dark_Hash64_Seed)(size_t byte, const void* data, uint64_t seed);
 
-uint32_t dark_prng_splitmix_32(uint32_t* random);
-uint64_t dark_prng_splitmix_64(uint64_t* random);
-
-#endif // !defined(___DARK___PRNG_H)
+#endif // !defined(___DARK___HASH_DATA_H)
