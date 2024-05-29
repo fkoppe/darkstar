@@ -354,7 +354,7 @@ void dark_box_pop(Dark_Box* const box_, const size_t index_, const size_t count_
 
     memmove(box->data + (box->element_size * index_), box->data + (box->element_size * (index_ + count_)), box->element_size * (box->size - index_));
 
-    dark_brealloc(box->allocator, box->data, box->element_size, box->size + count_, box->size);
+    box->data = dark_brealloc(box->allocator, box->data, box->element_size, box->size + count_, box->size);
 }
 
 void dark_box_pop_front(Dark_Box* const box_, const size_t count_)
