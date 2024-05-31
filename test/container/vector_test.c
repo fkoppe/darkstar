@@ -1,11 +1,8 @@
 #include <dark/darkstar.h>
+#include <dark/test.h>
 
 int main()
 {
-#if defined(___DARK_DEBUG)
-    dark_memory_profiler_initialise(DARK_MEMORY_PROFILE_LEVEL_FULL, true);
-#endif // defined(___DARK_DEBUG)
-
     //----------TEST----------
     DARK_TEST("vector_struct_size")
     {
@@ -14,47 +11,47 @@ int main()
     //--------------------------
 
     //----------TEST----------
-    DARK_TEST("vector_create_size/_capacity/_size/_destroy")
+    DARK_TEST("vector_construct_size/_capacity/_size/_destruct")
     {
         Dark_Vector_Struct vector_struct;
         Dark_Vector* const vector = (Dark_Vector*)&vector_struct;
 
-        dark_vector_create_size(vector, DARK_GROWTH_STANDARD, sizeof(int), 10, 10);
+        dark_vector_construct_size(vector, DARK_GROWTH_STANDARD, sizeof(int), 10, 10);
 
         DARK_TEST_EQ_U(dark_vector_capacity(vector), 10);
         DARK_TEST_EQ_U(dark_vector_size(vector), 10);
 
-        dark_vector_destroy(vector);
+        dark_vector_destruct(vector);
     }
     //--------------------------
 
     //----------TEST----------
-    DARK_TEST("vector_create_capacity")
+    DARK_TEST("vector_construct_capacity")
     {
         Dark_Vector_Struct vector_struct;
         Dark_Vector* const vector = (Dark_Vector*)&vector_struct;
 
-        dark_vector_create_capacity(vector, DARK_GROWTH_STANDARD, sizeof(int), 10);
+        dark_vector_construct_capacity(vector, DARK_GROWTH_STANDARD, sizeof(int), 10);
 
         DARK_TEST_EQ_U(dark_vector_capacity(vector), 10);
         DARK_TEST_EQ_U(dark_vector_size(vector), 0);
 
-        dark_vector_destroy(vector);
+        dark_vector_destruct(vector);
     }
     //--------------------------
 
     //----------TEST----------
-    DARK_TEST("vector_create")
+    DARK_TEST("vector_construct")
     {
         Dark_Vector_Struct vector_struct;
         Dark_Vector* const vector = (Dark_Vector*)&vector_struct;
 
-        dark_vector_create(vector, DARK_GROWTH_STANDARD, sizeof(int));
+        dark_vector_construct(vector, DARK_GROWTH_STANDARD, sizeof(int));
 
         DARK_TEST_EQ_U(dark_vector_capacity(vector), 0);
         DARK_TEST_EQ_U(dark_vector_size(vector), 0);
 
-        dark_vector_destroy(vector);
+        dark_vector_destruct(vector);
     }
     //--------------------------
 

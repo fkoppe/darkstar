@@ -29,8 +29,8 @@ typedef struct Dark_Thread Dark_Thread;
 
 size_t dark_thread_struct_size(void);
 
-void dark_thread_create(Dark_Thread* thread, void (* function), void* argument);
-void dark_thread_destroy(Dark_Thread* thread);
+void dark_thread_construct(Dark_Thread* thread, void (* function), void* argument);
+void dark_thread_destruct(Dark_Thread* thread);
 
 void* dark_thread_new(void (* function), void* argument);
 void dark_thread_delete(Dark_Thread* thread);

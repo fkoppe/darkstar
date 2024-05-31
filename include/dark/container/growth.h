@@ -26,7 +26,7 @@
 #include <dark/core/error.h>
 #include <dark/core/essential.h>
 
-typedef size_t (*Dark_Growth)(size_t current);
+typedef size_t (*Dark_Growth)(size_t current, size_t requested);
 
 size_t dark_growth_simple(size_t current, size_t requested);
 size_t dark_growth_standard(size_t current, size_t requested);

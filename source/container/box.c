@@ -35,7 +35,7 @@ size_t dark_box_struct_size(void)
     return sizeof(Dark_Box_Struct);
 }
 
-void dark_box_create_size(Dark_Box* const box_, const size_t element_size_, const size_t size_, Dark_Allocator* const allocator_)
+void dark_box_construct_size(Dark_Box* const box_, const size_t element_size_, const size_t size_, Dark_Allocator* const allocator_)
 {
     DARK_ASSERT(NULL != box_, DARK_ERROR_NULL);
     DARK_ASSERT(0 != element_size_, DARK_ERROR_ZERO);
@@ -56,7 +56,7 @@ void dark_box_create_size(Dark_Box* const box_, const size_t element_size_, cons
     }
 }
 
-void dark_box_create(Dark_Box* box_, size_t element_size_, Dark_Allocator* const allocator_)
+void dark_box_construct(Dark_Box* box_, size_t element_size_, Dark_Allocator* const allocator_)
 {
     DARK_ASSERT(NULL != box_, DARK_ERROR_NULL);
     DARK_ASSERT(0 != element_size_, DARK_ERROR_ZERO);
@@ -64,10 +64,10 @@ void dark_box_create(Dark_Box* box_, size_t element_size_, Dark_Allocator* const
 
     Dark_Box_Struct* const box = (Dark_Box_Struct*)box_;
 
-    dark_box_create_size((Dark_Box*)box, element_size_, 0, allocator_);
+    dark_box_construct_size((Dark_Box*)box, element_size_, 0, allocator_);
 }
 
-void dark_box_destroy(Dark_Box* const box_)
+void dark_box_destruct(Dark_Box* const box_)
 {
     DARK_ASSERT(NULL != box_, DARK_ERROR_NULL);
 
@@ -79,36 +79,39 @@ void dark_box_destroy(Dark_Box* const box_)
     }
 }
 
-Dark_Box* dark_box_new_size(const size_t element_size_, const size_t size_, Dark_Allocator* const allocator_)
+Dark_Box* dark_box_new_size(const size_t element_size_, const size_t size_, Dark_Allocator* const allocator_, Dark_Allocator* const struct_allocator_)
 {
     DARK_ASSERT(0 != element_size_, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != struct_allocator_, DARK_ERROR_NULL);
 
-    Dark_Box_Struct* const box = dark_malloc(allocator_, sizeof(*box));
+    Dark_Box_Struct* const box = dark_malloc(struct_allocator_, sizeof(*box));
     DARK_ASSERT(NULL != box, DARK_ERROR_ALLOCATION);
 
-    dark_box_create_size((Dark_Box*)box, element_size_, size_, allocator_);
+    dark_box_construct_size((Dark_Box*)box, element_size_, size_, allocator_);
 
     return (Dark_Box*)box;
 }
 
-Dark_Box* dark_box_new(const size_t element_size_, Dark_Allocator* const allocator_)
+Dark_Box* dark_box_new(const size_t element_size_, Dark_Allocator* const allocator_, Dark_Allocator* const  struct_allocator_)
 {
     DARK_ASSERT(0 != element_size_, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != struct_allocator_, DARK_ERROR_NULL);
 
-    return dark_box_new_size(element_size_, 0, allocator_);
+    return dark_box_new_size(element_size_, 0, allocator_, struct_allocator_);
 }
 
-void dark_box_delete(Dark_Box* const box_)
+void dark_box_delete(Dark_Box* const box_, Dark_Allocator* const struct_allocator_)
 {
     DARK_ASSERT(NULL != box_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != struct_allocator_, DARK_ERROR_NULL);
 
     Dark_Box_Struct* const box = (Dark_Box_Struct*)box_;
 
-    dark_box_destroy((Dark_Box*)box);
+    dark_box_destruct((Dark_Box*)box);
 
-    dark_free(box->allocator, box, sizeof(Dark_Box_Struct));
+    dark_free(struct_allocator_, box, sizeof(Dark_Box_Struct));
 }
 
 void* dark_box_at(Dark_Box* const box_, const size_t index_)
@@ -155,6 +158,67 @@ void* dark_box_data(Dark_Box* const box_)
     DARK_ASSERT(box->size > 0, DARK_ERROR_CONTAINER_EMPTY);
 
     return dark_box_at((Dark_Box*)box, 0);
+}
+
+size_t dark_box_size(Dark_Box* const box_)
+{
+    DARK_ASSERT(NULL != box_, DARK_ERROR_NULL);
+
+    Dark_Box_Struct* const box = (Dark_Box_Struct*)box_;
+
+    return box->size;
+}
+
+void dark_box_resize(Dark_Box* const box_, const size_t size_)
+{
+    DARK_ASSERT(NULL != box_, DARK_ERROR_NULL);
+    //size_
+
+    Dark_Box_Struct* const box = (Dark_Box_Struct*)box_;
+
+    if (box->size == size_)
+    {
+        return;
+    }
+
+    if (0 == size_)
+    {
+        dark_bfree(box->allocator, box->data, box->element_size, box->size);
+    }
+    else
+    {
+        if (box->size > 0)
+        {
+            box->data = dark_brealloc(box->allocator, box->data, box->element_size, box->size, size_);
+        }
+        else
+        {
+            box->data = dark_balloc(box->allocator, box->element_size, size_);
+        }
+
+        DARK_ASSERT(NULL != box->data, DARK_ERROR_ALLOCATION);
+
+    }
+
+    box->size = size_;
+}
+
+void dark_box_clear(Dark_Box* const box_)
+{
+    DARK_ASSERT(NULL != box_, DARK_ERROR_NULL);
+
+    Dark_Box_Struct* const box = (Dark_Box_Struct*)box_;
+
+    box->size = 0;
+}
+
+size_t dark_box_element_size(Dark_Box* const box_)
+{
+    DARK_ASSERT(NULL != box_, DARK_ERROR_NULL);
+
+    Dark_Box_Struct* const box = (Dark_Box_Struct*)box_;
+
+    return box->element_size;
 }
 
 void* dark_box_emplace(Dark_Box* const box_, const size_t index_, const size_t count_)
@@ -414,65 +478,4 @@ void dark_box_erase_back(Dark_Box* const box_)
     DARK_ASSERT(box->size >= 1, DARK_ERROR_UNDERFLOW);
 
     dark_box_pop_back((Dark_Box*)box, 1);
-}
-
-size_t dark_box_size(Dark_Box* const box_)
-{
-    DARK_ASSERT(NULL != box_, DARK_ERROR_NULL);
-
-    Dark_Box_Struct* const box = (Dark_Box_Struct*)box_;
-
-    return box->size;
-}
-
-void dark_box_resize(Dark_Box* const box_, const size_t size_)
-{
-    DARK_ASSERT(NULL != box_, DARK_ERROR_NULL);
-    //size_
-
-    Dark_Box_Struct* const box = (Dark_Box_Struct*)box_;
-
-    if (box->size == size_)
-    {
-        return;
-    }
-
-    if (0 == size_)
-    {
-        dark_bfree(box->allocator, box->data, box->element_size, box->size);
-    }
-    else
-    {
-        if (box->size > 0)
-        {
-            box->data = dark_brealloc(box->allocator, box->data, box->element_size, box->size, size_);
-        }
-        else
-        {
-            box->data = dark_balloc(box->allocator, box->element_size, size_);
-        }
-
-        DARK_ASSERT(NULL != box->data, DARK_ERROR_ALLOCATION);
-
-    }
-
-    box->size = size_;
-}
-
-void dark_box_clear(Dark_Box* const box_)
-{
-    DARK_ASSERT(NULL != box_, DARK_ERROR_NULL);
-
-    Dark_Box_Struct* const box = (Dark_Box_Struct*)box_;
-
-    box->size = 0;
-}
-
-size_t dark_box_element_size(Dark_Box* const box_)
-{
-    DARK_ASSERT(NULL != box_, DARK_ERROR_NULL);
-
-    Dark_Box_Struct* const box = (Dark_Box_Struct*)box_;
-
-    return box->element_size;
 }

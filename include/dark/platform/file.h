@@ -46,8 +46,8 @@ typedef enum Dark_File_Flag
 
 size_t dark_file_struct_size(void);
 
-void dark_file_create(Dark_File* file);
-void dark_file_destroy(Dark_File* file);
+void dark_file_construct(Dark_File* file);
+void dark_file_destruct(Dark_File* file);
 
 Dark_File* dark_file_new(void);
 void dark_file_delete(Dark_File* file);

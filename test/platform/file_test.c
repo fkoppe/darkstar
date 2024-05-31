@@ -7,13 +7,13 @@ int main()
 #endif // defined(___DARK_DEBUG)
 
     //----------TEST----------
-    DARK_TEST("file_create/destroy")
+    DARK_TEST("file_construct/destroy")
     {
         Dark_File* const file = malloc(dark_file_struct_size());
         DARK_ASSERT(NULL != file, DARK_ERROR_ALLOCATION);
 
-        dark_file_create(file);
-        dark_file_destroy(file);
+        dark_file_construct(file);
+        dark_file_destruct(file);
 
         free(file);
     }

@@ -13,6 +13,7 @@ add_subdirectory(hash)
 add_subdirectory(memory)
 add_subdirectory(math)
 add_subdirectory(order)
+add_subdirectory(random)
 #-----
 add_subdirectory(debug)
 #-----

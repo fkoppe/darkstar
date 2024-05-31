@@ -1,25 +1,44 @@
 #include <dark/darkstar.h>
+#include <dark/test.h>
 
 int main()
 {
-    Dark_Entropy entropy = dark_entropy_seed();
+    dark_test_initialise();
 
-    void* ptr_1 = dark_entropy_get_64(&entropy);
-    void* ptr_2 = dark_entropy_get_64(&entropy);
+    //----------TEST----------
+    DARK_TEST("entropy")
+    {
+        Dark_Entropy entropy = dark_entropy_seed();
 
-    DARK_TEST_NE_M(&ptr_1, &ptr_2, sizeof(void*));
+        void* ptr_1 = dark_entropy_get_64(&entropy);
+        void* ptr_2 = dark_entropy_get_64(&entropy);
 
-    Dark_Uuid4 uuid_1 = dark_uuid4_generate(dark_entropy_get_64(&entropy));
-    Dark_Uuid4 uuid_2 = dark_uuid4_generate(dark_entropy_get_64(&entropy));
+        DARK_TEST_NE_M(&ptr_1, &ptr_2, sizeof(void*));
+    }
+    //------------------------
 
-    DARK_TEST_NE_U(uuid_1.oct[0], uuid_2.oct[0]);
-    DARK_TEST_NE_U(uuid_1.oct[1], uuid_2.oct[1]);
+    //----------TEST----------
+    DARK_TEST("uuid")
+    {
+        Dark_Entropy entropy = dark_entropy_seed();
 
-    uuid_1 = dark_uuid4_generate(ptr_1);
-    uuid_2 = dark_uuid4_generate(ptr_1);
+        void* ptr = dark_entropy_get_64(&entropy);
 
-    DARK_TEST_NE_U(uuid_1.oct[0], uuid_2.oct[0]);
-    DARK_TEST_NE_U(uuid_1.oct[1], uuid_2.oct[1]);
+        Dark_Uuid4 uuid_1 = dark_uuid4_generate(dark_entropy_get_64(&entropy));
+        Dark_Uuid4 uuid_2 = dark_uuid4_generate(dark_entropy_get_64(&entropy));
 
-    return EXIT_SUCCESS;
+        DARK_TEST_NE_U(uuid_1.oct[0], uuid_2.oct[0]);
+        DARK_TEST_NE_U(uuid_1.oct[1], uuid_2.oct[1]);
+
+        uuid_1 = dark_uuid4_generate(ptr);
+        uuid_2 = dark_uuid4_generate(ptr);
+
+        DARK_TEST_NE_U(uuid_1.oct[0], uuid_2.oct[0]);
+        DARK_TEST_NE_U(uuid_1.oct[1], uuid_2.oct[1]);
+    }
+    //------------------------
+
+    dark_test_shutdown();
+
+    return dark_test_return();
 }

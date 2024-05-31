@@ -23,7 +23,7 @@ int main()
         DARK_TEST_TRUE(dark_find_linear_index(&element, sizeof(int32_t), 5, arr_3, (Dark_Compare)dark_compare_i32, &index));
         DARK_TEST_EQ_U(4, index);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("find_binary")
@@ -41,7 +41,7 @@ int main()
         DARK_TEST_TRUE(dark_find_binary_index(&element, sizeof(int32_t), 5, arr_2, (Dark_Compare)dark_compare_i32, &index));
         DARK_TEST_EQ_U(0, index);
     }
-    //--------------------------
+    //------------------------
 
     dark_test_shutdown();
 

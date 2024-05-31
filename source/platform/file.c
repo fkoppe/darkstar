@@ -62,7 +62,7 @@ size_t dark_file_struct_size(void)
     return sizeof(Dark_File_Struct);
 }
 
-void dark_file_create(Dark_File* const file_)
+void dark_file_construct(Dark_File* const file_)
 {
     DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
 
@@ -73,7 +73,7 @@ void dark_file_create(Dark_File* const file_)
     file->handle = NULL;
 }
 
-void dark_file_destroy(Dark_File* const file_)
+void dark_file_destruct(Dark_File* const file_)
 {
     DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
 
@@ -85,7 +85,7 @@ Dark_File* dark_file_new(void)
     Dark_File_Struct* const file = malloc(sizeof(*file));
     DARK_ASSERT(NULL != file, DARK_ERROR_ALLOCATION);
 
-    dark_file_create((Dark_File*)file);
+    dark_file_construct((Dark_File*)file);
 
     return (Dark_File*)file;
 }
@@ -96,7 +96,7 @@ void dark_file_delete(Dark_File* const file_)
 
     Dark_File_Struct* const file = (Dark_File_Struct*)file_;
 
-    dark_file_destroy((Dark_File*)file);
+    dark_file_destruct((Dark_File*)file);
 
     free(file);
 }

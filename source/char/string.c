@@ -35,7 +35,7 @@ size_t dark_string_struct_size(void)
     return sizeof(Dark_Vector_Struct);
 }
 
-void dark_string_create_v(Dark_String* const string_, const Dark_Growth growth_, const char* const format_, va_list arguments_)
+void dark_string_construct_v(Dark_String* const string_, const Dark_Growth growth_, const char* const format_, va_list arguments_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
     DARK_ASSERT(growth_.min <= growth_.max || 0 == growth_.max, DARK_ERROR_GROWTH);
@@ -52,7 +52,7 @@ void dark_string_create_v(Dark_String* const string_, const Dark_Growth growth_,
 
     Dark_Vector* const vector = (Dark_Vector*)string_;
 
-    dark_vector_create_capacity(vector, growth_, sizeof(char), size + 1);
+    dark_vector_construct_capacity(vector, growth_, sizeof(char), size + 1);
 
     char* const destination = dark_vector_emplace(vector, 0, size);
 
@@ -63,7 +63,7 @@ void dark_string_create_v(Dark_String* const string_, const Dark_Growth growth_,
     dark_vector_insert_back(vector, (void*)&EOS);
 }
 
-void dark_string_create_f(Dark_String* const string_, const Dark_Growth growth_, const char* format_, ...)
+void dark_string_construct_f(Dark_String* const string_, const Dark_Growth growth_, const char* format_, ...)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
     DARK_ASSERT(growth_.min <= growth_.max || 0 == growth_.max, DARK_ERROR_GROWTH);
@@ -82,7 +82,7 @@ void dark_string_create_f(Dark_String* const string_, const Dark_Growth growth_,
 
     Dark_Vector* const vector = (Dark_Vector*)string_;
 
-    dark_vector_create_capacity(vector, growth_, sizeof(char), size + 1);
+    dark_vector_construct_capacity(vector, growth_, sizeof(char), size + 1);
 
     char* const destination = dark_vector_emplace(vector, 0, size);
 
@@ -93,7 +93,7 @@ void dark_string_create_f(Dark_String* const string_, const Dark_Growth growth_,
     dark_vector_insert_back(vector, (void*)&EOS);
 }
 
-void dark_string_create_cbuffer(Dark_String* const string_, const Dark_Growth growth_, const size_t count_, const char* const source_)
+void dark_string_construct_cbuffer(Dark_String* const string_, const Dark_Growth growth_, const size_t count_, const char* const source_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
     DARK_ASSERT(growth_.min <= growth_.max || 0 == growth_.max, DARK_ERROR_GROWTH);
@@ -103,7 +103,7 @@ void dark_string_create_cbuffer(Dark_String* const string_, const Dark_Growth gr
 
     Dark_Vector* const vector = (Dark_Vector*)string_;
 
-    dark_vector_create_capacity(vector, growth_, sizeof(char), count_ + 1);
+    dark_vector_construct_capacity(vector, growth_, sizeof(char), count_ + 1);
 
     DARK_ASSERT(count_ <= DARK_CONTAINER_SIZE_MAX, DARK_ERROR_OVERFLOW);
 
@@ -113,7 +113,7 @@ void dark_string_create_cbuffer(Dark_String* const string_, const Dark_Growth gr
     dark_vector_insert_back(vector, (void*)&EOS);
 }
 
-void dark_string_create_char(Dark_String* const string_, const Dark_Growth growth_, const char character_)
+void dark_string_construct_char(Dark_String* const string_, const Dark_Growth growth_, const char character_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
     DARK_ASSERT(growth_.min <= growth_.max || 0 == growth_.max, DARK_ERROR_GROWTH);
@@ -122,7 +122,7 @@ void dark_string_create_char(Dark_String* const string_, const Dark_Growth growt
 
     Dark_Vector* const vector = (Dark_Vector*)string_;
 
-    dark_vector_create_capacity(vector, growth_, sizeof(char), 1);
+    dark_vector_construct_capacity(vector, growth_, sizeof(char), 1);
 
     dark_vector_insert_front(vector, (void*)&character_);
 
@@ -130,7 +130,7 @@ void dark_string_create_char(Dark_String* const string_, const Dark_Growth growt
     dark_vector_insert_back(vector, (void*)&EOS);
 }
 
-void dark_string_create_size(Dark_String* const string_, const Dark_Growth growth_, const size_t capacity_, const size_t size_)
+void dark_string_construct_size(Dark_String* const string_, const Dark_Growth growth_, const size_t capacity_, const size_t size_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
     DARK_ASSERT(growth_.min <= growth_.max || 0 == growth_.max, DARK_ERROR_GROWTH);
@@ -139,13 +139,13 @@ void dark_string_create_size(Dark_String* const string_, const Dark_Growth growt
 
     Dark_Vector* const vector = (Dark_Vector*)string_;
 
-    dark_vector_create_size(vector, growth_, sizeof(char), capacity_ + 1, size_);
+    dark_vector_construct_size(vector, growth_, sizeof(char), capacity_ + 1, size_);
 
     const char EOS = '\0';
     dark_vector_insert_back(vector, (void*)&EOS);
 }
 
-void dark_string_create_capacity(Dark_String* const string_, const Dark_Growth growth_, const size_t capacity_)
+void dark_string_construct_capacity(Dark_String* const string_, const Dark_Growth growth_, const size_t capacity_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
     DARK_ASSERT(growth_.min <= growth_.max || 0 == growth_.max, DARK_ERROR_GROWTH);
@@ -154,10 +154,10 @@ void dark_string_create_capacity(Dark_String* const string_, const Dark_Growth g
 
     Dark_Vector* const vector = (Dark_Vector*)string_;
 
-    dark_string_create_size((Dark_String*)vector, growth_, capacity_, 0);
+    dark_string_construct_size((Dark_String*)vector, growth_, capacity_, 0);
 }
 
-void dark_string_create(Dark_String* const string_, const Dark_Growth growth_)
+void dark_string_construct(Dark_String* const string_, const Dark_Growth growth_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
     DARK_ASSERT(growth_.min <= growth_.max || 0 == growth_.max, DARK_ERROR_GROWTH);
@@ -165,16 +165,16 @@ void dark_string_create(Dark_String* const string_, const Dark_Growth growth_)
 
     Dark_Vector* const vector = (Dark_Vector*)string_;
 
-    dark_string_create_capacity((Dark_String*)vector, growth_, 0);
+    dark_string_construct_capacity((Dark_String*)vector, growth_, 0);
 }
 
-void dark_string_destroy(Dark_String* const string_)
+void dark_string_destruct(Dark_String* const string_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
 
     Dark_Vector* const vector = (Dark_Vector*)string_;
 
-    dark_vector_destroy(vector);
+    dark_vector_destruct(vector);
 }
 
 Dark_String* dark_string_new_v(const Dark_Growth growth_, const char* const format_, va_list arguments_)
@@ -187,7 +187,7 @@ Dark_String* dark_string_new_v(const Dark_Growth growth_, const char* const form
     void* vector = malloc(sizeof(Dark_Vector_Struct));
     DARK_ASSERT(NULL != vector, DARK_ERROR_ALLOCATION);
 
-    dark_string_create_v(vector, growth_, format_, arguments_);
+    dark_string_construct_v(vector, growth_, format_, arguments_);
 
     return vector;
 }
@@ -203,7 +203,7 @@ Dark_String* dark_string_new_f(const Dark_Growth growth_, const char* const form
 
     va_list args;
     va_start(args, format_);
-    dark_string_create_v(vector, growth_, format_, args);
+    dark_string_construct_v(vector, growth_, format_, args);
     va_end(args);
 
     return vector;
@@ -219,7 +219,7 @@ Dark_String* dark_string_new_cbuffer(const Dark_Growth growth_, const size_t cou
     void* vector = malloc(sizeof(Dark_Vector_Struct));
     DARK_ASSERT(NULL != vector, DARK_ERROR_ALLOCATION);
 
-    dark_string_create_cbuffer(vector, growth_, count_, source_);
+    dark_string_construct_cbuffer(vector, growth_, count_, source_);
 
     return vector;
 }
@@ -233,7 +233,7 @@ Dark_String* dark_string_new_char(const Dark_Growth growth_, const char characte
     void* vector = malloc(sizeof(Dark_Vector_Struct));
     DARK_ASSERT(NULL != vector, DARK_ERROR_ALLOCATION);
 
-    dark_string_create_char(vector, growth_, character_);
+    dark_string_construct_char(vector, growth_, character_);
 
     return vector;
 }
@@ -247,7 +247,7 @@ Dark_String* dark_string_new_size(const Dark_Growth growth_, const size_t capaci
     void* vector = malloc(sizeof(Dark_Vector_Struct));
     DARK_ASSERT(NULL != vector, DARK_ERROR_ALLOCATION);
 
-    dark_string_create_size(vector, growth_, capacity_, size_);
+    dark_string_construct_size(vector, growth_, capacity_, size_);
 
     return vector;
 }
@@ -269,7 +269,7 @@ Dark_String* dark_string_new(const Dark_Growth growth_)
     void* vector = malloc(sizeof(Dark_Vector_Struct));
     DARK_ASSERT(NULL != vector, DARK_ERROR_ALLOCATION);
 
-    dark_string_create(vector, growth_);
+    dark_string_construct(vector, growth_);
 
     return vector;
 }
@@ -280,7 +280,7 @@ void dark_string_delete(Dark_String* const string_)
 
     Dark_Vector* const vector = (Dark_Vector*)string_;
 
-    dark_string_destroy((Dark_String*)vector);
+    dark_string_destruct((Dark_String*)vector);
 
     free(vector);
 }

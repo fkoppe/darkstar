@@ -32,14 +32,14 @@ typedef struct Dark_String Dark_String;
 
 size_t dark_string_struct_size(void);
 
-void dark_string_create_v(Dark_String* string, Dark_Growth growth, const char* format, va_list arguments);
-void dark_string_create_f(Dark_String* string, Dark_Growth growth, const char* format, ...);
-void dark_string_create_cbuffer(Dark_String* string, Dark_Growth growth, size_t count, const char* source);
-void dark_string_create_char(Dark_String* string, Dark_Growth growth, char character);
-void dark_string_create_size(Dark_String* string, Dark_Growth growth, size_t capacity, size_t size);
-void dark_string_create_capacity(Dark_String* string, Dark_Growth growth, size_t capacity);
-void dark_string_create(Dark_String* string, Dark_Growth growth);
-void dark_string_destroy(Dark_String* string);
+void dark_string_construct_v(Dark_String* string, Dark_Growth growth, const char* format, va_list arguments);
+void dark_string_construct_f(Dark_String* string, Dark_Growth growth, const char* format, ...);
+void dark_string_construct_cbuffer(Dark_String* string, Dark_Growth growth, size_t count, const char* source);
+void dark_string_construct_char(Dark_String* string, Dark_Growth growth, char character);
+void dark_string_construct_size(Dark_String* string, Dark_Growth growth, size_t capacity, size_t size);
+void dark_string_construct_capacity(Dark_String* string, Dark_Growth growth, size_t capacity);
+void dark_string_construct(Dark_String* string, Dark_Growth growth);
+void dark_string_destruct(Dark_String* string);
 
 Dark_String* dark_string_new_v(Dark_Growth growth, const char* format, va_list arguments);
 Dark_String* dark_string_new_f(Dark_Growth growth, const char* format, ...);

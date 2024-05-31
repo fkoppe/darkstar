@@ -25,6 +25,9 @@
 
 #include <dark/core/essential.h>
 
+//TODO
+#define dark_min_zu(a, b) dark_min_umax(a, b)
+
 uint8_t dark_min_u8(uint8_t a, uint8_t b);
 uint16_t dark_min_u16(uint16_t a, uint16_t b);
 uint32_t dark_min_u32(uint32_t a, uint32_t b);

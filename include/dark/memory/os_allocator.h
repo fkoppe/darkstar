@@ -31,8 +31,8 @@ void* dark_os_allocator_callocate(void* context, void* address, size_t byte_old,
 
 size_t dark_os_allocator_context_size(void);
 
-void dark_os_allocator_create(Dark_Allocator* os_allocator);
-void dark_os_allocator_destroy(Dark_Allocator* os_allocator);
+void dark_os_allocator_construct(Dark_Allocator* os_allocator);
+void dark_os_allocator_destruct(Dark_Allocator* os_allocator);
 
 Dark_Allocator* dark_os_allocator_new(void);
 void dark_os_allocator_delete(Dark_Allocator* os_allocator);

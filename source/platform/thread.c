@@ -63,7 +63,7 @@ size_t dark_thread_struct_size(void)
     return sizeof(DARK_Thread_Struct);
 }
 
-void dark_thread_create(Dark_Thread* const thread_, void (* const function_), void* const argument_)
+void dark_thread_construct(Dark_Thread* const thread_, void (* const function_), void* const argument_)
 {
     DARK_ASSERT(NULL != thread_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != function_, DARK_ERROR_NULL);
@@ -80,14 +80,14 @@ void dark_thread_create(Dark_Thread* const thread_, void (* const function_), vo
 #endif // defined(___DARK_WINDOWS)
 
 #if defined(___DARK_UNIX)
-    int64_t result = pthread_create(&thread->handle, NULL, function_, argument_);
-    DARK_ASSERT_MSG(0 == result, DARK_ERROR_PLATFORM, "pthread_create");
+    int64_t result = pthread_construct(&thread->handle, NULL, function_, argument_);
+    DARK_ASSERT_MSG(0 == result, DARK_ERROR_PLATFORM, "pthread_construct");
 
     thread->id = thread->handle;
 #endif // defined(___DARK_UNIX)
 }
 
-void dark_thread_destroy(Dark_Thread* const thread_)
+void dark_thread_destruct(Dark_Thread* const thread_)
 {
     DARK_ASSERT(NULL != thread_, DARK_ERROR_NULL);
 
@@ -111,7 +111,7 @@ void* dark_thread_new(void (* const function_), void* const argument_)
     DARK_Thread_Struct* thread = malloc(sizeof(*thread));
     DARK_ASSERT(NULL != thread, DARK_ERROR_ALLOCATION);
 
-    dark_thread_create((Dark_Thread*)thread, function_, argument_);
+    dark_thread_construct((Dark_Thread*)thread, function_, argument_);
 
     return thread;
 }
@@ -124,7 +124,7 @@ void dark_thread_delete(Dark_Thread* const thread_)
 
     DARK_ASSERT_MSG(!thread->joinable_is, DARK_ERROR_NOSTATE, "thread was not joined or detached");
 
-    dark_thread_destroy((Dark_Thread*)thread);
+    dark_thread_destruct((Dark_Thread*)thread);
 
     free(thread);
 }

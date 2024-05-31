@@ -45,14 +45,14 @@ size_t dark_growth_standard(const size_t current_, const size_t requested_)
         return 0;
     }
 
-    size_t total = DARK_MAX(1, current_ * 1.5f);
+    float total = DARK_MAX(1, current_ * 1.5f);
 
     while(total < requested_)
     {
         total *= 1.5f;
     }
 
-    return total - current_;
+    return (size_t)total - current_;
 }
 
 size_t dark_growth_exponential(const size_t current_, const size_t requested_)
@@ -62,7 +62,7 @@ size_t dark_growth_exponential(const size_t current_, const size_t requested_)
         return 0;
     }
 
-    size_t total = DARK_MAX(1, current_ * 2.0f);
+    float total = DARK_MAX(1, current_ * 2.0f);
 
     while(total < requested_)
     {

@@ -23,7 +23,8 @@
 #if !defined(___DARK___VECTOR_H)
 #define ___DARK___VECTOR_H
 
-#include <dark/container/array.h>
+#include <dark/memory/allocator.h>
+#include <dark/container/box.h>
 #include <dark/container/growth.h>
 #include <dark/core/essential.h>
 
@@ -43,22 +44,23 @@ typedef struct Dark_Vector Dark_Vector;
 
 typedef struct Dark_Vector_Struct
 {
-    //Dark_Array_Struct array;
-    //Dark_Growth growth;
-    int i;
+    Dark_Allocator* allocator;
+    size_t size;
+    Dark_Growth growth;
+    Dark_Box_Struct box;
 } Dark_Vector_Struct;
 
 size_t dark_vector_struct_size(void);
 
-void dark_vector_create_size(Dark_Vector* vector, Dark_Growth growth, size_t element_size, size_t capacity, size_t size);
-void dark_vector_create_capacity(Dark_Vector* vector, Dark_Growth growth, size_t element_size, size_t capacity);
-void dark_vector_create(Dark_Vector* vector, Dark_Growth growth, size_t element_size);
-void dark_vector_destroy(Dark_Vector* vector);
+void dark_vector_construct_size(Dark_Vector* vector, Dark_Growth growth, size_t element_size, size_t capacity, size_t size, Dark_Allocator* allocator);
+void dark_vector_construct_capacity(Dark_Vector* vector, Dark_Growth growth, size_t element_size, size_t capacity, Dark_Allocator* allocator);
+void dark_vector_construct(Dark_Vector* vector, Dark_Growth growth, size_t element_size, Dark_Allocator* allocator);
+void dark_vector_destruct(Dark_Vector* vector);
 
-Dark_Vector* dark_vector_new_size(Dark_Growth growth, size_t element_size, size_t capacity, size_t size);
-Dark_Vector* dark_vector_new_capacity(Dark_Growth growth, size_t element_size, size_t capacity);
-Dark_Vector* dark_vector_new(Dark_Growth growth, size_t element_size);
-void dark_vector_delete(Dark_Vector* vector);
+Dark_Vector* dark_vector_new_size(Dark_Growth growth, size_t element_size, size_t capacity, size_t size, Dark_Allocator* allocator, Dark_Allocator* struct_allocator);
+Dark_Vector* dark_vector_new_capacity(Dark_Growth growth, size_t element_size, size_t capacity, Dark_Allocator* allocator, Dark_Allocator* struct_allocator);
+Dark_Vector* dark_vector_new(Dark_Growth growth, size_t element_size, Dark_Allocator* allocator, Dark_Allocator* struct_allocator);
+void dark_vector_delete(Dark_Vector* vector, Dark_Allocator* struct_allocator);
 
 void* dark_vector_at(Dark_Vector* vector, size_t index);
 void* dark_vector_front(Dark_Vector* vector);

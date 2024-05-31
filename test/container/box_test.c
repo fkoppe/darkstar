@@ -15,59 +15,59 @@ int main()
     //--------------------------
 
     //----------TEST----------
-    DARK_TEST("box_create_size/_destroy")
+    DARK_TEST("box_construct_size/_destruct/box_size")
     {
         Dark_Box_Struct box_struct;
         Dark_Box* const box = (Dark_Box*)&box_struct;
 
-        dark_box_create_size(box, sizeof(int), 10, os_allocator);
+        dark_box_construct_size(box, sizeof(int), 10, os_allocator);
 
         DARK_TEST_EQ_U(dark_box_size(box), 10);
 
-        dark_box_destroy(box);
+        dark_box_destruct(box);
     }
     //--------------------------
 
     //----------TEST----------
-    DARK_TEST("box_create")
+    DARK_TEST("box_construct")
     {
         Dark_Box_Struct box_struct;
         Dark_Box* const box = (Dark_Box*)&box_struct;
 
-        dark_box_create(box, sizeof(int), os_allocator);
+        dark_box_construct(box, sizeof(int), os_allocator);
 
         DARK_TEST_EQ_U(dark_box_size(box), 0);
 
-        dark_box_destroy(box);
+        dark_box_destruct(box);
     }
     //--------------------------
 
     //----------TEST----------
     DARK_TEST("box_new_size/_delete")
     {
-        Dark_Box* const box = dark_box_new_size(sizeof(int), 10, os_allocator);
+        Dark_Box* const box = dark_box_new_size(sizeof(int), 10, os_allocator, os_allocator);
 
         DARK_TEST_EQ_U(dark_box_size(box), 10);
 
-        dark_box_delete(box);
+        dark_box_delete(box, os_allocator);
     }
     //--------------------------
 
     //----------TEST----------
     DARK_TEST("box_new")
     {
-        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator);
+        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator, os_allocator);
 
         DARK_TEST_EQ_U(dark_box_size(box), 0);
 
-        dark_box_delete(box);
+        dark_box_delete(box, os_allocator);
     }
     //--------------------------
 
     //----------TEST----------
     DARK_TEST("box_at/BOX_AT")
     {
-        Dark_Box* const box = dark_box_new_size(sizeof(int), 5, os_allocator);
+        Dark_Box* const box = dark_box_new_size(sizeof(int), 5, os_allocator, os_allocator);
 
         DARK_TEST_EQ_U(dark_box_size(box), 5);
 
@@ -83,14 +83,14 @@ int main()
         DARK_TEST_EQ_U(DARK_BOX_AT(box, 3, int), 55);
         DARK_TEST_EQ_U(DARK_BOX_AT(box, 4, int), 66);
 
-        dark_box_delete(box);
+        dark_box_delete(box, os_allocator);
     }
     //--------------------------
 
     //----------TEST----------
     DARK_TEST("box_front/BOX_FRONT")
     {
-        Dark_Box* const box = dark_box_new_size(sizeof(int), 5, os_allocator);
+        Dark_Box* const box = dark_box_new_size(sizeof(int), 5, os_allocator, os_allocator);
 
         DARK_TEST_EQ_U(dark_box_size(box), 5);
 
@@ -106,14 +106,14 @@ int main()
 
         DARK_TEST_EQ_U(DARK_BOX_FRONT(box, int), 42);
 
-        dark_box_delete(box);
+        dark_box_delete(box, os_allocator);
     }
     //--------------------------
 
     //----------TEST----------
     DARK_TEST("box_back/BOX_BACK")
     {
-        Dark_Box* const box = dark_box_new_size(sizeof(int), 5, os_allocator);
+        Dark_Box* const box = dark_box_new_size(sizeof(int), 5, os_allocator, os_allocator);
 
         DARK_TEST_EQ_U(dark_box_size(box), 5);
 
@@ -129,14 +129,14 @@ int main()
 
         DARK_TEST_EQ_U(DARK_BOX_BACK(box, int), 42);
 
-        dark_box_delete(box);
+        dark_box_delete(box, os_allocator);
     }
     //--------------------------
 
     //----------TEST----------
     DARK_TEST("box_data/BOX_DATA")
     {
-        Dark_Box* const box = dark_box_new_size(sizeof(int), 5, os_allocator);
+        Dark_Box* const box = dark_box_new_size(sizeof(int), 5, os_allocator, os_allocator);
 
         DARK_TEST_EQ_U(dark_box_size(box), 5);
 
@@ -148,14 +148,63 @@ int main()
 
         DARK_TEST_EQ_U(*DARK_BOX_DATA(box, int), 22);
 
-        dark_box_delete(box);
+        dark_box_delete(box, os_allocator);
+    }
+    //--------------------------
+
+    //----------TEST----------
+    DARK_TEST("box_resize")
+    {
+        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator, os_allocator);
+
+        DARK_TEST_EQ_U(dark_box_size(box), 0);
+
+        dark_box_resize(box, 10);
+
+        DARK_TEST_EQ_U(dark_box_size(box), 10);
+
+        dark_box_resize(box, 5);
+
+        DARK_TEST_EQ_U(dark_box_size(box), 5);
+
+        dark_box_resize(box, 0);
+
+        DARK_TEST_EQ_U(dark_box_size(box), 0);
+
+        dark_box_delete(box, os_allocator);
+    }
+    //--------------------------
+
+    //----------TEST----------
+    DARK_TEST("box_clear")
+    {
+        Dark_Box* const box = dark_box_new_size(sizeof(int), 4, os_allocator, os_allocator);
+
+        DARK_TEST_EQ_U(dark_box_size(box), 4);
+
+        dark_box_clear(box);
+
+        DARK_TEST_EQ_U(dark_box_size(box), 0);
+
+        dark_box_delete(box, os_allocator);
+    }
+    //--------------------------
+
+    //----------TEST----------
+    DARK_TEST("box_element_size")
+    {
+        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator, os_allocator);
+
+        DARK_TEST_EQ_U(dark_box_element_size(box), sizeof(int));
+
+        dark_box_delete(box, os_allocator);
     }
     //--------------------------
 
     //----------TEST----------
     DARK_TEST("box_emplace")
     {
-        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator);
+        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator, os_allocator);
 
         DARK_TEST_EQ_U(dark_box_size(box), 0);
 
@@ -172,7 +221,7 @@ int main()
         DARK_TEST_EQ_U(DARK_BOX_FRONT(box, int), 99);
         DARK_TEST_EQ_U(DARK_BOX_BACK(box, int), 100);
 
-        dark_box_delete(box);
+        dark_box_delete(box, os_allocator);
     }
     //--------------------------
 
@@ -182,7 +231,7 @@ int main()
         int buffer_1[2] = { 33, 35 };
         int buffer_2[4] = { 1, 2, 3, 4 };
 
-        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator);
+        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator, os_allocator);
 
         DARK_TEST_EQ_U(dark_box_size(box), 0);
 
@@ -208,7 +257,7 @@ int main()
         DARK_TEST_EQ_U(DARK_BOX_AT(box, 4, int), 33);
         DARK_TEST_EQ_U(DARK_BOX_AT(box, 5, int), 35);
 
-        dark_box_delete(box);
+        dark_box_delete(box, os_allocator);
     }
     //--------------------------
 
@@ -218,7 +267,7 @@ int main()
         int buffer_1[2] = { 33, 35 };
         int buffer_2[4] = { 1, 2, 3, 4 };
 
-        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator);
+        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator, os_allocator);
 
         DARK_TEST_EQ_U(dark_box_size(box), 0);
 
@@ -244,14 +293,14 @@ int main()
         DARK_TEST_EQ_U(DARK_BOX_AT(box, 4, int), 3);
         DARK_TEST_EQ_U(DARK_BOX_AT(box, 5, int), 4);
 
-        dark_box_delete(box);
+        dark_box_delete(box, os_allocator);
     }
     //--------------------------
 
     //----------TEST----------
     DARK_TEST("box_inplace")
     {
-        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator);
+        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator, os_allocator);
 
         DARK_TEST_EQ_U(dark_box_size(box), 0);
 
@@ -268,14 +317,14 @@ int main()
         DARK_TEST_EQ_U(DARK_BOX_AT(box, 0, int), 7);
         DARK_TEST_EQ_U(DARK_BOX_AT(box, 1, int), 705);
 
-        dark_box_delete(box);
+        dark_box_delete(box, os_allocator);
     }
     //--------------------------
 
     //----------TEST----------
     DARK_TEST("box_inplace_front")
     {
-        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator);
+        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator, os_allocator);
 
         DARK_TEST_EQ_U(dark_box_size(box), 0);
 
@@ -290,14 +339,14 @@ int main()
         DARK_TEST_EQ_U(DARK_BOX_AT(box, 0, int), 1);
         DARK_TEST_EQ_U(DARK_BOX_AT(box, 1, int), 705);
 
-        dark_box_delete(box);
+        dark_box_delete(box, os_allocator);
     }
     //--------------------------
 
     //----------TEST----------
     DARK_TEST("box_inplace_back")
     {
-        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator);
+        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator, os_allocator);
 
         DARK_TEST_EQ_U(dark_box_size(box), 0);
 
@@ -312,7 +361,7 @@ int main()
         DARK_TEST_EQ_U(DARK_BOX_AT(box, 0, int), 705);
         DARK_TEST_EQ_U(DARK_BOX_AT(box, 1, int), 1);
 
-        dark_box_delete(box);
+        dark_box_delete(box, os_allocator);
     }
     //--------------------------
 
@@ -321,7 +370,7 @@ int main()
     {
         int buffer[2] = { 333, 666666 };
 
-        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator);
+        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator, os_allocator);
 
         DARK_TEST_EQ_U(dark_box_size(box), 0);
 
@@ -339,7 +388,7 @@ int main()
 
         DARK_TEST_EQ_U(dark_box_size(box), 4);
 
-        dark_box_delete(box);
+        dark_box_delete(box, os_allocator);
     }
     //--------------------------
 
@@ -348,7 +397,7 @@ int main()
     {
         int buffer[2] = { 333, 666666 };
 
-        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator);
+        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator, os_allocator);
 
         DARK_TEST_EQ_U(dark_box_size(box), 0);
 
@@ -366,7 +415,7 @@ int main()
 
         DARK_TEST_EQ_U(dark_box_size(box), 4);
 
-        dark_box_delete(box);
+        dark_box_delete(box, os_allocator);
     }
     //--------------------------
 
@@ -375,7 +424,7 @@ int main()
     {
         int buffer[2] = { 333, 666666 };
 
-        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator);
+        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator, os_allocator);
 
         DARK_TEST_EQ_U(dark_box_size(box), 0);
 
@@ -393,7 +442,7 @@ int main()
 
         DARK_TEST_EQ_U(dark_box_size(box), 4);
 
-        dark_box_delete(box);
+        dark_box_delete(box, os_allocator);
     }
     //--------------------------
 
@@ -403,7 +452,7 @@ int main()
         int a = 333;
         int b  = 666666;
 
-        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator);
+        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator, os_allocator);
 
         DARK_TEST_EQ_U(dark_box_size(box), 0);
 
@@ -418,7 +467,7 @@ int main()
 
         DARK_TEST_EQ_U(dark_box_size(box), 2);
 
-        dark_box_delete(box);
+        dark_box_delete(box, os_allocator);
     }
     //--------------------------
 
@@ -428,7 +477,7 @@ int main()
         int a = 333;
         int b  = 666666;
 
-        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator);
+        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator, os_allocator);
 
         DARK_TEST_EQ_U(dark_box_size(box), 0);
 
@@ -443,7 +492,7 @@ int main()
 
         DARK_TEST_EQ_U(dark_box_size(box), 2);
 
-        dark_box_delete(box);
+        dark_box_delete(box, os_allocator);
     }
     //--------------------------
 
@@ -453,7 +502,7 @@ int main()
         int a = 333;
         int b  = 666666;
 
-        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator);
+        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator, os_allocator);
 
         DARK_TEST_EQ_U(dark_box_size(box), 0);
 
@@ -468,14 +517,14 @@ int main()
 
         DARK_TEST_EQ_U(dark_box_size(box), 2);
 
-        dark_box_delete(box);
+        dark_box_delete(box, os_allocator);
     }
     //--------------------------
 
     //----------TEST----------
     DARK_TEST("box_pop")
     {
-        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator);
+        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator, os_allocator);
 
         DARK_TEST_EQ_U(dark_box_size(box), 0);
 
@@ -493,14 +542,14 @@ int main()
 
         DARK_TEST_EQ_U(dark_box_size(box), 3);
 
-        dark_box_delete(box);
+        dark_box_delete(box, os_allocator);
     }
     //--------------------------
 
     //----------TEST----------
     DARK_TEST("box_pop_front")
     {
-        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator);
+        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator, os_allocator);
 
         DARK_TEST_EQ_U(dark_box_size(box), 0);
 
@@ -521,14 +570,14 @@ int main()
 
         DARK_TEST_EQ_U(dark_box_size(box), 0);
 
-        dark_box_delete(box);
+        dark_box_delete(box, os_allocator);
     }
     //--------------------------
 
     //----------TEST----------
     DARK_TEST("box_pop_back")
     {
-        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator);
+        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator, os_allocator);
 
         DARK_TEST_EQ_U(dark_box_size(box), 0);
 
@@ -549,14 +598,14 @@ int main()
 
         DARK_TEST_EQ_U(dark_box_size(box), 0);
 
-        dark_box_delete(box);
+        dark_box_delete(box, os_allocator);
     }
     //--------------------------
 
     //----------TEST----------
     DARK_TEST("box_erase")
     {
-        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator);
+        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator, os_allocator);
 
         DARK_TEST_EQ_U(dark_box_size(box), 0);
 
@@ -592,14 +641,14 @@ int main()
 
         DARK_TEST_EQ_U(dark_box_size(box), 0);
 
-        dark_box_delete(box);
+        dark_box_delete(box, os_allocator);
     }
     //--------------------------
 
     //----------TEST----------
     DARK_TEST("box_erase_front")
     {
-        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator);
+        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator, os_allocator);
 
         DARK_TEST_EQ_U(dark_box_size(box), 0);
 
@@ -623,14 +672,14 @@ int main()
 
         DARK_TEST_EQ_U(dark_box_size(box), 0);
 
-        dark_box_delete(box);
+        dark_box_delete(box, os_allocator);
     }
     //--------------------------
 
     //----------TEST----------
     DARK_TEST("box_erase_back")
     {
-        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator);
+        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator, os_allocator);
 
         DARK_TEST_EQ_U(dark_box_size(box), 0);
 
@@ -654,45 +703,7 @@ int main()
 
         DARK_TEST_EQ_U(dark_box_size(box), 0);
 
-        dark_box_delete(box);
-    }
-    //--------------------------
-
-    //----------TEST----------
-    DARK_TEST("box_resize")
-    {
-        Dark_Box* const box = dark_box_new(sizeof(int), os_allocator);
-
-        DARK_TEST_EQ_U(dark_box_size(box), 0);
-
-        dark_box_resize(box, 10);
-
-        DARK_TEST_EQ_U(dark_box_size(box), 10);
-
-        dark_box_resize(box, 5);
-
-        DARK_TEST_EQ_U(dark_box_size(box), 5);
-
-        dark_box_resize(box, 0);
-
-        DARK_TEST_EQ_U(dark_box_size(box), 0);
-
-        dark_box_delete(box);
-    }
-    //--------------------------
-
-    //----------TEST----------
-    DARK_TEST("box_clear")
-    {
-        Dark_Box* const box = dark_box_new_size(sizeof(int), 4, os_allocator);
-
-        DARK_TEST_EQ_U(dark_box_size(box), 4);
-
-        dark_box_clear(box);
-
-        DARK_TEST_EQ_U(dark_box_size(box), 0);
-
-        dark_box_delete(box);
+        dark_box_delete(box, os_allocator);
     }
     //--------------------------
 

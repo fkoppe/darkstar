@@ -87,7 +87,7 @@ void dark_ostream_delete(Dark_Ostream* const ostream_)
 
         DARK_ASSERT(dark_file_open_is(file), DARK_ERROR_STATE);
 
-        dark_file_destroy(file);
+        dark_file_destruct(file);
     }
 
     if(0 != ostream->settings.buffer_size)
@@ -235,7 +235,7 @@ void dark_ostream_add_file(Dark_Ostream* const ostream_, const char* const path_
     Dark_Ostream_Struct* const ostream = (Dark_Ostream_Struct*)ostream_;
 
     void* file = dark_array_emplace(ostream->file_array, dark_array_size(ostream->file_array), 1);
-    dark_file_create(file);
+    dark_file_construct(file);
     *(void**)((char*)file + dark_file_struct_size()) = mutex_;
 
     Dark_File_Flag flag = DARK_FILE_FLAG_NONE;
