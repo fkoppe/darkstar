@@ -27,6 +27,8 @@
 
 typedef int8_t (*Dark_Compare)(const void* element, const void* other);
 
+//TODO add zu and umax
+
 int8_t dark_compare_i8(const int8_t* element, const int8_t* other);
 int8_t dark_compare_i16(const int16_t* element, const int16_t* other);
 int8_t dark_compare_i32(const int32_t* element, const int32_t* other);
