@@ -1,9 +1,0 @@
-target_sources(
-    darkstar
-    PRIVATE
-    ${CMAKE_CURRENT_LIST_DIR}/cbuffer.c
-    ${CMAKE_CURRENT_LIST_DIR}/char_module.h
-    ${CMAKE_CURRENT_LIST_DIR}/cstring.c
-    ${CMAKE_CURRENT_LIST_DIR}/digit.c
-    ${CMAKE_CURRENT_LIST_DIR}/string.c
-)

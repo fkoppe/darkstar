@@ -1,2 +1,0 @@
-dark_test_add(memory_test)
-dark_test_add(os_allocator_test)
