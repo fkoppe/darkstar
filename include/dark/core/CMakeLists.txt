@@ -1,0 +1,15 @@
+target_sources(
+    darkstar
+    PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/core.h
+    ${CMAKE_CURRENT_LIST_DIR}/enviroment.h
+    ${CMAKE_CURRENT_LIST_DIR}/error.h
+    ${CMAKE_CURRENT_LIST_DIR}/mem.h
+    ${CMAKE_CURRENT_LIST_DIR}/message.h
+    ${CMAKE_CURRENT_LIST_DIR}/so.h
+    ${CMAKE_CURRENT_LIST_DIR}/sprint.h
+    ${CMAKE_CURRENT_LIST_DIR}/std.h
+    ${CMAKE_CURRENT_LIST_DIR}/terminate.h
+	${CMAKE_CURRENT_LIST_DIR}/util.h
+    ${CMAKE_CURRENT_LIST_DIR}/version.h
+)
