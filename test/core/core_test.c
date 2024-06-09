@@ -36,10 +36,10 @@ int main()
         char buffer_2[8] = { 'a', 'a', 'a', 'a', 'b', 'b', 'b', 'b' };
 
         dark_snprintf_notterminated(8, buffer_1, "%s%s", "aaaa", "bbbb");
-        DARK_TEST_EQ_I(dark_memcmp(buffer_1, buffer_2, 16), 0);
+        DARK_TEST_EQ_I(dark_memcmp(buffer_1, buffer_2, 8), 0);
 
         dark_snprintf_terminated(8, buffer_1, "%s%s", "aaaa", "bbbb");
-        DARK_TEST_NE_I(dark_memcmp(buffer_1, buffer_2, 16), 0);
+        DARK_TEST_NE_I(dark_memcmp(buffer_1, buffer_2, 8), 0);
         DARK_TEST_EQ_I(buffer_1[7], '\0');
     }
     //--------------------------
