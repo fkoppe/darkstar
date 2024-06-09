@@ -6,5 +6,12 @@ endmacro(dark_test_add)
 
 dark_test_add(test_test)
 
-#core_module
+#-----
+
 add_subdirectory(core)
+
+#-----
+
+add_subdirectory(memory)
+
+#-----

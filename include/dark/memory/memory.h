@@ -20,10 +20,10 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___MEMORY_H)
+#define ___DARK___MEMORY_H
 
-#include <dark/core/core.h>
-#include <dark/memory/memory.h>
+#include <dark/memory/allocator.h>
+#include <dark/memory/os_allocator.h>
 
-#endif // !defined(___DARK___DARKSTAR_H)
+#endif // !defined(___DARK___MEMORY_H)

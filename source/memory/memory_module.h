@@ -20,10 +20,12 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___MEMORY_MODULE_H)
+#define ___DARK___MEMORY_MODULE_H
 
-#include <dark/core/core.h>
-#include <dark/memory/memory.h>
+#include <dark/core/std.h>
 
-#endif // !defined(___DARK___DARKSTAR_H)
+#undef DARK_MODULE
+#define DARK_MODULE "memory"
+
+#endif // !defined(___DARK___MEMORY_MODULE_H)

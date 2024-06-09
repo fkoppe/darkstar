@@ -3,3 +3,6 @@ target_sources(
     PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/darkstar.h
 )
+
+add_subdirectory(core)
+add_subdirectory(memory)

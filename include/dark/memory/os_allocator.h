@@ -20,10 +20,30 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___OS_ALLOCATOR_H)
+#define ___DARK___OS_ALLOCATOR_H
 
-#include <dark/core/core.h>
-#include <dark/memory/memory.h>
+#include <dark/core/std.h>
+#include <dark/memory/allocator.h>
 
-#endif // !defined(___DARK___DARKSTAR_H)
+typedef struct Dark_Os_Allocator_Context Dark_Os_Allocator_Context;
+struct Dark_Os_Allocator_Context
+{
+    Dark_Allocator_Info info;
+};
+
+size_t dark_os_allocator_context_size(void);
+
+Dark_Allocator_Struct dark_os_allocator_construct(void* context);
+void dark_os_allocator_destruct(Dark_Allocator* os_allocator);
+
+Dark_Allocator* dark_os_allocator_new(void);
+void dark_os_allocator_delete(Dark_Allocator* os_allocator);
+
+Dark_Allocator_Info dark_os_allocator_info(Dark_Allocator* os_allocator);
+
+void* dark_os_allocator_allocate(void* context, void* address, size_t byte_old, size_t byte_new);
+void* dark_os_allocator_callocate(void* context, void* address, size_t byte_old, size_t byte_new);
+
+#endif // !defined(___DARK___OS_ALLOCATOR_H)
+
