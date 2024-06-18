@@ -28,18 +28,18 @@
 #include <stdint.h>
 #include <inttypes.h>
 
-#if !defined(DARK_DEBUG_MEMORY_TRYINITIALISE)
-#define DARK_DEBUG_MEMORY_TRYINITIALISE
-#endif // !defined(DARK_DEBUG_MEMORY_TRYINITIALISE)
+#if !defined(DARK_MEMORY_DEBUG_TRYINITIALISE)
+#define DARK_MEMORY_DEBUG_TRYINITIALISE
+#endif // !defined(DARK_MEMORY_DEBUG_TRYINITIALISE)
 
-#if !defined(DARK_DEBUG_MEMORY_TRYSHUTDOWN)
-#define DARK_DEBUG_MEMORY_TRYSHUTDOWN
-#endif // !defined(DARK_DEBUG_MEMORY_TRYSHUTDOWN)
+#if !defined(DARK_MEMORY_DEBUG_TRYSHUTDOWN)
+#define DARK_MEMORY_DEBUG_TRYSHUTDOWN
+#endif // !defined(DARK_MEMORY_DEBUG_TRYSHUTDOWN)
 
 #define DARK_TEST(name) \
-DARK_DEBUG_MEMORY_TRYINITIALISE; \
+DARK_MEMORY_DEBUG_TRYSHUTDOWN; \
 dark_test_name_set(name); \
-DARK_DEBUG_MEMORY_TRYSHUTDOWN;
+DARK_MEMORY_DEBUG_TRYINITIALISE;
 
 #define DARK_TEST_TRUE(cond) dark_test(__func__, __LINE__, (cond), #cond)
 #define DARK_TEST_FALSE(cond) dark_test(__func__, __LINE__, (!cond), "!"#cond)

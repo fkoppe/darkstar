@@ -22,6 +22,8 @@
 
 #include <dark/darktest.h>
 
+#include <dark/memory/memory_debug.h>
+
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -43,7 +45,7 @@ void dark_test_initialise(void)
     DARK_TEST_NUMBER = 0;
     DARK_TEST_NAME = "unknown";
 
-    DARK_DEBUG_MEMORY_TRYINITIALISE;
+    dark_memory_debug_tryinitialise();
 }
 
 void dark_test_shutdown(void)
@@ -57,7 +59,7 @@ void dark_test_shutdown(void)
     DARK_TEST_NUMBER = 0;
     DARK_TEST_NAME = NULL;
 
-    DARK_DEBUG_MEMORY_TRYSHUTDOWN;
+    dark_memory_debug_tryshutdown();
 }
 
 void dark_test_name_set(const char* const name_)

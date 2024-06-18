@@ -36,7 +36,7 @@
 #define DARK_EXIT_MESSAGE(code, error, message) dark_terminate((Dark_Location){ __FILE__, __func__, __LINE__, __DATE__, __TIME__ }, DARK_LIBRARY, DARK_MODULE, DARK_UNIT, (code), (error), (message), false)
 #define DARK_ABORT dark_terminate((Dark_Location){ __FILE__, __func__, __LINE__, __DATE__, __TIME__ }, DARK_LIBRARY, DARK_MODULE, DARK_UNIT, 0, DARK_ERROR_UNDEFINED, DARK_MESSAGE_NONE, true)
 #define DARK_ABORT_ERROR(error) dark_terminate((Dark_Location){ __FILE__, __func__, __LINE__, __DATE__, __TIME__ }, DARK_LIBRARY, DARK_MODULE, DARK_UNIT, 0, (error), DARK_MESSAGE_NONE, true)
-#define DARK_ABORT_CSTRING(error, cstring) dark_terminate((Dark_Location){ __FILE__, __func__, __LINE__, __DATE__, __TIME__ }, DARK_LIBRARY, DARK_MODULE, DARK_UNIT, 0, (error), (Dark_Message){ NULL, (cstring), true)
+#define DARK_ABORT_CSTRING(error, cstring) dark_terminate((Dark_Location){ __FILE__, __func__, __LINE__, __DATE__, __TIME__ }, DARK_LIBRARY, DARK_MODULE, DARK_UNIT, 0, (error), (Dark_Message){ NULL, NULL, (cstring) })
 #define DARK_ABORT_MESSAGE(error, message) dark_terminate((Dark_Location){ __FILE__, __func__, __LINE__, __DATE__, __TIME__ }, DARK_LIBRARY, DARK_MODULE, DARK_UNIT, 0, (error), (message), true)
 #else
 #define DARK_EXIT(code) exit(code)
@@ -49,8 +49,8 @@
 #define DARK_ABORT_MESSAGE(error, message) abort()
 #endif // defined(___DARK_DEBINFO)
 
-static const Dark_Message DARK_MESSAGE_EXIT = { NULL, "exit has been called", false };
-static const Dark_Message DARK_MESSAGE_ABORT = { NULL, "abort has been called", false };
+static const Dark_Message DARK_MESSAGE_EXIT = { NULL, NULL, "exit has been called" };
+static const Dark_Message DARK_MESSAGE_ABORT = { NULL, NULL, "abort has been called" };
 
 DARK_NORETURN void dark_terminate(Dark_Location location, const Dark_Library* library, const char* module, const char* unit, int code, Dark_Error error, Dark_Message message, bool abort_is);
 

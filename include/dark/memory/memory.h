@@ -24,6 +24,7 @@
 #define ___DARK___MEMORY_H
 
 #include <dark/memory/allocator.h>
+#include <dark/memory/memory_debug.h>
 #include <dark/memory/os_allocator.h>
 
 #endif // !defined(___DARK___MEMORY_H)

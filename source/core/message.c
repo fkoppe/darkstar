@@ -40,7 +40,7 @@ void dark_message_print(const Dark_So so_, const Dark_Message message_)
     //message_
 
     const Dark_Message* msg = &message_;
-    const char* data_arr[DARK_MESSAGE_DEPTH_MAX] = { 0 };
+    const char* data_arr[DARK_MESSAGE_DEPTH_MAX * 2] = { 0 };
     bool data_is = false;
     size_t left = 0;
     size_t right = DARK_MESSAGE_DEPTH_MAX - 1;
@@ -52,25 +52,19 @@ void dark_message_print(const Dark_So so_, const Dark_Message message_)
             break;
         }
 
-        if (NULL != msg->data)
+        if(NULL != msg->prefix)
         {
             data_is = true;
-        }
-
-        size_t index = 0;
-
-        if(msg->prefix_is)
-        {
-            index = left;
+            data_arr[left] = msg->prefix;
             left++;
         }
-        else
+
+        if(NULL != msg->suffix)
         {
-            index = right;
+            data_is = true;
+            data_arr[right] = msg->suffix;
             right--;
         }
-
-        data_arr[index] = msg->data;
 
         msg = msg->parent;
     }

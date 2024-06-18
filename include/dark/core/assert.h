@@ -40,7 +40,7 @@
 #define DARK_ASSERT_MESSAGE(condition, error, message)
 #endif // defined(___DARK_DEBUG)
 
-static const Dark_Message DARK_MESSAGE_ASSERT = { &DARK_MESSAGE_ABORT, "assertion failed - ", true };
+static const Dark_Message DARK_MESSAGE_ASSERT = { &DARK_MESSAGE_ABORT, "assertion failed - ", NULL };
 
 DARK_NORETURN void dark_assert(Dark_Location location, const Dark_Library* library, const char* module, const char* unit, const char* condition, Dark_Error error, Dark_Message message);
 

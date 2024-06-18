@@ -20,24 +20,36 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___MESSAGE_H)
-#define ___DARK___MESSAGE_H
+#if !defined(___DARK___MEMORY_DEBUG_H)
+#define ___DARK___MEMORY_DEBUG_H
 
+#include <dark/core/enviroment.h>
 #include <dark/core/std.h>
-#include <dark/core/so.h>
+#include <dark/memory/allocator.h>
 
-#define DARK_MESSAGE_DEPTH_MAX 4
+#undef DARK_MEMORY_DEBUG_INITIALISE
+#undef DARK_MEMORY_DEBUG_SHUTDOWN
+#undef DARK_MEMORY_DEBUG_TRYINITIALISE
+#undef DARK_MEMORY_DEBUG_TRYSHUTDOWN
 
-typedef struct Dark_Message Dark_Message;
-struct Dark_Message
-{
-    const Dark_Message* parent;
-    const char* prefix;
-    const char* suffix;
-};
+#if defined(___DARK_DEBUG)
+#define DARK_MEMORY_DEBUG_INITIALISE dark_memory_debug_initialise()
+#define DARK_MEMORY_DEBUG_SHUTDOWN dark_memory_debug_shutdown()
+#define DARK_MEMORY_DEBUG_TRYINITIALISE dark_memory_debug_tryinitialise()
+#define DARK_MEMORY_DEBUG_TRYSHUTDOWN dark_memory_debug_tryshutdown()
+#else
+#define DARK_MEMORY_DEBUG_INITIALISE
+#define DARK_MEMORY_DEBUG_SHUTDOWN
+#define DARK_MEMORY_DEBUG_TRYINITIALISE
+#define DARK_MEMORY_DEBUG_TRYSHUTDOWN
+#endif // defined(___DARK_DEBUG)
 
-static const Dark_Message DARK_MESSAGE_NONE = { NULL, NULL, NULL };
+void dark_memory_debug_initialise(void);
+void dark_memory_debug_shutdown(void);
+void dark_memory_debug_tryinitialise(void);
+void dark_memory_debug_tryshutdown(void);
 
-void dark_message_print(Dark_So so, Dark_Message message);
+void* dark_memory_debug_allocate(Dark_Location location, const Dark_Library* library, const char* module, const char* unit, const char* func_name, Dark_Allocator* allocator, void* address, size_t byte_old, size_t byte_new);
+void* dark_memory_debug_callocate(Dark_Location location, const Dark_Library* library, const char* module, const char* unit, const char* func_name, Dark_Allocator* allocator, void* address, size_t byte_old, size_t byte_new);
 
-#endif // !defined(___DARK___MESSAGE_H)
+#endif // !defined(___DARK___MEMORY_DEBUG_H)

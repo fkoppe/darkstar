@@ -97,7 +97,7 @@ int main()
         data = dark_recalloc(custom_allocator, data, 5, 10);
         DARK_ASSERT(NULL != data, DARK_ERROR_ALLOCATION);
 
-        dark_free(custom_allocator, data, 5);
+        dark_free(custom_allocator, data, 10);
     }
     //--------------------------
 
