@@ -20,11 +20,13 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___CONTAINER_H)
+#define ___DARK___CONTAINER_H
 
-#include <dark/container/container.h>
-#include <dark/core/core.h>
-#include <dark/memory/memory.h>
+#include <dark/container/array_iterator.h>
+#include <dark/container/array.h>
+#include <dark/container/container_data.h>
+#include <dark/container/growth.h>
+#include <dark/container/iterator.h>
 
-#endif // !defined(___DARK___DARKSTAR_H)
+#endif // !defined(___DARK___CONTAINER_H)

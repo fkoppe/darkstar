@@ -20,11 +20,25 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___ARRAY_H)
+#define ___DARK___ARRAY_H
 
-#include <dark/container/container.h>
-#include <dark/core/core.h>
-#include <dark/memory/memory.h>
+#include <dark/core/std.h>
 
-#endif // !defined(___DARK___DARKSTAR_H)
+typedef struct Dark_Array Dark_Array;
+struct Dark_Array
+{
+    void* data;
+    size_t size;
+    size_t element_size;
+};
+
+typedef struct Dark_Array_View Dark_Array_View;
+struct Dark_Array_View
+{
+    const void* data;
+    size_t size;
+    size_t element_size;
+};
+
+#endif // !defined(___DARK___ARRAY_H)

@@ -20,11 +20,28 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#include "container_module.h"
 
 #include <dark/container/container.h>
 #include <dark/core/core.h>
-#include <dark/memory/memory.h>
 
-#endif // !defined(___DARK___DARKSTAR_H)
+#undef DARK_UNIT
+#define DARK_UNIT "iterator"
+
+bool dark_iterator_next_is(Dark_Iterator* const iterator_)
+{
+    DARK_ASSERT(NULL != iterator_, DARK_ERROR_NULL);
+
+    Dark_Iterator_Struct* const iterator = (Dark_Iterator_Struct*)iterator_;
+
+    return iterator->next_is(iterator->context);
+}
+
+void* dark_iterator_next(Dark_Iterator* const iterator_)
+{
+    DARK_ASSERT(NULL != iterator_, DARK_ERROR_NULL);
+
+    Dark_Iterator_Struct* const iterator = (Dark_Iterator_Struct*)iterator_;
+
+    return iterator->next(iterator->context);
+}

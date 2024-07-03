@@ -20,11 +20,25 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___ITERATOR_H)
+#define ___DARK___ITERATOR_H
 
-#include <dark/container/container.h>
-#include <dark/core/core.h>
-#include <dark/memory/memory.h>
+#include <dark/core/error.h>
+#include <dark/core/std.h>
 
-#endif // !defined(___DARK___DARKSTAR_H)
+typedef struct Dark_Iterator Dark_Iterator;
+
+typedef struct Dark_Iterator_Struct Dark_Iterator_Struct;
+struct Dark_Iterator_Struct
+{
+    bool (*next_is)(void* context);
+    void* (*next)(void* context);
+    void* context;
+};
+
+static const Dark_Error DARK_ERROR_ITERATOR = { &DARK_ERROR_LOGIC, "iterator", "next not available" };
+
+bool dark_iterator_next_is(Dark_Iterator* iterator);
+void* dark_iterator_next(Dark_Iterator* iterator);
+
+#endif // !defined(___DARK___ITERATOR_H)

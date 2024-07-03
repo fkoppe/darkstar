@@ -20,11 +20,15 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___GROWTH_H)
+#define ___DARK___GROWTH_H
 
-#include <dark/container/container.h>
-#include <dark/core/core.h>
-#include <dark/memory/memory.h>
+#include <dark/core/std.h>
 
-#endif // !defined(___DARK___DARKSTAR_H)
+typedef size_t (*Dark_Growth)(size_t current);
+
+size_t dark_growth_simple(size_t current, size_t requested);
+size_t dark_growth_standard(size_t current, size_t requested);
+size_t dark_growth_exponential(size_t current, size_t requested);
+
+#endif // !defined(___DARK___GROWTH_H)
