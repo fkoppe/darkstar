@@ -13,4 +13,5 @@ target_precompile_headers(
 
 add_subdirectory(container)
 add_subdirectory(core)
+add_subdirectory(math)
 add_subdirectory(memory)

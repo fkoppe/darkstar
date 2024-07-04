@@ -20,63 +20,97 @@
 *                                                                                   *
 ************************************************************************************/
 
-#include "container_module.h"
+#include "math_module.h"
 
-#include <dark/container/container.h>
 #include <dark/core/core.h>
+#include <dark/math/math.h>
 
 #undef DARK_UNIT
-#define DARK_UNIT "growth"
+#define DARK_UNIT "max"
 
-size_t dark_growth_simple(const size_t current_, const size_t requested_)
+uint8_t dark_max_u8(const uint8_t a_, const uint8_t b_)
 {
-    //current_
-    //requested_
+    //a_
+    //b_
 
-    if(requested_ <= current_)
-    {
-        return 0;
-    }
+    return DARK_MAX(a_, b_);
+}
+uint16_t dark_max_u16(const uint16_t a_, const uint16_t b_)
+{
+    //a_
+    //b_
 
-    return requested_ - current_;
+    return DARK_MAX(a_, b_);
 }
 
-size_t dark_growth_standard(const size_t current_, const size_t requested_)
+uint32_t dark_max_u32(const uint32_t a_, const uint32_t b_)
 {
-    //current_
-    //requested_
+    //a_
+    //b_
 
-    if(requested_ <= current_)
-    {
-        return 0;
-    }
-
-    size_t total = DARK_MAX(1, current_ * 1.5f);
-
-    while(total < requested_)
-    {
-        total *= 1.5f;
-    }
-
-    return total - current_;
+    return DARK_MAX(a_, b_);
 }
 
-size_t dark_growth_exponential(const size_t current_, const size_t requested_)
+uint64_t dark_max_u64(const uint64_t a_, const uint64_t b_)
 {
-    //current_
-    //requested_
+    //a_
+    //b_
 
-    if(requested_ <= current_)
-    {
-        return 0;
-    }
+    return DARK_MAX(a_, b_);
+}
 
-    size_t total = DARK_MAX(1, current_ * 2.0f);
+uintmax_t dark_max_umax(const uintmax_t a_, const uintmax_t b_)
+{
+    //a_
+    //b_
 
-    while(total < requested_)
-    {
-        total *= 2;
-    }
+    return DARK_MAX(a_, b_);
+}
 
-    return total - current_;
+size_t dark_max_zu(const uintmax_t a_, const uintmax_t b_)
+{
+    //a_
+    //b_
+
+    return DARK_MAX(a_, b_);
+}
+
+int8_t dark_max_i8(const int8_t a_, const int8_t b_)
+{
+    //a_
+    //b_
+
+    return DARK_MAX(a_, b_);
+}
+
+int16_t dark_max_i16(const int16_t a_, const int16_t b_)
+{
+    //a_
+    //b_
+
+    return DARK_MAX(a_, b_);
+}
+
+int32_t dark_max_i32(const int32_t a_, const int32_t b_)
+{
+    //a_
+    //b_
+
+    return DARK_MAX(a_, b_);
+}
+
+int64_t dark_max_i64(const int64_t a_, const int64_t b_)
+{
+    //a_
+    //b_
+
+    return DARK_MAX(a_, b_);
+}
+
+intmax_t dark_max_imax(const intmax_t a_, const intmax_t b_)
+{
+    //a_
+    //b_
+
+    return DARK_MAX(a_, b_);
 }

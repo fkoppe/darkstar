@@ -20,63 +20,15 @@
 *                                                                                   *
 ************************************************************************************/
 
-#include "container_module.h"
+#if !defined(___DARK___ABS_H)
+#define ___DARK___ABS_H
 
-#include <dark/container/container.h>
-#include <dark/core/core.h>
+#include <dark/core/std.h>
 
-#undef DARK_UNIT
-#define DARK_UNIT "growth"
+uint8_t dark_abs_i8(int8_t integer);
+uint16_t dark_abs_i16(int16_t integer);
+uint32_t dark_abs_i32(int32_t integer);
+uint64_t dark_abs_i64(int64_t integer);
+uintmax_t dark_abs_imax(intmax_t integer);
 
-size_t dark_growth_simple(const size_t current_, const size_t requested_)
-{
-    //current_
-    //requested_
-
-    if(requested_ <= current_)
-    {
-        return 0;
-    }
-
-    return requested_ - current_;
-}
-
-size_t dark_growth_standard(const size_t current_, const size_t requested_)
-{
-    //current_
-    //requested_
-
-    if(requested_ <= current_)
-    {
-        return 0;
-    }
-
-    size_t total = DARK_MAX(1, current_ * 1.5f);
-
-    while(total < requested_)
-    {
-        total *= 1.5f;
-    }
-
-    return total - current_;
-}
-
-size_t dark_growth_exponential(const size_t current_, const size_t requested_)
-{
-    //current_
-    //requested_
-
-    if(requested_ <= current_)
-    {
-        return 0;
-    }
-
-    size_t total = DARK_MAX(1, current_ * 2.0f);
-
-    while(total < requested_)
-    {
-        total *= 2;
-    }
-
-    return total - current_;
-}
+#endif // !defined(___DARK___ABS_H)

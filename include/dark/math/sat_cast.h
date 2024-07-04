@@ -20,63 +20,32 @@
 *                                                                                   *
 ************************************************************************************/
 
-#include "container_module.h"
+#if !defined(___DARK___SAT_CAST_H)
+#define ___DARK___SAT_CAST_H
 
-#include <dark/container/container.h>
-#include <dark/core/core.h>
+#include <dark/core/std.h>
 
-#undef DARK_UNIT
-#define DARK_UNIT "growth"
+uint8_t dark_sat_ucast_u8(uintmax_t u);
+uint16_t dark_sat_ucast_u16(uintmax_t u);
+uint32_t dark_sat_ucast_u32(uintmax_t u);
+uint64_t dark_sat_ucast_u64(uintmax_t u);
+size_t dark_sat_ucast_zu(uintmax_t u);
 
-size_t dark_growth_simple(const size_t current_, const size_t requested_)
-{
-    //current_
-    //requested_
+int8_t dark_sat_ucast_i8(uintmax_t i);
+int16_t dark_sat_ucast_i16(uintmax_t i);
+int32_t dark_sat_ucast_i32(uintmax_t i);
+int64_t dark_sat_ucast_i64(uintmax_t i);
+intmax_t dark_sat_ucast_imax(uintmax_t i);
 
-    if(requested_ <= current_)
-    {
-        return 0;
-    }
+uint8_t dark_sat_icast_u8(intmax_t u);
+uint16_t dark_sat_icast_u16(intmax_t u);
+uint32_t dark_sat_icast_u32(intmax_t u);
+uint64_t dark_sat_icast_u64(intmax_t u);
+size_t dark_sat_icast_zu(intmax_t u);
 
-    return requested_ - current_;
-}
+int8_t dark_sat_icast_i8(intmax_t i);
+int16_t dark_sat_icast_i16(intmax_t i);
+int32_t dark_sat_icast_i32(intmax_t i);
+int64_t dark_sat_icast_i64(intmax_t i);
 
-size_t dark_growth_standard(const size_t current_, const size_t requested_)
-{
-    //current_
-    //requested_
-
-    if(requested_ <= current_)
-    {
-        return 0;
-    }
-
-    size_t total = DARK_MAX(1, current_ * 1.5f);
-
-    while(total < requested_)
-    {
-        total *= 1.5f;
-    }
-
-    return total - current_;
-}
-
-size_t dark_growth_exponential(const size_t current_, const size_t requested_)
-{
-    //current_
-    //requested_
-
-    if(requested_ <= current_)
-    {
-        return 0;
-    }
-
-    size_t total = DARK_MAX(1, current_ * 2.0f);
-
-    while(total < requested_)
-    {
-        total *= 2;
-    }
-
-    return total - current_;
-}
+#endif // !defined(___DARK___SAT_CAST_H)

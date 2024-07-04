@@ -20,63 +20,72 @@
 *                                                                                   *
 ************************************************************************************/
 
-#include "container_module.h"
+#include "math_module.h"
 
-#include <dark/container/container.h>
 #include <dark/core/core.h>
+#include <dark/math/math.h>
 
 #undef DARK_UNIT
-#define DARK_UNIT "growth"
+#define DARK_UNIT "pow"
 
-size_t dark_growth_simple(const size_t current_, const size_t requested_)
+uintmax_t dark_upow_u(uintmax_t base_, uintmax_t exponent_)
 {
-    //current_
-    //requested_
+    //base_
+    //exponent_
 
-    if(requested_ <= current_)
+    if(0 == exponent_)
+    {
+        DARK_ASSERT(0 != base_, DARK_ERROR_MATH);
+
+        return 1;
+    }
+
+    if (0 == base_)
     {
         return 0;
     }
 
-    return requested_ - current_;
+    uintmax_t val = base_;
+    for(size_t i = 1; i < exponent_; i++)
+    {
+        DARK_ASSERT(val <= (UINTMAX_MAX - (val * base_)), DARK_ERROR_OVERFLOW);
+        val *= base_;
+    }
+
+    return val;
 }
 
-size_t dark_growth_standard(const size_t current_, const size_t requested_)
+uintmax_t dark_upow_i(intmax_t base_, uintmax_t exponent_)
 {
-    //current_
-    //requested_
+    //base_
+    //exponent_
 
-    if(requested_ <= current_)
+    if(0 == exponent_)
+    {
+        DARK_ASSERT(0 != base_, DARK_ERROR_MATH);
+
+        return 1;
+    }
+
+    if (0 == base_)
     {
         return 0;
     }
 
-    size_t total = DARK_MAX(1, current_ * 1.5f);
-
-    while(total < requested_)
+    intmax_t val = base_;
+    for(size_t i = 1; i < exponent_; i++)
     {
-        total *= 1.5f;
+        if (val > 0)
+        {
+            DARK_ASSERT(val <= (INTMAX_MAX - (val * dark_abs_imax(base_))), DARK_ERROR_OVERFLOW);
+        }
+        else
+        {
+            DARK_ASSERT(val >= (INTMAX_MAX + (val * dark_abs_imax(base_))), DARK_ERROR_UNDERFLOW);
+        }
+
+        val *= base_;
     }
 
-    return total - current_;
-}
-
-size_t dark_growth_exponential(const size_t current_, const size_t requested_)
-{
-    //current_
-    //requested_
-
-    if(requested_ <= current_)
-    {
-        return 0;
-    }
-
-    size_t total = DARK_MAX(1, current_ * 2.0f);
-
-    while(total < requested_)
-    {
-        total *= 2;
-    }
-
-    return total - current_;
+    return val;
 }

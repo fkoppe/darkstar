@@ -20,63 +20,12 @@
 *                                                                                   *
 ************************************************************************************/
 
-#include "container_module.h"
+#if !defined(___DARK___POW_H)
+#define ___DARK___POW_H
 
-#include <dark/container/container.h>
-#include <dark/core/core.h>
+#include <dark/core/std.h>
 
-#undef DARK_UNIT
-#define DARK_UNIT "growth"
+uintmax_t dark_upow_u(uintmax_t base, uintmax_t exponent);
+uintmax_t dark_upow_i(intmax_t base, uintmax_t exponent);
 
-size_t dark_growth_simple(const size_t current_, const size_t requested_)
-{
-    //current_
-    //requested_
-
-    if(requested_ <= current_)
-    {
-        return 0;
-    }
-
-    return requested_ - current_;
-}
-
-size_t dark_growth_standard(const size_t current_, const size_t requested_)
-{
-    //current_
-    //requested_
-
-    if(requested_ <= current_)
-    {
-        return 0;
-    }
-
-    size_t total = DARK_MAX(1, current_ * 1.5f);
-
-    while(total < requested_)
-    {
-        total *= 1.5f;
-    }
-
-    return total - current_;
-}
-
-size_t dark_growth_exponential(const size_t current_, const size_t requested_)
-{
-    //current_
-    //requested_
-
-    if(requested_ <= current_)
-    {
-        return 0;
-    }
-
-    size_t total = DARK_MAX(1, current_ * 2.0f);
-
-    while(total < requested_)
-    {
-        total *= 2;
-    }
-
-    return total - current_;
-}
+#endif // !defined(___DARK___POW_H)

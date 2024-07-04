@@ -20,63 +20,48 @@
 *                                                                                   *
 ************************************************************************************/
 
-#include "container_module.h"
+#if !defined(___DARK___ADD_H)
+#define ___DARK___ADD_H
 
-#include <dark/container/container.h>
-#include <dark/core/core.h>
+#include <dark/core/std.h>
 
-#undef DARK_UNIT
-#define DARK_UNIT "growth"
+uint8_t dark_add_u8(uintmax_t u, intmax_t i);
+uint16_t dark_add_u16(uintmax_t u, intmax_t i);
+uint32_t dark_add_u32(uintmax_t u, intmax_t i);
+uint64_t dark_add_u64(uintmax_t u, intmax_t i);
+uintmax_t dark_add_umax(uintmax_t u, intmax_t i);
+size_t dark_add_zu(uintmax_t u, intmax_t i);
 
-size_t dark_growth_simple(const size_t current_, const size_t requested_)
-{
-    //current_
-    //requested_
+uint8_t dark_uadd_u8(uintmax_t a, uintmax_t b);
+uint16_t dark_uadd_u16(uintmax_t a, uintmax_t b);
+uint32_t dark_uadd_u32(uintmax_t a, uintmax_t b);
+uint64_t dark_uadd_u64(uintmax_t a, uintmax_t b);
+uintmax_t dark_uadd_umax(uintmax_t a, uintmax_t b);
+size_t dark_uadd_zu(uintmax_t a, uintmax_t b);
 
-    if(requested_ <= current_)
-    {
-        return 0;
-    }
+uint8_t dark_iadd_u8(intmax_t a, intmax_t b);
+uint16_t dark_iadd_u16(intmax_t a, intmax_t b);
+uint32_t dark_iadd_u32(intmax_t a, intmax_t b);
+uint64_t dark_iadd_u64(intmax_t a, intmax_t b);
+uintmax_t dark_iadd_umax(intmax_t a, intmax_t b);
+size_t dark_iadd_zu(intmax_t a, intmax_t b);
 
-    return requested_ - current_;
-}
+int8_t dark_add_i8(uintmax_t u, intmax_t i);
+int16_t dark_add_i16(uintmax_t u, intmax_t i);
+int32_t dark_add_i32(uintmax_t u, intmax_t i);
+int64_t dark_add_i64(uintmax_t u, intmax_t i);
+intmax_t dark_add_imax(uintmax_t u, intmax_t i);
 
-size_t dark_growth_standard(const size_t current_, const size_t requested_)
-{
-    //current_
-    //requested_
+int8_t dark_uadd_i8(uintmax_t a, uintmax_t b);
+int16_t dark_uadd_i16(uintmax_t a, uintmax_t b);
+int32_t dark_uadd_i32(uintmax_t a, uintmax_t b);
+int64_t dark_uadd_i64(uintmax_t a, uintmax_t b);
+intmax_t dark_uadd_imax(uintmax_t a, uintmax_t b);
 
-    if(requested_ <= current_)
-    {
-        return 0;
-    }
+int8_t dark_iadd_i8(intmax_t a, intmax_t b);
+int16_t dark_iadd_i16(intmax_t a, intmax_t b);
+int32_t dark_iadd_i32(intmax_t a, intmax_t b);
+int64_t dark_iadd_i64(intmax_t a, intmax_t b);
+intmax_t dark_iadd_imax(intmax_t a, intmax_t b);
 
-    size_t total = DARK_MAX(1, current_ * 1.5f);
-
-    while(total < requested_)
-    {
-        total *= 1.5f;
-    }
-
-    return total - current_;
-}
-
-size_t dark_growth_exponential(const size_t current_, const size_t requested_)
-{
-    //current_
-    //requested_
-
-    if(requested_ <= current_)
-    {
-        return 0;
-    }
-
-    size_t total = DARK_MAX(1, current_ * 2.0f);
-
-    while(total < requested_)
-    {
-        total *= 2;
-    }
-
-    return total - current_;
-}
+#endif // !defined(___DARK___ADD_H)

@@ -20,63 +20,55 @@
 *                                                                                   *
 ************************************************************************************/
 
-#include "container_module.h"
+#include "math_module.h"
 
-#include <dark/container/container.h>
 #include <dark/core/core.h>
+#include <dark/math/math.h>
 
 #undef DARK_UNIT
-#define DARK_UNIT "growth"
+#define DARK_UNIT "range"
 
-size_t dark_growth_simple(const size_t current_, const size_t requested_)
+bool dark_range_is_u(const uintmax_t u_, const uintmax_t lower_, const uintmax_t upper_)
 {
-    //current_
-    //requested_
+    //u_
+    DARK_ASSERT(lower_ <= upper_, DARK_ERROR_LOGIC);
 
-    if(requested_ <= current_)
-    {
-        return 0;
-    }
-
-    return requested_ - current_;
+    return u_ >= lower_ && u_ <= upper_;
 }
 
-size_t dark_growth_standard(const size_t current_, const size_t requested_)
+bool dark_range_is_i(const intmax_t i_, const intmax_t lower_, const intmax_t upper_)
 {
-    //current_
-    //requested_
+    DARK_ASSERT(lower_ <= upper_, DARK_ERROR_LOGIC);
 
-    if(requested_ <= current_)
-    {
-        return 0;
-    }
-
-    size_t total = DARK_MAX(1, current_ * 1.5f);
-
-    while(total < requested_)
-    {
-        total *= 1.5f;
-    }
-
-    return total - current_;
+    return i_ >= lower_ && i_ <= upper_;
 }
 
-size_t dark_growth_exponential(const size_t current_, const size_t requested_)
+uintmax_t dark_range_clamp_u(const uintmax_t u_, const uintmax_t lower_, const uintmax_t upper_)
 {
-    //current_
-    //requested_
+    //u_
+    DARK_ASSERT(lower_ <= upper_, DARK_ERROR_LOGIC);
 
-    if(requested_ <= current_)
+    if(u_ < lower_)
     {
-        return 0;
+        return dark_max_umax(lower_, dark_min_umax(upper_, u_));
     }
-
-    size_t total = DARK_MAX(1, current_ * 2.0f);
-
-    while(total < requested_)
+    else
     {
-        total *= 2;
+        return dark_min_umax(upper_, dark_max_umax(lower_, u_));
     }
+}
 
-    return total - current_;
+intmax_t dark_range_clamp_i(const intmax_t i_, const intmax_t lower_, const intmax_t upper_)
+{
+    //u_
+    DARK_ASSERT(lower_ <= upper_, DARK_ERROR_LOGIC);
+
+    if(i_ < lower_)
+    {
+        return dark_max_imax(lower_, dark_min_imax(upper_, i_));
+    }
+    else
+    {
+        return dark_min_imax(upper_, dark_max_imax(lower_, i_));
+    }
 }

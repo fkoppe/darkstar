@@ -20,63 +20,17 @@
 *                                                                                   *
 ************************************************************************************/
 
-#include "container_module.h"
+#if !defined(___DARK___MATH_H)
+#define ___DARK___MATH_H
 
-#include <dark/container/container.h>
-#include <dark/core/core.h>
+#include <dark/math/abs.h>
+#include <dark/math/add.h>
+#include <dark/math/cast.h>
+#include <dark/math/max.h>
+#include <dark/math/min.h>
+#include <dark/math/pow.h>
+#include <dark/math/range.h>
+#include <dark/math/sat_add.h>
+#include <dark/math/sat_cast.h>
 
-#undef DARK_UNIT
-#define DARK_UNIT "growth"
-
-size_t dark_growth_simple(const size_t current_, const size_t requested_)
-{
-    //current_
-    //requested_
-
-    if(requested_ <= current_)
-    {
-        return 0;
-    }
-
-    return requested_ - current_;
-}
-
-size_t dark_growth_standard(const size_t current_, const size_t requested_)
-{
-    //current_
-    //requested_
-
-    if(requested_ <= current_)
-    {
-        return 0;
-    }
-
-    size_t total = DARK_MAX(1, current_ * 1.5f);
-
-    while(total < requested_)
-    {
-        total *= 1.5f;
-    }
-
-    return total - current_;
-}
-
-size_t dark_growth_exponential(const size_t current_, const size_t requested_)
-{
-    //current_
-    //requested_
-
-    if(requested_ <= current_)
-    {
-        return 0;
-    }
-
-    size_t total = DARK_MAX(1, current_ * 2.0f);
-
-    while(total < requested_)
-    {
-        total *= 2;
-    }
-
-    return total - current_;
-}
+#endif // !defined(___DARK___MATH_H)

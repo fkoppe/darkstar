@@ -20,63 +20,79 @@
 *                                                                                   *
 ************************************************************************************/
 
-#include "container_module.h"
+#include "math_module.h"
 
-#include <dark/container/container.h>
-#include <dark/core/core.h>
+#include <dark/math/math.h>
 
 #undef DARK_UNIT
-#define DARK_UNIT "growth"
+#define DARK_UNIT "abs"
 
-size_t dark_growth_simple(const size_t current_, const size_t requested_)
+uint8_t dark_abs_i8(const int8_t integer_)
 {
-    //current_
-    //requested_
+    //interger_
 
-    if(requested_ <= current_)
+    if(integer_ < 0)
     {
-        return 0;
+        return -integer_;
     }
-
-    return requested_ - current_;
+    else
+    {
+        return integer_;
+    }
 }
 
-size_t dark_growth_standard(const size_t current_, const size_t requested_)
+uint16_t dark_abs_i16(const int16_t integer_)
 {
-    //current_
-    //requested_
+    //interger_
 
-    if(requested_ <= current_)
+    if(integer_ < 0)
     {
-        return 0;
+        return -integer_;
     }
-
-    size_t total = DARK_MAX(1, current_ * 1.5f);
-
-    while(total < requested_)
+    else
     {
-        total *= 1.5f;
+        return integer_;
     }
-
-    return total - current_;
 }
 
-size_t dark_growth_exponential(const size_t current_, const size_t requested_)
+uint32_t dark_abs_i32(const int32_t integer_)
 {
-    //current_
-    //requested_
+    //interger_
 
-    if(requested_ <= current_)
+    if(integer_ < 0)
     {
-        return 0;
+        return -integer_;
     }
-
-    size_t total = DARK_MAX(1, current_ * 2.0f);
-
-    while(total < requested_)
+    else
     {
-        total *= 2;
+        return integer_;
     }
+}
 
-    return total - current_;
+uint64_t dark_abs_i64(const int64_t integer_)
+{
+    //interger_
+
+    if(integer_ < 0)
+    {
+        return -integer_;
+    }
+    else
+    {
+        return integer_;
+    }
+}
+
+uintmax_t dark_abs_imax(const intmax_t integer_)
+{
+    //interger_
+
+    if(integer_ < 0)
+    {
+        return -integer_;
+    }
+    else
+    {
+        return integer_;
+    }
 }
