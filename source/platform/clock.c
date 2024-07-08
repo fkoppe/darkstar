@@ -54,8 +54,8 @@ uint64_t dark_clock_ns(void)
     bool b1 = QueryPerformanceCounter(&tick);
     bool b2 = QueryPerformanceFrequency(&freqency);
 
-    DARK_ASSERT_MSG(b1, DARK_ERROR_PLATFORM, "QueryPerformanceCounter");
-    DARK_ASSERT_MSG(b2, DARK_ERROR_PLATFORM, "QueryPerformanceFrequency");
+    DARK_ASSERT_CSTRING(b1, DARK_ERROR_PLATFORM, "QueryPerformanceCounter");
+    DARK_ASSERT_CSTRING(b2, DARK_ERROR_PLATFORM, "QueryPerformanceFrequency");
 
     return (uint64_t)((tick.QuadPart * 1000) / (freqency.QuadPart / 1000000));
 #endif // defined(___DARK_WINDOWS)
