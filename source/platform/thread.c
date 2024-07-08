@@ -162,7 +162,7 @@ void dark_thread_join(Dark_Thread* const thread_)
     case WAIT_FAILED:
     case WAIT_ABANDONED:
     case WAIT_TIMEOUT:
-        DARK_EXIT_MSG(-1, DARK_ERROR_PLATFORM, "WaitForSingleObject");
+        DARK_ASSERT_CSTRING(-1, DARK_ERROR_PLATFORM, "WaitForSingleObject");
         break;
     default:
         DARK_ABORT_ERROR(DARK_ERROR_SWITCH);
