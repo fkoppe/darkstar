@@ -28,6 +28,7 @@
 void* CreateFileMapping(void* hFile, void* lpFileMappingAttributes, uint32_t flProtect, uint32_t dwMaximumSizeHigh, uint32_t dwMaximumSizeLow, char* lpName);
 void* MapViewOfFile(void* hFileMappingObject, uint32_t dwDesiredAccess, uint32_t dwFileOffsetHigh, uint32_t dwFileOffsetLow, size_t dwNumberOfBytesToMap);
 bool GetFileSizeEx(void* hFile, uint64_t* lpFileSize);
+static const uint32_t PAGE_READONLY = 0x02;
 
 bool CloseHandle(void* hObject);
 

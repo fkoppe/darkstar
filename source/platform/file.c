@@ -40,8 +40,6 @@
 
 #if defined(___DARK_WINDOWS)
 #include <dark/windows.h>
-#include <io.h>
-#include <WinNT.h>
 #endif // defined(___DARK_WINDOWS)
 
 #if defined(___DARK_UNIX)
