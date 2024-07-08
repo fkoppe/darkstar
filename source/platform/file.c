@@ -281,14 +281,14 @@ Dark_Oserror dark_file_size_get(Dark_File* const file_, size_t* const destinatio
     DARK_ASSERT_MESSAGE((file->flag & DARK_FILE_FLAG_UPDATE) || DARK_FILE_MODE_READ == file->mode, DARK_ERROR_STATE, DARK_MESSAGE_FILE_MODE_READ);
 
 #if defined(___DARK_WINDOWS)
-    LARGE_INTEGER l_int;
+    int64_t size;
 
-    if (0 == GetFileSizeEx((void*)_get_osfhandle(fileno(file->handle)), &l_int))
+    if (0 == GetFileSizeEx((void*)_get_osfhandle(fileno(file->handle)), &size))
     {
         return dark_oserror_occured();
     }
 
-    *destination_ = l_int.QuadPart;
+    *destination_ = size;
 #endif // defined(___DARK_WINDOWS)
 
 #if defined(___DARK_UNIX)

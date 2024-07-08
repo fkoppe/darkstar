@@ -25,12 +25,13 @@
 
 #include <dark/core/std.h>
 
-void* CreateFileMapping(void* hFile, void* lpFileMappingAttributes, uint32_t flProtect, uint32_t dwMaximumSizeHigh, uint32_t dwMaximumSizeLow, char* lpName);
-void* MapViewOfFile(void* hFileMappingObject, uint32_t dwDesiredAccess, uint32_t dwFileOffsetHigh, uint32_t dwFileOffsetLow, size_t dwNumberOfBytesToMap);
-bool GetFileSizeEx(void* hFile, uint64_t* lpFileSize);
-static const uint32_t PAGE_READONLY = 0x02;
+#define WIN32_LEAN_AND_MEAN
+#define NOSERVICE
+#define NOMCX
+#define NOIME
+#define NOMINMAX
 
-bool CloseHandle(void* hObject);
+#include <windows.h>
 
 #endif // !defined(___DARK___WINDOWS_H)
 
