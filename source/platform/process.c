@@ -20,90 +20,37 @@
 *                                                                                   *
 ************************************************************************************/
 
-/*X X X X X X X X X X X X X X
-X                           X
-X   THIS IS A CORE FILE     X
-X                           X
-X X X X X X X X X X X X X X*/
-
-#include "core_module.h"
+#include "platform_module.h"
 
 #include <dark/core/core.h>
-
-#include <assert.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <dark/platform/platform.h>
 
 #undef DARK_UNIT
+#define DARK_UNIT "process"
 
-void dark_print(const Dark_So so_, const char* const cstring_)
+#if defined(___DARK_LINUX)
+#define ___DARK_UNIX
+#endif // defined(___DARK_LINUX)
+
+#if defined(___DARK_DARWIN)
+#define ___DARK_UNIX
+#endif // defined(___DARK_DARWIN)
+
+#if defined(___DARK_WINDOWS)
+#include <windows.h>
+#endif // defined(___DARK_WINDOWS)
+
+#if defined(___DARK_UNIX)
+#include <unistd.h>
+#endif // defined(___DARK_UNIX)
+
+uint64_t dark_process_id(void)
 {
-    assert(___DARK_SO_MIN < so_ && so_ < ___DARK_SO_MAX);
-    assert(NULL != cstring_);
+#if defined(___DARK_WINDOWS)
+    return GetCurrentProcessId();
+#endif // defined(___DARK_WINDOWS)
 
-    FILE* filestream = NULL;
-
-    switch(so_)
-    {
-        case DARK_SO_OUT:
-            filestream = stdout;
-            break;
-        case DARK_SO_ERR:
-            filestream = stderr;
-            break;
-        default:
-            abort();
-    }
-
-    fputs(cstring_, filestream);
-}
-
-void dark_printf(const Dark_So so_, const char* const format_, ...)
-{
-    assert(___DARK_SO_MIN < so_ && so_ < ___DARK_SO_MAX);
-    assert(NULL != format_);
-
-    FILE* filestream = NULL;
-
-    switch(so_)
-    {
-        case DARK_SO_OUT:
-            filestream = stdout;
-            break;
-        case DARK_SO_ERR:
-            filestream = stderr;
-            break;
-        default:
-            abort();
-    }
-
-    char buffer[DARK_PRINTF_MAX] = { 0 };
-
-    va_list args;
-    va_start(args, format_);
-    const size_t result = dark_vsnprintf_terminated(DARK_PRINTF_MAX, buffer, format_, args);
-    va_end(args);
-
-    fwrite(buffer, sizeof(char), DARK_MIN(DARK_PRINTF_MAX, result), filestream);
-}
-
-void dark_flush(const Dark_So so_)
-{
-    assert(___DARK_SO_MIN < so_ && so_ < ___DARK_SO_MAX);
-
-    FILE* filestream = NULL;
-
-    switch(so_)
-    {
-        case DARK_SO_OUT:
-            filestream = stdout;
-            break;
-        case DARK_SO_ERR:
-            filestream = stderr;
-            break;
-        default:
-            abort();
-    }
-
-    fflush(filestream);
+#if defined(___DARK_UNIX)
+    return getpid();
+#endif // defined(___DARK_UNIX)
 }

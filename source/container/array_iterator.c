@@ -33,7 +33,7 @@ size_t dark_array_iterator_context_size(void)
     return sizeof(Dark_Array_Iterator_Context);
 }
 
-Dark_Iterator_Struct dark_array_iterator_construct(void* const context_, Dark_Array* const array_)
+Dark_Iterator_Struct dark_array_iterator_construct_struct(void* const context_, Dark_Array* const array_)
 {
     DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != array_, DARK_ERROR_NULL);
@@ -48,6 +48,17 @@ Dark_Iterator_Struct dark_array_iterator_construct(void* const context_, Dark_Ar
     context->index = 0;
 
     return iterator;
+}
+
+void dark_array_iterator_construct(Dark_Iterator* const iterator_, void* const context_, Dark_Array* const array_)
+{
+    DARK_ASSERT(NULL != iterator_, DARK_ERROR_ALLOCATION);
+    DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != array_, DARK_ERROR_NULL);
+
+    Dark_Iterator_Struct* const iterator = (Dark_Iterator_Struct*)iterator_;
+
+    *iterator = dark_array_iterator_construct_struct(context_, array_);
 }
 
 void dark_array_iterator_destruct(Dark_Iterator* const iterator_)
@@ -69,7 +80,7 @@ Dark_Iterator* dark_array_iterator_new(Dark_Allocator* const allocator_, Dark_Ar
 
     Dark_Array_Iterator_Context* const context = (Dark_Array_Iterator_Context*)((char*)iterator + sizeof(Dark_Iterator_Struct));
 
-    *iterator = dark_array_iterator_construct(context, array_);
+    dark_array_iterator_construct((Dark_Iterator*)iterator, context, array_);
 
     return (Dark_Iterator*)iterator;
 }

@@ -20,90 +20,28 @@
 *                                                                                   *
 ************************************************************************************/
 
-/*X X X X X X X X X X X X X X
-X                           X
-X   THIS IS A CORE FILE     X
-X                           X
-X X X X X X X X X X X X X X*/
+#if !defined(___DARK___THREAD_H)
+#define ___DARK___THREAD_H
 
-#include "core_module.h"
+#include <dark/core/std.h>
+#include <dark/memory/allocator.h>
 
-#include <dark/core/core.h>
+typedef struct Dark_Thread Dark_Thread;
 
-#include <assert.h>
-#include <stdio.h>
-#include <stdlib.h>
+size_t dark_thread_struct_size(void);
 
-#undef DARK_UNIT
+void dark_thread_construct(Dark_Thread* thread, void (* function), void* argument);
+void dark_thread_destruct(Dark_Thread* thread);
 
-void dark_print(const Dark_So so_, const char* const cstring_)
-{
-    assert(___DARK_SO_MIN < so_ && so_ < ___DARK_SO_MAX);
-    assert(NULL != cstring_);
+void* dark_thread_new(Dark_Allocator* allocator, void (* function), void* argument);
+void dark_thread_delete(Dark_Allocator* allocator, Dark_Thread* thread);
 
-    FILE* filestream = NULL;
+uint64_t dark_thread_id(Dark_Thread* thread);
 
-    switch(so_)
-    {
-        case DARK_SO_OUT:
-            filestream = stdout;
-            break;
-        case DARK_SO_ERR:
-            filestream = stderr;
-            break;
-        default:
-            abort();
-    }
+bool dark_thread_joinable(Dark_Thread* thread);
+void dark_thread_join(Dark_Thread* thread);
+void dark_thread_detach(Dark_Thread* thread);
 
-    fputs(cstring_, filestream);
-}
+uint64_t dark_thread_current_id(void);
 
-void dark_printf(const Dark_So so_, const char* const format_, ...)
-{
-    assert(___DARK_SO_MIN < so_ && so_ < ___DARK_SO_MAX);
-    assert(NULL != format_);
-
-    FILE* filestream = NULL;
-
-    switch(so_)
-    {
-        case DARK_SO_OUT:
-            filestream = stdout;
-            break;
-        case DARK_SO_ERR:
-            filestream = stderr;
-            break;
-        default:
-            abort();
-    }
-
-    char buffer[DARK_PRINTF_MAX] = { 0 };
-
-    va_list args;
-    va_start(args, format_);
-    const size_t result = dark_vsnprintf_terminated(DARK_PRINTF_MAX, buffer, format_, args);
-    va_end(args);
-
-    fwrite(buffer, sizeof(char), DARK_MIN(DARK_PRINTF_MAX, result), filestream);
-}
-
-void dark_flush(const Dark_So so_)
-{
-    assert(___DARK_SO_MIN < so_ && so_ < ___DARK_SO_MAX);
-
-    FILE* filestream = NULL;
-
-    switch(so_)
-    {
-        case DARK_SO_OUT:
-            filestream = stdout;
-            break;
-        case DARK_SO_ERR:
-            filestream = stderr;
-            break;
-        default:
-            abort();
-    }
-
-    fflush(filestream);
-}
+#endif // !defined(___DARK___THREAD_H)

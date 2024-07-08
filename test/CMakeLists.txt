@@ -18,5 +18,6 @@ add_subdirectory(memory)
 #-----
 
 add_subdirectory(container)
+add_subdirectory(platform)
 
 #-----

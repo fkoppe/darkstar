@@ -14,7 +14,7 @@ int main()
         DARK_TEST_EQ_U(8, dark_upow_u(2, 3));
         DARK_TEST_EQ_U(0, dark_upow_u(0, 3));
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("ppow_i")
@@ -25,7 +25,7 @@ int main()
         DARK_TEST_EQ_I(-8, dark_upow_i(-2, 3));
         DARK_TEST_EQ_U(0, dark_upow_i(0, 3));
     }
-    //--------------------------
+    //------------------------
 
     dark_test_shutdown();
 

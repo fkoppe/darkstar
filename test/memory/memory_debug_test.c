@@ -16,7 +16,7 @@ int main()
 
         dark_free(os_allocator, integer, 2*sizeof(int64_t));
     }
-    //--------------------------
+    //------------------------
 
     dark_test_shutdown();
 

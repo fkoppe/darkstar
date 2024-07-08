@@ -37,7 +37,8 @@ struct Dark_Array_Iterator_Context
 
 size_t dark_array_iterator_context_size(void);
 
-Dark_Iterator_Struct dark_array_iterator_construct(void* context, Dark_Array* array);
+Dark_Iterator_Struct dark_array_iterator_construct_struct(void* context, Dark_Array* array);
+void dark_array_iterator_construct(Dark_Iterator* iterator, void* context, Dark_Array* array);
 void dark_array_iterator_destruct(Dark_Iterator* iterator);
 
 Dark_Iterator* dark_array_iterator_new(Dark_Allocator* allocator, Dark_Array* array);

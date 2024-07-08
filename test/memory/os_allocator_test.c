@@ -10,7 +10,7 @@ int main()
     {
         DARK_TEST_GT_U(dark_os_allocator_context_size(), 0);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("os_allocator_new/delete")
@@ -18,7 +18,7 @@ int main()
         Dark_Allocator* os_allocator = dark_os_allocator_new();
         dark_os_allocator_delete(os_allocator);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("OS: malloc/free")
@@ -38,7 +38,7 @@ int main()
 
         dark_os_allocator_delete(os_allocator);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("OS: balloc/bfree")
@@ -58,7 +58,7 @@ int main()
 
         dark_os_allocator_delete(os_allocator);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("OS: realloc")
@@ -83,7 +83,7 @@ int main()
 
         dark_os_allocator_delete(os_allocator);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("OS: brealloc")
@@ -108,7 +108,7 @@ int main()
 
         dark_os_allocator_delete(os_allocator);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("OS: calloc")
@@ -128,7 +128,7 @@ int main()
 
         dark_os_allocator_delete(os_allocator);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("OS: bcalloc")
@@ -148,7 +148,7 @@ int main()
 
         dark_os_allocator_delete(os_allocator);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("OS: recalloc")
@@ -173,7 +173,7 @@ int main()
 
         dark_os_allocator_delete(os_allocator);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("OS: brecalloc")
@@ -198,7 +198,7 @@ int main()
 
         dark_os_allocator_delete(os_allocator);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("os_allocator_info")
@@ -212,7 +212,7 @@ int main()
 
         dark_os_allocator_delete(os_allocator);
     }
-    //--------------------------
+    //------------------------
 
     dark_test_shutdown();
 

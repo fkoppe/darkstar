@@ -18,7 +18,7 @@ int main()
         dark_sat_ucast_u32(122);
         dark_sat_ucast_u64(122);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("sat_ucast_i8/_i16/_i32/_i64")
@@ -33,9 +33,9 @@ int main()
         dark_sat_ucast_i32(122);
         dark_sat_ucast_i64(122);
     }
-    //--------------------------
+    //------------------------
 
-     //----------TEST----------
+    //----------TEST----------
     DARK_TEST("sat_icast_u8/_u16/_u32/_u64")
     {
         DARK_TEST_EQ_U(dark_sat_icast_u8(256), UINT8_MAX);
@@ -48,7 +48,7 @@ int main()
         dark_ucast_u32(122);
         dark_ucast_u64(122);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("sat_icast_i8/_i16/_i32/_i64")
@@ -63,7 +63,7 @@ int main()
         dark_icast_i32(-122);
         dark_icast_i64(-122);
     }
-    //--------------------------
+    //------------------------
 
     dark_test_shutdown();
 

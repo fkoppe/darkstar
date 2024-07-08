@@ -23,7 +23,7 @@
 #if !defined(___DARK___CONSTANT_H)
 #define ___DARK___CONSTANT_H
 
-#include <dark/core/essential.h>
+#include <dark/core/std.h>
 
 static const uint16_t DARK_KILO = 1000;
 static const uint32_t DARK_MEGA = 1000000;

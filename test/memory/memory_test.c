@@ -30,7 +30,7 @@ int main()
 
         dark_free(custom_allocator, data, 5);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("balloc/bfree")
@@ -40,7 +40,7 @@ int main()
 
         dark_bfree(custom_allocator, data, sizeof(uint64_t), 5);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("realloc")
@@ -53,7 +53,7 @@ int main()
 
         dark_free(custom_allocator, data, 6);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("brealloc")
@@ -66,7 +66,7 @@ int main()
 
         dark_bfree(custom_allocator, data, sizeof(uint64_t), 6);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("calloc")
@@ -76,7 +76,7 @@ int main()
 
         dark_free(custom_allocator, data, 5);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("bcalloc")
@@ -86,7 +86,7 @@ int main()
 
         dark_bfree(custom_allocator, data, sizeof(int64_t), 5);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("recalloc")
@@ -99,7 +99,7 @@ int main()
 
         dark_free(custom_allocator, data, 10);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("brecalloc")
@@ -112,7 +112,7 @@ int main()
 
         dark_bfree(custom_allocator, data, sizeof(uint64_t), 6);
     }
-    //--------------------------
+    //------------------------
 
     dark_test_shutdown();
 

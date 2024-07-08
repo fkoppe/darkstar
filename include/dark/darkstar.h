@@ -27,5 +27,6 @@
 #include <dark/core/core.h>
 #include <dark/math/math.h>
 #include <dark/memory/memory.h>
+#include <dark/platform/platform.h>
 
 #endif // !defined(___DARK___DARKSTAR_H)

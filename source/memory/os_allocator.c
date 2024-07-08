@@ -40,7 +40,7 @@ size_t dark_os_allocator_context_size(void)
     return sizeof(Dark_Os_Allocator_Context);
 }
 
-Dark_Allocator_Struct dark_os_allocator_construct(void* const context_)
+Dark_Allocator_Struct dark_os_allocator_construct_struct(void* const context_)
 {
     DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
 
@@ -54,6 +54,16 @@ Dark_Allocator_Struct dark_os_allocator_construct(void* const context_)
     context->info.usage = 0;
 
     return allocator;
+}
+
+void dark_os_allocator_construct(Dark_Allocator* const os_allocator_, void* const context_)
+{
+    DARK_ASSERT(NULL != os_allocator_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
+
+    Dark_Allocator_Struct* const allocator = (Dark_Allocator_Struct*)os_allocator_;
+
+    *allocator = dark_os_allocator_construct_struct(context_);
 }
 
 void dark_os_allocator_destruct(Dark_Allocator* const os_allocator_)
@@ -72,7 +82,7 @@ Dark_Allocator* dark_os_allocator_new(void)
 
     Dark_Os_Allocator_Context* const context = (Dark_Os_Allocator_Context*)((char*)allocator + sizeof(Dark_Allocator_Struct));
 
-    *allocator = dark_os_allocator_construct(context);
+    dark_os_allocator_construct((Dark_Allocator*)allocator, context);
 
     context->info.count = 1;
     context->info.usage = sizeof(Dark_Allocator_Struct) + sizeof(dark_os_allocator_context_size());

@@ -26,6 +26,7 @@
 #include <dark/math/abs.h>
 #include <dark/math/add.h>
 #include <dark/math/cast.h>
+#include <dark/math/constant.h>
 #include <dark/math/max.h>
 #include <dark/math/min.h>
 #include <dark/math/pow.h>
