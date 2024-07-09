@@ -20,15 +20,23 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___ENTROPY_H)
+#define ___DARK___ENTROPY_H
 
-#include <dark/container/container.h>
-#include <dark/core/core.h>
-#include <dark/hash/hash.h>
-#include <dark/math/math.h>
-#include <dark/memory/memory.h>
-#include <dark/platform/platform.h>
-#include <dark/random/random.h>
+#include <dark/core/std.h>
 
-#endif // !defined(___DARK___DARKSTAR_H)
+typedef struct Dark_Entropy Dark_Entropy;
+struct Dark_Entropy
+{
+    uint64_t next;
+    uint64_t pool[4];
+};
+
+Dark_Entropy dark_entropy_seed(void);
+
+void dark_entropy_randomize(Dark_Entropy* entropy);
+
+uint32_t* dark_entropy_get_32(Dark_Entropy* entropy);
+uint64_t* dark_entropy_get_64(Dark_Entropy* entropy);
+
+#endif // !defined(___DARK___ENTROPY_H)

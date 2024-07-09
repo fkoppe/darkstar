@@ -20,15 +20,12 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___PRNG_H)
+#define ___DARK___PRNG_H
 
-#include <dark/container/container.h>
-#include <dark/core/core.h>
-#include <dark/hash/hash.h>
-#include <dark/math/math.h>
-#include <dark/memory/memory.h>
-#include <dark/platform/platform.h>
-#include <dark/random/random.h>
+#include <dark/core/std.h>
 
-#endif // !defined(___DARK___DARKSTAR_H)
+uint32_t dark_random_splitmix_32(uint32_t* random);
+uint64_t dark_random_splitmix_64(uint64_t* random);
+
+#endif // !defined(___DARK___PRNG_H)

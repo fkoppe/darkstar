@@ -20,15 +20,27 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___UUID4_H)
+#define ___DARK___UUID4_H
 
-#include <dark/container/container.h>
-#include <dark/core/core.h>
-#include <dark/hash/hash.h>
-#include <dark/math/math.h>
-#include <dark/memory/memory.h>
-#include <dark/platform/platform.h>
-#include <dark/random/random.h>
+#include <dark/core/std.h>
 
-#endif // !defined(___DARK___DARKSTAR_H)
+#define DARK_UUID4_SIZE (sizeof("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx") - 1)
+#define DARK_UUID4_SIZE_TERMINATED (sizeof("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx") - 1)
+
+typedef union Dark_Uuid4
+{
+    uint8_t byte[16];
+    uint32_t quad[4];
+    uint64_t oct[2];
+} Dark_Uuid4;
+
+static const Dark_Uuid4 DARK_UUID4_NULL = { .oct = { 0, 0 } };
+
+Dark_Uuid4 dark_uuid4_generate(uint64_t* random);
+
+void dark_uuid4_write_cbuffer(Dark_Uuid4 uuid4, char* destination);
+
+int dark_uuid4_compare(const Dark_Uuid4* element, const Dark_Uuid4* other);
+
+#endif // !defined(___DARK___UUID4_H)

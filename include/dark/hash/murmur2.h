@@ -20,15 +20,14 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___MURMUR2_H)
+#define ___DARK___MURMUR2_H
 
-#include <dark/container/container.h>
-#include <dark/core/core.h>
-#include <dark/hash/hash.h>
-#include <dark/math/math.h>
-#include <dark/memory/memory.h>
-#include <dark/platform/platform.h>
-#include <dark/random/random.h>
+#include <dark/core/std.h>
 
-#endif // !defined(___DARK___DARKSTAR_H)
+uint32_t dark_hash_murmur2_32(size_t byte, const void* data, uint32_t seed);
+uint32_t dark_hash_murmur2a_32(size_t byte, const void* data, uint32_t seed);
+
+uint64_t dark_hash_murmur2a_64(size_t byte, const void* data, uint64_t seed);
+
+#endif // !defined(___DARK___MURMUR2_H)

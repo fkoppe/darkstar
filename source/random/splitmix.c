@@ -20,15 +20,38 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#include "random_module.h"
 
-#include <dark/container/container.h>
 #include <dark/core/core.h>
-#include <dark/hash/hash.h>
-#include <dark/math/math.h>
-#include <dark/memory/memory.h>
-#include <dark/platform/platform.h>
 #include <dark/random/random.h>
 
-#endif // !defined(___DARK___DARKSTAR_H)
+#undef DARK_UNIT
+#define DARK_UNIT "splitmix"
+
+uint32_t dark_random_splitmix_32(uint32_t* const random_)
+{
+    DARK_ASSERT(NULL != random_, DARK_ERROR_NULL);
+
+    *random_ += 0x9e3779b9;
+
+    uint32_t rand = *random_;
+    rand = (rand ^ (rand >> 16)) * 0x85ebca6b;
+    rand = (rand ^ (rand >> 13)) * 0xc2b2ae35;
+    rand ^= (rand >> 16);
+
+    return rand;
+}
+
+uint64_t dark_random_splitmix_64(uint64_t* const random_)
+{
+    DARK_ASSERT(NULL != random_, DARK_ERROR_NULL);
+
+	*random_ += 0x9e3779b97f4a7c15;
+
+    uint64_t rand = *random_;
+	rand = (rand ^ (rand >> 30)) * 0xbf58476d1ce4e5b9;
+	rand = (rand ^ (rand >> 27)) * 0x94d049bb133111eb;
+    rand ^= (rand >> 31);
+
+	return rand;
+}

@@ -20,15 +20,11 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___RANDOM_H)
+#define ___DARK___RANDOM_H
 
-#include <dark/container/container.h>
-#include <dark/core/core.h>
-#include <dark/hash/hash.h>
-#include <dark/math/math.h>
-#include <dark/memory/memory.h>
-#include <dark/platform/platform.h>
-#include <dark/random/random.h>
+#include <dark/random/entropy.h>
+#include <dark/random/splitmix.h>
+#include <dark/random/uuid4.h>
 
-#endif // !defined(___DARK___DARKSTAR_H)
+#endif // !defined(___DARK___RANDOM_H)

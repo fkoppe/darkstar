@@ -13,6 +13,8 @@ target_precompile_headers(
 
 add_subdirectory(container)
 add_subdirectory(core)
+add_subdirectory(hash)
 add_subdirectory(math)
 add_subdirectory(memory)
 add_subdirectory(platform)
+add_subdirectory(random)

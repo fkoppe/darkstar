@@ -20,15 +20,46 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#include "random_module.h"
 
-#include <dark/container/container.h>
 #include <dark/core/core.h>
-#include <dark/hash/hash.h>
-#include <dark/math/math.h>
-#include <dark/memory/memory.h>
-#include <dark/platform/platform.h>
 #include <dark/random/random.h>
 
-#endif // !defined(___DARK___DARKSTAR_H)
+#undef DARK_UNIT
+#define DARK_UNIT "entropy"
+
+Dark_Entropy dark_entropy_seed(void)
+{
+    Dark_Entropy entropy;
+
+    entropy.next = 0;
+
+    //TODO
+
+    return entropy;
+}
+
+void dark_entropy_randomize(Dark_Entropy* entropy)
+{
+    DARK_ASSERT(NULL != entropy, DARK_ERROR_NULL);
+
+    //TODO
+}
+
+uint32_t* dark_entropy_get_32(Dark_Entropy* entropy)
+{
+    DARK_ASSERT(NULL != entropy, DARK_ERROR_NULL);
+
+    entropy->next++;
+
+    return (uint32_t*)(((uint8_t*)entropy->pool) + (entropy->next % 28));
+}
+
+uint64_t* dark_entropy_get_64(Dark_Entropy* entropy)
+{
+    DARK_ASSERT(NULL != entropy, DARK_ERROR_NULL);
+
+    entropy->next++;
+
+    return (uint64_t*)(((uint8_t*)entropy->pool) + (entropy->next % 24));
+}
