@@ -37,7 +37,7 @@
 #endif // defined(___DARK_DARWIN)
 
 #if defined(___DARK_WINDOWS)
-#include <windows.h>
+#include <dark/windows.h>
 #endif // defined(___DARK_WINDOWS)
 
 #if defined(___DARK_UNIX)
