@@ -24,7 +24,11 @@
 #define ___DARK___THREAD_H
 
 #include <dark/core/std.h>
+#include <dark/core/message.h>
 #include <dark/memory/allocator.h>
+
+static const Dark_Message DARK_MESSAGE_THREAD_JOINABLE_NOT = { NULL, "thread already joined or detached", NULL };
+static const Dark_Message DARK_MESSAGE_THREAD_JOINABLE = { NULL, "thread was not joined or detached", NULL };
 
 typedef struct Dark_Thread Dark_Thread;
 

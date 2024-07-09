@@ -37,7 +37,7 @@
 #endif // defined(___DARK_DARWIN)
 
 #if defined(___DARK_WINDOWS)
-#include <windows.h>
+#include <dark/windows.h>
 #endif // defined(___DARK_WINDOWS)
 
 #if defined(___DARK_UNIX)
@@ -76,7 +76,7 @@ void dark_thread_create(Dark_Thread* const thread_, void (* const function_), vo
     thread->joinable_is = true;
 
 #if defined(___DARK_WINDOWS)
-    thread->handle = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)function_, argument_, 0, (unsigned long*)&thread->id);
+    thread->handle = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)function_, argument_, 0, (LPDWORD)&thread->id);
     DARK_ASSERT_CSTRING(NULL != thread->handle, DARK_ERROR_PLATFORM, "CreateThread");
 #endif // defined(___DARK_WINDOWS)
 
@@ -123,7 +123,7 @@ void dark_thread_delete(Dark_Allocator* const allocator_, Dark_Thread* const thr
 
     Dark_Thread_Struct* const thread = (Dark_Thread_Struct*)thread_;
 
-    DARK_ASSERT_CSTRING(!thread->joinable_is, DARK_ERROR_STATE, "thread was not joined or detached");
+    DARK_ASSERT_MESSAGE(!thread->joinable_is, DARK_ERROR_STATE, DARK_MESSAGE_THREAD_JOINABLE);
 
     dark_thread_destroy((Dark_Thread*)thread);
 
@@ -154,6 +154,8 @@ void dark_thread_join(Dark_Thread* const thread_)
 
     Dark_Thread_Struct* const thread = (Dark_Thread_Struct*)thread_;
 
+    DARK_ASSERT_MESSAGE(thread->joinable_is, DARK_ERROR_STATE, DARK_MESSAGE_THREAD_JOINABLE_NOT);
+
 #if defined(___DARK_WINDOWS)
     switch (WaitForSingleObject(thread->handle, INFINITE))
     {
@@ -183,6 +185,8 @@ void dark_thread_detach(Dark_Thread* const thread_)
     DARK_ASSERT(NULL != thread_, DARK_ERROR_NULL);
 
     Dark_Thread_Struct* const thread = (Dark_Thread_Struct*)thread_;
+
+    DARK_ASSERT_MESSAGE(thread->joinable_is, DARK_ERROR_STATE, DARK_MESSAGE_THREAD_JOINABLE_NOT);
 
     thread->joinable_is = false;
 }

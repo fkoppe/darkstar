@@ -122,10 +122,7 @@ bool dark_mutex_trylock(Dark_Mutex* const mutex_)
 
     Dark_Mutex_Struct* const mutex = (Dark_Mutex_Struct*)mutex_;
 
-    if(mutex->owned_is)
-    {
-        return true;
-    }
+    DARK_ASSERT_CSTRING(!mutex->owned_is, DARK_ERROR_STATE, "");
 
 #if defined(___DARK_WINDOWS)
     return TryEnterCriticalSection(&mutex->section);

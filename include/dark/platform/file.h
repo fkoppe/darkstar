@@ -52,14 +52,6 @@ enum Dark_File_Flag
 
 typedef struct Dark_File Dark_File;
 
-typedef struct Dark_File_Struct Dark_File_Struct;
-struct Dark_File_Struct
-{
-    Dark_File_Mode mode;
-    Dark_File_Flag flag;
-    void* handle;
-};
-
 static const Dark_Message DARK_MESSAGE_FILE_MODE_UPDATE = { NULL, "nor update flag set", NULL };
 static const Dark_Message DARK_MESSAGE_FILE_MODE_READ = { &DARK_MESSAGE_FILE_MODE_UPDATE, "file not in read mode ", NULL };
 static const Dark_Message DARK_MESSAGE_FILE_MODE_WRITE = { &DARK_MESSAGE_FILE_MODE_UPDATE, "file not in write mode ", NULL };
@@ -69,7 +61,6 @@ static const Dark_Message DARK_MESSAGE_FILE_OPENED_ALREADY = { NULL, "file alrea
 
 size_t dark_file_struct_size(void);
 
-Dark_File_Struct dark_file_construct_struct(void);
 void dark_file_construct(Dark_File* file);
 void dark_file_destruct(Dark_File* file);
 

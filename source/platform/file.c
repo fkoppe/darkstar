@@ -47,19 +47,17 @@
 #include <sys/stat.h>
 #endif // defined(___DARK_UNIX)
 
+typedef struct Dark_File_Struct Dark_File_Struct;
+struct Dark_File_Struct
+{
+    Dark_File_Mode mode;
+    Dark_File_Flag flag;
+    FILE* handle;
+};
+
 size_t dark_file_struct_size(void)
 {
     return sizeof(Dark_File_Struct);
-}
-
-Dark_File_Struct dark_file_construct_struct(void)
-{
-    Dark_File_Struct file;
-    file.mode = ___DARK_FILE_MODE_MAX;
-    file.flag = DARK_FILE_FLAG_NONE;
-    file.handle = NULL;
-
-    return file;
 }
 
 void dark_file_construct(Dark_File* const file_)
@@ -68,7 +66,9 @@ void dark_file_construct(Dark_File* const file_)
 
     Dark_File_Struct* const file = (Dark_File_Struct*)file_;
 
-    *file = dark_file_construct_struct();
+    file->mode = ___DARK_FILE_MODE_MAX;
+    file->flag = DARK_FILE_FLAG_NONE;
+    file->handle = NULL;
 }
 
 void dark_file_destruct(Dark_File* const file_)
@@ -238,7 +238,7 @@ Dark_Oserror dark_file_mmap(Dark_File* const file_, const char** const destinati
     DARK_ASSERT_MESSAGE((file->flag & DARK_FILE_FLAG_UPDATE || DARK_FILE_MODE_READ) == file->mode, DARK_ERROR_STATE, DARK_MESSAGE_FILE_MODE_READ);
 
 #if defined(___DARK_WINDOWS)
-    void* const handle_mapped = CreateFileMapping((void*)_get_osfhandle(fileno(file->handle)), NULL, PAGE_READONLY, 0, 0, 0);
+    const HANDLE handle_mapped = CreateFileMapping((HANDLE)_get_osfhandle(fileno(file->handle)), NULL, PAGE_READONLY, 0, 0, 0);
     if (NULL == handle_mapped)
     {
         return dark_oserror_occured();
@@ -281,14 +281,14 @@ Dark_Oserror dark_file_size_get(Dark_File* const file_, size_t* const destinatio
     DARK_ASSERT_MESSAGE((file->flag & DARK_FILE_FLAG_UPDATE) || DARK_FILE_MODE_READ == file->mode, DARK_ERROR_STATE, DARK_MESSAGE_FILE_MODE_READ);
 
 #if defined(___DARK_WINDOWS)
-    int64_t size;
+    LARGE_INTEGER size;
 
-    if (0 == GetFileSizeEx((void*)_get_osfhandle(fileno(file->handle)), &size))
+    if (0 == GetFileSizeEx((HANDLE)_get_osfhandle(fileno(file->handle)), &size))
     {
         return dark_oserror_occured();
     }
 
-    *destination_ = size;
+    *destination_ = size.QuadPart;
 #endif // defined(___DARK_WINDOWS)
 
 #if defined(___DARK_UNIX)

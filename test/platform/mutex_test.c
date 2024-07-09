@@ -22,9 +22,9 @@ int main()
 
         dark_mutex_lock(mutex);
 
-        DARK_TEST_TRUE(dark_mutex_trylock(mutex));
-
         dark_mutex_unlock(mutex);
+
+        DARK_TEST_TRUE(dark_mutex_trylock(mutex));
 
         dark_mutex_delete(allocator, mutex);
     }
