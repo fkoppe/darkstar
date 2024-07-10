@@ -1,10 +1,9 @@
-#include <assert.h>
 #include <dark/darkstar.h>
 #include <dark/darktest.h>
 
 void test(int* const integer_)
 {
-    assert(NULL != integer_);
+    DARK_ASSERT(NULL != integer_, DARK_ERROR_NULL);
 
     *integer_ = 42;
 }
@@ -19,7 +18,7 @@ int main()
     DARK_TEST("thread")
     {
         int integer = 0;
-        void* thread = dark_thread_new(allocator, test, &integer);
+        void* thread = dark_thread_new(allocator, (Dark_Thread_Worker)test, &integer);
 
         DARK_TEST_NE_U(dark_thread_id(thread), dark_thread_current_id());
 

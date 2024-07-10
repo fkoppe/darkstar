@@ -23,8 +23,8 @@
 #if !defined(___DARK___FILE_H)
 #define ___DARK___FILE_H
 
-#include <dark/core/std.h>
 #include <dark/core/message.h>
+#include <dark/core/std.h>
 #include <dark/memory/allocator.h>
 #include <dark/platform/oserror.h>
 

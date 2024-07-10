@@ -23,6 +23,7 @@
 #include "platform_module.h"
 
 #include <dark/core/core.h>
+#include <dark/math/math.h>
 #include <dark/platform/platform.h>
 
 #undef DARK_UNIT
@@ -64,7 +65,7 @@ size_t dark_thread_struct_size(void)
     return sizeof(Dark_Thread_Struct);
 }
 
-void dark_thread_create(Dark_Thread* const thread_, void (* const function_), void* const argument_)
+void dark_thread_create(Dark_Thread* const thread_, const Dark_Thread_Worker function_, void* const argument_)
 {
     DARK_ASSERT(NULL != thread_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != function_, DARK_ERROR_NULL);
@@ -81,7 +82,7 @@ void dark_thread_create(Dark_Thread* const thread_, void (* const function_), vo
 #endif // defined(___DARK_WINDOWS)
 
 #if defined(___DARK_UNIX)
-    int64_t result = pthread_create(&thread->handle, NULL, function_, argument_);
+    int64_t result = pthread_create(&thread->handle, NULL, (void*)function_, argument_);
     DARK_ASSERT_CSTRING(0 == result, DARK_ERROR_PLATFORM, "pthread_create");
 
     thread->id = thread->handle;
@@ -104,7 +105,7 @@ void dark_thread_destroy(Dark_Thread* const thread_)
 #endif // defined(___DARK_UNIX)
 }
 
-void* dark_thread_new(Dark_Allocator* const allocator_, void (* const function_), void* const argument_)
+void* dark_thread_new(Dark_Allocator* const allocator_, const Dark_Thread_Worker function_, void* const argument_)
 {
     DARK_ASSERT(NULL != function_, DARK_ERROR_NULL);
     //argument_
