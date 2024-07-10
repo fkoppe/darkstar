@@ -80,7 +80,7 @@ Dark_Allocator* dark_os_allocator_new(void)
     Dark_Allocator_Struct* const allocator = malloc(sizeof(Dark_Allocator_Struct) + dark_os_allocator_context_size());
     DARK_ASSERT(NULL != allocator, DARK_ERROR_ALLOCATION);
 
-    Dark_Os_Allocator_Context* const context = (Dark_Os_Allocator_Context*)((char*)allocator + sizeof(Dark_Allocator_Struct));
+    Dark_Os_Allocator_Context* const context = (Dark_Os_Allocator_Context*)((int8_t*)allocator + sizeof(Dark_Allocator_Struct));
 
     dark_os_allocator_construct((Dark_Allocator*)allocator, context);
 
@@ -189,7 +189,7 @@ void* dark_os_allocator_callocate(void* const context_, void* const address_, co
 
         if(byte_new_ > byte_old_ && NULL != pointer)
         {
-            dark_memset((char*)pointer + byte_old_, 0, byte_new_ - byte_old_);
+            dark_memset((int8_t*)pointer + byte_old_, 0, byte_new_ - byte_old_);
         }
     }
     else

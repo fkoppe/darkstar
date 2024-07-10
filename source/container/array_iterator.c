@@ -33,10 +33,12 @@ size_t dark_array_iterator_context_size(void)
     return sizeof(Dark_Array_Iterator_Context);
 }
 
-Dark_Iterator_Struct dark_array_iterator_construct_struct(void* const context_, Dark_Array* const array_)
+Dark_Iterator_Struct dark_array_iterator_construct_struct(void* const context_, const Dark_Array array_)
 {
     DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
-    DARK_ASSERT(NULL != array_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != array_.data, DARK_ERROR_NULL);
+    DARK_ASSERT(array_.size > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(array_.element_size > 0, DARK_ERROR_ZERO);
 
     Dark_Iterator_Struct iterator;
     iterator.next_is = dark_array_allocator_next_is;
@@ -50,11 +52,13 @@ Dark_Iterator_Struct dark_array_iterator_construct_struct(void* const context_, 
     return iterator;
 }
 
-void dark_array_iterator_construct(Dark_Iterator* const iterator_, void* const context_, Dark_Array* const array_)
+void dark_array_iterator_construct(Dark_Iterator* const iterator_, void* const context_, const Dark_Array array_)
 {
     DARK_ASSERT(NULL != iterator_, DARK_ERROR_ALLOCATION);
     DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
-    DARK_ASSERT(NULL != array_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != array_.data, DARK_ERROR_NULL);
+    DARK_ASSERT(array_.size > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(array_.element_size > 0, DARK_ERROR_ZERO);
 
     Dark_Iterator_Struct* const iterator = (Dark_Iterator_Struct*)iterator_;
 
@@ -70,15 +74,17 @@ void dark_array_iterator_destruct(Dark_Iterator* const iterator_)
     //nothing
 }
 
-Dark_Iterator* dark_array_iterator_new(Dark_Allocator* const allocator_, Dark_Array* const array_)
+Dark_Iterator* dark_array_iterator_new(Dark_Allocator* const allocator_, const Dark_Array array_)
 {
     DARK_ASSERT(NULL != allocator_, DARK_ERROR_ALLOCATION);
-    DARK_ASSERT(NULL != array_, DARK_ERROR_ALLOCATION);
+    DARK_ASSERT(NULL != array_.data, DARK_ERROR_NULL);
+    DARK_ASSERT(array_.size > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(array_.element_size > 0, DARK_ERROR_ZERO);
 
     Dark_Iterator_Struct* const iterator = dark_malloc(allocator_, sizeof(Dark_Iterator_Struct) + dark_array_iterator_context_size());
     DARK_ASSERT(NULL != iterator, DARK_ERROR_ALLOCATION);
 
-    Dark_Array_Iterator_Context* const context = (Dark_Array_Iterator_Context*)((char*)iterator + sizeof(Dark_Iterator_Struct));
+    Dark_Array_Iterator_Context* const context = (Dark_Array_Iterator_Context*)((int8_t*)iterator + sizeof(Dark_Iterator_Struct));
 
     dark_array_iterator_construct((Dark_Iterator*)iterator, context, array_);
 
@@ -101,7 +107,7 @@ bool dark_array_allocator_next_is(void* const context_)
 
     Dark_Array_Iterator_Context* const context = context_;
 
-    return context->index < context->array->size;
+    return context->index < context->array.size;
 }
 
 void* dark_array_allocator_next(void* const context_)
@@ -114,5 +120,5 @@ void* dark_array_allocator_next(void* const context_)
 
     context->index++;
 
-    return (char*)context->array->data + (context->index - 1);
+    return (int8_t*)context->array.data + (context->index - 1);
 }

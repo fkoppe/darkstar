@@ -20,7 +20,10 @@ int main()
     //----------TEST----------
     DARK_TEST("array")
     {
-        Dark_Array array = { .data = NULL, .size = 0, .element_size = 0};
+        int buffer[12] = { 0 };
+
+        Dark_Array array = { .data = buffer, .size = 12, .element_size = sizeof(int)};
+        dark_array_view(array);
     }
     //--------------------------
 

@@ -20,7 +20,7 @@ int main()
         int buffer[12] = {0};
         Dark_Array array = { buffer, 12, sizeof(int) };
 
-        Dark_Iterator* iterator = dark_array_iterator_new(allocator, &array);
+        Dark_Iterator* iterator = dark_array_iterator_new(allocator, array);
 
         dark_array_iterator_delete(allocator, iterator);
     }

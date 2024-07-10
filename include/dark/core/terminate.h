@@ -32,7 +32,7 @@
 #if defined(___DARK_DEBINFO)
 #define DARK_EXIT(code) dark_terminate((Dark_Location){ __FILE__, __func__, __LINE__, __DATE__, __TIME__ }, DARK_LIBRARY, DARK_MODULE, DARK_UNIT, (code), DARK_ERROR_UNDEFINED, DARK_MESSAGE_NONE, false)
 #define DARK_EXIT_ERROR(code, error) dark_terminate((Dark_Location){ __FILE__, __func__, __LINE__, __DATE__, __TIME__ }, DARK_LIBRARY, DARK_MODULE, DARK_UNIT, (code), (error), DARK_MESSAGE_NONE, false)
-#define DARK_EXIT_CSTRING(code, error, cstring) dark_terminate((Dark_Location){ __FILE__, __func__, __LINE__, __DATE__, __TIME__ }, DARK_LIBRARY, DARK_MODULE, DARK_UNIT, (code), (error), (Dark_Message){ NULL, (cstring), false)
+#define DARK_EXIT_CSTRING(code, error, cstring) dark_terminate((Dark_Location){ __FILE__, __func__, __LINE__, __DATE__, __TIME__ }, DARK_LIBRARY, DARK_MODULE, DARK_UNIT, (code), (error), (Dark_Message){ NULL, (cstring) }, false)
 #define DARK_EXIT_MESSAGE(code, error, message) dark_terminate((Dark_Location){ __FILE__, __func__, __LINE__, __DATE__, __TIME__ }, DARK_LIBRARY, DARK_MODULE, DARK_UNIT, (code), (error), (message), false)
 #define DARK_ABORT dark_terminate((Dark_Location){ __FILE__, __func__, __LINE__, __DATE__, __TIME__ }, DARK_LIBRARY, DARK_MODULE, DARK_UNIT, 0, DARK_ERROR_UNDEFINED, DARK_MESSAGE_NONE, true)
 #define DARK_ABORT_ERROR(error) dark_terminate((Dark_Location){ __FILE__, __func__, __LINE__, __DATE__, __TIME__ }, DARK_LIBRARY, DARK_MODULE, DARK_UNIT, 0, (error), DARK_MESSAGE_NONE, true)

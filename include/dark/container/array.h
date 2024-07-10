@@ -41,4 +41,6 @@ struct Dark_Array_View
     size_t element_size;
 };
 
+Dark_Array_View dark_array_view(Dark_Array array);
+
 #endif // !defined(___DARK___ARRAY_H)

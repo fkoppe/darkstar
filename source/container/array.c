@@ -20,31 +20,24 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___ARRAY_ITERATOR_H)
-#define ___DARK___ARRAY_ITERATOR_H
+#include "container_module.h"
 
-#include <dark/container/array.h>
-#include <dark/container/iterator.h>
-#include <dark/core/std.h>
-#include <dark/memory/allocator.h>
+#include <dark/container/container.h>
+#include <dark/core/core.h>
 
-typedef struct Dark_Array_Iterator_Context Dark_Array_Iterator_Context;
-struct Dark_Array_Iterator_Context
+#undef DARK_UNIT
+#define DARK_UNIT "container"
+
+Dark_Array_View dark_array_view(const Dark_Array array_)
 {
-    Dark_Array array;
-    size_t index;
-};
+    DARK_ASSERT(NULL != array_.data, DARK_ERROR_NULL);
+    DARK_ASSERT(array_.size > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(array_.element_size > 0, DARK_ERROR_ZERO);
 
-size_t dark_array_iterator_context_size(void);
+    Dark_Array_View view;
+    view.data = array_.data;
+    view.size = array_.size;
+    view.element_size = array_.element_size;
 
-Dark_Iterator_Struct dark_array_iterator_construct_struct(void* context, Dark_Array array);
-void dark_array_iterator_construct(Dark_Iterator* iterator, void* context, Dark_Array array);
-void dark_array_iterator_destruct(Dark_Iterator* iterator);
-
-Dark_Iterator* dark_array_iterator_new(Dark_Allocator* allocator, Dark_Array array);
-void dark_array_iterator_delete(Dark_Allocator* allocator, Dark_Iterator* iterator);
-
-bool dark_array_allocator_next_is(void* context);
-void* dark_array_allocator_next(void* context);
-
-#endif // !defined(___DARK___ARRAY_ITERATOR_H)
+    return view;
+}
