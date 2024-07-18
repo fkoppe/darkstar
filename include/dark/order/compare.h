@@ -20,17 +20,27 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___COMPARE_H)
+#define ___DARK___COMPARE_H
 
-#include <dark/char/char.h>
-#include <dark/container/container.h>
-#include <dark/core/core.h>
-#include <dark/hash/hash.h>
-#include <dark/math/math.h>
-#include <dark/memory/memory.h>
-#include <dark/order/order.h>
-#include <dark/platform/platform.h>
-#include <dark/random/random.h>
+#include <dark/core/std.h>
 
-#endif // !defined(___DARK___DARKSTAR_H)
+typedef int8_t (*Dark_Compare)(const void* element, const void* other);
+
+int8_t dark_compare_u8(const uint8_t* element, const uint8_t* other);
+int8_t dark_compare_u16(const uint16_t* element, const uint16_t* other);
+int8_t dark_compare_u32(const uint32_t* element, const uint32_t* other);
+int8_t dark_compare_u64(const uint64_t* element, const uint64_t* other);
+int8_t dark_compare_umax(const uintmax_t* element, const uintmax_t* other);
+int8_t dark_compare_zu(const size_t* element, const size_t* other);
+
+int8_t dark_compare_i8(const int8_t* element, const int8_t* other);
+int8_t dark_compare_i16(const int16_t* element, const int16_t* other);
+int8_t dark_compare_i32(const int32_t* element, const int32_t* other);
+int8_t dark_compare_i64(const int64_t* element, const int64_t* other);
+int8_t dark_compare_imax(const intmax_t* element, const intmax_t* other);
+
+int8_t dark_compare_f(const float* element, const float* other);
+int8_t dark_compare_d(const double* element, const double* other);
+
+#endif // !defined(___DARK___COMPARE_H)

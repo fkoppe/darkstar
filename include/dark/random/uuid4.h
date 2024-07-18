@@ -26,7 +26,7 @@
 #include <dark/core/std.h>
 
 #define DARK_UUID4_SIZE (sizeof("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx") - 1)
-#define DARK_UUID4_SIZE_TERMINATED (sizeof("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx") - 1)
+#define DARK_UUID4_SIZE_TERMINATED sizeof("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
 
 typedef union Dark_Uuid4
 {

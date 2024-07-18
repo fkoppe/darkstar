@@ -20,17 +20,31 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___CBUFFER_H)
+#define ___DARK___CBUFFER_H
 
-#include <dark/char/char.h>
-#include <dark/container/container.h>
-#include <dark/core/core.h>
-#include <dark/hash/hash.h>
-#include <dark/math/math.h>
-#include <dark/memory/memory.h>
-#include <dark/order/order.h>
-#include <dark/platform/platform.h>
-#include <dark/random/random.h>
+#include <dark/core/std.h>
 
-#endif // !defined(___DARK___DARKSTAR_H)
+typedef struct Dark_Cbuffer Dark_Cbuffer;
+struct Dark_Cbuffer
+{
+    char* data;
+    size_t size;
+};
+
+typedef struct Dark_Cbuffer_View Dark_Cbuffer_View;
+struct Dark_Cbuffer_View
+{
+    const char* data;
+    size_t size;
+};
+
+bool dark_cbuffer_terminated_is(Dark_Cbuffer cbuffer, size_t* cstring_lenght);
+bool dark_cbuffer_view_terminated_is(Dark_Cbuffer_View cbuffer_view, size_t* cstring_lenght);
+
+Dark_Cbuffer_View dark_cbuffer_view(Dark_Cbuffer cbuffer);
+
+int8_t dark_cbuffer_compare(const Dark_Cbuffer* a, const Dark_Cbuffer* b);
+int8_t dark_cbuffer_view_compare(const Dark_Cbuffer_View* a, const Dark_Cbuffer_View* b);
+
+#endif // !defined(___DARK___CBUFFER_H)

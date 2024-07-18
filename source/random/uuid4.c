@@ -22,10 +22,9 @@
 
 #include "random_module.h"
 
+#include <dark/char/char.h>
 #include <dark/core/core.h>
 #include <dark/random/random.h>
-
-#include <string.h>
 
 #undef DARK_UNIT
 #define DARK_UNIT "uuid4"
@@ -50,21 +49,20 @@ void dark_uuid4_write_cbuffer(const Dark_Uuid4 uuid4_, char* const destination_)
     //uuid4_
     DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
 
-    const char hex[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
-    const size_t group[] = { 8, 4, 4, 4, 12 };
-    size_t index = 0;
+    const size_t segment[] = { 8, 4, 4, 4, 12 };
 
+    size_t index = 0;
     char* ptr = destination_;
 
-    for (size_t i = 0; i < (sizeof(group) / sizeof(group[0])); i++)
+    for (size_t i = 0; i < (sizeof(segment) / sizeof(segment[0])); i++)
     {
-        for (size_t j = 0; j < group[i]; j += 2)
+        for (size_t j = 0; j < segment[i]; j += 2)
         {
             const uint8_t byte = uuid4_.byte[index];
             index++;
 
-            *ptr++ = hex[byte >> 4];
-            *ptr++ = hex[byte & 0xf];
+            *ptr++ = DARK_HEX[byte >> 4];
+            *ptr++ = DARK_HEX[byte & 0xf];
         }
 
         *ptr++ = '-';
@@ -78,5 +76,5 @@ int dark_uuid4_compare(const Dark_Uuid4* const element_, const Dark_Uuid4* const
     DARK_ASSERT(NULL != element_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != other_, DARK_ERROR_NULL);
 
-    return memcmp(element_, other_, sizeof(Dark_Uuid4));
+    return dark_memcmp(element_, other_, sizeof(Dark_Uuid4));
 }

@@ -20,17 +20,45 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___DIGIT_H)
+#define ___DARK___DIGIT_H
 
-#include <dark/char/char.h>
-#include <dark/container/container.h>
-#include <dark/core/core.h>
-#include <dark/hash/hash.h>
-#include <dark/math/math.h>
-#include <dark/memory/memory.h>
-#include <dark/order/order.h>
-#include <dark/platform/platform.h>
-#include <dark/random/random.h>
+#include <dark/core/message.h>
+#include <dark/core/std.h>
 
-#endif // !defined(___DARK___DARKSTAR_H)
+#define DARK_DIGIT_COUNT_MAX_I8 3
+#define DARK_DIGIT_COUNT_MAX_I16 5
+#define DARK_DIGIT_COUNT_MAX_I32 10
+#define DARK_DIGIT_COUNT_MAX_I64 19
+#define DARK_DIGIT_COUNT_MAX_U8 3
+#define DARK_DIGIT_COUNT_MAX_U16 5
+#define DARK_DIGIT_COUNT_MAX_U32 10
+#define DARK_DIGIT_COUNT_MAX_U64 20
+
+static const Dark_Message DARK_MESSAGE_DIGIT_LEADING_ZERO = { NULL, "leading zero at position", NULL };
+
+uint8_t dark_digit_get_u(uintmax_t number, size_t position);
+uint8_t dark_digit_get_i(intmax_t number, size_t position);
+
+char dark_digit_to_char(uint8_t digit);
+
+size_t dark_digit_count_u8(uint8_t number);
+size_t dark_digit_count_u16(uint16_t number);
+size_t dark_digit_count_u32(uint32_t number);
+size_t dark_digit_count_u64(uint64_t number);
+size_t dark_digit_count_umax(uintmax_t number);
+size_t dark_digit_count_zu(size_t number);
+
+size_t dark_digit_count_i8(int8_t number);
+size_t dark_digit_count_i16(int16_t number);
+size_t dark_digit_count_i32(int32_t number);
+size_t dark_digit_count_i64(int64_t number);
+size_t dark_digit_count_imax(intmax_t number);
+
+void dark_digit_write_cbuffer_u(uintmax_t number, size_t digit_count, Dark_Cbuffer destination);
+void dark_digit_write_cbuffer_u_terminated(uintmax_t number, size_t digit_count, Dark_Cbuffer destination);
+
+void dark_digit_write_cbuffer_i(intmax_t number, size_t digit_count, Dark_Cbuffer destination);
+void dark_digit_write_cbuffer_i_terminated(intmax_t number, size_t digit_count, Dark_Cbuffer destination);
+
+#endif // !defined(___DARK___DIGIT_H)

@@ -23,6 +23,12 @@ add_subdirectory(platform)
 
 #-----
 
+add_subdirectory(order)
+
+#-----
+
+add_subdirectory(char)
+
 #-----
 
 add_subdirectory(random)

@@ -20,17 +20,14 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___SORT_H)
+#define ___DARK___SORT_H
 
-#include <dark/char/char.h>
-#include <dark/container/container.h>
-#include <dark/core/core.h>
-#include <dark/hash/hash.h>
-#include <dark/math/math.h>
-#include <dark/memory/memory.h>
-#include <dark/order/order.h>
-#include <dark/platform/platform.h>
-#include <dark/random/random.h>
+#include <dark/container/array.h>
+#include <dark/core/std.h>
 
-#endif // !defined(___DARK___DARKSTAR_H)
+bool dark_sort_is(Dark_Array_View array_view, Dark_Compare compare);
+
+void dark_sort_insertion(Dark_Array array, Dark_Compare compare, void* element_buffer);
+
+#endif // !defined(___DARK___SORT_H)

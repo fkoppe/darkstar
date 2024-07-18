@@ -20,17 +20,22 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___FIND_H)
+#define ___DARK___FIND_H
 
-#include <dark/char/char.h>
-#include <dark/container/container.h>
-#include <dark/core/core.h>
-#include <dark/hash/hash.h>
-#include <dark/math/math.h>
-#include <dark/memory/memory.h>
-#include <dark/order/order.h>
-#include <dark/platform/platform.h>
-#include <dark/random/random.h>
+#include <dark/container/array.h>
+#include <dark/core/std.h>
 
-#endif // !defined(___DARK___DARKSTAR_H)
+bool dark_find_linear_index(const void* element, Dark_Array_View array_view, Dark_Compare compare, size_t* index);
+bool dark_find_linear_reverse_index(const void* element, Dark_Array_View array_view, Dark_Compare compare, size_t* index);
+bool dark_find_binary_index(const void* element, Dark_Array_View array_view, Dark_Compare compare, size_t* index);
+
+void* dark_find_linear(const void* element, Dark_Array array, Dark_Compare compare);
+void* dark_find_linear_reverse(const void* element, Dark_Array array, Dark_Compare compare);
+void* dark_find_binary(const void* element, Dark_Array array, Dark_Compare compare);
+
+const void* dark_find_view_linear(const void* element, Dark_Array_View array_view, Dark_Compare compare);
+const void* dark_find_view_linear_reverse(const void* element, Dark_Array_View array_view, Dark_Compare compare);
+const void* dark_find_view_binary(const void* element, Dark_Array_View array_view, Dark_Compare compare);
+
+#endif // !defined(___DARK___FIND_H)
