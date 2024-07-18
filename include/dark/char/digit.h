@@ -23,6 +23,7 @@
 #if !defined(___DARK___DIGIT_H)
 #define ___DARK___DIGIT_H
 
+#include <dark/char/cbuffer.h>
 #include <dark/core/message.h>
 #include <dark/core/std.h>
 

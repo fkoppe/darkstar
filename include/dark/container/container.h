@@ -28,5 +28,6 @@
 #include <dark/container/container_data.h>
 #include <dark/container/growth.h>
 #include <dark/container/iterator.h>
+#include <dark/container/vector.h>
 
 #endif // !defined(___DARK___CONTAINER_H)

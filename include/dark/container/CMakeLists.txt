@@ -7,4 +7,5 @@ target_sources(
     ${CMAKE_CURRENT_LIST_DIR}/container.h
     ${CMAKE_CURRENT_LIST_DIR}/iterator.h
     ${CMAKE_CURRENT_LIST_DIR}/growth.h
+    ${CMAKE_CURRENT_LIST_DIR}/vector.h
 )
