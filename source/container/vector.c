@@ -28,11 +28,20 @@
 #undef DARK_UNIT
 #define DARK_UNIT "vector"
 
-size_t dark_vector_struct_size(void);
-
-void dark_vector_create_size(Dark_Vector* vector, Dark_Growth growth, size_t element_size, size_t capacity, size_t size)
+size_t dark_vector_struct_size(void)
 {
+    return sizeof(Dark_Vector_Struct);
+}
 
+Dark_Vector_Struct dark_vector_construct_struct(Dark_Growth growth, size_t element_size, size_t capacity, size_t size);
+
+void dark_vector_create_size(Dark_Vector* const vector_, const Dark_Growth growth_, const size_t element_size_, const size_t capacity_, const size_t size_)
+{
+    DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != growth_, DARK_ERROR_NULL);
+    DARK_ASSERT(element_size_ > 0, DARK_ERROR_ZERO);
+    //capacity
+    //size_
 }
 
 void dark_vector_create_capacity(Dark_Vector* vector, Dark_Growth growth, size_t element_size, size_t capacity);

@@ -35,6 +35,7 @@ struct Dark_Os_Allocator_Context
 size_t dark_os_allocator_context_size(void);
 
 Dark_Allocator_Struct dark_os_allocator_construct_struct(void* context);
+
 void dark_os_allocator_construct(Dark_Allocator* os_allocator, void* context);
 void dark_os_allocator_destruct(Dark_Allocator* os_allocator);
 
