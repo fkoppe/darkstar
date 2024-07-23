@@ -51,12 +51,11 @@ struct Dark_Vector_Struct
 };
 
 size_t dark_vector_struct_size(void);
-Dark_Vector_Struct dark_vector_construct_struct(Dark_Growth growth, size_t element_size, size_t capacity, size_t size);
 
-void dark_vector_construct_size(Dark_Vector* vector, Dark_Growth growth, size_t element_size, size_t capacity, size_t size);
-void dark_vector_construct_capacity(Dark_Vector* vector, Dark_Growth growth, size_t element_size, size_t capacity);
-void dark_vector_construct(Dark_Vector* vector, Dark_Growth growth, size_t element_size);
-void dark_vector_destruct(Dark_Vector* vector);
+void dark_vector_construct_size(Dark_Allocator* allocator, Dark_Vector* vector, Dark_Growth growth, size_t element_size, size_t capacity, size_t size);
+void dark_vector_construct_capacity(Dark_Allocator* allocator, Dark_Vector* vector, Dark_Growth growth, size_t element_size, size_t capacity);
+void dark_vector_construct(Dark_Allocator* allocator, Dark_Vector* vector, Dark_Growth growth, size_t element_size);
+void dark_vector_destruct(Dark_Allocator* allocator, Dark_Vector* vector);
 
 Dark_Vector* dark_vector_new_size(Dark_Allocator* allocator, Dark_Growth growth, size_t element_size, size_t capacity, size_t size);
 Dark_Vector* dark_vector_new_capacity(Dark_Allocator* allocator, Dark_Growth growth, size_t element_size, size_t capacity);
@@ -77,9 +76,9 @@ void* dark_vector_inplace(Dark_Allocator* allocator, Dark_Vector* vector, size_t
 void* dark_vector_inplace_front(Dark_Allocator* allocator, Dark_Vector* vector);
 void* dark_vector_inplace_back(Dark_Allocator* allocator, Dark_Vector* vector);
 
-void dark_vector_push(Dark_Allocator* allocator, Dark_Vector* vector, size_t index, Dark_Array source);
-void dark_vector_push_front(Dark_Allocator* allocator, Dark_Vector* vector, Dark_Array source);
-void dark_vector_push_back(Dark_Allocator* allocator, Dark_Vector* vector, Dark_Array source);
+void dark_vector_push(Dark_Allocator* allocator, Dark_Vector* vector, size_t index, Dark_Array_View source);
+void dark_vector_push_front(Dark_Allocator* allocator, Dark_Vector* vector, Dark_Array_View source);
+void dark_vector_push_back(Dark_Allocator* allocator, Dark_Vector* vector, Dark_Array_View source);
 void dark_vector_insert(Dark_Allocator* allocator, Dark_Vector* vector, size_t index, const void* element);
 void dark_vector_insert_front(Dark_Allocator* allocator, Dark_Vector* vector, const void* element);
 void dark_vector_insert_back(Dark_Allocator* allocator, Dark_Vector* vector, const void* element);
@@ -99,9 +98,11 @@ void dark_vector_reserve_exact(Dark_Allocator* allocator, Dark_Vector* vector, s
 void dark_vector_shrink_to_fit(Dark_Allocator* allocator, Dark_Vector* vector);
 
 size_t dark_vector_size(Dark_Vector* vector);
-void dark_vector_resize(Dark_Vector* vector, size_t size);
+void dark_vector_resize(Dark_Allocator* allocator, Dark_Vector* vector, size_t size);
 void dark_vector_clear(Dark_Vector* vector);
 
 size_t dark_vector_element_size(Dark_Vector* vector);
+
+size_t dark_vector_size_max(void);
 
 #endif // !defined(___DARK___VECTOR_H)
