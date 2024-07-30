@@ -23,6 +23,7 @@
 #if !defined(___DARK___FILE_H)
 #define ___DARK___FILE_H
 
+#include <dark/container/array.h>
 #include <dark/core/message.h>
 #include <dark/core/std.h>
 #include <dark/memory/allocator.h>
@@ -59,7 +60,7 @@ static const Dark_Message DARK_MESSAGE_FILE_FLAG_BINARY = { NULL, "no binary fla
 static const Dark_Message DARK_MESSAGE_FILE_OPENED_NOT = { NULL, "file not opened", NULL };
 static const Dark_Message DARK_MESSAGE_FILE_OPENED_ALREADY = { NULL, "file already opened", NULL };
 
-size_t dark_file_struct_size(void);
+size_t dark_file_struct_byte(void);
 
 void dark_file_construct(Dark_File* file);
 void dark_file_destruct(Dark_File* file);
@@ -72,14 +73,14 @@ Dark_Oserror dark_file_close(Dark_File* file);
 
 bool dark_file_open_is(Dark_File* file);
 
-Dark_Oserror dark_file_write(Dark_File* file, size_t size, size_t count, const void* data);
+Dark_Oserror dark_file_write(Dark_File* file, Dark_Array array);
 
 Dark_Oserror dark_file_read(Dark_File* file, size_t max, char* destination);
-Dark_Oserror dark_file_binary_read(Dark_File* file, size_t element_size, size_t element_count, size_t* count, char* destination);
+Dark_Oserror dark_file_binary_read(Dark_File* file, size_t element_byte, size_t max, size_t* count, void* destination);
 
-Dark_Oserror dark_file_mmap(Dark_File* file, const char** destination);
+Dark_Oserror dark_file_mmap(Dark_File* file, void** destination);
 
-Dark_Oserror dark_file_size_get(Dark_File* file, size_t* destination);
+Dark_Oserror dark_file_byte(Dark_File* file, size_t* destination);
 
 size_t dark_file_count_max(void);
 

@@ -20,10 +20,10 @@
 *                                                                                   *
 ************************************************************************************/
 
-#include "order_module.h"
+#include "container_module.h"
 
+#include <dark/container/container.h>
 #include <dark/core/core.h>
-#include <dark/order/order.h>
 
 #undef DARK_UNIT
 #define DARK_UNIT "compare"

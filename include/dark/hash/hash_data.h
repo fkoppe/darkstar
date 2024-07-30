@@ -20,24 +20,11 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___MUTEX_H)
-#define ___DARK___MUTEX_H
+#if !defined(___DARK___HASH_DATA_H)
+#define ___DARK___HASH_DATA_H
 
 #include <dark/core/std.h>
-#include <dark/memory/allocator.h>
 
-typedef struct Dark_Mutex Dark_Mutex;
+typedef uintmax_t (*Dark_Hash)(size_t byte, const void* data);
 
-size_t dark_mutex_struct_byte(void);
-
-void dark_mutex_construct(Dark_Mutex* mutex);
-void dark_mutex_destruct(Dark_Mutex* mutex);
-
-Dark_Mutex* dark_mutex_new(Dark_Allocator* allocator);
-void dark_mutex_delete(Dark_Allocator* allocator, Dark_Mutex* mutex);
-
-bool dark_mutex_trylock(Dark_Mutex* mutex);
-void dark_mutex_lock(Dark_Mutex* mutex);
-void dark_mutex_unlock(Dark_Mutex* mutex);
-
-#endif // !defined(___DARK___MUTEX_H)
+#endif // !defined(___DARK___HASH_DATA_H)

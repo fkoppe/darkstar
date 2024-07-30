@@ -25,6 +25,7 @@
 
 #include <dark/hash/djb2.h>
 #include <dark/hash/fnv1.h>
+#include <dark/hash/hash_data.h>
 #include <dark/hash/murmur2.h>
 #include <dark/hash/murmur3.h>
 #include <dark/hash/superfast.h>

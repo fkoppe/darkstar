@@ -20,22 +20,12 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___FIND_H)
-#define ___DARK___FIND_H
+#if !defined(___DARK___ALGORITHM_MODULE_H)
+#define ___DARK___ALGORITHM_MODULE_H
 
-#include <dark/container/array.h>
 #include <dark/core/std.h>
 
-bool dark_find_linear_index(const void* element, Dark_Array_View array_view, Dark_Compare compare, size_t* index);
-bool dark_find_linear_reverse_index(const void* element, Dark_Array_View array_view, Dark_Compare compare, size_t* index);
-bool dark_find_binary_index(const void* element, Dark_Array_View array_view, Dark_Compare compare, size_t* index);
+#undef DARK_MODULE
+#define DARK_MODULE "algorithm"
 
-void* dark_find_linear(const void* element, Dark_Array array, Dark_Compare compare);
-void* dark_find_linear_reverse(const void* element, Dark_Array array, Dark_Compare compare);
-void* dark_find_binary(const void* element, Dark_Array array, Dark_Compare compare);
-
-const void* dark_find_view_linear(const void* element, Dark_Array_View array_view, Dark_Compare compare);
-const void* dark_find_view_linear_reverse(const void* element, Dark_Array_View array_view, Dark_Compare compare);
-const void* dark_find_view_binary(const void* element, Dark_Array_View array_view, Dark_Compare compare);
-
-#endif // !defined(___DARK___FIND_H)
+#endif // !defined(___DARK___ALGORITHM_MODULE_H)

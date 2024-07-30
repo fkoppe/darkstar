@@ -7,6 +7,12 @@ int main()
 
     dark_test_initialise();
 
+    DARK_TEST("mutex_struct_byte")
+    {
+        DARK_TEST_GT_U(dark_mutex_struct_byte(), 0);
+    }
+    //--------------------------
+
     //----------TEST----------
     DARK_TEST("mutex_new/delete")
     {

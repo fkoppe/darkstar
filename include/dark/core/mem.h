@@ -23,7 +23,7 @@
 #if !defined(___DARK___MEM_H)
 #define ___DARK___MEM_H
 
-void dark_memset(void* destination, char value, size_t count);
+void dark_memset(void* destination, uint8_t value, size_t count);
 
 void dark_memcpy(void* destination, const void* source, size_t count);
 void dark_memmove(void* destination, const void* source, size_t count);

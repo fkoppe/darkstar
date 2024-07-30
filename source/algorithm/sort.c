@@ -20,12 +20,70 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___ORDER_MODULE_H)
-#define ___DARK___ORDER_MODULE_H
+#include "algorithm_module.h"
 
-#include <dark/core/std.h>
+#include <dark/algorithm/algorithm.h>
+#include <dark/core/core.h>
 
-#undef DARK_MODULE
-#define DARK_MODULE "order"
+#undef DARK_UNIT
+#define DARK_UNIT "sort"
 
-#endif // !defined(___DARK___ORDER_MODULE_H)
+bool dark_sort_is(const Dark_Array_View array_view_, const Dark_Compare compare_)
+{
+    DARK_ASSERT(array_view_.element_byte > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(array_view_.size > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(array_view_.data != NULL, DARK_ERROR_NULL);
+    DARK_ASSERT(compare_ != NULL, DARK_ERROR_NULL);
+
+    for(size_t i = 0; i < array_view_.size - 1; i++)
+    {
+        if(0 < compare_((uint8_t*)array_view_.data + (i * array_view_.element_byte), (uint8_t*)array_view_.data + ((i + 1) * array_view_.element_byte)))
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+void dark_sort_insertion(const Dark_Array array_, const Dark_Compare compare_, void* const element_buffer_)
+{
+    DARK_ASSERT(array_.element_byte > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(array_.size > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(array_.data != NULL, DARK_ERROR_NULL);
+    DARK_ASSERT(compare_ != NULL, DARK_ERROR_NULL);
+    DARK_ASSERT(element_buffer_ != NULL, DARK_ERROR_NULL);
+
+    for(size_t i = 1; i < array_.size; i++)
+    {
+        dark_memcpy(element_buffer_, (uint8_t*)array_.data + (i * array_.element_byte), array_.element_byte);
+
+        size_t iter = i;
+
+        while (iter > 0 && 0 < compare_((uint8_t*)array_.data+ ((iter - 1) * array_.element_byte), element_buffer_))
+        {
+            dark_memcpy((uint8_t*)array_.data + (iter * array_.element_byte), (uint8_t*)array_.data + ((iter - 1) * array_.element_byte), array_.element_byte);
+            iter--;
+        }
+
+        dark_memcpy((uint8_t*)array_.data + (iter * array_.element_byte), element_buffer_, array_.element_byte);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

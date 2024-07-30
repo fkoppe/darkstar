@@ -23,9 +23,11 @@
 #if !defined(___DARK___CONTAINER_H)
 #define ___DARK___CONTAINER_H
 
-#include <dark/container/array_iterator.h>
 #include <dark/container/array.h>
+#include <dark/container/array_iterator.h>
+#include <dark/container/compare.h>
 #include <dark/container/container_data.h>
+#include <dark/container/foreach.h>
 #include <dark/container/growth.h>
 #include <dark/container/iterator.h>
 #include <dark/container/vector.h>

@@ -23,13 +23,13 @@
 #if !defined(___DARK___DARKSTAR_H)
 #define ___DARK___DARKSTAR_H
 
+#include <dark/algorithm/algorithm.h>
 #include <dark/char/char.h>
 #include <dark/container/container.h>
 #include <dark/core/core.h>
 #include <dark/hash/hash.h>
 #include <dark/math/math.h>
 #include <dark/memory/memory.h>
-#include <dark/order/order.h>
 #include <dark/platform/platform.h>
 #include <dark/random/random.h>
 

@@ -50,16 +50,18 @@ struct Dark_Vector_Struct
     Dark_Growth growth;
 };
 
-size_t dark_vector_struct_size(void);
+static const size_t DARK_VECTOR_SIZE_MAX = SIZE_MAX;
 
-void dark_vector_construct_size(Dark_Allocator* allocator, Dark_Vector* vector, Dark_Growth growth, size_t element_size, size_t capacity, size_t size);
-void dark_vector_construct_capacity(Dark_Allocator* allocator, Dark_Vector* vector, Dark_Growth growth, size_t element_size, size_t capacity);
-void dark_vector_construct(Dark_Allocator* allocator, Dark_Vector* vector, Dark_Growth growth, size_t element_size);
+size_t dark_vector_struct_byte(void);
+
+void dark_vector_construct_size(Dark_Allocator* allocator, Dark_Vector* vector, Dark_Growth growth, size_t element_byte, size_t capacity, size_t size);
+void dark_vector_construct_capacity(Dark_Allocator* allocator, Dark_Vector* vector, Dark_Growth growth, size_t element_byte, size_t capacity);
+void dark_vector_construct(Dark_Allocator* allocator, Dark_Vector* vector, Dark_Growth growth, size_t element_byte);
 void dark_vector_destruct(Dark_Allocator* allocator, Dark_Vector* vector);
 
-Dark_Vector* dark_vector_new_size(Dark_Allocator* allocator, Dark_Growth growth, size_t element_size, size_t capacity, size_t size);
-Dark_Vector* dark_vector_new_capacity(Dark_Allocator* allocator, Dark_Growth growth, size_t element_size, size_t capacity);
-Dark_Vector* dark_vector_new(Dark_Allocator* allocator, Dark_Growth growth, size_t element_size);
+Dark_Vector* dark_vector_new_size(Dark_Allocator* allocator, Dark_Growth growth, size_t element_byte, size_t capacity, size_t size);
+Dark_Vector* dark_vector_new_capacity(Dark_Allocator* allocator, Dark_Growth growth, size_t element_byte, size_t capacity);
+Dark_Vector* dark_vector_new(Dark_Allocator* allocator, Dark_Growth growth, size_t element_byte);
 void dark_vector_delete(Dark_Allocator* allocator, Dark_Vector* vector);
 
 void* dark_vector_at(Dark_Vector* vector, size_t index);
@@ -101,8 +103,8 @@ size_t dark_vector_size(Dark_Vector* vector);
 void dark_vector_resize(Dark_Allocator* allocator, Dark_Vector* vector, size_t size);
 void dark_vector_clear(Dark_Vector* vector);
 
-size_t dark_vector_element_size(Dark_Vector* vector);
+void dark_vector_foreach(Dark_Vector* vector, void* context, Dark_Foreach foreach);
 
-size_t dark_vector_size_max(void);
+size_t dark_vector_element_byte(Dark_Vector* vector);
 
 #endif // !defined(___DARK___VECTOR_H)

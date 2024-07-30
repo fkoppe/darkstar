@@ -35,7 +35,7 @@ X X X X X X X X X X X X X X*/
 
 #undef DARK_UNIT
 
-void dark_memset(void* const destination_, const char value_, const size_t count_)
+void dark_memset(void* const destination_, const uint8_t value_, const size_t count_)
 {
     assert(NULL != destination_);
     //value_

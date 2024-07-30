@@ -20,24 +20,23 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___MUTEX_H)
-#define ___DARK___MUTEX_H
+#if !defined(___DARK___FIND_H)
+#define ___DARK___FIND_H
 
+#include <dark/container/array.h>
+#include <dark/container/compare.h>
 #include <dark/core/std.h>
-#include <dark/memory/allocator.h>
 
-typedef struct Dark_Mutex Dark_Mutex;
+bool dark_find_linear_index(const void* element, Dark_Array_View array_view, Dark_Compare compare, size_t* index);
+bool dark_find_linear_reverse_index(const void* element, Dark_Array_View array_view, Dark_Compare compare, size_t* index);
+bool dark_find_binary_index(const void* element, Dark_Array_View array_view, Dark_Compare compare, size_t* index);
 
-size_t dark_mutex_struct_byte(void);
+void* dark_find_linear(const void* element, Dark_Array array, Dark_Compare compare);
+void* dark_find_linear_reverse(const void* element, Dark_Array array, Dark_Compare compare);
+void* dark_find_binary(const void* element, Dark_Array array, Dark_Compare compare);
 
-void dark_mutex_construct(Dark_Mutex* mutex);
-void dark_mutex_destruct(Dark_Mutex* mutex);
+const void* dark_find_view_linear(const void* element, Dark_Array_View array_view, Dark_Compare compare);
+const void* dark_find_view_linear_reverse(const void* element, Dark_Array_View array_view, Dark_Compare compare);
+const void* dark_find_view_binary(const void* element, Dark_Array_View array_view, Dark_Compare compare);
 
-Dark_Mutex* dark_mutex_new(Dark_Allocator* allocator);
-void dark_mutex_delete(Dark_Allocator* allocator, Dark_Mutex* mutex);
-
-bool dark_mutex_trylock(Dark_Mutex* mutex);
-void dark_mutex_lock(Dark_Mutex* mutex);
-void dark_mutex_unlock(Dark_Mutex* mutex);
-
-#endif // !defined(___DARK___MUTEX_H)
+#endif // !defined(___DARK___FIND_H)

@@ -35,7 +35,7 @@
 #undef DARK_UNIT
 #define DARK_UNIT "os_allocator"
 
-size_t dark_os_allocator_context_size(void)
+size_t dark_os_allocator_context_byte(void)
 {
     return sizeof(Dark_Os_Allocator_Context);
 }
@@ -67,7 +67,7 @@ void dark_os_allocator_destruct(Dark_Allocator* const os_allocator_)
 
 Dark_Allocator* dark_os_allocator_new(void)
 {
-    Dark_Allocator_Struct* const allocator = malloc(sizeof(Dark_Allocator_Struct) + dark_os_allocator_context_size());
+    Dark_Allocator_Struct* const allocator = malloc(sizeof(Dark_Allocator_Struct) + dark_os_allocator_context_byte());
     DARK_ASSERT(NULL != allocator, DARK_ERROR_ALLOCATION);
 
     Dark_Os_Allocator_Context* const context = (Dark_Os_Allocator_Context*)((int8_t*)allocator + sizeof(Dark_Allocator_Struct));
@@ -75,7 +75,7 @@ Dark_Allocator* dark_os_allocator_new(void)
     dark_os_allocator_construct((Dark_Allocator*)allocator, context);
 
     context->info.count = 1;
-    context->info.usage = sizeof(Dark_Allocator_Struct) + sizeof(dark_os_allocator_context_size());
+    context->info.usage = sizeof(Dark_Allocator_Struct) + sizeof(dark_os_allocator_context_byte());
 
     return (Dark_Allocator*)allocator;
 }

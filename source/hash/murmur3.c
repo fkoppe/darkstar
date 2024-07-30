@@ -28,7 +28,15 @@
 #undef DARK_UNIT
 #define DARK_UNIT "murmur3"
 
-uint32_t dark_hash_murmur3_32(const size_t byte_, const void* const data_, const uint32_t seed_)
+uint32_t dark_hash_murmur3_32(const size_t byte_, const void* const data_)
+{
+    DARK_ASSERT(byte_ > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
+
+    return dark_hash_murmur3_seed_32(byte_, data_, 123);
+}
+
+uint32_t dark_hash_murmur3_seed_32(const size_t byte_, const void* const data_, const uint32_t seed_)
 {
     DARK_ASSERT(byte_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);

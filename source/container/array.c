@@ -32,12 +32,26 @@ Dark_Array_View dark_array_view(const Dark_Array array_)
 {
     DARK_ASSERT(NULL != array_.data, DARK_ERROR_NULL);
     DARK_ASSERT(array_.size > 0, DARK_ERROR_ZERO);
-    DARK_ASSERT(array_.element_size > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(array_.element_byte > 0, DARK_ERROR_ZERO);
 
     Dark_Array_View view;
     view.data = array_.data;
     view.size = array_.size;
-    view.element_size = array_.element_size;
+    view.element_byte = array_.element_byte;
 
     return view;
+}
+
+void dark_array_foreach(const Dark_Array array_, void* const context_, const Dark_Foreach foreach_)
+{
+    DARK_ASSERT(NULL != array_.data, DARK_ERROR_NULL);
+    DARK_ASSERT(array_.size > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(array_.element_byte > 0, DARK_ERROR_ZERO);
+    //context_
+    DARK_ASSERT(NULL != foreach_, DARK_ERROR_NULL);
+
+    for(size_t i = 0; i < array_.size; i++)
+    {
+        foreach_((uint8_t*)array_.data + (array_.element_byte * i), context_);
+    }
 }

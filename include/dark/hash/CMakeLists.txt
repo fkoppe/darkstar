@@ -3,7 +3,8 @@ target_sources(
     PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/djb2.h
     ${CMAKE_CURRENT_LIST_DIR}/fnv1.h
-    ${CMAKE_CURRENT_LIST_DIR}/hash.h
+	${CMAKE_CURRENT_LIST_DIR}/hash.h
+    ${CMAKE_CURRENT_LIST_DIR}/hash_data.h
     ${CMAKE_CURRENT_LIST_DIR}/murmur2.h
     ${CMAKE_CURRENT_LIST_DIR}/murmur3.h
     ${CMAKE_CURRENT_LIST_DIR}/superfast.h

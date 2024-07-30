@@ -25,9 +25,14 @@
 
 #include <dark/core/std.h>
 
-uint32_t dark_hash_murmur2_32(size_t byte, const void* data, uint32_t seed);
-uint32_t dark_hash_murmur2a_32(size_t byte, const void* data, uint32_t seed);
+uint32_t dark_hash_murmur2_32(size_t byte, const void* data);
 
-uint64_t dark_hash_murmur2a_64(size_t byte, const void* data, uint64_t seed);
+uint32_t dark_hash_murmur2a_32(size_t byte, const void* data);
+uint64_t dark_hash_murmur2a_64(size_t byte, const void* data);
+
+uint32_t dark_hash_murmur2_seed_32(size_t byte, const void* data, uint32_t seed);
+
+uint32_t dark_hash_murmur2a_seed_32(size_t byte, const void* data, uint32_t seed);
+uint64_t dark_hash_murmur2a_seed_64(size_t byte, const void* data, uint64_t seed);
 
 #endif // !defined(___DARK___MURMUR2_H)

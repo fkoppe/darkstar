@@ -23,7 +23,9 @@ add_subdirectory(platform)
 
 #-----
 
-add_subdirectory(order)
+add_subdirectory(algorithm)
+#add_subdirectory(stream)
+#add_subdirectory(time)
 
 #-----
 
@@ -32,5 +34,15 @@ add_subdirectory(char)
 #-----
 
 add_subdirectory(random)
+#add_subdirectory(log)
+
+#-----
+
+#add_subdirectory(ecs)
+#add_subdirectory(window)
+
+#-----
+
+#add_subdirectory(renderer)
 
 #-----

@@ -10,7 +10,7 @@ int main()
     //----------TEST----------
     DARK_TEST("array_iterator_context_size")
     {
-        DARK_TEST_NE_U(dark_array_iterator_context_size(), 0);
+        DARK_TEST_NE_U(dark_array_iterator_context_byte(), 0);
     }
     //--------------------------
 

@@ -25,8 +25,6 @@
 
 #include <dark/char/char.h>
 #include <dark/core/core.h>
-#include <dark/order/order.h>
-#include <stdlib.h>
 
 #undef DARK_UNIT
 #define DARK_UNIT "cstring"

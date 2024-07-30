@@ -57,7 +57,7 @@ struct Dark_Mutex_Struct
 #endif // defined(___DARK_UNIX)
 };
 
-size_t dark_mutex_struct_size(void)
+size_t dark_mutex_struct_byte(void)
 {
     return sizeof(Dark_Mutex_Struct);
 }

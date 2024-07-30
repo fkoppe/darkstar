@@ -55,7 +55,6 @@ size_t dark_growth_standard(const size_t current_, const size_t requested_)
 
     while(total < requested_)
     {
-
         total = DARK_MAX(total + 1, total * 1.5f);
     }
 

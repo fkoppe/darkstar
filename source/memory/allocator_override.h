@@ -28,19 +28,19 @@
 
 #if defined(___DARK_DEBUG)
 #define dark_malloc(allocator, byte) dark_memory_debug_allocate((Dark_Location){ __FILE__, __func__, __LINE__, __DATE__, __TIME__ }, DARK_LIBRARY, DARK_MODULE, DARK_UNIT, "dark_malloc", (allocator), NULL, 0, (byte))
-#define dark_balloc(allocator, size, count) dark_memory_debug_allocate((Dark_Location){ __FILE__, __func__, __LINE__, __DATE__, __TIME__ }, DARK_LIBRARY, DARK_MODULE, DARK_UNIT, "dark_balloc", (allocator), NULL, 0, (size) * (count))
+#define dark_balloc(allocator, byte, count) dark_memory_debug_allocate((Dark_Location){ __FILE__, __func__, __LINE__, __DATE__, __TIME__ }, DARK_LIBRARY, DARK_MODULE, DARK_UNIT, "dark_balloc", (allocator), NULL, 0, (byte) * (count))
 
 #define dark_realloc(allocator, address, byte_old, byte_new) dark_memory_debug_allocate((Dark_Location){ __FILE__, __func__, __LINE__, __DATE__, __TIME__ }, DARK_LIBRARY, DARK_MODULE, DARK_UNIT, "dark_realloc", (allocator), (address), (byte_old), (byte_new))
-#define dark_brealloc(allocator, address, size, count_old, count_new) dark_memory_debug_allocate((Dark_Location){ __FILE__, __func__, __LINE__, __DATE__, __TIME__ }, DARK_LIBRARY, DARK_MODULE, DARK_UNIT, "dark_brealloc", (allocator), (address), (size) * (count_old), (size) * (count_new))
+#define dark_brealloc(allocator, address, byte, count_old, count_new) dark_memory_debug_allocate((Dark_Location){ __FILE__, __func__, __LINE__, __DATE__, __TIME__ }, DARK_LIBRARY, DARK_MODULE, DARK_UNIT, "dark_brealloc", (allocator), (address), (byte) * (count_old), (byte) * (count_new))
 
 #define dark_free(allocator, address, byte) (void)dark_memory_debug_allocate((Dark_Location){ __FILE__, __func__, __LINE__, __DATE__, __TIME__ }, DARK_LIBRARY, DARK_MODULE, DARK_UNIT, "dark_free", (allocator), (address), (byte), 0)
-#define dark_bfree(allocator, address, size, count) (void)dark_memory_debug_allocate((Dark_Location){ __FILE__, __func__, __LINE__, __DATE__, __TIME__ }, DARK_LIBRARY, DARK_MODULE, DARK_UNIT, "dark_bfree", (allocator), (address), (size) * (count), 0)
+#define dark_bfree(allocator, address, byte, count) (void)dark_memory_debug_allocate((Dark_Location){ __FILE__, __func__, __LINE__, __DATE__, __TIME__ }, DARK_LIBRARY, DARK_MODULE, DARK_UNIT, "dark_bfree", (allocator), (address), (byte) * (count), 0)
 
 #define dark_calloc(allocator, byte) dark_memory_debug_callocate((Dark_Location){ __FILE__, __func__, __LINE__, __DATE__, __TIME__ }, DARK_LIBRARY, DARK_MODULE, DARK_UNIT, "dark_calloc", (allocator), NULL, 0, (byte))
-#define dark_bcalloc(allocator, size, count) dark_memory_debug_callocate((Dark_Location){ __FILE__, __func__, __LINE__, __DATE__, __TIME__ }, DARK_LIBRARY, DARK_MODULE, DARK_UNIT, "dark_bcalloc", (allocator), NULL, 0, (size) * (count))
+#define dark_bcalloc(allocator, byte, count) dark_memory_debug_callocate((Dark_Location){ __FILE__, __func__, __LINE__, __DATE__, __TIME__ }, DARK_LIBRARY, DARK_MODULE, DARK_UNIT, "dark_bcalloc", (allocator), NULL, 0, (byte) * (count))
 
 #define dark_recalloc(allocator, address, byte_old, byte_new) dark_memory_debug_callocate((Dark_Location){ __FILE__, __func__, __LINE__, __DATE__, __TIME__ }, DARK_LIBRARY, DARK_MODULE, DARK_UNIT, "dark_recalloc", (allocator), (address), (byte_old), (byte_new))
-#define dark_brecalloc(allocator, address, size, count_old, count_new) dark_memory_debug_callocate((Dark_Location){ __FILE__, __func__, __LINE__, __DATE__, __TIME__ }, DARK_LIBRARY, DARK_MODULE, DARK_UNIT, "dark_brecalloc", (allocator), (address), (size) * (count_old), (size) * (count_new))
+#define dark_brecalloc(allocator, address, byte, count_old, count_new) dark_memory_debug_callocate((Dark_Location){ __FILE__, __func__, __LINE__, __DATE__, __TIME__ }, DARK_LIBRARY, DARK_MODULE, DARK_UNIT, "dark_brecalloc", (allocator), (address), (byte) * (count_old), (byte) * (count_new))
 #endif // defined(___DARK_DEBUG)
 
 #endif // !defined(___DARK___ALLOCATOR_OVERRIDE_H)

@@ -22,9 +22,9 @@
 
 #include "char_module.h"
 
+#include <dark/algorithm/algorithm.h>
 #include <dark/char/char.h>
 #include <dark/core/core.h>
-#include <dark/order/order.h>
 
 #undef DARK_UNIT
 #define DARK_UNIT "cbuffer"

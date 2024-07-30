@@ -7,6 +7,12 @@ int main()
 
     dark_test_initialise();
 
+    DARK_TEST("file_struct_byte")
+    {
+        DARK_TEST_GT_U(dark_file_struct_byte(), 0);
+    }
+    //--------------------------
+
     //----------TEST----------
     DARK_TEST("file_new/delete")
     {
@@ -34,13 +40,14 @@ int main()
     DARK_TEST("file_write")
     {
         char buffer[] = "blablablupp";
+        Dark_Array array = { .data = buffer, .size = 12, .element_byte = sizeof(char)};
 
         Dark_File* const file = dark_file_new(allocator);
 
         Dark_Oserror result = dark_file_open(file, "test_file", DARK_FILE_MODE_WRITE, DARK_FILE_FLAG_NONE);
         DARK_TEST_TRUE(DARK_OSERROR_NONE == result);
 
-        result = dark_file_write(file, sizeof(char), sizeof(buffer), buffer);
+        result = dark_file_write(file, array);
         DARK_TEST_TRUE(DARK_OSERROR_NONE == result);
 
         result = dark_file_close(file);
@@ -60,7 +67,7 @@ int main()
         Dark_Oserror result = dark_file_open(file, "test_file", DARK_FILE_MODE_READ, DARK_FILE_FLAG_NONE);
         DARK_TEST_TRUE(DARK_OSERROR_NONE == result);
 
-        const char* mapped = NULL;
+        void* mapped = NULL;
         result = dark_file_mmap(file, &mapped);
         DARK_TEST_TRUE(DARK_OSERROR_NONE == result);
 
@@ -92,7 +99,7 @@ int main()
     //--------------------------
 
     //----------TEST----------
-    DARK_TEST("file_open_is")
+    DARK_TEST("file_open_is/byte")
     {
         Dark_File* const file = dark_file_new(allocator);
 
@@ -100,7 +107,7 @@ int main()
         DARK_TEST_TRUE(DARK_OSERROR_NONE == result);
 
         size_t size = 0;
-        result = dark_file_size_get(file, &size);
+        result = dark_file_byte(file, &size);
         DARK_TEST_TRUE(DARK_OSERROR_NONE == result);
         DARK_TEST_GT_U(size, 0);
 

@@ -1,6 +1,11 @@
 #include <dark/darkstar.h>
 #include <dark/darktest.h>
 
+bool foreach_helper(int32_t* element, int32_t* context)
+{
+    *context += *element;
+}
+
 int main()
 {
     Dark_Allocator* allocator = dark_os_allocator_new();
@@ -8,9 +13,9 @@ int main()
     dark_test_initialise();
 
     //----------TEST----------
-    DARK_TEST("vector_struct_size")
+    DARK_TEST("vector_struct_byte")
     {
-        DARK_TEST_GT_U(dark_vector_struct_size(), 0);
+        DARK_TEST_GT_U(dark_vector_struct_byte(), 0);
     }
     //--------------------------
 
@@ -846,20 +851,32 @@ int main()
     //--------------------------
 
     //----------TEST----------
-    DARK_TEST("vector_element_size")
+    DARK_TEST("vector_foreach")
     {
-        Dark_Vector* const vector = dark_vector_new_size(allocator, dark_growth_standard, sizeof(int), 5, 4);
+        Dark_Vector* const vector = dark_vector_new(allocator, dark_growth_standard, sizeof(int32_t));
 
-        DARK_TEST_EQ_U(dark_vector_element_size(vector), sizeof(int));
+        int32_t buffer[5] = { 1, 333, 111, 0, -1 };
+        const Dark_Array array = { buffer, 5, sizeof(int32_t) };
+
+        dark_vector_push_back(allocator, vector, dark_array_view(array));
+
+        int32_t sum = 0;
+        dark_vector_foreach(vector, &sum, (Dark_Foreach)foreach_helper);
+
+        DARK_TEST_EQ_I(sum, 444);
 
         dark_vector_delete(allocator, vector);
     }
     //--------------------------
 
-        //----------TEST----------
-    DARK_TEST("vector_size_max")
+    //----------TEST----------
+    DARK_TEST("vector_element_byte")
     {
-        DARK_TEST_GT_U(dark_vector_size_max(), 0);
+        Dark_Vector* const vector = dark_vector_new_size(allocator, dark_growth_standard, sizeof(int), 5, 4);
+
+        DARK_TEST_EQ_U(dark_vector_element_byte(vector), sizeof(int));
+
+        dark_vector_delete(allocator, vector);
     }
     //--------------------------
 

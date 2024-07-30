@@ -6,9 +6,9 @@ int main()
     dark_test_initialise();
 
     //----------TEST----------
-    DARK_TEST("os_allocator_context_size")
+    DARK_TEST("os_allocator_context_byte")
     {
-        DARK_TEST_GT_U(dark_os_allocator_context_size(), 0);
+        DARK_TEST_GT_U(dark_os_allocator_context_byte(), 0);
     }
     //------------------------
 

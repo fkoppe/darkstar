@@ -34,7 +34,7 @@ typedef struct Dark_Thread Dark_Thread;
 
 typedef void (*Dark_Thread_Worker)(void* argument);
 
-size_t dark_thread_struct_size(void);
+size_t dark_thread_struct_byte(void);
 
 void dark_thread_construct(Dark_Thread* thread, Dark_Thread_Worker function, void* argument);
 void dark_thread_destruct(Dark_Thread* thread);

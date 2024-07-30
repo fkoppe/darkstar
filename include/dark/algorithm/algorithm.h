@@ -20,11 +20,10 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___ORDER_H)
-#define ___DARK___ORDER_H
+#if !defined(___DARK___ALGORITHM_H)
+#define ___DARK___ALGORITHM_H
 
-#include <dark/order/compare.h>
-#include <dark/order/find.h>
-#include <dark/order/sort.h>
+#include <dark/algorithm/find.h>
+#include <dark/algorithm/sort.h>
 
-#endif // !defined(___DARK___ORDER_H)
+#endif // !defined(___DARK___ALGORITHM_H)

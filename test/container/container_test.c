@@ -1,6 +1,11 @@
 #include <dark/darkstar.h>
 #include <dark/darktest.h>
 
+bool foreach_helper(int32_t* element, int32_t* context)
+{
+    *context += *element;
+}
+
 bool next_is_helper(void* context)
 {
     return true;
@@ -18,12 +23,26 @@ int main()
     dark_test_initialise();
 
     //----------TEST----------
-    DARK_TEST("array")
+    DARK_TEST("array_view")
     {
         int buffer[12] = { 0 };
 
-        Dark_Array array = { .data = buffer, .size = 12, .element_size = sizeof(int)};
+        Dark_Array array = { .data = buffer, .size = 12, .element_byte = sizeof(int32_t)};
         dark_array_view(array);
+    }
+    //--------------------------
+
+    //----------TEST----------
+    DARK_TEST("array_foreach")
+    {
+        int buffer[5] = { 0, 1, 2, 3, 4 };
+
+        Dark_Array array = { .data = buffer, .size = 5, .element_byte = sizeof(int32_t)};
+
+        int32_t sum = 0;
+        dark_array_foreach(array, &sum, (Dark_Foreach)foreach_helper);
+
+        DARK_TEST_EQ_I(sum, 10);
     }
     //--------------------------
 

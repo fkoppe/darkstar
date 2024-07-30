@@ -60,7 +60,7 @@ struct Dark_Thread_Struct
 #endif // defined(___DARK_UNIX)
 };
 
-size_t dark_thread_struct_size(void)
+size_t dark_thread_struct_byte(void)
 {
     return sizeof(Dark_Thread_Struct);
 }

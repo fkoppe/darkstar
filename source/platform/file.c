@@ -55,7 +55,7 @@ struct Dark_File_Struct
     FILE* handle;
 };
 
-size_t dark_file_struct_size(void)
+size_t dark_file_struct_byte(void)
 {
     return sizeof(Dark_File_Struct);
 }
@@ -153,19 +153,19 @@ bool dark_file_open_is(Dark_File* const file_)
     return file->handle;
 }
 
-Dark_Oserror dark_file_write(Dark_File* const file_, const size_t size_, const size_t count_, const void* const data_)
+Dark_Oserror dark_file_write(Dark_File* const file_, const Dark_Array array_)
 {
     DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
-    DARK_ASSERT(size_ > 0, DARK_ERROR_ZERO);
-    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
-    DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
+    DARK_ASSERT(array_.element_byte > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(array_.size > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(array_.data != NULL, DARK_ERROR_NULL);
 
     Dark_File_Struct* const file = (Dark_File_Struct*)file_;
 
     DARK_ASSERT_MESSAGE(NULL != file->handle, DARK_ERROR_STATE, DARK_MESSAGE_FILE_OPENED_NOT);
     DARK_ASSERT_MESSAGE((file->flag & DARK_FILE_FLAG_UPDATE) || DARK_FILE_MODE_WRITE == file->mode || DARK_FILE_MODE_APPEND == file->mode, DARK_ERROR_STATE, DARK_MESSAGE_FILE_MODE_WRITE);
 
-    if (fwrite(data_, size_, count_, file->handle) != count_)
+    if (fwrite(array_.data, array_.element_byte, array_.size, file->handle) != array_.size)
     {
         return dark_oserror_occured();
     }
@@ -203,11 +203,11 @@ Dark_Oserror dark_file_read(Dark_File* const file_, const size_t max_, char* con
     return DARK_OSERROR_NONE;
 }
 
-Dark_Oserror dark_file_binary_read(Dark_File* const file_, const size_t element_size_, const size_t element_count_, size_t* const count_, char* const destination_)
+Dark_Oserror dark_file_binary_read(Dark_File* const file_, const size_t element_byte_, const size_t max_, size_t* const count_, void* const destination_)
 {
     DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
-    DARK_ASSERT(element_size_ > 0, DARK_ERROR_ZERO);
-    DARK_ASSERT(element_count_ > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(element_byte_ > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(max_ > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != count_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
 
@@ -217,7 +217,7 @@ Dark_Oserror dark_file_binary_read(Dark_File* const file_, const size_t element_
     DARK_ASSERT_MESSAGE((file->flag & DARK_FILE_FLAG_UPDATE) || DARK_FILE_MODE_READ == file->mode, DARK_ERROR_STATE, DARK_MESSAGE_FILE_MODE_READ);
     DARK_ASSERT_MESSAGE(!(file->flag & DARK_FILE_FLAG_BINARY), DARK_ERROR_STATE, DARK_MESSAGE_FILE_FLAG_BINARY);
 
-    *count_ = fread(destination_, element_size_, element_count_, file->handle);
+    *count_ = fread(destination_, element_byte_, max_, file->handle);
 
     if (ferror(file->handle))
     {
@@ -227,7 +227,7 @@ Dark_Oserror dark_file_binary_read(Dark_File* const file_, const size_t element_
     return DARK_OSERROR_NONE;
 }
 
-Dark_Oserror dark_file_mmap(Dark_File* const file_, const char** const destination_)
+Dark_Oserror dark_file_mmap(Dark_File* const file_, void** const destination_)
 {
     DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
@@ -270,7 +270,7 @@ Dark_Oserror dark_file_mmap(Dark_File* const file_, const char** const destinati
     return DARK_OSERROR_NONE;
 }
 
-Dark_Oserror dark_file_size_get(Dark_File* const file_, size_t* const destination_)
+Dark_Oserror dark_file_byte(Dark_File* const file_, size_t* const destination_)
 {
     DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
