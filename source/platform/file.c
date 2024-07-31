@@ -283,7 +283,7 @@ Dark_Oserror dark_file_byte(Dark_File* const file_, size_t* const destination_)
 #if defined(___DARK_WINDOWS)
     LARGE_INTEGER size;
 
-    if (0 == GetFileSizeEx((FILE)_get_osfhandle(fileno(file->handle)), &size))
+    if (0 == GetFileSizeEx((HANDLE)_get_osfhandle(fileno(file->handle)), &size))
     {
         return dark_oserror_occured();
     }
