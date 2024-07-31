@@ -20,18 +20,17 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___STAMP_H)
+#define ___DARK___STAMP_H
 
-#include <dark/algorithm/algorithm.h>
-#include <dark/char/char.h>
-#include <dark/container/container.h>
-#include <dark/core/core.h>
-#include <dark/hash/hash.h>
-#include <dark/math/math.h>
-#include <dark/memory/memory.h>
-#include <dark/platform/platform.h>
-#include <dark/random/random.h>
-#include <dark/time/time.h>
+#include <dark/char/cbuffer.h>
+#include <dark/core/std.h>
 
-#endif // !defined(___DARK___DARKSTAR_H)
+#define DARK_STAMP_HMS_SIZE 8
+#define DARK_STAMP_HMS_TERMINATED_SIZE 9
+
+void dark_stamp_hms(Dark_Cbuffer destination);
+void dark_stamp_hms_terminated(Dark_Cbuffer destination);
+
+#endif // !defined(___DARK___STAMP_H)
+

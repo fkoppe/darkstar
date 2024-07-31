@@ -20,18 +20,49 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___STOPWATCH_H)
+#define ___DARK___STOPWATCH_H
 
-#include <dark/algorithm/algorithm.h>
-#include <dark/char/char.h>
-#include <dark/container/container.h>
-#include <dark/core/core.h>
-#include <dark/hash/hash.h>
-#include <dark/math/math.h>
-#include <dark/memory/memory.h>
-#include <dark/platform/platform.h>
-#include <dark/random/random.h>
-#include <dark/time/time.h>
+#include <dark/core/std.h>
+#include <dark/memory/allocator.h>
 
-#endif // !defined(___DARK___DARKSTAR_H)
+typedef struct Dark_Stopwatch Dark_Stopwatch;
+
+typedef struct Dark_Stopwatch_Struct Dark_Stopwatch_Struct;
+struct Dark_Stopwatch_Struct
+{
+    uint64_t time;
+    uint64_t stamp;
+    bool running_is;
+};
+
+size_t dark_stopwatch_struct_byte(void);
+
+Dark_Stopwatch* dark_stopwatch_new(Dark_Allocator* allocator);
+Dark_Stopwatch* dark_stopwatch_new_start(Dark_Allocator* allocator);
+
+void dark_stopwatch_delete(Dark_Allocator* allocator, Dark_Stopwatch* stopwatch);
+uint64_t dark_stopwatch_delete_ns(Dark_Allocator* allocator, Dark_Stopwatch* stopwatch);
+uint64_t dark_stopwatch_delete_ms(Dark_Allocator* allocator, Dark_Stopwatch* stopwatch);
+uint64_t dark_stopwatch_delete_s(Dark_Allocator* allocator, Dark_Stopwatch* stopwatch);
+
+void dark_stopwatch_start(Dark_Stopwatch* stopwatch);
+void dark_stopwatch_stop(Dark_Stopwatch* stopwatch);
+
+void dark_stopwatch_reset(Dark_Stopwatch* stopwatch);
+uint64_t dark_stopwatch_reset_ns(Dark_Stopwatch* stopwatch);
+uint64_t dark_stopwatch_reset_ms(Dark_Stopwatch* stopwatch);
+uint64_t dark_stopwatch_reset_s(Dark_Stopwatch* stopwatch);
+
+void dark_stopwatch_restart(Dark_Stopwatch* stopwatch);
+uint64_t dark_stopwatch_restart_ns(Dark_Stopwatch* stopwatch);
+uint64_t dark_stopwatch_restart_ms(Dark_Stopwatch* stopwatch);
+uint64_t dark_stopwatch_restart_s(Dark_Stopwatch* stopwatch);
+
+bool dark_stopwatch_running_is(Dark_Stopwatch* stopwatch);
+
+uint64_t dark_stopwatch_ns(Dark_Stopwatch* stopwatch);
+uint64_t dark_stopwatch_ms(Dark_Stopwatch* stopwatch);
+uint64_t dark_stopwatch_s(Dark_Stopwatch* stopwatch);
+
+#endif // !defined(___DARK___STOPWATCH_H)
