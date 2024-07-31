@@ -59,7 +59,7 @@ uint32_t dark_hash_murmur2_seed_32(const size_t byte_, const void* const data_, 
     //seed_
 
     const uint32_t m = 0x5bd1e995;
-    const int r = 24;
+    const int32_t r = 24;
 
     uint32_t hash = seed_ ^ byte_;
 
@@ -100,7 +100,7 @@ uint32_t dark_hash_murmur2a_seed_32(const size_t byte_, const void* const data_,
     //seed_
 
     const uint32_t m = 0x5bd1e995;
-    const int r = 24;
+    const int32_t r = 24;
 
     uint32_t hash = seed_;
 
@@ -153,7 +153,7 @@ uint64_t dark_hash_murmur2a_seed_64(const size_t byte_, const void* const data_,
     //seed_
 
     const uint64_t m = 0xc6a4a7935bd1e995;
-    const int r = 47;
+    const int64_t r = 47;
 
     uint64_t hash = seed_ ^ (byte_ * m);
 

@@ -1,7 +1,7 @@
 #include <dark/darkstar.h>
 #include <dark/darktest.h>
 
-bool foreach_helper(int32_t* element, int32_t* context)
+void foreach_helper(int32_t* element, int32_t* context)
 {
     *context += *element;
 }
