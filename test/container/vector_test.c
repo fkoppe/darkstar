@@ -8,7 +8,7 @@ void foreach_helper(int32_t* element, int32_t* context)
 
 int main()
 {
-    Dark_Allocator* allocator = dark_os_allocator_new();
+    Dark_Allocator* const allocator = dark_os_allocator_new();
 
     dark_test_initialise();
 
