@@ -153,44 +153,47 @@ uint64_t dark_hash_murmur2a_seed_64(const size_t byte_, const void* const data_,
     //seed_
 
     const uint64_t m = 0xc6a4a7935bd1e995;
-    const int64_t r = 47;
+    const int32_t r = 47;
 
     uint64_t hash = seed_ ^ (byte_ * m);
 
-    for(size_t i = 0; i <= byte_ / sizeof(uint64_t); i++)
+    const uint64_t* data = data_;
+    const uint64_t* end = data + (byte_ / sizeof(uint64_t));
+
+    while(data != end)
     {
-        uint64_t k = *((uint64_t*)data_ + i );
+        uint64_t k = *data++;
 
         k *= m;
         k ^= k >> r;
         k *= m;
+
         hash ^= k;
         hash *= m;
     }
 
-    switch((byte_ % 8) & 7)
+    switch(byte_ & 7)
     {
     case 7:
-        hash ^= ((uint8_t*)data_)[6] << 48;
+        hash ^= ((uint64_t)((uint8_t*)data_)[6]) << 48;
     case 6:
-        hash ^= ((uint8_t*)data_)[5] << 40;
+        hash ^= ((uint64_t)((uint8_t*)data_)[5]) << 40;
     case 5:
-        hash ^= ((uint8_t*)data_)[4] << 32;
+        hash ^= ((uint64_t)((uint8_t*)data_)[4]) << 32;
     case 4:
-        hash ^= ((uint8_t*)data_)[3] << 24;
+        hash ^= ((uint64_t)((uint8_t*)data_)[3]) << 24;
     case 3:
-        hash ^= ((uint8_t*)data_)[2] << 16;
+        hash ^= ((uint64_t)((uint8_t*)data_)[2]) << 16;
     case 2:
-        hash ^= ((uint8_t*)data_)[1] << 8;
+        hash ^= ((uint64_t)((uint8_t*)data_)[1]) << 8;
     case 1:
-        hash ^= ((uint8_t*)data_)[0];
+        hash ^= ((uint64_t)((uint8_t*)data_)[0]);
         hash *= m;
-        break;
     };
 
     hash ^= hash >> r;
     hash *= m;
     hash ^= hash >> r;
 
-  return hash;
+    return hash;
 }
