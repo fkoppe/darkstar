@@ -171,19 +171,19 @@ uint64_t dark_hash_murmur2a_seed_64(const size_t byte_, const void* const data_,
     switch((byte_ % 8) & 7)
     {
     case 7:
-        hash ^= ((uint64_t*)data_)[6] << 48;
+        hash ^= ((uint8_t*)data_)[6] << 48;
     case 6:
-        hash ^= ((uint64_t*)data_)[5] << 40;
+        hash ^= ((uint8_t*)data_)[5] << 40;
     case 5:
-        hash ^= ((uint64_t*)data_)[4] << 32;
+        hash ^= ((uint8_t*)data_)[4] << 32;
     case 4:
-        hash ^= ((uint64_t*)data_)[3] << 24;
+        hash ^= ((uint8_t*)data_)[3] << 24;
     case 3:
-        hash ^= ((uint64_t*)data_)[2] << 16;
+        hash ^= ((uint8_t*)data_)[2] << 16;
     case 2:
-        hash ^= ((uint64_t*)data_)[1] << 8;
+        hash ^= ((uint8_t*)data_)[1] << 8;
     case 1:
-        hash ^= ((uint64_t*)data_)[0];
+        hash ^= ((uint8_t*)data_)[0];
         hash *= m;
         break;
     };
