@@ -238,7 +238,7 @@ Dark_Oserror dark_file_mmap(Dark_File* const file_, void** const destination_)
     DARK_ASSERT_MESSAGE((file->flag & DARK_FILE_FLAG_UPDATE || DARK_FILE_MODE_READ) == file->mode, DARK_ERROR_STATE, DARK_MESSAGE_FILE_MODE_READ);
 
 #if defined(___DARK_WINDOWS)
-    const FILE handle_mapped = CreateFileMapping((FILE)_get_osfhandle(fileno(file->handle)), NULL, PAGE_READONLY, 0, 0, 0);
+    const HANDLE handle_mapped = CreateFileMapping((HANDLE)_get_osfhandle(fileno(file->handle)), NULL, PAGE_READONLY, 0, 0, 0);
     if (NULL == handle_mapped)
     {
         return dark_oserror_occured();
