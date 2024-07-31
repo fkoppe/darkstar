@@ -238,7 +238,7 @@ Dark_Oserror dark_file_mmap(Dark_File* const file_, void** const destination_)
     DARK_ASSERT_MESSAGE((file->flag & DARK_FILE_FLAG_UPDATE || DARK_FILE_MODE_READ) == file->mode, DARK_ERROR_STATE, DARK_MESSAGE_FILE_MODE_READ);
 
 #if defined(___DARK_WINDOWS)
-    const HANDLE handle_mapped = CreateFileMapping((HANDLE)_get_osfhandle(fileno(file->handle)), NULL, PAGE_READONLY, 0, 0, 0);
+    const FILE handle_mapped = CreateFileMapping((FILE)_get_osfhandle(fileno(file->handle)), NULL, PAGE_READONLY, 0, 0, 0);
     if (NULL == handle_mapped)
     {
         return dark_oserror_occured();
@@ -283,7 +283,7 @@ Dark_Oserror dark_file_byte(Dark_File* const file_, size_t* const destination_)
 #if defined(___DARK_WINDOWS)
     LARGE_INTEGER size;
 
-    if (0 == GetFileSizeEx((HANDLE)_get_osfhandle(fileno(file->handle)), &size))
+    if (0 == GetFileSizeEx((FILE)_get_osfhandle(fileno(file->handle)), &size))
     {
         return dark_oserror_occured();
     }

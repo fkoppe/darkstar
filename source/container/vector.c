@@ -414,7 +414,7 @@ void dark_vector_pop(Dark_Vector* const vector_, const size_t index_, const size
         return;
     }
 
-    dark_memmove(vector->array.data + (vector->array.element_byte * index_), (uint8_t*)vector->array.data + (vector->array.element_byte * (index_ + count_)), vector->array.element_byte * (vector->array.size - index_));
+    dark_memmove((uint8_t*)vector->array.data + (vector->array.element_byte * index_), (uint8_t*)vector->array.data + (vector->array.element_byte * (index_ + count_)), vector->array.element_byte * (vector->array.size - index_));
 }
 
 void dark_vector_pop_front(Dark_Vector* const vector_, const size_t count_)
