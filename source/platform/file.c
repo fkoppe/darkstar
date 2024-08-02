@@ -51,6 +51,7 @@
 typedef struct Dark_File_Struct Dark_File_Struct;
 struct Dark_File_Struct
 {
+    Dark_Allocator* allocator;
     Dark_File_Mode mode;
     Dark_File_Flag flag;
     FILE* handle;

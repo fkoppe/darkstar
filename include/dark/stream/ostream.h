@@ -41,8 +41,8 @@ struct Dark_Ostream_Settings
 typedef struct Dark_Ostream_Struct Dark_Ostream_Struct;
 struct Dark_Ostream_Struct
 {
-    Dark_Ostream_Settings settings;
     Dark_Allocator* allocator;
+    Dark_Ostream_Settings settings;
     Dark_Vector* file_vector;
     Dark_Vector* buffer_vector;
     struct

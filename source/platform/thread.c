@@ -48,6 +48,7 @@
 typedef struct Dark_Thread_Struct Dark_Thread_Struct;
 struct Dark_Thread_Struct
 {
+    Dark_Allocator* allocator;
     uint64_t id;
     bool joinable_is;
 
@@ -118,7 +119,7 @@ void* dark_thread_new(Dark_Allocator* const allocator_, const Dark_Thread_Worker
     return thread;
 }
 
-void dark_thread_delete(Dark_Allocator* const allocator_, Dark_Thread* const thread_)
+void dark_thread_delete(Dark_Thread* const thread_)
 {
     DARK_ASSERT(NULL != thread_, DARK_ERROR_NULL);
 

@@ -63,11 +63,11 @@ static const Dark_Message DARK_MESSAGE_FILE_OPENED_ALREADY = { NULL, "file alrea
 
 size_t dark_file_struct_byte(void);
 
-void dark_file_construct(Dark_File* file);
+void dark_file_construct(Dark_Allocator* allocator, Dark_File* file);
 void dark_file_destruct(Dark_File* file);
 
 Dark_File* dark_file_new(Dark_Allocator* allocator);
-void dark_file_delete(Dark_Allocator* allocator, Dark_File* file);
+void dark_file_delete(Dark_File* file);
 
 Dark_Oserror dark_file_open(Dark_File* file, const char* path, Dark_File_Mode mode, Dark_File_Flag flag);
 Dark_Oserror dark_file_close(Dark_File* file);

@@ -20,13 +20,12 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___CHAR_H)
-#define ___DARK___CHAR_H
+#if !defined(___DARK___LOG_MODULE_H)
+#define ___DARK___LOG_MODULE_H
 
-#include <dark/char/alphabet.h>
-#include <dark/char/cbuffer.h>
-#include <dark/char/cstring.h>
-#include <dark/char/digit.h>
-#include <dark/char/string.h>
+#include <dark/core/std.h>
 
-#endif // !defined(___DARK___CHAR_H)
+#undef DARK_MODULE
+#define DARK_MODULE "log"
+
+#endif // !defined(___DARK___LOG_MODULE_H)

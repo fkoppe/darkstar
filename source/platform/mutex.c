@@ -47,8 +47,8 @@
 typedef struct Dark_Mutex_Struct Dark_Mutex_Struct;
 struct Dark_Mutex_Struct
 {
-    bool owned_is;
     Dark_Allocator* allocator;
+    bool owned_is;
 #if defined(___DARK_WINDOWS)
     CRITICAL_SECTION section;
 #endif // defined(___DARK_WINDOWS)

@@ -20,13 +20,11 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___CHAR_H)
-#define ___DARK___CHAR_H
+#if !defined(___DARK___LOG_H)
+#define ___DARK___LOG_H
 
-#include <dark/char/alphabet.h>
-#include <dark/char/cbuffer.h>
-#include <dark/char/cstring.h>
-#include <dark/char/digit.h>
-#include <dark/char/string.h>
+#include <dark/log/logger.h>
+#include <dark/log/log_data.h>
+#include <dark/log/static_log.h>
 
-#endif // !defined(___DARK___CHAR_H)
+#endif // !defined(___DARK___LOG_H)

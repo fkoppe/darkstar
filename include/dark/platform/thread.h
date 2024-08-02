@@ -36,8 +36,8 @@ typedef void (*Dark_Thread_Worker)(void* argument);
 
 size_t dark_thread_struct_byte(void);
 
-void dark_thread_construct(Dark_Thread* thread, Dark_Thread_Worker function, void* argument);
-void dark_thread_destruct(Dark_Thread* thread);
+void dark_thread_construct(Dark_Allocator* allocator, Dark_Thread* thread, Dark_Thread_Worker function, void* argument);
+void dark_thread_destruct(Dark_Allocator* allocator, Dark_Thread* thread);
 
 void* dark_thread_new(Dark_Allocator* allocator, Dark_Thread_Worker function, void* argument);
 void dark_thread_delete(Dark_Allocator* allocator, Dark_Thread* thread);
