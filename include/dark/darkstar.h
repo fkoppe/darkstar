@@ -32,6 +32,8 @@
 #include <dark/memory/memory.h>
 #include <dark/platform/platform.h>
 #include <dark/random/random.h>
+#include <dark/stream/stream.h>
 #include <dark/time/time.h>
+#include <dark/tool/tool.h>
 
 #endif // !defined(___DARK___DARKSTAR_H)

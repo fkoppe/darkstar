@@ -24,7 +24,8 @@
 #define ___DARK___SUPERFAST_H
 
 #include <dark/core/std.h>
+#include <dark/tool/buffer.h>
 
-uint32_t dark_hash_superfast_32(size_t byte, const void* data);
+uint32_t dark_hash_superfast_32(Dark_Buffer_View buffer_view);
 
 #endif // !defined(___DARK___SUPERFAST_H)

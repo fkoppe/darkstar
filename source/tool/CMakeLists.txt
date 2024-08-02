@@ -1,0 +1,10 @@
+target_sources(
+    darkstar
+    PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/array.c
+    ${CMAKE_CURRENT_LIST_DIR}/array_iterator.c
+    ${CMAKE_CURRENT_LIST_DIR}/compare.c
+	${CMAKE_CURRENT_LIST_DIR}/growth.c
+	${CMAKE_CURRENT_LIST_DIR}/iterator.c
+	${CMAKE_CURRENT_LIST_DIR}/tool_module.h
+)

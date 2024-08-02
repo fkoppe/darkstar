@@ -20,28 +20,38 @@
 *                                                                                   *
 ************************************************************************************/
 
-#include "container_module.h"
+#if !defined(___DARK___ARRAY_H)
+#define ___DARK___ARRAY_H
 
-#include <dark/container/container.h>
-#include <dark/core/core.h>
+#include <dark/core/std.h>
+#include <dark/tool/buffer.h>
+#include <dark/tool/foreach.h>
 
-#undef DARK_UNIT
-#define DARK_UNIT "iterator"
-
-bool dark_iterator_next_is(Dark_Iterator* const iterator_)
+typedef struct Dark_Array Dark_Array;
+struct Dark_Array
 {
-    DARK_ASSERT(NULL != iterator_, DARK_ERROR_NULL);
+    size_t element_byte;
+    size_t size;
+    void* data;
+};
 
-    Dark_Iterator_Struct* const iterator = (Dark_Iterator_Struct*)iterator_;
-
-    return iterator->next_is(iterator->context);
-}
-
-void* dark_iterator_next(Dark_Iterator* const iterator_)
+typedef struct Dark_Array_View Dark_Array_View;
+struct Dark_Array_View
 {
-    DARK_ASSERT(NULL != iterator_, DARK_ERROR_NULL);
+    size_t element_byte;
+    size_t size;
+    const void* data;
+};
 
-    Dark_Iterator_Struct* const iterator = (Dark_Iterator_Struct*)iterator_;
+Dark_Array_View dark_array_view(Dark_Array array);
 
-    return iterator->next(iterator->context);
-}
+Dark_Buffer dark_array_buffer(Dark_Array array);
+Dark_Buffer_View dark_array_buffer_view(Dark_Array array);
+Dark_Buffer_View dark_array_view_buffer_view(Dark_Array_View array_view);
+
+void dark_array_foreach(Dark_Array array, void* context, Dark_Foreach foreach);
+
+int8_t dark_array_compare(const Dark_Array* a, const Dark_Array* b);
+int8_t dark_array_view_compare(const Dark_Array_View* a, const Dark_Array_View* b);
+
+#endif // !defined(___DARK___ARRAY_H)

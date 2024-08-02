@@ -23,12 +23,15 @@ int main()
     dark_test_initialise();
 
     //----------TEST----------
-    DARK_TEST("array_view")
+    DARK_TEST("array")
     {
         int buffer[12] = { 0 };
 
-        Dark_Array array = { .data = buffer, .size = 12, .element_byte = sizeof(int32_t)};
+        Dark_Array array = { sizeof(int32_t), 12, buffer};
         dark_array_view(array);
+        dark_array_buffer(array);
+        dark_array_buffer_view(array);
+        dark_array_view_buffer_view(dark_array_view(array));
     }
     //--------------------------
 
@@ -37,10 +40,33 @@ int main()
     {
         int buffer[5] = { 0, 1, 2, 3, 4 };
 
-        Dark_Array array = { .data = buffer, .size = 5, .element_byte = sizeof(int32_t)};
+       Dark_Array array = { sizeof(int32_t), 12, buffer};
 
         int32_t sum = 0;
         dark_array_foreach(array, &sum, (Dark_Foreach)foreach_helper);
+
+        DARK_TEST_EQ_I(sum, 10);
+    }
+    //--------------------------
+
+    //----------TEST----------
+    DARK_TEST("buffer")
+    {
+        uint8_t buffer[12] = { 0 };
+        Dark_Buffer buffer = { 12, buffer };
+
+        dark_buffer_view(array);
+    }
+    //--------------------------
+
+    //----------TEST----------
+    DARK_TEST("buffer_foreach")
+    {
+        uint8_t buffer[5] = { 0, 1, 2, 3, 4 };
+        Dark_Buffer buffer = { 12, buffer };
+
+        int32_t sum = 0;
+        dark_buffer_foreach(buffer, &sum, (Dark_Foreach)foreach_helper);
 
         DARK_TEST_EQ_I(sum, 10);
     }

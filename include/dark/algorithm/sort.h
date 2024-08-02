@@ -23,8 +23,8 @@
 #if !defined(___DARK___SORT_H)
 #define ___DARK___SORT_H
 
-#include <dark/container/array.h>
 #include <dark/core/std.h>
+#include <dark/tool/array.h>
 
 bool dark_sort_is(Dark_Array_View array_view, Dark_Compare compare);
 

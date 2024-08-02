@@ -141,10 +141,10 @@ int main()
     {
         const char* const cstring = "1234";
         char buf[DARK_DIGIT_COUNT_MAX_U64]= "aaaaaaaaaaaaaaaaaaaa"; //20
-        const Dark_Cbuffer cbuffer = { buf, 20 };
+        const Dark_Cbuffer cbuffer = { 20, buf };
         size_t lenght = 0;
 
-        dark_digit_write_cbuffer_u(55435, 5, cbuffer);
+        dark_digit_write_u(55435, 5, cbuffer);
 
         DARK_TEST_FALSE(dark_cbuffer_terminated_is(cbuffer, &lenght));
     }
@@ -155,10 +155,10 @@ int main()
     {
         const char* const cstring = "1234";
         char buf[DARK_DIGIT_COUNT_MAX_U64] = "aaaaaaaaaaaaaaaaaaaa"; //20
-        const Dark_Cbuffer cbuffer = { buf, 20 };
+        const Dark_Cbuffer cbuffer = { 20, buf };
         size_t lenght = 0;
 
-        dark_digit_write_cbuffer_u_terminated(955435, 6, cbuffer);
+        dark_digit_write_u_terminated(955435, 6, cbuffer);
 
         DARK_TEST_TRUE(dark_cbuffer_terminated_is(cbuffer, &lenght));
         DARK_TEST_EQ_U(6, lenght);
@@ -170,10 +170,10 @@ int main()
     {
         const char* const cstring = "1234";
         char buf[DARK_DIGIT_COUNT_MAX_I64] = "aaaaaaaaaaaaaaaaaaa"; //19
-        const Dark_Cbuffer cbuffer = { buf, 19 };
+        const Dark_Cbuffer cbuffer = { 19, buf };
         size_t lenght = 0;
 
-        dark_digit_write_cbuffer_i(-9555, 4, cbuffer);
+        dark_digit_write_i(-9555, 4, cbuffer);
 
         DARK_TEST_FALSE(dark_cbuffer_terminated_is(cbuffer, &lenght));
     }
@@ -184,10 +184,10 @@ int main()
     {
         const char* const cstring = "1234";
         char buf[DARK_DIGIT_COUNT_MAX_I64] = "aaaaaaaaaaaaaaaaaaa"; //19
-        const Dark_Cbuffer cbuffer = { buf, 19 };
+        const Dark_Cbuffer cbuffer = { 19, buf };
         size_t lenght = 0;
 
-        dark_digit_write_cbuffer_i_terminated(955435, 6, cbuffer);
+        dark_digit_write_i_terminated(955435, 6, cbuffer);
 
         DARK_TEST_TRUE(dark_cbuffer_terminated_is(cbuffer, &lenght));
         DARK_TEST_EQ_U(6, lenght);

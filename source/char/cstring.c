@@ -49,8 +49,8 @@ int8_t dark_cstring_compare(const char* const a_, const char* const b_)
     DARK_ASSERT(NULL != a_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != b_, DARK_ERROR_NULL);
 
-    const Dark_Cbuffer_View a = { a_, dark_cstring_lenght(a_) };
-    const Dark_Cbuffer_View b = { b_, dark_cstring_lenght(b_) };
+    const Dark_Cbuffer_View a = { dark_cstring_lenght(a_), a_ };
+    const Dark_Cbuffer_View b = { dark_cstring_lenght(b_), b_ };
 
     return dark_cbuffer_view_compare(&a, &b);
 }

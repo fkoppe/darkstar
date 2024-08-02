@@ -38,9 +38,9 @@ int main()
 
         }
 
-        dark_stopwatch_delete(allocator, other);
+        dark_stopwatch_delete(other);
 
-        DARK_TEST_GE_U(dark_stopwatch_delete_ms(allocator, stopwatch), 1);
+        DARK_TEST_GE_U(dark_stopwatch_delete_ms(stopwatch), 1);
     }
     //--------------------------
 
@@ -48,19 +48,19 @@ int main()
     DARK_TEST("stamp_hms")
     {
         char buffer[DARK_STAMP_HMS_SIZE];
-        Dark_Cbuffer cbuffer = { buffer, DARK_STAMP_HMS_SIZE };
+        const Dark_Cbuffer cbuffer = { DARK_STAMP_HMS_SIZE, buffer };
 
-        dark_stamp_hms(cbuffer);
+        dark_stamp_hms_write(cbuffer);
     }
     //--------------------------
 
     //----------TEST----------
     DARK_TEST("stamp_hms_terminated")
     {
-        char buffer[DARK_STAMP_HMS_TERMINATED_SIZE];
-        Dark_Cbuffer cbuffer = { buffer, DARK_STAMP_HMS_TERMINATED_SIZE };
+        char buffer[DARK_STAMP_HMS_SIZE_TERMINATED];
+        const Dark_Cbuffer cbuffer = { DARK_STAMP_HMS_SIZE, buffer };
 
-        dark_stamp_hms_terminated(cbuffer);
+        dark_stamp_hms_write_terminated(cbuffer);
 
         dark_cstring_lenght(cbuffer.data);
     }

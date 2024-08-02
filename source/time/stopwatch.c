@@ -35,14 +35,78 @@ size_t dark_stopwatch_struct_size(void)
     return sizeof(Dark_Stopwatch_Struct);
 }
 
+void dark_stopwatch_construct(Dark_Allocator* const allocator_, Dark_Stopwatch* const stopwatch_)
+{
+    DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
+
+    Dark_Stopwatch_Struct* const stopwatch = (Dark_Stopwatch_Struct* )stopwatch_;
+
+    stopwatch->allocator = allocator_;
+    stopwatch->time = 0;
+    stopwatch->stamp = 0;
+    stopwatch->running_is = false;
+}
+
+void dark_stopwatch_construct_start(Dark_Allocator* const allocator_, Dark_Stopwatch* const stopwatch_)
+{
+    DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
+
+    Dark_Stopwatch_Struct* const stopwatch = (Dark_Stopwatch_Struct* )stopwatch_;
+
+    stopwatch->allocator = allocator_;
+    stopwatch->time = 0;
+    stopwatch->stamp = dark_clock_ns();
+    stopwatch->running_is = true;
+}
+
+void dark_stopwatch_destruct(Dark_Stopwatch* const stopwatch_)
+{
+    DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
+
+    Dark_Stopwatch_Struct* const stopwatch = (Dark_Stopwatch_Struct* )stopwatch_;
+
+    //nothing
+}
+
+uint64_t dark_stopwatch_destruct_ns(Dark_Stopwatch* const stopwatch_)
+{
+    DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
+
+    Dark_Stopwatch_Struct* const stopwatch = (Dark_Stopwatch_Struct* )stopwatch_;
+
+    const uint64_t ns = dark_stopwatch_ns((Dark_Stopwatch*)stopwatch);
+
+    dark_stopwatch_destruct((Dark_Stopwatch*)stopwatch);
+
+    return ns;
+}
+
+uint64_t dark_stopwatch_destruct_ms(Dark_Stopwatch* const stopwatch_)
+{
+    DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
+
+    Dark_Stopwatch_Struct* const stopwatch = (Dark_Stopwatch_Struct* )stopwatch_;
+
+    return dark_stopwatch_destruct_ns((Dark_Stopwatch*)stopwatch) / DARK_MEGA;
+}
+
+uint64_t dark_stopwatch_destruct_s(Dark_Stopwatch* const stopwatch_)
+{
+    DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
+
+    Dark_Stopwatch_Struct* const stopwatch = (Dark_Stopwatch_Struct* )stopwatch_;
+
+    return dark_stopwatch_destruct_ms((Dark_Stopwatch*)stopwatch) / DARK_MEGA;
+}
+
 Dark_Stopwatch* dark_stopwatch_new(Dark_Allocator* const allocator_)
 {
     Dark_Stopwatch_Struct* const stopwatch = dark_malloc(allocator_, sizeof(*stopwatch));
     DARK_ASSERT(NULL != stopwatch, DARK_ERROR_ALLOCATION);
 
-    stopwatch->time = 0;
-    stopwatch->stamp = 0;
-    stopwatch->running_is = false;
+    dark_stopwatch_construct(allocator_, (Dark_Stopwatch*)stopwatch);
 
     return (Dark_Stopwatch*)stopwatch;
 }
@@ -52,23 +116,21 @@ Dark_Stopwatch* dark_stopwatch_new_start(Dark_Allocator* const allocator_)
     Dark_Stopwatch_Struct* const stopwatch = dark_malloc(allocator_, sizeof(*stopwatch));
     DARK_ASSERT(NULL != stopwatch, DARK_ERROR_ALLOCATION);
 
-    stopwatch->time = 0;
-    stopwatch->stamp = dark_clock_ns();
-    stopwatch->running_is = true;
+    dark_stopwatch_construct_start(allocator_, (Dark_Stopwatch*)stopwatch);
 
     return (Dark_Stopwatch*)stopwatch;
 }
 
-void dark_stopwatch_delete(Dark_Allocator* const allocator_, Dark_Stopwatch* const stopwatch_)
+void dark_stopwatch_delete(Dark_Stopwatch* const stopwatch_)
 {
     DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
 
     Dark_Stopwatch_Struct* const stopwatch = (Dark_Stopwatch_Struct* )stopwatch_;
 
-    dark_free(allocator_, stopwatch, sizeof(*stopwatch));
+    dark_free(stopwatch->allocator, stopwatch, sizeof(*stopwatch));
 }
 
-uint64_t dark_stopwatch_delete_ns(Dark_Allocator* const allocator_, Dark_Stopwatch* const stopwatch_)
+uint64_t dark_stopwatch_delete_ns(Dark_Stopwatch* const stopwatch_)
 {
     DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
 
@@ -76,27 +138,27 @@ uint64_t dark_stopwatch_delete_ns(Dark_Allocator* const allocator_, Dark_Stopwat
 
     const uint64_t ns = dark_stopwatch_ns((Dark_Stopwatch*)stopwatch);
 
-    dark_stopwatch_delete(allocator_, (Dark_Stopwatch*)stopwatch);
+    dark_stopwatch_delete((Dark_Stopwatch*)stopwatch);
 
     return ns;
 }
 
-uint64_t dark_stopwatch_delete_ms(Dark_Allocator* const allocator_, Dark_Stopwatch* const stopwatch_)
+uint64_t dark_stopwatch_delete_ms(Dark_Stopwatch* const stopwatch_)
 {
     DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
 
     Dark_Stopwatch_Struct* const stopwatch = (Dark_Stopwatch_Struct* )stopwatch_;
 
-    return dark_stopwatch_delete_ns(allocator_, (Dark_Stopwatch*)stopwatch) / DARK_MEGA;
+    return dark_stopwatch_delete_ns((Dark_Stopwatch*)stopwatch) / DARK_MEGA;
 }
 
-uint64_t dark_stopwatch_delete_s(Dark_Allocator* const allocator_, Dark_Stopwatch* const stopwatch_)
+uint64_t dark_stopwatch_delete_s(Dark_Stopwatch* const stopwatch_)
 {
     DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
 
     Dark_Stopwatch_Struct* const stopwatch = (Dark_Stopwatch_Struct* )stopwatch_;
 
-    return dark_stopwatch_delete_ns(allocator_, (Dark_Stopwatch*)stopwatch) / DARK_GIGA;
+    return dark_stopwatch_delete_ms((Dark_Stopwatch*)stopwatch) / DARK_MEGA;
 }
 
 void dark_stopwatch_start(Dark_Stopwatch* const stopwatch_)

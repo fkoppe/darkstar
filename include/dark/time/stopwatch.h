@@ -31,6 +31,7 @@ typedef struct Dark_Stopwatch Dark_Stopwatch;
 typedef struct Dark_Stopwatch_Struct Dark_Stopwatch_Struct;
 struct Dark_Stopwatch_Struct
 {
+    Dark_Allocator* allocator;
     uint64_t time;
     uint64_t stamp;
     bool running_is;
@@ -38,13 +39,21 @@ struct Dark_Stopwatch_Struct
 
 size_t dark_stopwatch_struct_byte(void);
 
+void dark_stopwatch_construct(Dark_Allocator* allocator, Dark_Stopwatch* stopwatch);
+void dark_stopwatch_construct_start(Dark_Allocator* allocator, Dark_Stopwatch* stopwatch);
+
+void dark_stopwatch_destruct(Dark_Stopwatch* stopwatch);
+uint64_t dark_stopwatch_destruct_ns(Dark_Stopwatch* stopwatch);
+uint64_t dark_stopwatch_destruct_ms(Dark_Stopwatch* stopwatch);
+uint64_t dark_stopwatch_destruct_s(Dark_Stopwatch* stopwatch);
+
 Dark_Stopwatch* dark_stopwatch_new(Dark_Allocator* allocator);
 Dark_Stopwatch* dark_stopwatch_new_start(Dark_Allocator* allocator);
 
-void dark_stopwatch_delete(Dark_Allocator* allocator, Dark_Stopwatch* stopwatch);
-uint64_t dark_stopwatch_delete_ns(Dark_Allocator* allocator, Dark_Stopwatch* stopwatch);
-uint64_t dark_stopwatch_delete_ms(Dark_Allocator* allocator, Dark_Stopwatch* stopwatch);
-uint64_t dark_stopwatch_delete_s(Dark_Allocator* allocator, Dark_Stopwatch* stopwatch);
+void dark_stopwatch_delete(Dark_Stopwatch* stopwatch);
+uint64_t dark_stopwatch_delete_ns(Dark_Stopwatch* stopwatch);
+uint64_t dark_stopwatch_delete_ms(Dark_Stopwatch* stopwatch);
+uint64_t dark_stopwatch_delete_s(Dark_Stopwatch* stopwatch);
 
 void dark_stopwatch_start(Dark_Stopwatch* stopwatch);
 void dark_stopwatch_stop(Dark_Stopwatch* stopwatch);

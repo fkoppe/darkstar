@@ -17,7 +17,7 @@ int main()
     DARK_TEST("mutex_new/delete")
     {
         Dark_Mutex* const mutex = dark_mutex_new(allocator);
-        dark_mutex_delete(allocator, mutex);
+        dark_mutex_delete(mutex);
     }
     //--------------------------
 
@@ -32,7 +32,7 @@ int main()
 
         DARK_TEST_TRUE(dark_mutex_trylock(mutex));
 
-        dark_mutex_delete(allocator, mutex);
+        dark_mutex_delete(mutex);
     }
     //--------------------------
 
@@ -47,7 +47,7 @@ int main()
         DARK_TEST_TRUE(dark_mutex_trylock(mutex));
         dark_mutex_unlock(mutex);
 
-        dark_mutex_delete(allocator, mutex);
+        dark_mutex_delete(mutex);
     }
     //--------------------------
 

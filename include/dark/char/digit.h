@@ -56,10 +56,10 @@ size_t dark_digit_count_i32(int32_t number);
 size_t dark_digit_count_i64(int64_t number);
 size_t dark_digit_count_imax(intmax_t number);
 
-void dark_digit_write_cbuffer_u(uintmax_t number, size_t digit_count, Dark_Cbuffer destination);
-void dark_digit_write_cbuffer_u_terminated(uintmax_t number, size_t digit_count, Dark_Cbuffer destination);
+void dark_digit_write_u(uintmax_t number, size_t digit_count, Dark_Cbuffer destination);
+void dark_digit_write_u_terminated(uintmax_t number, size_t digit_count, Dark_Cbuffer destination);
 
-void dark_digit_write_cbuffer_i(intmax_t number, size_t digit_count, Dark_Cbuffer destination);
-void dark_digit_write_cbuffer_i_terminated(intmax_t number, size_t digit_count, Dark_Cbuffer destination);
+void dark_digit_write_i(intmax_t number, size_t digit_count, Dark_Cbuffer destination);
+void dark_digit_write_i_terminated(intmax_t number, size_t digit_count, Dark_Cbuffer destination);
 
 #endif // !defined(___DARK___DIGIT_H)

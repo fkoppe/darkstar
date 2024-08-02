@@ -27,10 +27,10 @@
 #include <dark/core/std.h>
 
 #define DARK_STAMP_HMS_SIZE 8
-#define DARK_STAMP_HMS_TERMINATED_SIZE 9
+#define DARK_STAMP_HMS_SIZE_TERMINATED 9
 
-void dark_stamp_hms(Dark_Cbuffer destination);
-void dark_stamp_hms_terminated(Dark_Cbuffer destination);
+void dark_stamp_hms_write(Dark_Cbuffer destination);
+void dark_stamp_hms_write_terminated(Dark_Cbuffer destination);
 
 #endif // !defined(___DARK___STAMP_H)
 

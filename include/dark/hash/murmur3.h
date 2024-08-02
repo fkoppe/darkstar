@@ -24,9 +24,10 @@
 #define ___DARK___MURMUR3_H
 
 #include <dark/core/std.h>
+#include <dark/tool/buffer.h>
 
-uint32_t dark_hash_murmur3_32(size_t byte, const void* data);
+uint32_t dark_hash_murmur3_32(Dark_Buffer_View buffer_view);
 
-uint32_t dark_hash_murmur3_seed_32(size_t byte, const void* data, uint32_t seed);
+uint32_t dark_hash_murmur3_seed_32(Dark_Buffer_View buffer_view, uint32_t seed);
 
 #endif // !defined(___DARK___MURMUR3_H)

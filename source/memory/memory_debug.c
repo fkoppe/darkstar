@@ -203,7 +203,7 @@ void* dark_memory_debug_allocate(const Dark_Location location_, const Dark_Libra
 
         if(known_is)
         {
-            DEBUG_MEMORY.info.array[DEBUG_MEMORY.info.count - 1] = DEBUG_MEMORY.info.array[index];
+            DEBUG_MEMORY.info.array[index] = DEBUG_MEMORY.info.array[DEBUG_MEMORY.info.count - 1];
 
             DEBUG_MEMORY.info.count--;
         }

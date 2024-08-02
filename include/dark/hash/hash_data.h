@@ -24,8 +24,9 @@
 #define ___DARK___HASH_DATA_H
 
 #include <dark/core/std.h>
+#include <dark/tool/buffer.h>
 
-typedef uint32_t (*Dark_Hash32)(size_t byte, const void* data);
-typedef uint64_t (*Dark_Hash64)(size_t byte, const void* data);
+typedef uint32_t (*Dark_Hash32)(Dark_Buffer_View buffer_view);
+typedef uint64_t (*Dark_Hash64)(Dark_Buffer_View buffer_view);
 
 #endif // !defined(___DARK___HASH_DATA_H)

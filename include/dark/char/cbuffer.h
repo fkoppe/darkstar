@@ -24,25 +24,35 @@
 #define ___DARK___CBUFFER_H
 
 #include <dark/core/std.h>
+#include <dark/tool/array.h>
+#include <dark/tool/buffer.h>
 
 typedef struct Dark_Cbuffer Dark_Cbuffer;
 struct Dark_Cbuffer
 {
-    char* data;
     size_t size;
+    char* data;
 };
 
 typedef struct Dark_Cbuffer_View Dark_Cbuffer_View;
 struct Dark_Cbuffer_View
 {
-    const char* data;
     size_t size;
+    const char* data;
 };
+
+Dark_Cbuffer_View dark_cbuffer_view(Dark_Cbuffer cbuffer);
+
+Dark_Array dark_cbuffer_array(Dark_Cbuffer cbuffer);
+Dark_Array_View dark_cbuffer_array_view(Dark_Cbuffer cbuffer);
+Dark_Array_View dark_cbuffer_view_array_view(Dark_Cbuffer_View cbuffer_view);
+
+Dark_Buffer dark_cbuffer_buffer(Dark_Cbuffer cbuffer);
+Dark_Buffer_View dark_cbuffer_buffer_view(Dark_Cbuffer cbuffer);
+Dark_Buffer_View dark_cbuffer_view_buffer_view(Dark_Cbuffer_View cbuffer_view);
 
 bool dark_cbuffer_terminated_is(Dark_Cbuffer cbuffer, size_t* cstring_lenght);
 bool dark_cbuffer_view_terminated_is(Dark_Cbuffer_View cbuffer_view, size_t* cstring_lenght);
-
-Dark_Cbuffer_View dark_cbuffer_view(Dark_Cbuffer cbuffer);
 
 int8_t dark_cbuffer_compare(const Dark_Cbuffer* a, const Dark_Cbuffer* b);
 int8_t dark_cbuffer_view_compare(const Dark_Cbuffer_View* a, const Dark_Cbuffer_View* b);

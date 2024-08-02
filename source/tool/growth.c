@@ -20,38 +20,63 @@
 *                                                                                   *
 ************************************************************************************/
 
-#include "container_module.h"
+#include "tool_module.h"
 
-#include <dark/container/container.h>
 #include <dark/core/core.h>
+#include <dark/tool/tool.h>
 
 #undef DARK_UNIT
-#define DARK_UNIT "container"
+#define DARK_UNIT "growth"
 
-Dark_Array_View dark_array_view(const Dark_Array array_)
+size_t dark_growth_simple(const size_t current_, const size_t requested_)
 {
-    DARK_ASSERT(NULL != array_.data, DARK_ERROR_NULL);
-    DARK_ASSERT(array_.size > 0, DARK_ERROR_ZERO);
-    DARK_ASSERT(array_.element_byte > 0, DARK_ERROR_ZERO);
+    //current_
+    //requested_
 
-    Dark_Array_View view;
-    view.data = array_.data;
-    view.size = array_.size;
-    view.element_byte = array_.element_byte;
+    if(requested_ <= current_)
+    {
+        return 0;
+    }
 
-    return view;
+    return requested_ - current_;
 }
 
-void dark_array_foreach(const Dark_Array array_, void* const context_, const Dark_Foreach foreach_)
+size_t dark_growth_standard(const size_t current_, const size_t requested_)
 {
-    DARK_ASSERT(NULL != array_.data, DARK_ERROR_NULL);
-    DARK_ASSERT(array_.size > 0, DARK_ERROR_ZERO);
-    DARK_ASSERT(array_.element_byte > 0, DARK_ERROR_ZERO);
-    //context_
-    DARK_ASSERT(NULL != foreach_, DARK_ERROR_NULL);
+    //current_
+    //requested_
 
-    for(size_t i = 0; i < array_.size; i++)
+    if(requested_ <= current_)
     {
-        foreach_((uint8_t*)array_.data + (array_.element_byte * i), context_);
+        return 0;
     }
+
+    size_t total = DARK_MAX(1, current_ * 1.5f);
+
+    while(total < requested_)
+    {
+        total = DARK_MAX(total + 1, total * 1.5f);
+    }
+
+    return total - current_;
+}
+
+size_t dark_growth_exponential(const size_t current_, const size_t requested_)
+{
+    //current_
+    //requested_
+
+    if(requested_ <= current_)
+    {
+        return 0;
+    }
+
+    size_t total = DARK_MAX(1, current_ * 2.0f);
+
+    while(total < requested_)
+    {
+        total *= 2;
+    }
+
+    return total - current_;
 }

@@ -30,11 +30,11 @@ typedef struct Dark_Mutex Dark_Mutex;
 
 size_t dark_mutex_struct_byte(void);
 
-void dark_mutex_construct(Dark_Mutex* mutex);
+void dark_mutex_construct(Dark_Allocator* allocator, Dark_Mutex* mutex);
 void dark_mutex_destruct(Dark_Mutex* mutex);
 
 Dark_Mutex* dark_mutex_new(Dark_Allocator* allocator);
-void dark_mutex_delete(Dark_Allocator* allocator, Dark_Mutex* mutex);
+void dark_mutex_delete(Dark_Mutex* mutex);
 
 bool dark_mutex_trylock(Dark_Mutex* mutex);
 void dark_mutex_lock(Dark_Mutex* mutex);

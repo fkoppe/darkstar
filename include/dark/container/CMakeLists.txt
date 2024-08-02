@@ -1,13 +1,7 @@
 target_sources(
     darkstar
     PRIVATE
-    ${CMAKE_CURRENT_LIST_DIR}/array.h
-    ${CMAKE_CURRENT_LIST_DIR}/array_iterator.h
-    ${CMAKE_CURRENT_LIST_DIR}/compare.h
     ${CMAKE_CURRENT_LIST_DIR}/container.h
     ${CMAKE_CURRENT_LIST_DIR}/container_data.h
-    ${CMAKE_CURRENT_LIST_DIR}/foreach.h
-	${CMAKE_CURRENT_LIST_DIR}/growth.h
-    ${CMAKE_CURRENT_LIST_DIR}/iterator.h
     ${CMAKE_CURRENT_LIST_DIR}/vector.h
 )

@@ -23,6 +23,8 @@
 #if !defined(___DARK___CONTAINER_DATA_H)
 #define ___DARK___CONTAINER_DATA_H
 
+#include <dark/core/std.h>
+
 static const Dark_Error DARK_ERROR_CONTAINER_INTEGRITY = { &DARK_ERROR_LOGIC, "container_integrity", "container data corrupted"};
 static const Dark_Error DARK_ERROR_CONTAINER_EMPTY = { &DARK_ERROR_UNDERFLOW, "container_empty", "size has to be >0"};
 static const Dark_Error DARK_ERROR_CONTAINER_INDEX = { &DARK_ERROR_RANGE, "container_index", "index has to be <size"};

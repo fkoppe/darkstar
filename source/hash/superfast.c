@@ -28,24 +28,24 @@
 #undef DARK_UNIT
 #define DARK_UNIT "superfast"
 
-uint32_t dark_hash_superfast_32(const size_t byte_, const void* const data_)
+uint32_t dark_hash_superfast_32(const Dark_Buffer_View buffer_view_)
 {
-    DARK_ASSERT(byte_ > 0, DARK_ERROR_ZERO);
-    DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
+    DARK_ASSERT(buffer_view_.byte > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(NULL != buffer_view_.data, DARK_ERROR_NULL);
 
-    if(0 == byte_)
+    if(0 == buffer_view_.byte)
     {
         return 0;
     }
 
-    const uint16_t* data = data_;
+    const uint16_t* data = buffer_view_.data;
 
-    uint32_t hash = byte_;
-    uint32_t rem = byte_ & 3;
+    uint32_t hash = buffer_view_.byte;
+    uint32_t rem = buffer_view_.byte & 3;
     uint32_t index = 0;
     uint32_t temp = 0;
 
-    for(size_t i = byte_ >> 2; i > 0; i--)
+    for(size_t i = buffer_view_.byte >> 2; i > 0; i--)
     {
         hash += *(data + index);
         temp = (uint32_t)((*(data + index + 2)) << 11) ^ hash;

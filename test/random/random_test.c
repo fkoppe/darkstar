@@ -38,6 +38,13 @@ int main()
 
         DARK_TEST_NE_U(uuid_1.oct[0], uuid_2.oct[0]);
         DARK_TEST_NE_U(uuid_1.oct[1], uuid_2.oct[1]);
+
+        DARK_TEST_NE_I(dark_uuid4_compare(&uuid_1, &uuid_2), 0);
+
+        char buffer[DARK_UUID4_SIZE_TERMINATED];
+        const Dark_Cbuffer cbuffer = { DARK_UUID4_SIZE_TERMINATED, buffer };
+
+        dark_uuid4_write(uuid_1, cbuffer);
     }
     //------------------------
 

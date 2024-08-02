@@ -48,6 +48,7 @@ typedef struct Dark_Mutex_Struct Dark_Mutex_Struct;
 struct Dark_Mutex_Struct
 {
     bool owned_is;
+    Dark_Allocator* allocator;
 #if defined(___DARK_WINDOWS)
     CRITICAL_SECTION section;
 #endif // defined(___DARK_WINDOWS)
@@ -62,13 +63,14 @@ size_t dark_mutex_struct_byte(void)
     return sizeof(Dark_Mutex_Struct);
 }
 
-void dark_mutex_create(Dark_Mutex* const mutex_)
+void dark_mutex_create(Dark_Allocator* const allocator_, Dark_Mutex* const mutex_)
 {
     DARK_ASSERT(NULL != mutex_, DARK_ERROR_NULL);
 
     Dark_Mutex_Struct* const mutex = (Dark_Mutex_Struct*)mutex_;
 
     mutex->owned_is = false;
+    mutex->allocator = allocator_;
 
 #if defined(___DARK_WINDOWS)
     InitializeCriticalSectionAndSpinCount(&mutex->section, 128);
@@ -100,12 +102,12 @@ Dark_Mutex* dark_mutex_new(Dark_Allocator* const allocator_)
     Dark_Mutex_Struct* const mutex = dark_malloc(allocator_, sizeof(*mutex));
     DARK_ASSERT(NULL != mutex, DARK_ERROR_ALLOCATION);
 
-    dark_mutex_create((Dark_Mutex*)mutex);
+    dark_mutex_create(allocator_, (Dark_Mutex*)mutex);
 
     return (Dark_Mutex*)mutex;
 }
 
-void dark_mutex_delete(Dark_Allocator* const allocator_, Dark_Mutex* const mutex_)
+void dark_mutex_delete(Dark_Mutex* const mutex_)
 {
     DARK_ASSERT(NULL != mutex_, DARK_ERROR_NULL);
 
@@ -113,7 +115,7 @@ void dark_mutex_delete(Dark_Allocator* const allocator_, Dark_Mutex* const mutex
 
     dark_mutex_destroy((Dark_Mutex*)mutex);
 
-    dark_free(allocator_, mutex, sizeof(*mutex));
+    dark_free(mutex->allocator, mutex, sizeof(*mutex));
 }
 
 bool dark_mutex_trylock(Dark_Mutex* const mutex_)

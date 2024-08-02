@@ -28,44 +28,44 @@
 #undef DARK_UNIT
 #define DARK_UNIT "murmur2"
 
-uint32_t dark_hash_murmur2_32(const size_t byte_, const void* const data_)
+uint32_t dark_hash_murmur2_32(const Dark_Buffer_View buffer_view_)
 {
-    DARK_ASSERT(byte_ > 0, DARK_ERROR_ZERO);
-    DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
+    DARK_ASSERT(buffer_view_.byte > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(NULL != buffer_view_.data, DARK_ERROR_NULL);
 
-    return dark_hash_murmur2_seed_32(byte_, data_, 123);
+    return dark_hash_murmur2_seed_32(buffer_view_, 123);
 }
 
-uint32_t dark_hash_murmur2a_32(const size_t byte_, const void* const data_)
+uint32_t dark_hash_murmur2a_32(const Dark_Buffer_View buffer_view_)
 {
-    DARK_ASSERT(byte_ > 0, DARK_ERROR_ZERO);
-    DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
+    DARK_ASSERT(buffer_view_.byte > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(NULL != buffer_view_.data, DARK_ERROR_NULL);
 
-    return dark_hash_murmur2_seed_32(byte_, data_, 123);
+    return dark_hash_murmur2_seed_32(buffer_view_, 123);
 }
 
-uint64_t dark_hash_murmur2a_64(const size_t byte_, const void* const data_)
+uint64_t dark_hash_murmur2a_64(const Dark_Buffer_View buffer_view_)
 {
-    DARK_ASSERT(byte_ > 0, DARK_ERROR_ZERO);
-    DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
+    DARK_ASSERT(buffer_view_.byte > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(NULL != buffer_view_.data, DARK_ERROR_NULL);
 
-    return dark_hash_murmur2_seed_32(byte_, data_, 123);
+    return dark_hash_murmur2_seed_32(buffer_view_, 123);
 }
 
-uint32_t dark_hash_murmur2_seed_32(const size_t byte_, const void* const data_, const uint32_t seed_)
+uint32_t dark_hash_murmur2_seed_32(const Dark_Buffer_View buffer_view_, const uint32_t seed_)
 {
-    DARK_ASSERT(byte_ > 0, DARK_ERROR_ZERO);
-    DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
+    DARK_ASSERT(buffer_view_.byte > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(NULL != buffer_view_.data, DARK_ERROR_NULL);
     //seed_
 
     const uint32_t m = 0x5bd1e995;
     const int32_t r = 24;
 
-    uint32_t hash = seed_ ^ byte_;
+    uint32_t hash = seed_ ^ buffer_view_.byte;
 
-    for(size_t i = 0; i <= byte_ / sizeof(uint32_t); i++)
+    for(size_t i = 0; i <= buffer_view_.byte / sizeof(uint32_t); i++)
     {
-        uint32_t k = *((uint32_t*)data_ + i);
+        uint32_t k = *((uint32_t*)buffer_view_.data + i);
 
         k *= m;
         k ^= k >> r;
@@ -74,14 +74,14 @@ uint32_t dark_hash_murmur2_seed_32(const size_t byte_, const void* const data_, 
         hash ^= k;
     }
 
-    switch(byte_ % 4)
+    switch(buffer_view_.byte % 4)
     {
     case 3:
-        hash ^= ((uint8_t*)data_)[2] << 16;
+        hash ^= ((uint8_t*)buffer_view_.data)[2] << 16;
     case 2:
-        hash ^= ((uint8_t*)data_)[1] << 8;
+        hash ^= ((uint8_t*)buffer_view_.data)[1] << 8;
     case 1:
-        hash ^= ((uint8_t*)data_)[0];
+        hash ^= ((uint8_t*)buffer_view_.data)[0];
         hash *= m;
         break;
     };
@@ -93,10 +93,10 @@ uint32_t dark_hash_murmur2_seed_32(const size_t byte_, const void* const data_, 
     return hash;
 }
 
-uint32_t dark_hash_murmur2a_seed_32(const size_t byte_, const void* const data_, const uint32_t seed_)
+uint32_t dark_hash_murmur2a_seed_32(const Dark_Buffer_View buffer_view_, const uint32_t seed_)
 {
-    DARK_ASSERT(byte_ > 0, DARK_ERROR_ZERO);
-    DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
+    DARK_ASSERT(buffer_view_.byte > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(NULL != buffer_view_.data, DARK_ERROR_NULL);
     //seed_
 
     const uint32_t m = 0x5bd1e995;
@@ -104,9 +104,9 @@ uint32_t dark_hash_murmur2a_seed_32(const size_t byte_, const void* const data_,
 
     uint32_t hash = seed_;
 
-    for(size_t i = 0; i <= byte_ / sizeof(uint32_t); i++)
+    for(size_t i = 0; i <= buffer_view_.byte / sizeof(uint32_t); i++)
     {
-        uint32_t k = *((uint32_t*)data_ + i);
+        uint32_t k = *((uint32_t*)buffer_view_.data + i);
 
         k *= m;
         k ^= k >> r;
@@ -117,14 +117,14 @@ uint32_t dark_hash_murmur2a_seed_32(const size_t byte_, const void* const data_,
 
     uint32_t t = 0;
 
-    switch(byte_ % 4)
+    switch(buffer_view_.byte % 4)
     {
     case 3:
-        t ^= ((uint8_t*)data_)[2] << 16;
+        t ^= ((uint8_t*)buffer_view_.data)[2] << 16;
     case 2:
-        t ^= ((uint8_t*)data_)[1] << 8;
+        t ^= ((uint8_t*)buffer_view_.data)[1] << 8;
     case 1:
-        t ^= ((uint8_t*)data_)[0];
+        t ^= ((uint8_t*)buffer_view_.data)[0];
     };
 
     t *= m;
@@ -133,7 +133,7 @@ uint32_t dark_hash_murmur2a_seed_32(const size_t byte_, const void* const data_,
     hash *= m;
     hash ^= t;
 
-    uint32_t l = byte_ * m;
+    uint32_t l = buffer_view_.byte * m;
     l ^= l >> r;
     l *= m;
     hash *= m;
@@ -146,19 +146,19 @@ uint32_t dark_hash_murmur2a_seed_32(const size_t byte_, const void* const data_,
     return hash;
 }
 
-uint64_t dark_hash_murmur2a_seed_64(const size_t byte_, const void* const data_, const uint64_t seed_)
+uint64_t dark_hash_murmur2a_seed_64(const Dark_Buffer_View buffer_view_, const uint64_t seed_)
 {
-    DARK_ASSERT(byte_ > 0, DARK_ERROR_ZERO);
-    DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
+    DARK_ASSERT(buffer_view_.byte > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(NULL != buffer_view_.data, DARK_ERROR_NULL);
     //seed_
 
     const uint64_t m = 0xc6a4a7935bd1e995;
     const int32_t r = 47;
 
-    uint64_t hash = seed_ ^ (byte_ * m);
+    uint64_t hash = seed_ ^ (buffer_view_.byte * m);
 
-    const uint64_t* data = data_;
-    const uint64_t* end = data + (byte_ / sizeof(uint64_t));
+    const uint64_t* data = buffer_view_.data;
+    const uint64_t* end = data + (buffer_view_.byte / sizeof(uint64_t));
 
     while(data != end)
     {
@@ -172,22 +172,22 @@ uint64_t dark_hash_murmur2a_seed_64(const size_t byte_, const void* const data_,
         hash *= m;
     }
 
-    switch(byte_ & 7)
+    switch(buffer_view_.byte & 7)
     {
     case 7:
-        hash ^= ((uint64_t)((uint8_t*)data_)[6]) << 48;
+        hash ^= ((uint64_t)((uint8_t*)buffer_view_.data)[6]) << 48;
     case 6:
-        hash ^= ((uint64_t)((uint8_t*)data_)[5]) << 40;
+        hash ^= ((uint64_t)((uint8_t*)buffer_view_.data)[5]) << 40;
     case 5:
-        hash ^= ((uint64_t)((uint8_t*)data_)[4]) << 32;
+        hash ^= ((uint64_t)((uint8_t*)buffer_view_.data)[4]) << 32;
     case 4:
-        hash ^= ((uint64_t)((uint8_t*)data_)[3]) << 24;
+        hash ^= ((uint64_t)((uint8_t*)buffer_view_.data)[3]) << 24;
     case 3:
-        hash ^= ((uint64_t)((uint8_t*)data_)[2]) << 16;
+        hash ^= ((uint64_t)((uint8_t*)buffer_view_.data)[2]) << 16;
     case 2:
-        hash ^= ((uint64_t)((uint8_t*)data_)[1]) << 8;
+        hash ^= ((uint64_t)((uint8_t*)buffer_view_.data)[1]) << 8;
     case 1:
-        hash ^= ((uint64_t)((uint8_t*)data_)[0]);
+        hash ^= ((uint64_t)((uint8_t*)buffer_view_.data)[0]);
         hash *= m;
     };
 

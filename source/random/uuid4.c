@@ -44,15 +44,16 @@ Dark_Uuid4 dark_uuid4_generate(uint64_t* const random_)
     return uuid4;
 }
 
-void dark_uuid4_write_cbuffer(const Dark_Uuid4 uuid4_, char* const destination_)
+void dark_uuid4_write(const Dark_Uuid4 uuid4_, const Dark_Cbuffer destination_)
 {
     //uuid4_
-    DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != destination_.data, DARK_ERROR_NULL);
+    DARK_ASSERT(destination_.size > 0, DARK_ERROR_ZERO);
 
     const size_t segment[] = { 8, 4, 4, 4, 12 };
 
     size_t index = 0;
-    char* ptr = destination_;
+    char* ptr = destination_.data;
 
     for (size_t i = 0; i < (sizeof(segment) / sizeof(segment[0])); i++)
     {

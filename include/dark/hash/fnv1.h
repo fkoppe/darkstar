@@ -24,11 +24,12 @@
 #define ___DARK___FNV1_H
 
 #include <dark/core/std.h>
+#include <dark/tool/buffer.h>
 
-uint32_t dark_hash_fnv1_32(size_t byte, const void* data);
-uint64_t dark_hash_fnv1_64(size_t byte, const void* data);
+uint32_t dark_hash_fnv1_32(Dark_Buffer_View buffer_view);
+uint64_t dark_hash_fnv1_64(Dark_Buffer_View buffer_view);
 
-uint32_t dark_hash_fnv1a_32(size_t byte, const void* data);
-uint64_t dark_hash_fnv1a_64(size_t byte, const void* data);
+uint32_t dark_hash_fnv1a_32(Dark_Buffer_View buffer_view);
+uint64_t dark_hash_fnv1a_64(Dark_Buffer_View buffer_view);
 
 #endif // !defined(___DARK___FNV1_H)

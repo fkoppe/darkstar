@@ -28,61 +28,61 @@
 #undef DARK_UNIT
 #define DARK_UNIT "fnv1"
 
-uint32_t dark_hash_fnv1_32(const size_t byte_, const void* const data_)
+uint32_t dark_hash_fnv1_32(const Dark_Buffer_View buffer_view_)
 {
-    DARK_ASSERT(byte_ > 0, DARK_ERROR_ZERO);
-    DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
+    DARK_ASSERT(buffer_view_.byte > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(NULL != buffer_view_.data, DARK_ERROR_NULL);
 
     uint32_t hash = 0x811C9DC5;
 
-    for (size_t i = 0; i < byte_; ++i)
+    for (size_t i = 0; i < buffer_view_.byte; ++i)
     {
-        hash = (hash * 0x1000193) ^ ((uint8_t*)data_)[i];
+        hash = (hash * 0x1000193) ^ ((uint8_t*)buffer_view_.data)[i];
     }
 
     return hash;
 }
 
-uint64_t dark_hash_fnv1_64(const size_t byte_, const void* const data_)
+uint64_t dark_hash_fnv1_64(const Dark_Buffer_View buffer_view_)
 {
-    DARK_ASSERT(byte_ > 0, DARK_ERROR_ZERO);
-    DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
+    DARK_ASSERT(buffer_view_.byte > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(NULL != buffer_view_.data, DARK_ERROR_NULL);
 
     uint64_t hash = 0xCBF29CE484222325;
 
-    for (size_t i = 0; i < byte_; ++i)
+    for (size_t i = 0; i < buffer_view_.byte; ++i)
     {
-        hash = (hash * 0x100000001B3) ^ ((uint8_t*)data_)[i];
+        hash = (hash * 0x100000001B3) ^ ((uint8_t*)buffer_view_.data)[i];
     }
 
     return hash;
 }
 
-uint32_t dark_hash_fnv1a_32(const size_t byte_, const void* const data_)
+uint32_t dark_hash_fnv1a_32(const Dark_Buffer_View buffer_view_)
 {
-    DARK_ASSERT(byte_ > 0, DARK_ERROR_ZERO);
-    DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
+    DARK_ASSERT(buffer_view_.byte > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(NULL != buffer_view_.data, DARK_ERROR_NULL);
 
     uint32_t hash = 0x811C9DC5;
 
-    for (size_t i = 0; i < byte_; ++i)
+    for (size_t i = 0; i < buffer_view_.byte; ++i)
     {
-        hash = (hash ^ ((uint8_t*)data_)[i]) * 0x1000193;
+        hash = (hash ^ ((uint8_t*)buffer_view_.data)[i]) * 0x1000193;
     }
 
     return hash;
 }
 
-uint64_t dark_hash_fnv1a_64(const size_t byte_, const void* const data_)
+uint64_t dark_hash_fnv1a_64(const Dark_Buffer_View buffer_view_)
 {
-    DARK_ASSERT(byte_ > 0, DARK_ERROR_ZERO);
-    DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
+    DARK_ASSERT(buffer_view_.byte > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(NULL != buffer_view_.data, DARK_ERROR_NULL);
 
     uint64_t hash = 0xCBF29CE484222325;
 
-    for (size_t i = 0; i < byte_; ++i)
+    for (size_t i = 0; i < buffer_view_.byte; ++i)
     {
-        hash = (hash ^ ((uint8_t*)data_)[i]) * 0x100000001B3;
+        hash = (hash ^ ((uint8_t*)buffer_view_.data)[i]) * 0x100000001B3;
     }
 
     return hash;

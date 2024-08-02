@@ -23,11 +23,12 @@
 #if !defined(___DARK___FILE_H)
 #define ___DARK___FILE_H
 
-#include <dark/container/array.h>
+#include <dark/char/cbuffer.h>
 #include <dark/core/message.h>
 #include <dark/core/std.h>
 #include <dark/memory/allocator.h>
 #include <dark/platform/oserror.h>
+#include <dark/tool/array.h>
 
 #define DARK_FILE_MODIFIER_SIZE 4
 
@@ -73,10 +74,11 @@ Dark_Oserror dark_file_close(Dark_File* file);
 
 bool dark_file_open_is(Dark_File* file);
 
-Dark_Oserror dark_file_write(Dark_File* file, Dark_Array array);
+Dark_Oserror dark_file_write(Dark_File* file, Dark_Cbuffer_View source);
+Dark_Oserror dark_file_write_binary(Dark_File* file, Dark_Array_View source);
 
-Dark_Oserror dark_file_read(Dark_File* file, size_t max, char* destination);
-Dark_Oserror dark_file_binary_read(Dark_File* file, size_t element_byte, size_t max, size_t* count, void* destination);
+Dark_Oserror dark_file_read(Dark_File* file, Dark_Cbuffer destination);
+Dark_Oserror dark_file_read_binary(Dark_File* file, Dark_Array destination, size_t* count);
 
 Dark_Oserror dark_file_mmap(Dark_File* file, void** destination);
 

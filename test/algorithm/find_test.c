@@ -12,9 +12,9 @@ int main()
         int32_t buf_2[] = {1, 2, 3};
         int32_t buf_3[] = {1, 1, 3, 4, 2};
 
-        const Dark_Array_View arr_1 = { buf_1, 5, sizeof(int32_t) };
-        const Dark_Array_View arr_2 = { buf_2, 3, sizeof(int32_t) };
-        const Dark_Array_View arr_3 = { buf_3, 5, sizeof(int32_t) };
+        const Dark_Array_View arr_1 = { sizeof(int32_t), 5, buf_1 };
+        const Dark_Array_View arr_2 = { sizeof(int32_t), 3, buf_2 };
+        const Dark_Array_View arr_3 = { sizeof(int32_t), 5, buf_3 };
 
         size_t index = 0;
         const int32_t element = 2;
@@ -38,9 +38,9 @@ int main()
         int32_t buf_2[] = {1, 2, 3};
         int32_t buf_3[] = {1, 1, 3, 4, 2};
 
-        const Dark_Array_View arr_1 = { buf_1, 5, sizeof(int32_t) };
-        const Dark_Array_View arr_2 = { buf_2, 3, sizeof(int32_t) };
-        const Dark_Array_View arr_3 = { buf_3, 5, sizeof(int32_t) };
+        const Dark_Array_View arr_1 = { sizeof(int32_t), 5, buf_1 };
+        const Dark_Array_View arr_2 = { sizeof(int32_t), 3, buf_2 };
+        const Dark_Array_View arr_3 = { sizeof(int32_t), 5, buf_3 };
 
         size_t index = 0;
         const int32_t element = 2;
@@ -63,8 +63,8 @@ int main()
         int32_t buf_1[] = {1, 2, 3};
         int32_t buf_2[] = {2, 3, 4, 5, 6};
 
-        const Dark_Array_View arr_1 = { buf_1, 3, sizeof(int32_t) };
-        const Dark_Array_View arr_2 = { buf_2, 5, sizeof(int32_t) };
+        const Dark_Array_View arr_1 = { sizeof(int32_t), 3, buf_1 };
+        const Dark_Array_View arr_2 = { sizeof(int32_t), 5, buf_2 };
 
         size_t index = 0;
         const int32_t element = 2;
@@ -85,18 +85,18 @@ int main()
         int32_t buf_2[] = {1, 2, 3};
         int32_t buf_3[] = {1, 1, 3, 4, 2};
 
-        const Dark_Array arr_1 = { buf_1, 5, sizeof(int32_t) };
-        const Dark_Array arr_2 = { buf_2, 3, sizeof(int32_t) };
-        const Dark_Array arr_3 = { buf_3, 5, sizeof(int32_t) };
+        const Dark_Array arrv_1 = { sizeof(int32_t), 5, buf_1 };
+        const Dark_Array arrv_2 = { sizeof(int32_t), 3, buf_2 };
+        const Dark_Array arrv_3 = { sizeof(int32_t), 5, buf_3 };
 
         const int32_t element = 2;
 
 
-        DARK_TEST_EQ_P(dark_find_linear(&element, arr_1, (Dark_Compare)dark_compare_i32), buf_1 + 0);
+        DARK_TEST_EQ_P(dark_find_linear(&element, arrv_1, (Dark_Compare)dark_compare_i32), buf_1 + 0);
 
-        DARK_TEST_EQ_P(dark_find_linear(&element, arr_2, (Dark_Compare)dark_compare_i32), buf_2 + 1);
+        DARK_TEST_EQ_P(dark_find_linear(&element, arrv_2, (Dark_Compare)dark_compare_i32), buf_2 + 1);
 
-        DARK_TEST_EQ_P(dark_find_linear(&element, arr_3, (Dark_Compare)dark_compare_i32), buf_3 + 4);
+        DARK_TEST_EQ_P(dark_find_linear(&element, arrv_3, (Dark_Compare)dark_compare_i32), buf_3 + 4);
     }
     //--------------------------
 
@@ -107,18 +107,18 @@ int main()
         int32_t buf_2[] = {1, 2, 3};
         int32_t buf_3[] = {1, 1, 3, 4, 2};
 
-        const Dark_Array arr_1 = { buf_1, 5, sizeof(int32_t) };
-        const Dark_Array arr_2 = { buf_2, 3, sizeof(int32_t) };
-        const Dark_Array arr_3 = { buf_3, 5, sizeof(int32_t) };
+        const Dark_Array arrv_1 = { sizeof(int32_t), 5, buf_1 };
+        const Dark_Array arrv_2 = { sizeof(int32_t), 3, buf_2 };
+        const Dark_Array arrv_3 = { sizeof(int32_t), 5, buf_3 };
 
         const int32_t element = 2;
 
 
-        DARK_TEST_EQ_P(dark_find_linear_reverse(&element, arr_1, (Dark_Compare)dark_compare_i32), buf_1 + 4);
+        DARK_TEST_EQ_P(dark_find_linear_reverse(&element, arrv_1, (Dark_Compare)dark_compare_i32), buf_1 + 4);
 
-        DARK_TEST_EQ_P(dark_find_linear_reverse(&element, arr_2, (Dark_Compare)dark_compare_i32), buf_2 + 1);
+        DARK_TEST_EQ_P(dark_find_linear_reverse(&element, arrv_2, (Dark_Compare)dark_compare_i32), buf_2 + 1);
 
-        DARK_TEST_EQ_P(dark_find_linear_reverse(&element, arr_3, (Dark_Compare)dark_compare_i32), buf_3 + 4);
+        DARK_TEST_EQ_P(dark_find_linear_reverse(&element, arrv_3, (Dark_Compare)dark_compare_i32), buf_3 + 4);
     }
     //--------------------------
 
@@ -128,15 +128,15 @@ int main()
         int32_t buf_1[] = {1, 2, 3};
         int32_t buf_2[] = {2, 3, 4, 5, 6};
 
-        const Dark_Array arr_1 = { buf_1, 3, sizeof(int32_t) };
-        const Dark_Array arr_2 = { buf_2, 5, sizeof(int32_t) };
+        const Dark_Array arrv_1 = { sizeof(int32_t), 3, buf_1 };
+        const Dark_Array arrv_2 = { sizeof(int32_t), 5, buf_2 };
 
         const int32_t element = 2;
 
 
-        DARK_TEST_EQ_P(dark_find_binary(&element, arr_1, (Dark_Compare)dark_compare_i32), buf_1 + 1);
+        DARK_TEST_EQ_P(dark_find_binary(&element, arrv_1, (Dark_Compare)dark_compare_i32), buf_1 + 1);
 
-        DARK_TEST_EQ_P(dark_find_binary(&element, arr_2, (Dark_Compare)dark_compare_i32), buf_2 + 0);
+        DARK_TEST_EQ_P(dark_find_binary(&element, arrv_2, (Dark_Compare)dark_compare_i32), buf_2 + 0);
     }
     //--------------------------
 
@@ -147,9 +147,9 @@ int main()
         int32_t buf_2[] = {1, 2, 3};
         int32_t buf_3[] = {1, 1, 3, 4, 2};
 
-        const Dark_Array_View arr_1 = { buf_1, 5, sizeof(int32_t) };
-        const Dark_Array_View arr_2 = { buf_2, 3, sizeof(int32_t) };
-        const Dark_Array_View arr_3 = { buf_3, 5, sizeof(int32_t) };
+        const Dark_Array_View arr_1 = { sizeof(int32_t), 5, buf_1 };
+        const Dark_Array_View arr_2 = { sizeof(int32_t), 3, buf_2 };
+        const Dark_Array_View arr_3 = { sizeof(int32_t), 5, buf_3 };
 
         const int32_t element = 2;
 
@@ -169,9 +169,9 @@ int main()
         int32_t buf_2[] = {1, 2, 3};
         int32_t buf_3[] = {1, 1, 3, 4, 2};
 
-        const Dark_Array_View arr_1 = { buf_1, 5, sizeof(int32_t) };
-        const Dark_Array_View arr_2 = { buf_2, 3, sizeof(int32_t) };
-        const Dark_Array_View arr_3 = { buf_3, 5, sizeof(int32_t) };
+        const Dark_Array_View arr_1 = { sizeof(int32_t), 5, buf_1 };
+        const Dark_Array_View arr_2 = { sizeof(int32_t), 3, buf_2 };
+        const Dark_Array_View arr_3 = { sizeof(int32_t), 5, buf_3 };
 
         const int32_t element = 2;
 
@@ -190,8 +190,8 @@ int main()
         int32_t buf_1[] = {1, 2, 3};
         int32_t buf_2[] = {2, 3, 4, 5, 6};
 
-        const Dark_Array_View arr_1 = { buf_1, 3, sizeof(int32_t) };
-        const Dark_Array_View arr_2 = { buf_2, 5, sizeof(int32_t) };
+        const Dark_Array_View arr_1 = { sizeof(int32_t), 3, buf_1 };
+        const Dark_Array_View arr_2 = { sizeof(int32_t), 5, buf_2 };
 
         const int32_t element = 2;
 

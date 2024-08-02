@@ -24,8 +24,9 @@
 #define ___DARK___DJB2_H
 
 #include <dark/core/std.h>
+#include <dark/tool/buffer.h>
 
-uint32_t dark_hash_djb2_32(size_t byte, const void* data);
-uint32_t dark_hash_djb2a_32(size_t byte, const void* data);
+uint32_t dark_hash_djb2_32(Dark_Buffer_View buffer_view);
+uint32_t dark_hash_djb2a_32(Dark_Buffer_View buffer_view);
 
 #endif // !defined(___DARK___DJB2_H)

@@ -288,7 +288,7 @@ size_t dark_digit_count_imax(intmax_t number_)
     return count;
 }
 
-void dark_digit_write_cbuffer_u(uintmax_t number_, const size_t digit_count_, const Dark_Cbuffer destination_)
+void dark_digit_write_u(uintmax_t number_, const size_t digit_count_, const Dark_Cbuffer destination_)
 {
     //number_
     DARK_ASSERT(digit_count_ > 0, DARK_ERROR_ZERO);
@@ -311,7 +311,7 @@ void dark_digit_write_cbuffer_u(uintmax_t number_, const size_t digit_count_, co
     }
 }
 
-void dark_digit_write_cbuffer_u_terminated(const uintmax_t number_, const size_t digit_count_, const Dark_Cbuffer destination_)
+void dark_digit_write_u_terminated(const uintmax_t number_, const size_t digit_count_, const Dark_Cbuffer destination_)
 {
     //number_
     DARK_ASSERT(digit_count_ > 0, DARK_ERROR_ZERO);
@@ -319,12 +319,12 @@ void dark_digit_write_cbuffer_u_terminated(const uintmax_t number_, const size_t
     DARK_ASSERT(destination_.size > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(digit_count_ < destination_.size, DARK_ERROR_OVERFLOW);
 
-    dark_digit_write_cbuffer_u(number_, digit_count_, destination_);
+    dark_digit_write_u(number_, digit_count_, destination_);
 
     destination_.data[digit_count_] = '\0';
 }
 
-void dark_digit_write_cbuffer_i(const intmax_t number_, const size_t digit_count_, const Dark_Cbuffer destination_)
+void dark_digit_write_i(const intmax_t number_, const size_t digit_count_, const Dark_Cbuffer destination_)
 {
     //number_
     DARK_ASSERT(digit_count_ > 0, DARK_ERROR_ZERO);
@@ -332,10 +332,10 @@ void dark_digit_write_cbuffer_i(const intmax_t number_, const size_t digit_count
     DARK_ASSERT(destination_.size > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(digit_count_ <= destination_.size, DARK_ERROR_OVERFLOW);
 
-    dark_digit_write_cbuffer_u(dark_abs_i64(number_), digit_count_, destination_);
+    dark_digit_write_u(dark_abs_i64(number_), digit_count_, destination_);
 }
 
-void dark_digit_write_cbuffer_i_terminated(const intmax_t number_, const size_t digit_count_, const Dark_Cbuffer destination_)
+void dark_digit_write_i_terminated(const intmax_t number_, const size_t digit_count_, const Dark_Cbuffer destination_)
 {
     //number_
     DARK_ASSERT(digit_count_ > 0, DARK_ERROR_ZERO);
@@ -343,7 +343,7 @@ void dark_digit_write_cbuffer_i_terminated(const intmax_t number_, const size_t 
     DARK_ASSERT(destination_.size > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(digit_count_ < destination_.size, DARK_ERROR_OVERFLOW);
 
-    dark_digit_write_cbuffer_i(number_, digit_count_, destination_);
+    dark_digit_write_i(number_, digit_count_, destination_);
 
     destination_.data[digit_count_] = '\0';
 }

@@ -23,6 +23,7 @@
 #if !defined(___DARK___UUID4_H)
 #define ___DARK___UUID4_H
 
+#include <dark/char/cbuffer.h>
 #include <dark/core/std.h>
 
 #define DARK_UUID4_SIZE (sizeof("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx") - 1)
@@ -39,7 +40,7 @@ static const Dark_Uuid4 DARK_UUID4_NULL = { .oct = { 0, 0 } };
 
 Dark_Uuid4 dark_uuid4_generate(uint64_t* random);
 
-void dark_uuid4_write_cbuffer(Dark_Uuid4 uuid4, char* destination);
+void dark_uuid4_write(Dark_Uuid4 uuid4, Dark_Cbuffer destination);
 
 int dark_uuid4_compare(const Dark_Uuid4* element, const Dark_Uuid4* other);
 

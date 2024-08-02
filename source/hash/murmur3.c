@@ -28,18 +28,18 @@
 #undef DARK_UNIT
 #define DARK_UNIT "murmur3"
 
-uint32_t dark_hash_murmur3_32(const size_t byte_, const void* const data_)
+uint32_t dark_hash_murmur3_32(const Dark_Buffer_View buffer_view_)
 {
-    DARK_ASSERT(byte_ > 0, DARK_ERROR_ZERO);
-    DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
+    DARK_ASSERT(buffer_view_.byte > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(NULL != buffer_view_.data, DARK_ERROR_NULL);
 
-    return dark_hash_murmur3_seed_32(byte_, data_, 123);
+    return dark_hash_murmur3_seed_32(buffer_view_, 123);
 }
 
-uint32_t dark_hash_murmur3_seed_32(const size_t byte_, const void* const data_, const uint32_t seed_)
+uint32_t dark_hash_murmur3_seed_32(const Dark_Buffer_View buffer_view_, const uint32_t seed_)
 {
-    DARK_ASSERT(byte_ > 0, DARK_ERROR_ZERO);
-    DARK_ASSERT(NULL != data_, DARK_ERROR_NULL);
+    DARK_ASSERT(buffer_view_.byte > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(NULL != buffer_view_.data, DARK_ERROR_NULL);
     //seed_
 
     uint32_t c1 = 0xcc9e2d51;
@@ -48,9 +48,9 @@ uint32_t dark_hash_murmur3_seed_32(const size_t byte_, const void* const data_, 
     uint32_t h = seed_;
     uint32_t k = 0;
 
-    const uint8_t* const data = ((uint8_t*)data_ + ((byte_ / 4) * sizeof(uint32_t)));
+    const uint8_t* const data = ((uint8_t*)buffer_view_.data + ((buffer_view_.byte / 4) * sizeof(uint32_t)));
 
-    for(size_t i = 0; i < byte_ / 4; i++)
+    for(size_t i = 0; i < buffer_view_.byte / 4; i++)
     {
         k = ((uint32_t*)data)[i];
         k *= c1;
@@ -63,7 +63,7 @@ uint32_t dark_hash_murmur3_seed_32(const size_t byte_, const void* const data_, 
 
     k = 0;
 
-    switch (byte_ % 4)
+    switch (buffer_view_.byte % 4)
     {
     case 3:
         k ^= data[2] << 16;
@@ -78,7 +78,7 @@ uint32_t dark_hash_murmur3_seed_32(const size_t byte_, const void* const data_, 
         break;
     }
 
-    h ^= byte_;
+    h ^= buffer_view_.byte;
     h ^= (h >> 16);
     h *= 0x85ebca6b;
     h ^= (h >> 13);

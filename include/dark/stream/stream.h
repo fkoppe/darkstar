@@ -20,30 +20,9 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___ARRAY_H)
-#define ___DARK___ARRAY_H
+#if !defined(___DARK___STREAM_H)
+#define ___DARK___STREAM_H
 
-#include <dark/container/foreach.h>
-#include <dark/core/std.h>
+#include <dark/stream/ostream.h>
 
-typedef struct Dark_Array Dark_Array;
-struct Dark_Array
-{
-    void* data;
-    size_t size;
-    size_t element_byte;
-};
-
-typedef struct Dark_Array_View Dark_Array_View;
-struct Dark_Array_View
-{
-    const void* data;
-    size_t size;
-    size_t element_byte;
-};
-
-Dark_Array_View dark_array_view(Dark_Array array);
-
-void dark_array_foreach(Dark_Array array, void* context, Dark_Foreach foreach);
-
-#endif // !defined(___DARK___ARRAY_H)
+#endif // !defined(___DARK___STREAM_H)

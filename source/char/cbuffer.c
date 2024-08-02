@@ -29,8 +29,79 @@
 #undef DARK_UNIT
 #define DARK_UNIT "cbuffer"
 
+Dark_Cbuffer_View dark_cbuffer_view(const Dark_Cbuffer cbuffer_)
+{
+    DARK_ASSERT(NULL != cbuffer_.data, DARK_ERROR_NULL);
+    DARK_ASSERT(cbuffer_.size > 0, DARK_ERROR_ZERO);
+
+    const Dark_Cbuffer_View view = { cbuffer_.size, cbuffer_.data };
+
+    return view;
+}
+
+Dark_Array dark_cbuffer_array(const Dark_Cbuffer cbuffer_)
+{
+    DARK_ASSERT(NULL != cbuffer_.data, DARK_ERROR_NULL);
+    DARK_ASSERT(cbuffer_.size > 0, DARK_ERROR_ZERO);
+
+    const Dark_Array array = { sizeof(char), cbuffer_.size, cbuffer_.data };
+
+    return array;
+}
+
+Dark_Array_View dark_cbuffer_array_view(const Dark_Cbuffer cbuffer_)
+{
+    DARK_ASSERT(NULL != cbuffer_.data, DARK_ERROR_NULL);
+    DARK_ASSERT(cbuffer_.size > 0, DARK_ERROR_ZERO);
+
+    const Dark_Array_View array_view = { sizeof(char), cbuffer_.size, cbuffer_.data };
+
+    return array_view;
+}
+
+Dark_Array_View dark_cbuffer_view_array_view(const Dark_Cbuffer_View cbuffer_view_)
+{
+    DARK_ASSERT(NULL != cbuffer_view_.data, DARK_ERROR_NULL);
+    DARK_ASSERT(cbuffer_view_.size > 0, DARK_ERROR_ZERO);
+
+    const Dark_Array_View array_view = { sizeof(char), cbuffer_view_.size, cbuffer_view_.data };
+
+    return array_view;
+}
+
+Dark_Buffer dark_cbuffer_buffer(const Dark_Cbuffer cbuffer_)
+{
+    DARK_ASSERT(NULL != cbuffer_.data, DARK_ERROR_NULL);
+    DARK_ASSERT(cbuffer_.size > 0, DARK_ERROR_ZERO);
+
+    const Dark_Buffer buffer = { cbuffer_.size, cbuffer_.data };
+
+    return buffer;
+}
+
+Dark_Buffer_View dark_cbuffer_buffer_view(const Dark_Cbuffer cbuffer_)
+{
+    DARK_ASSERT(NULL != cbuffer_.data, DARK_ERROR_NULL);
+    DARK_ASSERT(cbuffer_.size > 0, DARK_ERROR_ZERO);
+
+    const Dark_Buffer_View buffer_view = { cbuffer_.size, cbuffer_.data };
+
+    return buffer_view;
+}
+
+Dark_Buffer_View dark_cbuffer_view_buffer_view(const Dark_Cbuffer_View cbuffer_view_)
+{
+    DARK_ASSERT(NULL != cbuffer_view_.data, DARK_ERROR_NULL);
+    DARK_ASSERT(cbuffer_view_.size > 0, DARK_ERROR_ZERO);
+
+    const Dark_Buffer_View buffer_view = { cbuffer_view_.size, cbuffer_view_.data };
+
+    return buffer_view;
+}
+
 bool dark_cbuffer_terminated_is(const Dark_Cbuffer cbuffer_, size_t* const cstring_lenght_)
 {
+    DARK_ASSERT(NULL != cbuffer_.data, DARK_ERROR_NULL);
     DARK_ASSERT(cbuffer_.size > 0, DARK_ERROR_ZERO);
     //cstring_lenght_
 
@@ -43,20 +114,9 @@ bool dark_cbuffer_view_terminated_is(const Dark_Cbuffer_View cbuffer_view_, size
     //cstring_lenght_
 
     const char element = '\0';
-    const Dark_Array_View array_view = { cbuffer_view_.data, cbuffer_view_.size, sizeof(char) };
+    const Dark_Array_View array_view = { sizeof(char), cbuffer_view_.size, cbuffer_view_.data };
 
     return dark_find_linear_index(&element, array_view, (Dark_Compare)dark_compare_u8, cstring_lenght_);
-}
-
-Dark_Cbuffer_View dark_cbuffer_view(const Dark_Cbuffer cbuffer_)
-{
-    DARK_ASSERT(cbuffer_.size > 0, DARK_ERROR_ZERO);
-
-    Dark_Cbuffer_View view;
-    view.data = cbuffer_.data;
-    view.size = cbuffer_.size;
-
-    return view;
 }
 
 int8_t dark_cbuffer_compare(const Dark_Cbuffer* a_, const Dark_Cbuffer* b_)

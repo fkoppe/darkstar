@@ -87,11 +87,15 @@ void dark_memory_debug_exit(const Dark_Memory_Debug_Info call_info_, const Dark_
 
     dark_message_print(DARK_SO_ERR, DARK_MESSAGE_EXIT);
 
-    dark_print(DARK_SO_ERR, "mesg:\t");
+    dark_print(DARK_SO_ERR, "\n\nmesg:\t");
 
     dark_message_print(DARK_SO_ERR, message_);
 
-    dark_print(DARK_SO_ERR, "\n\n\n--------------------------------------------------------------\n");
+    dark_print(DARK_SO_ERR, "\n\n");
+
+    dark_memory_debug_print_info(call_info_, DARK_MESSAGE_MEMORY_DEBUG_FUNCTION);
+
+    dark_print(DARK_SO_ERR, "\n--------------------------------------------------------------\n");
 
     dark_flush(DARK_SO_ERR);
 
@@ -107,9 +111,11 @@ void dark_memory_debug_warn(const Dark_Memory_Debug_Info call_info_, const Dark_
 
     dark_message_print(DARK_SO_ERR, message_);
 
+    dark_print(DARK_SO_ERR, "\n\n");
+
     dark_memory_debug_print_info(call_info_, DARK_MESSAGE_MEMORY_DEBUG_FUNCTION);
 
-    dark_print(DARK_SO_ERR, "\n\n\n----------------------------------------------------------------------\n");
+    dark_print(DARK_SO_ERR, "\n----------------------------------------------------------------------\n");
 }
 
 void dark_memory_debug_print_leak(const Dark_Memory_Debug_Info info_, const size_t index_)
