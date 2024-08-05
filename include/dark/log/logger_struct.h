@@ -20,18 +20,29 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___LOG_HELPER_H)
-#define ___DARK___LOG_HELPER_H
+#if !defined(___DARK___LOGGER_STRUCT_H)
+#define ___DARK___LOGGER_STRUCT_H
 
-#include <dark/core/enviroment.h>
 #include <dark/core/std.h>
-#include <dark/log/log_data.h>
+#include <dark/logger/logger.h>
+#include <dark/memory/allocator.h>
 
-static const size_t LOG_BUFFER_SIZE = 128;
+typedef struct Dark_Logger
+{
+    Dark_Allocator* allocator;
+    Dark_Logger_Settings settings;
+    Dark_String log_string;
+    Dark_String va_string;
+    struct
+    {
+        bool recent_is;
+        char buffer[DARK_STAMP_HMS_SIZE];
+    } stamp;
+    struct
+    {
+        Dark_Ostream* instance;
+        Dark_Mutex* mutex;
+    } ostream;
+} Dark_Logger;
 
-void dark_log_general(const Dark_Library* library, const char* module, const char* unit, const char* name, Dark_Log_Format lformat, Dark_Log_Level level, Dark_Ostream* ostream, Dark_Mutex* ostream_mutex, Dark_Cbuffer cbuffer, const char* color, const char* stamp, Dark_String* string);
-
-const char* dark_level_name(Dark_Log_Level level);
-const char* dark_level_color(Dark_Log_Level level);
-
-#endif // !defined(___DARK___LOG_HELPER_H)
+#endif // !defined(___DARK___LOGGER_STRUCT_H)

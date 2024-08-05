@@ -29,6 +29,11 @@
 
 size_t dark_cstring_lenght(const char* cstring);
 
+Dark_Cbuffer_View dark_cstring_cbuffer_view(const char* cstring);
+Dark_Cbuffer_View dark_cstring_cbuffer_view_terminated(const char* cstring);
+Dark_Buffer_View dark_cstring_buffer_view(const char* cstring);
+Dark_Buffer_View dark_cstring_buffer_view_terminated(const char* cstring);
+
 int8_t dark_cstring_compare(const char* a, const char* b);
 
 #endif // !defined(___DARK___CSTRING_H)

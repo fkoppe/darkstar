@@ -86,6 +86,4 @@ Dark_Oserror dark_file_byte(Dark_File* file, size_t* destination);
 
 size_t dark_file_count_max(void);
 
-void dark_file_modifier_get(Dark_File_Mode mode, Dark_File_Flag flag, char* destionation);
-
 #endif // !defined(___DARK___FILE_H)

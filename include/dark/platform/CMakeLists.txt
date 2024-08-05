@@ -4,10 +4,13 @@ target_sources(
     ${CMAKE_CURRENT_LIST_DIR}/clock.h
     ${CMAKE_CURRENT_LIST_DIR}/console.h
     ${CMAKE_CURRENT_LIST_DIR}/file.h
+    ${CMAKE_CURRENT_LIST_DIR}/file_struct.h
     ${CMAKE_CURRENT_LIST_DIR}/mutex.h
+    ${CMAKE_CURRENT_LIST_DIR}/mutex_struct.h
     ${CMAKE_CURRENT_LIST_DIR}/oserror.h
     ${CMAKE_CURRENT_LIST_DIR}/platform.h
     ${CMAKE_CURRENT_LIST_DIR}/platform_data.h
     ${CMAKE_CURRENT_LIST_DIR}/process.h
     ${CMAKE_CURRENT_LIST_DIR}/thread.h
+    ${CMAKE_CURRENT_LIST_DIR}/thread_struct.h
 )

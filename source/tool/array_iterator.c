@@ -33,8 +33,9 @@ size_t dark_array_iterator_context_byte(void)
     return sizeof(Dark_Array_Iterator_Context);
 }
 
-void dark_array_iterator_construct(Dark_Iterator* const iterator_, void* const context_, const Dark_Array array_)
+void dark_array_iterator_construct(Dark_Allocator* const allocator_, Dark_Iterator* const iterator_, void* const context_, const Dark_Array array_)
 {
+    DARK_ASSERT(NULL != allocator_, DARK_ERROR_ALLOCATION);
     DARK_ASSERT(NULL != iterator_, DARK_ERROR_ALLOCATION);
     DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != array_.data, DARK_ERROR_NULL);

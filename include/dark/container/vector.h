@@ -43,15 +43,6 @@
 
 typedef struct Dark_Vector Dark_Vector;
 
-typedef struct Dark_Vector_Struct Dark_Vector_Struct;
-struct Dark_Vector_Struct
-{
-    Dark_Allocator* allocator;
-    Dark_Growth growth;
-    Dark_Array array;
-    size_t capacity;
-};
-
 static const size_t DARK_VECTOR_SIZE_MAX = SIZE_MAX;
 
 size_t dark_vector_struct_byte(void);

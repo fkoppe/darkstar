@@ -31,24 +31,19 @@
 
 typedef struct Dark_String Dark_String;
 
-typedef struct Dark_String_Struct Dark_String_Struct;
-struct Dark_String_Struct
-{
-    Dark_Allocator* allocator;
-    Dark_Vector_Struct vector;
-};
+static const size_t DARK_STRING_SIZE_MAX = DARK_VECTOR_SIZE_MAX - 1;
 
 size_t dark_string_struct_byte(void);
 
-void dark_string_create_v(Dark_Allocator* allocator, Dark_String* string, Dark_Growth growth, const char* format, va_list arguments);
-void dark_string_create_f(Dark_Allocator* allocator, Dark_String* string, Dark_Growth growth, const char* format, ...);
-void dark_string_create_cstring(Dark_Allocator* allocator, Dark_String* string, Dark_Growth growth, const char* cstring);
-void dark_string_create_cbuffer_view(Dark_Allocator* allocator, Dark_String* string, Dark_Growth growth, Dark_Cbuffer_View cbuffer_view);
-void dark_string_create_char(Dark_Allocator* allocator, Dark_String* string, Dark_Growth growth, char character);
-void dark_string_create_size(Dark_Allocator* allocator, Dark_String* string, Dark_Growth growth, size_t capacity, size_t size);
-void dark_string_create_capacity(Dark_Allocator* allocator, Dark_String* string, Dark_Growth growth, size_t capacity);
-void dark_string_create(Dark_Allocator* allocator, Dark_String* string, Dark_Growth growth);
-void dark_string_destroy(Dark_String* string);
+void dark_string_construct_v(Dark_Allocator* allocator, Dark_String* string, Dark_Growth growth, const char* format, va_list arguments);
+void dark_string_construct_f(Dark_Allocator* allocator, Dark_String* string, Dark_Growth growth, const char* format, ...);
+void dark_string_construct_cstring(Dark_Allocator* allocator, Dark_String* string, Dark_Growth growth, const char* cstring);
+void dark_string_construct_cbuffer_view(Dark_Allocator* allocator, Dark_String* string, Dark_Growth growth, Dark_Cbuffer_View cbuffer_view);
+void dark_string_construct_char(Dark_Allocator* allocator, Dark_String* string, Dark_Growth growth, char character);
+void dark_string_construct_size(Dark_Allocator* allocator, Dark_String* string, Dark_Growth growth, size_t capacity, size_t size);
+void dark_string_construct_capacity(Dark_Allocator* allocator, Dark_String* string, Dark_Growth growth, size_t capacity);
+void dark_string_construct(Dark_Allocator* allocator, Dark_String* string, Dark_Growth growth);
+void dark_string_destruct(Dark_String* string);
 
 Dark_String* dark_string_new_v(Dark_Allocator* allocator, Dark_Growth growth, const char* format, va_list arguments);
 Dark_String* dark_string_new_f(Dark_Allocator* allocator, Dark_Growth growth, const char* format, ...);
@@ -65,8 +60,12 @@ char dark_string_front(Dark_String* string);
 char dark_string_back(Dark_String* string);
 const char* dark_string_cstring(Dark_String* string);
 const char* dark_string_subcstring(Dark_String* string, size_t index);
-char* dark_string_cbuffer_terminated(Dark_String* string);
-char* dark_string_substring_terminated(Dark_String* string, size_t index);
+char* dark_string_cbuffer(Dark_String* string);
+char* dark_string_subcbuffer(Dark_String* string, size_t index);
+char* dark_string_cbuffer_view(Dark_String* string);
+char* dark_string_cbuffer_view_terminated(Dark_String* string);
+char* dark_string_subcbuffer_view(Dark_String* string, size_t index);
+char* dark_string_subcbuffer_view_terminated(Dark_String* string, size_t index);
 
 char* dark_string_emplace(Dark_String* string, size_t index, size_t count);
 char* dark_string_emplace_front(Dark_String* string, size_t count);

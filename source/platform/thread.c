@@ -129,7 +129,7 @@ void dark_thread_delete(Dark_Thread* const thread_)
 
     dark_thread_destroy((Dark_Thread*)thread);
 
-    dark_free(allocator_, thread, sizeof(*thread));
+    dark_free(thread->allocator, thread, sizeof(*thread));
 }
 
 uint64_t dark_thread_id(Dark_Thread* const thread_)

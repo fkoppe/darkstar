@@ -5,4 +5,5 @@ target_sources(
     ${CMAKE_CURRENT_LIST_DIR}/memory.h
     ${CMAKE_CURRENT_LIST_DIR}/memory_debug.h
 	${CMAKE_CURRENT_LIST_DIR}/os_allocator.h
+	${CMAKE_CURRENT_LIST_DIR}/os_allocator_struct.h
 )

@@ -76,9 +76,9 @@ void dark_static_log_f(const Dark_Library* const library_, const char* const mod
     va_list args;
     va_start(args, format_);
 
-    void* string = dark_string_new_v(DARK_GROWTH_STANDARD, format_, args);
+    void* string = dark_string_new_v(allocator_, dark_growth_standard, format_, args);
 
-    dark_log_general(library_, module_, unit_, name_, lformat_, level_, ostream_, ostream_mutex_, dark_string_size(string), dark_string_cbuffer_terminated(string), NULL, NULL, NULL);
+    dark_log_general(library_, module_, unit_, name_, lformat_, level_, ostream_, ostream_mutex_, dark_string_cbuffer_view(string), NULL, NULL, NULL);
 
     dark_string_delete(string);
 }
@@ -96,9 +96,9 @@ void dark_static_log_v(const Dark_Library* const library_, const char* const mod
     DARK_ASSERT(NULL != format_, DARK_ERROR_NULL);
     //arguments_
 
-    void* string = dark_string_new_v(DARK_GROWTH_STANDARD, format_, arguments_);
+    void* string = dark_string_new_v(allocator_, dark_growth_standard, format_, arguments_);
 
-    dark_log_general(library_, module_, unit_, name_, lformat_, level_, ostream_, ostream_mutex_, dark_string_size(string), dark_string_cbuffer_terminated(string), NULL, NULL, NULL);
+    dark_log_general(library_, module_, unit_, name_, lformat_, level_, ostream_, ostream_mutex_, dark_string_size(string), dark_string_cbuffer_view(string), NULL, NULL, NULL);
 
     dark_string_delete(string);
 }

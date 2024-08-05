@@ -33,7 +33,7 @@
 #undef DARK_UNIT
 #define DARK_UNIT "log_helper.h"
 
-void dark_log_general(const Dark_Library* const library_, const char* const module_, const char* const unit_, const char* const name_, const Dark_Log_Format lformat_, const Dark_Log_Level level_, void* const ostream_, void* const ostream_mutex_, const size_t count_, const char* const cbuffer_, const char* const color_, const char* const stamp_, void* const string_)
+void dark_log_general(const Dark_Library* const library_, const char* const module_, const char* const unit_, const char* const name_, const Dark_Log_Format lformat_, const Dark_Log_Level level_, Dark_Ostream* const ostream_, Dark_Mutex* const ostream_mutex_, const Dark_Cbuffer_View cbuffer_view_, const char* const color_, const Dark_Cbuffer_View* stamp_, Dark_String* const string_)
 {
     //library_
     //module_
@@ -50,7 +50,7 @@ void dark_log_general(const Dark_Library* const library_, const char* const modu
     //string_
 
     const char* module_color = "";
-    if(NULL == color_ || dark_cbuffer_compare("", color_, 1))
+    if(NULL == color_ || 0 == dark_cstring_lenght(color_))
     {
         if(library_ == DARK_LIBRARY)
         {
@@ -70,7 +70,7 @@ void dark_log_general(const Dark_Library* const library_, const char* const modu
 
     if(NULL == string_)
     {
-        string = dark_string_new_capacity(DARK_GROWTH_STANDARD, LOG_BUFFER_SIZE);
+        string = dark_string_new_capacity(allocator_, dark_growth_standard, LOG_BUFFER_SIZE);
     }
     else
     {
@@ -90,7 +90,7 @@ void dark_log_general(const Dark_Library* const library_, const char* const modu
         }
         else
         {
-            dark_string_append_cbuffer(string, DARK_STAMP_HMS_SIZE, stamp_);
+            dark_string_append_cbuffer_View(string, DARK_STAMP_HMS_SIZE, stamp_);
         }
 
         dark_string_insert_back(string, ']');
@@ -183,12 +183,12 @@ void dark_log_general(const Dark_Library* const library_, const char* const modu
     dark_string_append_cbuffer(string, count_, cbuffer_);
     dark_string_insert_back(string, '\n');
 
-    dark_ostream_write(ostream_, dark_string_size(string) + 1, dark_string_cbuffer_terminated(string));
+    dark_ostream_write(ostream_, dark_string_cbuffer_view_terminated(string));
 
     if(NULL != ostream_mutex_)
     {
         dark_mutex_unlock(ostream_mutex_);
-    }
+    };
 
     dark_string_clear(string);
 

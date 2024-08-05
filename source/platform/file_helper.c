@@ -20,18 +20,47 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___LOG_HELPER_H)
-#define ___DARK___LOG_HELPER_H
+#include "platform_module.h"
 
-#include <dark/core/enviroment.h>
-#include <dark/core/std.h>
-#include <dark/log/log_data.h>
+#include <dark/core/core.h>
+#include <dark/platform/platform.h>
 
-static const size_t LOG_BUFFER_SIZE = 128;
+#undef DARK_UNIT
+#define DARK_UNIT "file_helper"
 
-void dark_log_general(const Dark_Library* library, const char* module, const char* unit, const char* name, Dark_Log_Format lformat, Dark_Log_Level level, Dark_Ostream* ostream, Dark_Mutex* ostream_mutex, Dark_Cbuffer cbuffer, const char* color, const char* stamp, Dark_String* string);
+void dark_file_modifier_get(const Dark_File_Mode mode_, const Dark_File_Flag flag_, char* const destination_)
+{
+    DARK_ASSERT(___DARK_FILE_MODE_MIN < mode_ && mode_ < ___DARK_FILE_MODE_MAX, DARK_ERROR_ENUM);
+    DARK_ASSERT(___DARK_FILE_FLAG_MIN < flag_ && flag_ < ___DARK_FILE_FLAG_MAX, DARK_ERROR_ENUM);
+    DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
 
-const char* dark_level_name(Dark_Log_Level level);
-const char* dark_level_color(Dark_Log_Level level);
+    switch (mode_)
+    {
+    case DARK_FILE_MODE_READ:
+        *destination_ = 'r';
+        break;
+    case DARK_FILE_MODE_WRITE:
+        *destination_ = 'w';
+        break;
+    case DARK_FILE_MODE_APPEND:
+        *destination_ = 'a';
+        break;
+    default:
+        DARK_ABORT_ERROR(DARK_ERROR_SWITCH);
+        break;
+    }
 
-#endif // !defined(___DARK___LOG_HELPER_H)
+    size_t i = 1;
+
+    if (flag_ & DARK_FILE_FLAG_BINARY)
+    {
+        destination_[i] = 'b';
+        i++;
+    }
+
+    if (flag_ & DARK_FILE_FLAG_UPDATE)
+    {
+        destination_[i] = '+';
+        i++;
+    }
+}

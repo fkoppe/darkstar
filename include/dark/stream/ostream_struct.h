@@ -20,18 +20,27 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___LOG_HELPER_H)
-#define ___DARK___LOG_HELPER_H
+#if !defined(___DARK___OSTREAM_STRUCT_H)
+#define ___DARK___OSTREAM_STRUCT_H
 
-#include <dark/core/enviroment.h>
+#include <dark/container/vector_struct.h>
 #include <dark/core/std.h>
-#include <dark/log/log_data.h>
+#include <dark/platform/mutex_struct.h>
+#include <dark/stream/ostream.h>
 
-static const size_t LOG_BUFFER_SIZE = 128;
+struct Dark_Ostream
+{
+    Dark_Allocator* allocator;
+    Dark_Ostream_Settings settings;
+    Dark_Vector file_vector;
+    Dark_Vector buffer_vector;
+    struct
+    {
+        bool out_is;
+        bool err_is;
+        Dark_Mutex* out_mutex;
+        Dark_Mutex* err_mutex;
+    } std;
+};
 
-void dark_log_general(const Dark_Library* library, const char* module, const char* unit, const char* name, Dark_Log_Format lformat, Dark_Log_Level level, Dark_Ostream* ostream, Dark_Mutex* ostream_mutex, Dark_Cbuffer cbuffer, const char* color, const char* stamp, Dark_String* string);
-
-const char* dark_level_name(Dark_Log_Level level);
-const char* dark_level_color(Dark_Log_Level level);
-
-#endif // !defined(___DARK___LOG_HELPER_H)
+#endif // !defined(___DARK___OSTREAM_STRUCT_H)
