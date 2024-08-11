@@ -20,12 +20,26 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___STREAM_MODULE_H)
-#define ___DARK___STREAM_MODULE_H
+#if !defined(___DARK___CBUFFER_VIEW_H)
+#define ___DARK___CBUFFER_VIEW_H
 
 #include <dark/core/std.h>
+#include <dark/tool/array_view.h>
+#include <dark/tool/buffer.h>
 
-#undef DARK_MODULE
-#define DARK_MODULE "stream"
+typedef struct Dark_Cbuffer_View Dark_Cbuffer_View;
+struct Dark_Cbuffer_View
+{
+    size_t size;
+    const char* data;
+};
 
-#endif // !defined(___DARK___STREAM_MODULE_H)
+Dark_Array_View dark_cbuffer_view_to_array_view(Dark_Cbuffer_View cbuffer_view);
+
+Dark_Buffer_View dark_cbuffer_view_to_buffer_view(Dark_Cbuffer_View cbuffer_view);
+
+bool dark_cbuffer_view_terminated_is(Dark_Cbuffer_View cbuffer_view, size_t* cstring_lenght);
+
+int8_t dark_cbuffer_view_compare(const Dark_Cbuffer_View* a, const Dark_Cbuffer_View* b);
+
+#endif // !defined(___DARK___CBUFFER_VIEW_H)

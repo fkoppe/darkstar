@@ -34,8 +34,6 @@ typedef struct Dark_Thread Dark_Thread;
 
 typedef void (*Dark_Thread_Worker)(void* argument);
 
-size_t dark_thread_struct_byte(void);
-
 void dark_thread_construct(Dark_Allocator* allocator, Dark_Thread* thread, Dark_Thread_Worker function, void* argument);
 void dark_thread_destruct(Dark_Thread* thread);
 
@@ -47,6 +45,8 @@ uint64_t dark_thread_id(Dark_Thread* thread);
 bool dark_thread_joinable(Dark_Thread* thread);
 void dark_thread_join(Dark_Thread* thread);
 void dark_thread_detach(Dark_Thread* thread);
+
+size_t dark_thread_struct_byte(void);
 
 uint64_t dark_thread_current_id(void);
 

@@ -20,12 +20,23 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___LOG_MODULE_H)
-#define ___DARK___LOG_MODULE_H
+#include "tool_module.h"
 
-#include <dark/core/std.h>
+#include <dark/core/core.h>
+#include <dark/tool/tool.h>
 
-#undef DARK_MODULE
-#define DARK_MODULE "log"
+#undef DARK_UNIT
+#define DARK_UNIT "buffer_view"
 
-#endif // !defined(___DARK___LOG_MODULE_H)
+void dark_buffer_view_foreach(const Dark_Buffer_View buffer_view_, void* const context_, const Dark_Foreach foreach_)
+{
+    DARK_ASSERT(NULL != buffer_view_.data, DARK_ERROR_NULL);
+    DARK_ASSERT(buffer_view_.byte > 0, DARK_ERROR_ZERO);
+    //context_
+    DARK_ASSERT(NULL != foreach_, DARK_ERROR_NULL);
+
+    for(size_t i = 0; i < buffer_view_.byte; i++)
+    {
+        foreach_(buffer_view_.data + i, context_);
+    }
+}

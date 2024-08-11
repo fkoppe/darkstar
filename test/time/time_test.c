@@ -45,6 +45,13 @@ int main()
     //--------------------------
 
     //----------TEST----------
+    DARK_TEST("stopwatch_struct_byte")
+    {
+        DARK_TEST_GT_U(dark_stopwatch_struct_byte(), 0);
+    }
+    //--------------------------
+
+    //----------TEST----------
     DARK_TEST("stamp_hms")
     {
         char buffer[DARK_STAMP_HMS_SIZE];

@@ -28,14 +28,6 @@
 
 typedef struct Dark_Allocator Dark_Allocator;
 
-typedef struct Dark_Allocator_Struct Dark_Allocator_Struct;
-struct Dark_Allocator_Struct
-{
-    void* (*allocate)(void* context, void* pointer, size_t byte_old, size_t byte_new);
-    void* (*callocate)(void* context, void* pointer, size_t byte_old, size_t byte_new);
-    void* context;
-};
-
 typedef struct Dark_Allocator_Info Dark_Allocator_Info;
 struct Dark_Allocator_Info
 {

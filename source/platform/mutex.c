@@ -22,151 +22,115 @@
 
 #include "platform_module.h"
 
-#include <dark/core/core.h>
+#include <dark/platform/mutex_struct.h>
 #include <dark/platform/platform.h>
+
+#include <dark/core/core.h>
 
 #undef DARK_UNIT
 #define DARK_UNIT "mutex"
 
-#if defined(___DARK_LINUX)
-#define ___DARK_UNIX
-#endif // defined(___DARK_LINUX)
-
-#if defined(___DARK_DARWIN)
-#define ___DARK_UNIX
-#endif // defined(___DARK_DARWIN)
-
-#if defined(___DARK_WINDOWS)
-#include <dark/windows.h>
-#endif // defined(___DARK_WINDOWS)
-
-#if defined(___DARK_UNIX)
-#include <pthread.h>
-#endif // defined(___DARK_UNIX)
-
-typedef struct Dark_Mutex_Struct Dark_Mutex_Struct;
-struct Dark_Mutex_Struct
+void dark_mutex_construct(Dark_Allocator* const allocator_, Dark_Mutex* const mutex_)
 {
-    Dark_Allocator* allocator;
-    bool owned_is;
-#if defined(___DARK_WINDOWS)
-    CRITICAL_SECTION section;
-#endif // defined(___DARK_WINDOWS)
-
-#if defined(___DARK_UNIX)
-    pthread_mutex_t lock;
-#endif // defined(___DARK_UNIX)
-};
-
-size_t dark_mutex_struct_byte(void)
-{
-    return sizeof(Dark_Mutex_Struct);
-}
-
-void dark_mutex_create(Dark_Allocator* const allocator_, Dark_Mutex* const mutex_)
-{
+    DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != mutex_, DARK_ERROR_NULL);
 
-    Dark_Mutex_Struct* const mutex = (Dark_Mutex_Struct*)mutex_;
-
-    mutex->owned_is = false;
-    mutex->allocator = allocator_;
+    mutex_->allocator = allocator_;
+    mutex_->owned_is = false;
+    mutex_->allocator = allocator_;
 
 #if defined(___DARK_WINDOWS)
-    InitializeCriticalSectionAndSpinCount(&mutex->section, 128);
+    InitializeCriticalSectionAndSpinCount(&mutex_->section, 128);
 #endif // defined(___DARK_WINDOWS)
 
-#if defined(___DARK_UNIX)
-    int result = pthread_mutex_init(&mutex->lock, NULL);
+#if defined(___DARK_LINUX) || defined(___DARK_DARWIN)
+    int result = pthread_mutex_init(&mutex_->lock, NULL);
     DARK_ASSERT_CSTRING(0 == result, DARK_ERROR_PLATFORM, "pthread_mutex_init");
-#endif // defined(___DARK_UNIX)
+#endif // defined(___DARK_LINUX) || defined(___DARK_DARWIN)
 }
 
-void dark_mutex_destroy(Dark_Mutex* const mutex_)
+void dark_mutex_destruct(Dark_Mutex* const mutex_)
 {
     DARK_ASSERT(NULL != mutex_, DARK_ERROR_NULL);
 
-    Dark_Mutex_Struct* const mutex = (Dark_Mutex_Struct*)mutex_;
-
 #if defined(___DARK_WINDOWS)
-    DeleteCriticalSection(&mutex->section);
+    DeleteCriticalSection(&mutex_->section);
 #endif // defined(___DARK_WINDOWS)
 
-#if defined(___DARK_UNIX)
-    pthread_mutex_destroy(&mutex->lock);
-#endif // defined(___DARK_UNIX)
+#if defined(___DARK_LINUX) || defined(___DARK_DARWIN)
+    pthread_mutex_destroy(&mutex_->lock);
+#endif // defined(___DARK_LINUX) || defined(___DARK_DARWIN)
 }
 
 Dark_Mutex* dark_mutex_new(Dark_Allocator* const allocator_)
 {
-    Dark_Mutex_Struct* const mutex = dark_malloc(allocator_, sizeof(*mutex));
+    DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
+
+    Dark_Mutex* const mutex = dark_malloc(allocator_, sizeof(*mutex));
     DARK_ASSERT(NULL != mutex, DARK_ERROR_ALLOCATION);
 
-    dark_mutex_create(allocator_, (Dark_Mutex*)mutex);
+    dark_mutex_construct(allocator_, mutex);
 
-    return (Dark_Mutex*)mutex;
+    return mutex;
 }
 
 void dark_mutex_delete(Dark_Mutex* const mutex_)
 {
     DARK_ASSERT(NULL != mutex_, DARK_ERROR_NULL);
 
-    Dark_Mutex_Struct* const mutex = (Dark_Mutex_Struct*)mutex_;
+    dark_mutex_destruct(mutex_);
 
-    dark_mutex_destroy((Dark_Mutex*)mutex);
-
-    dark_free(mutex->allocator, mutex, sizeof(*mutex));
+    dark_free(mutex_->allocator, mutex_, sizeof(*mutex_));
 }
 
 bool dark_mutex_trylock(Dark_Mutex* const mutex_)
 {
     DARK_ASSERT(NULL != mutex_, DARK_ERROR_NULL);
 
-    Dark_Mutex_Struct* const mutex = (Dark_Mutex_Struct*)mutex_;
-
-    DARK_ASSERT_CSTRING(!mutex->owned_is, DARK_ERROR_STATE, "");
+    DARK_ASSERT_CSTRING(!mutex_->owned_is, DARK_ERROR_STATE, "");
 
 #if defined(___DARK_WINDOWS)
-    return TryEnterCriticalSection(&mutex->section);
+    return TryEnterCriticalSection(&mutex_->section);
 #endif // defined(___DARK_WINDOWS)
 
-#if defined(___DARK_UNIX)
-    return !pthread_mutex_trylock(&mutex->lock);
-#endif // defined(___DARK_UNIX)
+#if defined(___DARK_LINUX) || defined(___DARK_DARWIN)
+    return !pthread_mutex_trylock(&mutex_->lock);
+#endif // defined(___DARK_LINUX) || defined(___DARK_DARWIN)
 }
 
 void dark_mutex_lock(Dark_Mutex* const mutex_)
 {
     DARK_ASSERT(NULL != mutex_, DARK_ERROR_NULL);
 
-    Dark_Mutex_Struct* const mutex = (Dark_Mutex_Struct*)mutex_;
-
 #if defined(___DARK_WINDOWS)
-    EnterCriticalSection(&mutex->section);
+    EnterCriticalSection(&mutex_->section);
 #endif // defined(___DARK_WINDOWS)
 
-#if defined(___DARK_UNIX)
-    int result = pthread_mutex_lock(&mutex->lock);
+#if defined(___DARK_LINUX) || defined(___DARK_DARWIN)
+    int result = pthread_mutex_lock(&mutex_->lock);
     DARK_ASSERT_CSTRING(0 == result, DARK_ERROR_PLATFORM, "pthread_mutex_lock");
-#endif // defined(___DARK_UNIX)
+#endif // defined(___DARK_LINUX) || defined(___DARK_DARWIN)
 
-    mutex->owned_is = true;
+    mutex_->owned_is = true;
 }
 
 void dark_mutex_unlock(Dark_Mutex* const mutex_)
 {
     DARK_ASSERT(NULL != mutex_, DARK_ERROR_NULL);
 
-    Dark_Mutex_Struct* const mutex = (Dark_Mutex_Struct*)mutex_;
-
 #if defined(___DARK_WINDOWS)
-    LeaveCriticalSection(&mutex->section);
+    LeaveCriticalSection(&mutex_->section);
 #endif // defined(___DARK_WINDOWS)
 
-#if defined(___DARK_UNIX)
-    int result = pthread_mutex_unlock(&mutex->lock);
+#if defined(___DARK_LINUX) || defined(___DARK_DARWIN)
+    int result = pthread_mutex_unlock(&mutex_->lock);
     DARK_ASSERT_CSTRING(0 == result, DARK_ERROR_PLATFORM, "pthread_mutex_unlock");
-#endif // defined(___DARK_UNIX)
+#endif // defined(___DARK_LINUX) || defined(___DARK_DARWIN)
 
-    mutex->owned_is = false;
+    mutex_->owned_is = false;
+}
+
+size_t dark_mutex_struct_byte(void)
+{
+    return sizeof(Dark_Mutex);
 }

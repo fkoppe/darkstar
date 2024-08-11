@@ -20,17 +20,26 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___ITERATOR_H)
-#define ___DARK___ITERATOR_H
+#if !defined(___DARK___ARRAY_VIEW_H)
+#define ___DARK___ARRAY_VIEW_H
 
-#include <dark/core/error.h>
 #include <dark/core/std.h>
+#include <dark/tool/array_view.h>
+#include <dark/tool/buffer.h>
+#include <dark/tool/foreach.h>
 
-typedef struct Dark_Iterator Dark_Iterator;
+typedef struct Dark_Array_View Dark_Array_View;
+struct Dark_Array_View
+{
+    size_t element_byte;
+    size_t size;
+    const void* data;
+};
 
-static const Dark_Error DARK_ERROR_ITERATOR = { &DARK_ERROR_LOGIC, "iterator", "next not available" };
+Dark_Buffer_View dark_array_view_to_buffer_view(Dark_Array_View array_view);
 
-bool dark_iterator_next_is(Dark_Iterator* iterator);
-void* dark_iterator_next(Dark_Iterator* iterator);
+void dark_array_view_foreach(Dark_Array_View array_view, void* context, Dark_Foreach foreach);
 
-#endif // !defined(___DARK___ITERATOR_H)
+int8_t dark_array_view_compare(const Dark_Array_View* a, const Dark_Array_View* b);
+
+#endif // !defined(___DARK___ARRAY_VIEW_H)

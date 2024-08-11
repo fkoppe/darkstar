@@ -8,17 +8,11 @@ int main()
 
     dark_test_initialise();
 
-    DARK_TEST("file_struct_byte")
-    {
-        DARK_TEST_GT_U(dark_file_struct_byte(), 0);
-    }
-    //--------------------------
-
     //----------TEST----------
     DARK_TEST("file_new/delete")
     {
         Dark_File* const file = dark_file_new(allocator);
-        dark_file_delete(allocator, file);
+        dark_file_delete(file);
     }
     //--------------------------
 
@@ -33,7 +27,7 @@ int main()
         result = dark_file_close(file);
         DARK_TEST_TRUE(DARK_OSERROR_NONE == result);
 
-        dark_file_delete(allocator, file);
+        dark_file_delete(file);
     }
     //--------------------------
 
@@ -66,11 +60,11 @@ int main()
         result = dark_file_close(file);
         DARK_TEST_TRUE(DARK_OSERROR_NONE == result);
 
-        const Dark_Cbuffer_View v = dark_cbuffer_view(cbuffer_read);
+        const Dark_Cbuffer_View v = dark_cbuffer_to_view(cbuffer_read);
 
         DARK_TEST_EQ_I(dark_cbuffer_view_compare(&cbuffer_view, &v), 0);
 
-        dark_file_delete(allocator, file);
+        dark_file_delete(file);
     }
     //--------------------------
 
@@ -106,11 +100,11 @@ int main()
         result = dark_file_close(file);
         DARK_TEST_TRUE(DARK_OSERROR_NONE == result);
 
-        const Dark_Array_View av = dark_array_view(array_read);
+        const Dark_Array_View av = dark_array_to_view(array_read);
 
         DARK_TEST_EQ_I(dark_array_view_compare(&array_view, &av), 0);
 
-        dark_file_delete(allocator, file);
+        dark_file_delete(file);
     }
     //--------------------------
 
@@ -144,7 +138,7 @@ int main()
         result = dark_file_close(file);
         DARK_TEST_TRUE(DARK_OSERROR_NONE == result);
 
-        dark_file_delete(allocator, file);
+        dark_file_delete(file);
     }
     //--------------------------
 
@@ -161,7 +155,7 @@ int main()
         result = dark_file_close(file);
         DARK_TEST_TRUE(DARK_OSERROR_NONE == result);
 
-        dark_file_delete(allocator, file);
+        dark_file_delete(file);
     }
     //--------------------------
 
@@ -181,7 +175,13 @@ int main()
         result = dark_file_close(file);
         DARK_TEST_TRUE(DARK_OSERROR_NONE == result);
 
-        dark_file_delete(allocator, file);
+        dark_file_delete(file);
+    }
+    //--------------------------
+
+         DARK_TEST("file_struct_byte")
+    {
+        DARK_TEST_GT_U(dark_file_struct_byte(), 0);
     }
     //--------------------------
 
@@ -189,14 +189,6 @@ int main()
     DARK_TEST("file_count_max")
     {
         DARK_TEST_NE_U(dark_file_count_max(), 0);
-    }
-    //--------------------------
-
-    //----------TEST----------
-    DARK_TEST("file_modifier_get")
-    {
-        char modifier[DARK_FILE_MODIFIER_SIZE] = { 0 };
-        dark_file_modifier_get(DARK_FILE_MODE_READ, DARK_FILE_FLAG_UPDATE | DARK_FILE_FLAG_BINARY, modifier);
     }
     //--------------------------
 

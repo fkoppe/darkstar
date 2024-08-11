@@ -28,17 +28,6 @@
 
 typedef struct Dark_Stopwatch Dark_Stopwatch;
 
-typedef struct Dark_Stopwatch_Struct Dark_Stopwatch_Struct;
-struct Dark_Stopwatch_Struct
-{
-    Dark_Allocator* allocator;
-    uint64_t time;
-    uint64_t stamp;
-    bool running_is;
-};
-
-size_t dark_stopwatch_struct_byte(void);
-
 void dark_stopwatch_construct(Dark_Allocator* allocator, Dark_Stopwatch* stopwatch);
 void dark_stopwatch_construct_start(Dark_Allocator* allocator, Dark_Stopwatch* stopwatch);
 
@@ -73,5 +62,7 @@ bool dark_stopwatch_running_is(Dark_Stopwatch* stopwatch);
 uint64_t dark_stopwatch_ns(Dark_Stopwatch* stopwatch);
 uint64_t dark_stopwatch_ms(Dark_Stopwatch* stopwatch);
 uint64_t dark_stopwatch_s(Dark_Stopwatch* stopwatch);
+
+size_t dark_stopwatch_struct_byte(void);
 
 #endif // !defined(___DARK___STOPWATCH_H)

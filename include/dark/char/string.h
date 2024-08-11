@@ -23,6 +23,7 @@
 #if !defined(___DARK___STRING_H)
 #define ___DARK___STRING_H
 
+#include <dark/char/cbuffer.h>
 #include <dark/container/vector.h>
 #include <dark/core/std.h>
 #include <dark/tool/growth.h>
@@ -32,8 +33,6 @@
 typedef struct Dark_String Dark_String;
 
 static const size_t DARK_STRING_SIZE_MAX = DARK_VECTOR_SIZE_MAX - 1;
-
-size_t dark_string_struct_byte(void);
 
 void dark_string_construct_v(Dark_Allocator* allocator, Dark_String* string, Dark_Growth growth, const char* format, va_list arguments);
 void dark_string_construct_f(Dark_Allocator* allocator, Dark_String* string, Dark_Growth growth, const char* format, ...);
@@ -60,19 +59,25 @@ char dark_string_front(Dark_String* string);
 char dark_string_back(Dark_String* string);
 const char* dark_string_cstring(Dark_String* string);
 const char* dark_string_subcstring(Dark_String* string, size_t index);
-char* dark_string_cbuffer(Dark_String* string);
-char* dark_string_subcbuffer(Dark_String* string, size_t index);
-char* dark_string_cbuffer_view(Dark_String* string);
-char* dark_string_cbuffer_view_terminated(Dark_String* string);
-char* dark_string_subcbuffer_view(Dark_String* string, size_t index);
-char* dark_string_subcbuffer_view_terminated(Dark_String* string, size_t index);
+Dark_Cbuffer dark_string_cbuffer(Dark_String* string);
+Dark_Cbuffer dark_string_subcbuffer(Dark_String* string, size_t index);
+Dark_Cbuffer_View dark_string_cbuffer_view(Dark_String* string);
+Dark_Cbuffer_View dark_string_cbuffer_view_terminated(Dark_String* string);
+Dark_Cbuffer_View dark_string_subcbuffer_view(Dark_String* string, size_t index);
+Dark_Cbuffer_View dark_string_subcbuffer_view_terminated(Dark_String* string, size_t index);
 
 char* dark_string_emplace(Dark_String* string, size_t index, size_t count);
 char* dark_string_emplace_front(Dark_String* string, size_t count);
 char* dark_string_emplace_back(Dark_String* string, size_t count);
+Dark_Cbuffer dark_string_emplace_cbuffer(Dark_String* string, size_t index, size_t count);
+Dark_Cbuffer dark_string_emplace_cbuffer_front(Dark_String* string, size_t count);
+Dark_Cbuffer dark_string_emplace_cbuffer_back(Dark_String* string, size_t count);
 char* dark_string_inplace(Dark_String* string, size_t index);
 char* dark_string_inplace_front(Dark_String* string);
 char* dark_string_inplace_back(Dark_String* string);
+Dark_Cbuffer dark_string_inplace_cbuffer(Dark_String* string, size_t index);
+Dark_Cbuffer dark_string_inplace_cbuffer_front(Dark_String* string);
+Dark_Cbuffer dark_string_inplace_cbuffer_back(Dark_String* string);
 
 void dark_string_push_v(Dark_String* string, size_t index, const char* format, va_list arguments);
 void dark_string_push_f(Dark_String* string, size_t index, const char* format, ...);
@@ -86,7 +91,6 @@ void dark_string_prepend_v(Dark_String* string, const char* format, va_list argu
 void dark_string_prepend_f(Dark_String* string, const char* format, ...);
 void dark_string_prepend_cstring(Dark_String* string, const char* cstring);
 void dark_string_prepend_cbuffer_view(Dark_String* string, Dark_Cbuffer_View cbuffer_view);
-
 void dark_string_insert(Dark_String* string, size_t index, char character);
 void dark_string_insert_front(Dark_String* string, char character);
 void dark_string_insert_back(Dark_String* string, char character);
@@ -108,5 +112,7 @@ size_t dark_string_size(Dark_String* string);
 void dark_string_resize(Dark_String* string, size_t size);
 void dark_string_resize_fill(Dark_String* string, size_t size, char character);
 void dark_string_clear(Dark_String* string);
+
+size_t dark_string_struct_byte(void);
 
 #endif // !defined(___DARK___STRING_H)

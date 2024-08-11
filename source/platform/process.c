@@ -40,9 +40,9 @@
 #include <dark/windows.h>
 #endif // defined(___DARK_WINDOWS)
 
-#if defined(___DARK_UNIX)
+#if defined(___DARK_LINUX) || defined(___DARK_DARWIN)
 #include <unistd.h>
-#endif // defined(___DARK_UNIX)
+#endif // defined(___DARK_LINUX) || defined(___DARK_DARWIN)
 
 uint64_t dark_process_id(void)
 {
@@ -50,7 +50,7 @@ uint64_t dark_process_id(void)
     return GetCurrentProcessId();
 #endif // defined(___DARK_WINDOWS)
 
-#if defined(___DARK_UNIX)
+#if defined(___DARK_LINUX) || defined(___DARK_DARWIN)
     return getpid();
-#endif // defined(___DARK_UNIX)
+#endif // defined(___DARK_LINUX) || defined(___DARK_DARWIN)
 }

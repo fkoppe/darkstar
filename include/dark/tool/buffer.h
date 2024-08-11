@@ -25,6 +25,7 @@
 
 #include <dark/core/std.h>
 #include <dark/tool/foreach.h>
+#include <dark/tool/buffer_view.h>
 
 typedef struct Dark_Buffer Dark_Buffer;
 struct Dark_Buffer
@@ -33,14 +34,7 @@ struct Dark_Buffer
     void* data;
 };
 
-typedef struct Dark_Buffer_View Dark_Buffer_View;
-struct Dark_Buffer_View
-{
-    size_t byte;
-    const void* data;
-};
-
-Dark_Buffer_View dark_buffer_view(Dark_Buffer buffer);
+Dark_Buffer_View dark_buffer_to_view(Dark_Buffer buffer);
 
 void dark_buffer_foreach(Dark_Buffer buffer, void* context, Dark_Foreach foreach);
 

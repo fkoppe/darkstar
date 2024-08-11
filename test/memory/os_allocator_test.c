@@ -6,13 +6,6 @@ int main()
     dark_test_initialise();
 
     //----------TEST----------
-    DARK_TEST("os_allocator_context_byte")
-    {
-        DARK_TEST_GT_U(dark_os_allocator_context_byte(), 0);
-    }
-    //------------------------
-
-    //----------TEST----------
     DARK_TEST("os_allocator_new/delete")
     {
         Dark_Allocator* os_allocator = dark_os_allocator_new();
@@ -211,6 +204,13 @@ int main()
         DARK_TEST_GT_U(info.usage, 0);
 
         dark_os_allocator_delete(os_allocator);
+    }
+    //------------------------
+
+    //----------TEST----------
+    DARK_TEST("os_allocator_context_byte")
+    {
+        DARK_TEST_GT_U(dark_os_allocator_context_byte(), 0);
     }
     //------------------------
 

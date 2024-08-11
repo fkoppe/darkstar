@@ -27,14 +27,8 @@
 #include <dark/memory/allocator.h>
 
 typedef struct Dark_Os_Allocator_Context Dark_Os_Allocator_Context;
-struct Dark_Os_Allocator_Context
-{
-    Dark_Allocator_Info info;
-};
 
-size_t dark_os_allocator_context_byte(void);
-
-void dark_os_allocator_construct(Dark_Allocator* os_allocator, void* context);
+void dark_os_allocator_construct(Dark_Allocator* os_allocator, Dark_Os_Allocator_Context* context);
 void dark_os_allocator_destruct(Dark_Allocator* os_allocator);
 
 Dark_Allocator* dark_os_allocator_new(void);
@@ -42,8 +36,6 @@ void dark_os_allocator_delete(Dark_Allocator* os_allocator);
 
 Dark_Allocator_Info dark_os_allocator_info(Dark_Allocator* os_allocator);
 
-void* dark_os_allocator_allocate(void* context, void* address, size_t byte_old, size_t byte_new);
-void* dark_os_allocator_callocate(void* context, void* address, size_t byte_old, size_t byte_new);
+size_t dark_os_allocator_context_byte(void);
 
 #endif // !defined(___DARK___OS_ALLOCATOR_H)
-

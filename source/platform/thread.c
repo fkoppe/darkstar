@@ -25,96 +25,59 @@
 #include <dark/core/core.h>
 #include <dark/math/math.h>
 #include <dark/platform/platform.h>
+#include <dark/platform/thread_struct.h>
 
 #undef DARK_UNIT
 #define DARK_UNIT "thread"
 
-#if defined(___DARK_LINUX)
-#define ___DARK_UNIX
-#endif // defined(___DARK_LINUX)
-
-#if defined(___DARK_DARWIN)
-#define ___DARK_UNIX
-#endif // defined(___DARK_DARWIN)
-
-#if defined(___DARK_WINDOWS)
-#include <dark/windows.h>
-#endif // defined(___DARK_WINDOWS)
-
-#if defined(___DARK_UNIX)
-#include <pthread.h>
-#endif // defined(___DARK_UNIX)
-
-typedef struct Dark_Thread_Struct Dark_Thread_Struct;
-struct Dark_Thread_Struct
+void dark_thread_construct(Dark_Allocator* const allocator_, Dark_Thread* const thread_, const Dark_Thread_Worker function_, void* const argument_)
 {
-    Dark_Allocator* allocator;
-    uint64_t id;
-    bool joinable_is;
-
-#if defined(___DARK_WINDOWS)
-    HANDLE handle;
-#endif // defined(___DARK_WINDOWS)
-
-#if defined(___DARK_UNIX)
-    pthread_t handle;
-#endif // defined(___DARK_UNIX)
-};
-
-size_t dark_thread_struct_byte(void)
-{
-    return sizeof(Dark_Thread_Struct);
-}
-
-void dark_thread_create(Dark_Thread* const thread_, const Dark_Thread_Worker function_, void* const argument_)
-{
+    DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != thread_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != function_, DARK_ERROR_NULL);
     //argument_
 
-    Dark_Thread_Struct* const thread = (Dark_Thread_Struct*)thread_;
-
-    thread->id = 0;
-    thread->joinable_is = true;
+    thread_->allocator = allocator_;
+    thread_->id = 0;
+    thread_->joinable_is = true;
 
 #if defined(___DARK_WINDOWS)
-    thread->handle = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)function_, argument_, 0, (LPDWORD)&thread->id);
-    DARK_ASSERT_CSTRING(NULL != thread->handle, DARK_ERROR_PLATFORM, "CreateThread");
+    thread_->handle = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)function_, argument_, 0, (LPDWORD)&thread_->id);
+    DARK_ASSERT_CSTRING(NULL != thread_->handle, DARK_ERROR_PLATFORM, "CreateThread");
 #endif // defined(___DARK_WINDOWS)
 
-#if defined(___DARK_UNIX)
-    int64_t result = pthread_create(&thread->handle, NULL, (void*)function_, argument_);
+#if defined(___DARK_LINUX) || defined(___DARK_DARWIN)
+    int64_t result = pthread_create(&thread_->handle, NULL, (void*)function_, argument_);
     DARK_ASSERT_CSTRING(0 == result, DARK_ERROR_PLATFORM, "pthread_create");
 
-    thread->id = thread->handle;
-#endif // defined(___DARK_UNIX)
+    thread_->id = thread_->handle;
+#endif // defined(___DARK_LINUX) || defined(___DARK_DARWIN)
 }
 
-void dark_thread_destroy(Dark_Thread* const thread_)
+void dark_thread_destruct(Dark_Thread* const thread_)
 {
     DARK_ASSERT(NULL != thread_, DARK_ERROR_NULL);
-
-    Dark_Thread_Struct* const thread = (Dark_Thread_Struct*)thread_;
 
 #if defined(___DARK_WINDOWS)
     bool b1 = CloseHandle(thread->handle);
     DARK_ASSERT_CSTRING(0 != b1, DARK_ERROR_PLATFORM, "CloseHandle");
 #endif // defined(___DARK_WINDOWS)
 
-#if defined(___DARK_UNIX)
+#if defined(___DARK_LINUX) || defined(___DARK_DARWIN)
     //nothing
-#endif // defined(___DARK_UNIX)
+#endif // defined(___DARK_LINUX) || defined(___DARK_DARWIN)
 }
 
 void* dark_thread_new(Dark_Allocator* const allocator_, const Dark_Thread_Worker function_, void* const argument_)
 {
+    DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != function_, DARK_ERROR_NULL);
     //argument_
 
-    Dark_Thread_Struct* thread = dark_malloc(allocator_, sizeof(*thread));
+    Dark_Thread* const thread = dark_malloc(allocator_, sizeof(*thread));
     DARK_ASSERT(NULL != thread, DARK_ERROR_ALLOCATION);
 
-    dark_thread_create((Dark_Thread*)thread, function_, argument_);
+    dark_thread_construct(allocator_, thread, function_, argument_);
 
     return thread;
 }
@@ -123,43 +86,35 @@ void dark_thread_delete(Dark_Thread* const thread_)
 {
     DARK_ASSERT(NULL != thread_, DARK_ERROR_NULL);
 
-    Dark_Thread_Struct* const thread = (Dark_Thread_Struct*)thread_;
+    DARK_ASSERT_MESSAGE(!thread_->joinable_is, DARK_ERROR_STATE, DARK_MESSAGE_THREAD_JOINABLE);
 
-    DARK_ASSERT_MESSAGE(!thread->joinable_is, DARK_ERROR_STATE, DARK_MESSAGE_THREAD_JOINABLE);
+    dark_thread_destruct(thread_);
 
-    dark_thread_destroy((Dark_Thread*)thread);
-
-    dark_free(thread->allocator, thread, sizeof(*thread));
+    dark_free(thread_->allocator, thread_, sizeof(*thread_));
 }
 
 uint64_t dark_thread_id(Dark_Thread* const thread_)
 {
     DARK_ASSERT(NULL != thread_, DARK_ERROR_NULL);
 
-    Dark_Thread_Struct* const thread = (Dark_Thread_Struct*)thread_;
-
-    return thread->id;
+    return thread_->id;
 }
 
 bool dark_thread_joinable(Dark_Thread* const thread_)
 {
     DARK_ASSERT(NULL != thread_, DARK_ERROR_NULL);
 
-    Dark_Thread_Struct* const thread = (Dark_Thread_Struct*)thread_;
-
-    return thread->joinable_is;
+    return thread_->joinable_is;
 }
 
 void dark_thread_join(Dark_Thread* const thread_)
 {
     DARK_ASSERT(NULL != thread_, DARK_ERROR_NULL);
 
-    Dark_Thread_Struct* const thread = (Dark_Thread_Struct*)thread_;
-
-    DARK_ASSERT_MESSAGE(thread->joinable_is, DARK_ERROR_STATE, DARK_MESSAGE_THREAD_JOINABLE_NOT);
+    DARK_ASSERT_MESSAGE(thread_->joinable_is, DARK_ERROR_STATE, DARK_MESSAGE_THREAD_JOINABLE_NOT);
 
 #if defined(___DARK_WINDOWS)
-    switch (WaitForSingleObject(thread->handle, INFINITE))
+    switch (WaitForSingleObject(thread_->handle, INFINITE))
     {
     case WAIT_OBJECT_0:
         break;
@@ -174,23 +129,26 @@ void dark_thread_join(Dark_Thread* const thread_)
     }
 #endif // defined(___DARK_WINDOWS)
 
-#if defined(___DARK_UNIX)
-    int64_t result = pthread_join(thread->handle, NULL);
+#if defined(___DARK_LINUX) || defined(___DARK_DARWIN)
+    int64_t result = pthread_join(thread_->handle, NULL);
     DARK_ASSERT_CSTRING(0 == result, DARK_ERROR_PLATFORM, "pthread_join");
-#endif // defined(___DARK_UNIX)
+#endif // defined(___DARK_LINUX) || defined(___DARK_DARWIN)
 
-    thread->joinable_is = false;
+    thread_->joinable_is = false;
 }
 
 void dark_thread_detach(Dark_Thread* const thread_)
 {
     DARK_ASSERT(NULL != thread_, DARK_ERROR_NULL);
 
-    Dark_Thread_Struct* const thread = (Dark_Thread_Struct*)thread_;
+    DARK_ASSERT_MESSAGE(thread_->joinable_is, DARK_ERROR_STATE, DARK_MESSAGE_THREAD_JOINABLE_NOT);
 
-    DARK_ASSERT_MESSAGE(thread->joinable_is, DARK_ERROR_STATE, DARK_MESSAGE_THREAD_JOINABLE_NOT);
+    thread_->joinable_is = false;
+}
 
-    thread->joinable_is = false;
+size_t dark_thread_struct_byte(void)
+{
+    return sizeof(Dark_Thread);
 }
 
 uint64_t dark_thread_current_id(void)
@@ -199,7 +157,7 @@ uint64_t dark_thread_current_id(void)
     return GetCurrentThreadId();
 #endif // defined(___DARK_WINDOWS)
 
-#if defined(___DARK_UNIX)
+#if defined(___DARK_LINUX) || defined(___DARK_DARWIN)
     return pthread_self();
-#endif // defined(___DARK_UNIX)
+#endif // defined(___DARK_LINUX) || defined(___DARK_DARWIN)
 }

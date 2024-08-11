@@ -20,17 +20,15 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___ITERATOR_H)
-#define ___DARK___ITERATOR_H
+#if !defined(___DARK___OS_ALLOCATOR_CONTEXT_H)
+#define ___DARK___OS_ALLOCATOR_CONTEXT_H
 
-#include <dark/core/error.h>
 #include <dark/core/std.h>
+#include <dark/memory/allocator.h>
 
-typedef struct Dark_Iterator Dark_Iterator;
+struct Dark_Os_Allocator_Context
+{
+    Dark_Allocator_Info info;
+};
 
-static const Dark_Error DARK_ERROR_ITERATOR = { &DARK_ERROR_LOGIC, "iterator", "next not available" };
-
-bool dark_iterator_next_is(Dark_Iterator* iterator);
-void* dark_iterator_next(Dark_Iterator* iterator);
-
-#endif // !defined(___DARK___ITERATOR_H)
+#endif // !defined(___DARK___OS_ALLOCATOR_CONTEXT_H)

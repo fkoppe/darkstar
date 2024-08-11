@@ -20,53 +20,71 @@
 *                                                                                   *
 ************************************************************************************/
 
-#include "platform_module.h"
+#include "char_module.h"
 
+#include <dark/algorithm/algorithm.h>
+#include <dark/char/char.h>
 #include <dark/core/core.h>
-#include <dark/math/math.h>
-#include <dark/platform/platform.h>
 
 #undef DARK_UNIT
-#define DARK_UNIT "clock"
+#define DARK_UNIT "cbuffer_view"
 
-#if defined(___DARK_WINDOWS)
-#include <dark/windows.h>
-#endif // defined(___DARK_WINDOWS)
-
-#if defined(___DARK_LINUX) || defined(___DARK_DARWIN)
-#include <time.h>
-#endif // defined(___DARK_LINUX) || defined(___DARK_DARWIN)
-
-uint64_t dark_clock_ns(void)
+Dark_Array_View dark_cbuffer_view_to_array_view(const Dark_Cbuffer_View cbuffer_view_)
 {
-#if defined(___DARK_WINDOWS)
-    LARGE_INTEGER tick;
-    LARGE_INTEGER freqency;
+    DARK_ASSERT(NULL != cbuffer_view_.data, DARK_ERROR_NULL);
+    DARK_ASSERT(cbuffer_view_.size > 0, DARK_ERROR_ZERO);
 
-    bool b1 = QueryPerformanceCounter(&tick);
-    bool b2 = QueryPerformanceFrequency(&freqency);
+    const Dark_Array_View array_view = { sizeof(char), cbuffer_view_.size, cbuffer_view_.data };
 
-    DARK_ASSERT_CSTRING(b1, DARK_ERROR_PLATFORM, "QueryPerformanceCounter");
-    DARK_ASSERT_CSTRING(b2, DARK_ERROR_PLATFORM, "QueryPerformanceFrequency");
-
-    return (uint64_t)((tick.QuadPart * 1000) / (freqency.QuadPart / 1000000));
-#endif // defined(___DARK_WINDOWS)
-
-#if defined(___DARK_LINUX) || defined(___DARK_DARWIN)
-    struct timespec time;
-
-    clock_gettime(CLOCK_MONOTONIC_RAW, &time);
-
-    return (uint64_t)(time.tv_nsec + (time.tv_sec * 1000000000));
-#endif // defined(___DARK_LINUX) || defined(___DARK_DARWIN)
+    return array_view;
 }
 
-uint64_t dark_clock_ms(void)
+Dark_Buffer_View dark_cbuffer_view_to_buffer_view(const Dark_Cbuffer_View cbuffer_view_)
 {
-    return dark_clock_ns() / DARK_MEGA;
+    DARK_ASSERT(NULL != cbuffer_view_.data, DARK_ERROR_NULL);
+    DARK_ASSERT(cbuffer_view_.size > 0, DARK_ERROR_ZERO);
+
+    const Dark_Buffer_View buffer_view = { cbuffer_view_.size, cbuffer_view_.data };
+
+    return buffer_view;
 }
 
-uint64_t dark_clock_s(void)
+bool dark_cbuffer_view_terminated_is(const Dark_Cbuffer_View cbuffer_view_, size_t* const cstring_lenght_)
 {
-    return dark_clock_ns() / DARK_GIGA;
+    DARK_ASSERT(cbuffer_view_.size > 0, DARK_ERROR_ZERO);
+    //cstring_lenght_
+
+    const char element = '\0';
+    const Dark_Array_View array_view = { sizeof(char), cbuffer_view_.size, cbuffer_view_.data };
+
+    return dark_find_linear_index(&element, array_view, (Dark_Compare)dark_compare_u8, cstring_lenght_);
+}
+
+int8_t dark_cbuffer_view_compare(const Dark_Cbuffer_View* const a_, const Dark_Cbuffer_View* const b_)
+{
+    DARK_ASSERT(NULL != a_, DARK_ERROR_NULL);
+    DARK_ASSERT(a_->size > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(NULL != b_, DARK_ERROR_NULL);
+    DARK_ASSERT(b_->size > 0, DARK_ERROR_ZERO);
+
+    if(a_->size < b_->size)
+    {
+        return -1;
+    }
+    else if(a_->size > b_->size)
+    {
+        return 1;
+    }
+
+    for(size_t i = 0; i < a_->size; i++)
+    {
+        const int8_t result = dark_compare_i8((int8_t*)a_->data + i, (int8_t*)b_->data + i);
+
+        if(result != 0)
+        {
+            return result;
+        }
+    }
+
+    return 0;
 }

@@ -20,29 +20,17 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___LOGGER_STRUCT_H)
-#define ___DARK___LOGGER_STRUCT_H
+#if !defined(___DARK___ARRAY_ITERATOR_CONTEXT_H)
+#define ___DARK___ARRAY_ITERATOR_CONTEXT_H
 
-#include <dark/core/std.h>
-#include <dark/logger/logger.h>
-#include <dark/memory/allocator.h>
+#include <dark/core/core.h>
+#include <dark/tool/array.h>
+#include <dark/tool/iterator.h>
 
-typedef struct Dark_Logger
+struct Dark_Array_Iterator_Context
 {
-    Dark_Allocator* allocator;
-    Dark_Logger_Settings settings;
-    Dark_String log_string;
-    Dark_String va_string;
-    struct
-    {
-        bool recent_is;
-        char buffer[DARK_STAMP_HMS_SIZE];
-    } stamp;
-    struct
-    {
-        Dark_Ostream* instance;
-        Dark_Mutex* mutex;
-    } ostream;
-} Dark_Logger;
+    Dark_Array array;
+    size_t index;
+};
 
-#endif // !defined(___DARK___LOGGER_STRUCT_H)
+#endif // !defined(___DARK___ARRAY_ITERATOR_CONTEXT_H)

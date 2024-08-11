@@ -31,11 +31,6 @@
 #undef DARK_UNIT
 #define DARK_UNIT "string"
 
-size_t dark_string_struct_byte(void)
-{
-    return sizeof(Dark_String);
-}
-
 void dark_string_construct_v(Dark_Allocator* const allocator_, Dark_String* const string_, const Dark_Growth growth_, const char* const format_, va_list arguments_)
 {
     DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
@@ -51,6 +46,7 @@ void dark_string_construct_v(Dark_Allocator* const allocator_, Dark_String* cons
 
     DARK_ASSERT(size <= DARK_STRING_SIZE_MAX, DARK_ERROR_OVERFLOW);
 
+    string_->allocator = allocator_;
     dark_vector_construct_capacity(allocator_, &string_->vector, growth_, sizeof(char), size + 1);
 
     char* const destination = dark_vector_emplace(&string_->vector, 0, size);
@@ -79,6 +75,7 @@ void dark_string_construct_f(Dark_Allocator* const allocator_, Dark_String* cons
 
     DARK_ASSERT(size <= DARK_STRING_SIZE_MAX, DARK_ERROR_OVERFLOW);
 
+    string_->allocator = allocator_;
     dark_vector_construct_capacity(allocator_, &string_->vector, growth_, sizeof(char), size + 1);
 
     char* const destination = dark_vector_emplace(&string_->vector, 0, size);
@@ -90,6 +87,16 @@ void dark_string_construct_f(Dark_Allocator* const allocator_, Dark_String* cons
     dark_vector_insert_back(&string_->vector, (void*)&EOS);
 }
 
+void dark_string_construct_cstring(Dark_Allocator* const allocator_, Dark_String* const string_, const Dark_Growth growth_, const char* const cstring_)
+{
+    DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != growth_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != cstring_, DARK_ERROR_NULL);
+
+    dark_string_construct_cbuffer_view(allocator_, string_, growth_, dark_cstring_to_cbuffer_view(cstring_));
+}
+
 void dark_string_construct_cbuffer_view(Dark_Allocator* const allocator_, Dark_String* const string_, const Dark_Growth growth_, const Dark_Cbuffer_View cbuffer_view_)
 {
     DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
@@ -98,11 +105,12 @@ void dark_string_construct_cbuffer_view(Dark_Allocator* const allocator_, Dark_S
     DARK_ASSERT(cbuffer_view_.size > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != cbuffer_view_.data, DARK_ERROR_NULL);
 
+    string_->allocator = allocator_;
     dark_vector_construct_capacity(string_->allocator, &string_->vector, growth_, sizeof(char), cbuffer_view_.size + 1);
 
     DARK_ASSERT(cbuffer_view_.size <= DARK_STRING_SIZE_MAX, DARK_ERROR_OVERFLOW);
 
-    dark_vector_push(&string_->vector, 0, dark_cbuffer_view_array_view(cbuffer_view_));
+    dark_vector_push(&string_->vector, 0, dark_cbuffer_view_to_array_view(cbuffer_view_));
 
     const char EOS = '\0';
     dark_vector_insert_back(&string_->vector, (void*)&EOS);
@@ -115,6 +123,7 @@ void dark_string_construct_char(Dark_Allocator* const allocator_, Dark_String* c
     DARK_ASSERT(NULL != growth_, DARK_ERROR_NULL);
     //character_
 
+    string_->allocator = allocator_;
     dark_vector_construct_capacity(string_->allocator, &string_->vector, growth_, sizeof(char), 1);
 
     dark_vector_insert_front(&string_->vector, (void*)&character_);
@@ -132,6 +141,7 @@ void dark_string_construct_size(Dark_Allocator* const allocator_, Dark_String* c
 
     string_->allocator = allocator_;
 
+    string_->allocator = allocator_;
     dark_vector_construct_size(string_->allocator, &string_->vector, growth_, sizeof(char), capacity_ + 1, size_);
 
     const char EOS = '\0';
@@ -156,7 +166,7 @@ void dark_string_construct(Dark_Allocator* const allocator_, Dark_String* const 
     dark_string_construct_capacity(allocator_, string_, growth_, 0);
 }
 
-void dark_string_destroy(Dark_String* const string_)
+void dark_string_destruct(Dark_String* const string_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
 
@@ -192,6 +202,15 @@ Dark_String* dark_string_new_f(Dark_Allocator* const allocator_, const Dark_Grow
     va_end(args);
 
     return string;
+}
+
+Dark_String* dark_string_new_cstring(Dark_Allocator* const allocator_, const Dark_Growth growth_, const char* const cstring_)
+{
+    DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != growth_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != cstring_, DARK_ERROR_NULL);
+
+    return dark_string_new_cbuffer_view(allocator_, growth_, dark_cstring_to_cbuffer_view(cstring_));
 }
 
 Dark_String* dark_string_new_cbuffer_view(Dark_Allocator* const allocator_, const Dark_Growth growth_, const Dark_Cbuffer_View cbuffer_view_)
@@ -263,7 +282,9 @@ void dark_string_delete(Dark_String* const string_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
 
-    dark_string_destroy(string_);
+    DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
+
+    dark_string_destruct(string_);
 
     dark_free(string_->allocator, string_, sizeof(Dark_String));
 }
@@ -296,7 +317,7 @@ char dark_string_back(Dark_String* const string_)
     return dark_string_at(string_, dark_string_size(string_) - 1);
 }
 
-char* dark_string_cbuffer_terminated(Dark_String* const string_)
+const char* dark_string_cstring(Dark_String* const string_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
 
@@ -305,7 +326,7 @@ char* dark_string_cbuffer_terminated(Dark_String* const string_)
     return DARK_VECTOR_DATA(&string_->vector, char);
 }
 
-char* dark_string_substring_terminated(Dark_String* const string_, const size_t index_)
+const char* dark_string_subcstring(Dark_String* const string_, const size_t index_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
 
@@ -316,14 +337,80 @@ char* dark_string_substring_terminated(Dark_String* const string_, const size_t 
     return &DARK_VECTOR_AT(&string_->vector, index_, char);
 }
 
+Dark_Cbuffer dark_string_cbuffer(Dark_String* const string_)
+{
+    DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
+
+    DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
+
+    return dark_string_subcbuffer(string_, 0);
+}
+
+Dark_Cbuffer dark_string_subcbuffer(Dark_String* const string_, const size_t index_)
+{
+    DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
+
+    DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
+
+    DARK_ASSERT(index_ < dark_string_size(string_), DARK_ERROR_CONTAINER_INDEX);
+
+    const Dark_Array array = dark_vector_array(&string_->vector);
+
+    const Dark_Cbuffer cbuffer = { array.size - index_ - 1, array.data + index_ };
+
+    return cbuffer;
+}
+
+Dark_Cbuffer_View dark_string_cbuffer_view(Dark_String* const string_)
+{
+    DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
+
+    DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
+
+    return dark_string_subcbuffer_view(string_, 0);
+}
+
+Dark_Cbuffer_View dark_string_cbuffer_view_terminated(Dark_String* const string_)
+{
+    DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
+
+    DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
+
+    return dark_string_subcbuffer_view_terminated(string_, 0);
+}
+
+Dark_Cbuffer_View dark_string_subcbuffer_view(Dark_String* const string_, const size_t index_)
+{
+    DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
+
+    DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
+
+    DARK_ASSERT(index_ < dark_string_size(string_), DARK_ERROR_CONTAINER_INDEX);
+
+    return dark_cbuffer_to_view(dark_string_subcbuffer(string_, index_));
+}
+Dark_Cbuffer_View dark_string_subcbuffer_view_terminated(Dark_String* const string_, const size_t index_)
+{
+    DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
+
+    DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
+
+    DARK_ASSERT(index_ < dark_string_size(string_), DARK_ERROR_CONTAINER_INDEX);
+
+    const Dark_Array array = dark_vector_array(&string_->vector);
+
+    const Dark_Cbuffer_View cbuffer_view = { array.size - index_, array.data + index_ };
+
+    return cbuffer_view;
+}
+
 char* dark_string_emplace(Dark_String* const string_, const size_t index_, const size_t count_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
-    //index_!
+    DARK_ASSERT(index_ <= dark_string_size(string_), DARK_ERROR_CONTAINER_INDEX);
     DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
 
     DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
-    DARK_ASSERT(index_ <= dark_string_size(string_), DARK_ERROR_CONTAINER_INDEX);
     DARK_ASSERT(dark_string_size(string_) <= DARK_STRING_SIZE_MAX - count_, DARK_ERROR_OVERFLOW);
 
     return dark_vector_emplace(&string_->vector, index_, count_);
@@ -351,13 +438,50 @@ char* dark_string_emplace_back(Dark_String* const string_, const size_t count_)
     return dark_string_emplace(string_, dark_string_size(string_), count_);
 }
 
+Dark_Cbuffer dark_string_emplace_cbuffer(Dark_String* const string_, const size_t index_, const size_t count_)
+{
+    DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
+    DARK_ASSERT(index_ <= dark_string_size(string_), DARK_ERROR_CONTAINER_INDEX);
+    DARK_ASSERT(count_ > 0, DARK_ERROR_NULL);
+
+    DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
+    DARK_ASSERT(dark_string_size(string_) < DARK_STRING_SIZE_MAX, DARK_ERROR_OVERFLOW);
+
+    void* const data = dark_string_emplace(string_, index_, count_);
+
+    const Dark_Cbuffer cbuffer = { count_, data };
+
+    return cbuffer;
+}
+
+Dark_Cbuffer dark_string_emplace_cbuffer_front(Dark_String* const string_, const size_t count_)
+{
+    DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
+    DARK_ASSERT(count_ > 0, DARK_ERROR_NULL);
+
+    DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
+    DARK_ASSERT(dark_string_size(string_) < DARK_STRING_SIZE_MAX, DARK_ERROR_OVERFLOW);
+
+    return dark_string_emplace_cbuffer(string_, 0, count_);
+}
+
+Dark_Cbuffer dark_string_emplace_cbuffer_back(Dark_String* const string_, const size_t count_)
+{
+    DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
+    DARK_ASSERT(count_ > 0, DARK_ERROR_NULL);
+
+    DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
+    DARK_ASSERT(dark_string_size(string_) < DARK_STRING_SIZE_MAX, DARK_ERROR_OVERFLOW);
+
+    return dark_string_emplace_cbuffer(string_, dark_string_size(string_), count_);
+}
+
 char* dark_string_inplace(Dark_String* const string_, const size_t index_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
-    //index_!
+    DARK_ASSERT(index_ <= dark_string_size(string_), DARK_ERROR_CONTAINER_INDEX);
 
     DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
-    DARK_ASSERT(index_ <= dark_string_size(string_), DARK_ERROR_CONTAINER_INDEX);
     DARK_ASSERT(dark_string_size(string_) < DARK_STRING_SIZE_MAX, DARK_ERROR_OVERFLOW);
 
     return dark_string_emplace(string_, index_, 1);
@@ -376,7 +500,6 @@ char* dark_string_inplace_front(Dark_String* const string_)
 char* dark_string_inplace_back(Dark_String* const string_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
-    //index_!
 
     DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
     DARK_ASSERT(dark_string_size(string_) < DARK_STRING_SIZE_MAX, DARK_ERROR_OVERFLOW);
@@ -384,10 +507,41 @@ char* dark_string_inplace_back(Dark_String* const string_)
     return dark_string_inplace(string_, dark_string_size(string_));
 }
 
+Dark_Cbuffer dark_string_inplace_cbuffer(Dark_String* const string_, const size_t index_)
+{
+    DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
+    DARK_ASSERT(index_ <= dark_string_size(string_), DARK_ERROR_CONTAINER_INDEX);
+
+    DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
+    DARK_ASSERT(dark_string_size(string_) < DARK_STRING_SIZE_MAX, DARK_ERROR_OVERFLOW);
+
+    return dark_string_emplace_cbuffer(string_, index_, 1);
+}
+
+Dark_Cbuffer dark_string_inplace_cbuffer_front(Dark_String* const string_)
+{
+    DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
+
+    DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
+    DARK_ASSERT(dark_string_size(string_) < DARK_STRING_SIZE_MAX, DARK_ERROR_OVERFLOW);
+
+    return dark_string_inplace_cbuffer(string_, 0);
+}
+
+Dark_Cbuffer dark_string_inplace_cbuffer_back(Dark_String* const string_)
+{
+    DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
+
+    DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
+    DARK_ASSERT(dark_string_size(string_) < DARK_STRING_SIZE_MAX, DARK_ERROR_OVERFLOW);
+
+    return dark_string_inplace_cbuffer(string_, dark_string_size(string_));
+}
+
 void dark_string_push_v(Dark_String* const string_, const size_t index_, const char* const format_, va_list arguments_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
-    //index_!
+    DARK_ASSERT(index_ <= dark_string_size(string_), DARK_ERROR_CONTAINER_INDEX);
     DARK_ASSERT(NULL != format_, DARK_ERROR_NULL);
     //arguments_
 
@@ -402,7 +556,6 @@ void dark_string_push_v(Dark_String* const string_, const size_t index_, const c
     }
 
     DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
-    DARK_ASSERT(index_ <= dark_string_size(string_), DARK_ERROR_CONTAINER_INDEX);
     DARK_ASSERT(dark_string_size(string_) <= DARK_STRING_SIZE_MAX - additional, DARK_ERROR_OVERFLOW);
 
     dark_vector_reserve_additional(&string_->vector, additional);
@@ -417,7 +570,7 @@ void dark_string_push_v(Dark_String* const string_, const size_t index_, const c
 void dark_string_push_f(Dark_String* const string_, const size_t index_, const char* const format_, ...)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
-    //index_!
+    DARK_ASSERT(index_ <= dark_string_size(string_), DARK_ERROR_CONTAINER_INDEX);
     DARK_ASSERT(NULL != format_, DARK_ERROR_NULL);
 
     va_list args;
@@ -432,7 +585,6 @@ void dark_string_push_f(Dark_String* const string_, const size_t index_, const c
     }
 
     DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
-    DARK_ASSERT(index_ <= dark_string_size(string_), DARK_ERROR_CONTAINER_INDEX);
     DARK_ASSERT(dark_string_size(string_) <= DARK_STRING_SIZE_MAX - additional, DARK_ERROR_OVERFLOW);
 
     dark_vector_reserve_additional(&string_->vector, additional);
@@ -444,18 +596,28 @@ void dark_string_push_f(Dark_String* const string_, const size_t index_, const c
     va_end(args);
 }
 
+void dark_string_push_cstring(Dark_String* const string_, const size_t index_, const char* const cstring_)
+{
+    DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
+    DARK_ASSERT(index_ <= dark_string_size(string_), DARK_ERROR_CONTAINER_INDEX);
+    DARK_ASSERT(NULL != cstring_, DARK_ERROR_NULL);
+
+    DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
+
+    dark_string_push_cbuffer_view(string_, index_, dark_cstring_to_cbuffer_view(cstring_));
+}
+
 void dark_string_push_cbuffer_view(Dark_String* const string_, const size_t index_, const Dark_Cbuffer_View cbuffer_view_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
-    //index_!
+    DARK_ASSERT(index_ <= dark_string_size(string_), DARK_ERROR_CONTAINER_INDEX);
     DARK_ASSERT(cbuffer_view_.size > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != cbuffer_view_.data, DARK_ERROR_NULL);
 
     DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
-    DARK_ASSERT(index_ <= dark_string_size(string_), DARK_ERROR_CONTAINER_INDEX);
     DARK_ASSERT(dark_string_size(string_) <= DARK_STRING_SIZE_MAX - cbuffer_view_.size, DARK_ERROR_OVERFLOW);
 
-    dark_vector_push(&string_->vector, index_, dark_cbuffer_view_array_view(cbuffer_view_));
+    dark_vector_push(&string_->vector, index_, dark_cbuffer_view_to_array_view(cbuffer_view_));
 }
 
 void dark_string_append_v(Dark_String* const string_, const char* const format_, va_list arguments_)
@@ -514,17 +676,26 @@ void dark_string_append_f(Dark_String* const string_, const char* const format_,
     va_end(copy);
 }
 
-void dark_string_append_cbuffer(Dark_String* const string_, const Dark_Cbuffer_View cbuffer_view_)
+void dark_string_append_cstring(Dark_String* const string_, const char* const cstring_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
-    //index_!
+    DARK_ASSERT(NULL != cstring_, DARK_ERROR_NULL);
+
+    DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
+
+    dark_string_append_cbuffer_view(string_, dark_cstring_to_cbuffer_view(cstring_));
+}
+
+void dark_string_append_cbuffer_view(Dark_String* const string_, const Dark_Cbuffer_View cbuffer_view_)
+{
+    DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
     DARK_ASSERT(cbuffer_view_.size > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != cbuffer_view_.data, DARK_ERROR_NULL);
 
     DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
     DARK_ASSERT(dark_string_size(string_) <= DARK_STRING_SIZE_MAX - cbuffer_view_.size, DARK_ERROR_OVERFLOW);
 
-    dark_vector_push(&string_->vector, dark_string_size(string_), dark_cbuffer_view_array_view(cbuffer_view_));
+    dark_vector_push(&string_->vector, dark_string_size(string_), dark_cbuffer_view_to_array_view(cbuffer_view_));
 }
 
 void dark_string_prepend_v(Dark_String* const string_, const char* const format_, va_list arguments_)
@@ -582,27 +753,35 @@ void dark_string_prepend_f(Dark_String* const string_, const char* const format_
     va_end(args);
 }
 
-void dark_string_prepend_cbuffer(Dark_String* const string_, const Dark_Cbuffer_View cbuffer_view_)
+void dark_string_prepend_cstring(Dark_String* const string_, const char* const cstring_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
-    //index_!
+    DARK_ASSERT(NULL != cstring_, DARK_ERROR_NULL);
+
+    DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
+
+    dark_string_prepend_cbuffer_view(string_, dark_cstring_to_cbuffer_view(cstring_));
+}
+
+void dark_string_prepend_cbuffer_view(Dark_String* const string_, const Dark_Cbuffer_View cbuffer_view_)
+{
+    DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
     DARK_ASSERT(cbuffer_view_.size > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(NULL != cbuffer_view_.data, DARK_ERROR_NULL);
 
     DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
     DARK_ASSERT(dark_string_size(string_) <= DARK_STRING_SIZE_MAX - cbuffer_view_.size, DARK_ERROR_OVERFLOW);
 
-    dark_vector_push(&string_->vector, 0, dark_cbuffer_view_array_view(cbuffer_view_));
+    dark_vector_push(&string_->vector, 0, dark_cbuffer_view_to_array_view(cbuffer_view_));
 }
 
 void dark_string_insert(Dark_String* const string_, const size_t index_, const char character_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
-    //index_!
+    DARK_ASSERT(index_ <= dark_string_size(string_), DARK_ERROR_CONTAINER_INDEX);
     //character_
 
     DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
-    DARK_ASSERT(index_ <= dark_string_size(string_), DARK_ERROR_CONTAINER_INDEX);
     DARK_ASSERT(dark_string_size(string_) < DARK_STRING_SIZE_MAX, DARK_ERROR_OVERFLOW);
 
     dark_vector_insert(&string_->vector, index_, (void*)&character_);
@@ -611,7 +790,6 @@ void dark_string_insert(Dark_String* const string_, const size_t index_, const c
 void dark_string_insert_front(Dark_String* const string_, const char character_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
-    //index_!
     //character_
 
     DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
@@ -623,7 +801,6 @@ void dark_string_insert_front(Dark_String* const string_, const char character_)
 void dark_string_insert_back(Dark_String* const string_, const char character_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
-    //index_!
     //character_
 
     DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
@@ -635,7 +812,7 @@ void dark_string_insert_back(Dark_String* const string_, const char character_)
 void dark_string_pop(Dark_String* const string_, const size_t index_, const size_t count_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
-    //index_!
+    DARK_ASSERT(index_ <= dark_string_size(string_), DARK_ERROR_CONTAINER_INDEX);
     DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
 
     if (0 == count_)
@@ -645,7 +822,6 @@ void dark_string_pop(Dark_String* const string_, const size_t index_, const size
 
     DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
     DARK_ASSERT(dark_string_size(string_) >= count_, DARK_ERROR_UNDERFLOW);
-    DARK_ASSERT(index_ + count_ <= dark_string_size(string_), DARK_ERROR_VALUE);
 
     dark_vector_pop(&string_->vector, index_, count_);
 }
@@ -675,11 +851,10 @@ void dark_string_pop_back(Dark_String* const string_, const size_t count_)
 void dark_string_erase(Dark_String* const string_, const size_t index_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
-    //index_!
+    DARK_ASSERT(index_ <= dark_string_size(string_), DARK_ERROR_CONTAINER_INDEX);
 
     DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
     DARK_ASSERT(dark_string_size(string_) > 0, DARK_ERROR_UNDERFLOW);
-    DARK_ASSERT(index_ < dark_string_size(string_), DARK_ERROR_VALUE);
 
     dark_string_pop(string_, index_, 1);
 }
@@ -687,7 +862,6 @@ void dark_string_erase(Dark_String* const string_, const size_t index_)
 void dark_string_erase_front(Dark_String* const string_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
-    //index_!
 
     DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
     DARK_ASSERT(dark_string_size(string_) > 0, DARK_ERROR_UNDERFLOW);
@@ -698,7 +872,6 @@ void dark_string_erase_front(Dark_String* const string_)
 void dark_string_erase_back(Dark_String* const string_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
-    //index_!
 
     DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
     DARK_ASSERT(dark_string_size(string_) > 0, DARK_ERROR_UNDERFLOW);
@@ -805,4 +978,9 @@ void dark_string_clear(Dark_String* const string_)
 
     const char EOS = '\0';
     dark_vector_insert_back(&string_->vector, (void*)&EOS);
+}
+
+size_t dark_string_struct_byte(void)
+{
+    return sizeof(Dark_String);
 }

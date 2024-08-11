@@ -29,7 +29,7 @@
 #undef DARK_UNIT
 #define DARK_UNIT "cbuffer"
 
-Dark_Cbuffer_View dark_cbuffer_view(const Dark_Cbuffer cbuffer_)
+Dark_Cbuffer_View dark_cbuffer_to_view(const Dark_Cbuffer cbuffer_)
 {
     DARK_ASSERT(NULL != cbuffer_.data, DARK_ERROR_NULL);
     DARK_ASSERT(cbuffer_.size > 0, DARK_ERROR_ZERO);
@@ -39,7 +39,7 @@ Dark_Cbuffer_View dark_cbuffer_view(const Dark_Cbuffer cbuffer_)
     return view;
 }
 
-Dark_Array dark_cbuffer_array(const Dark_Cbuffer cbuffer_)
+Dark_Array dark_cbuffer_to_array(const Dark_Cbuffer cbuffer_)
 {
     DARK_ASSERT(NULL != cbuffer_.data, DARK_ERROR_NULL);
     DARK_ASSERT(cbuffer_.size > 0, DARK_ERROR_ZERO);
@@ -49,7 +49,7 @@ Dark_Array dark_cbuffer_array(const Dark_Cbuffer cbuffer_)
     return array;
 }
 
-Dark_Array_View dark_cbuffer_array_view(const Dark_Cbuffer cbuffer_)
+Dark_Array_View dark_cbuffer_to_array_view(const Dark_Cbuffer cbuffer_)
 {
     DARK_ASSERT(NULL != cbuffer_.data, DARK_ERROR_NULL);
     DARK_ASSERT(cbuffer_.size > 0, DARK_ERROR_ZERO);
@@ -59,17 +59,7 @@ Dark_Array_View dark_cbuffer_array_view(const Dark_Cbuffer cbuffer_)
     return array_view;
 }
 
-Dark_Array_View dark_cbuffer_view_array_view(const Dark_Cbuffer_View cbuffer_view_)
-{
-    DARK_ASSERT(NULL != cbuffer_view_.data, DARK_ERROR_NULL);
-    DARK_ASSERT(cbuffer_view_.size > 0, DARK_ERROR_ZERO);
-
-    const Dark_Array_View array_view = { sizeof(char), cbuffer_view_.size, cbuffer_view_.data };
-
-    return array_view;
-}
-
-Dark_Buffer dark_cbuffer_buffer(const Dark_Cbuffer cbuffer_)
+Dark_Buffer dark_cbuffer_to_buffer(const Dark_Cbuffer cbuffer_)
 {
     DARK_ASSERT(NULL != cbuffer_.data, DARK_ERROR_NULL);
     DARK_ASSERT(cbuffer_.size > 0, DARK_ERROR_ZERO);
@@ -79,22 +69,12 @@ Dark_Buffer dark_cbuffer_buffer(const Dark_Cbuffer cbuffer_)
     return buffer;
 }
 
-Dark_Buffer_View dark_cbuffer_buffer_view(const Dark_Cbuffer cbuffer_)
+Dark_Buffer_View dark_cbuffer_to_buffer_view(const Dark_Cbuffer cbuffer_)
 {
     DARK_ASSERT(NULL != cbuffer_.data, DARK_ERROR_NULL);
     DARK_ASSERT(cbuffer_.size > 0, DARK_ERROR_ZERO);
 
     const Dark_Buffer_View buffer_view = { cbuffer_.size, cbuffer_.data };
-
-    return buffer_view;
-}
-
-Dark_Buffer_View dark_cbuffer_view_buffer_view(const Dark_Cbuffer_View cbuffer_view_)
-{
-    DARK_ASSERT(NULL != cbuffer_view_.data, DARK_ERROR_NULL);
-    DARK_ASSERT(cbuffer_view_.size > 0, DARK_ERROR_ZERO);
-
-    const Dark_Buffer_View buffer_view = { cbuffer_view_.size, cbuffer_view_.data };
 
     return buffer_view;
 }
@@ -105,18 +85,7 @@ bool dark_cbuffer_terminated_is(const Dark_Cbuffer cbuffer_, size_t* const cstri
     DARK_ASSERT(cbuffer_.size > 0, DARK_ERROR_ZERO);
     //cstring_lenght_
 
-    return dark_cbuffer_view_terminated_is(dark_cbuffer_view(cbuffer_), cstring_lenght_);
-}
-
-bool dark_cbuffer_view_terminated_is(const Dark_Cbuffer_View cbuffer_view_, size_t* const cstring_lenght_)
-{
-    DARK_ASSERT(cbuffer_view_.size > 0, DARK_ERROR_ZERO);
-    //cstring_lenght_
-
-    const char element = '\0';
-    const Dark_Array_View array_view = { sizeof(char), cbuffer_view_.size, cbuffer_view_.data };
-
-    return dark_find_linear_index(&element, array_view, (Dark_Compare)dark_compare_u8, cstring_lenght_);
+    return dark_cbuffer_view_terminated_is(dark_cbuffer_to_view(cbuffer_), cstring_lenght_);
 }
 
 int8_t dark_cbuffer_compare(const Dark_Cbuffer* a_, const Dark_Cbuffer* b_)
@@ -126,37 +95,8 @@ int8_t dark_cbuffer_compare(const Dark_Cbuffer* a_, const Dark_Cbuffer* b_)
     DARK_ASSERT(NULL != b_, DARK_ERROR_NULL);
     DARK_ASSERT(b_->size > 0, DARK_ERROR_ZERO);
 
-    Dark_Cbuffer_View a = dark_cbuffer_view(*a_);
-    Dark_Cbuffer_View b = dark_cbuffer_view(*b_);
+    const Dark_Cbuffer_View a = dark_cbuffer_to_view(*a_);
+    const Dark_Cbuffer_View b = dark_cbuffer_to_view(*b_);
 
     return dark_cbuffer_view_compare(&a, &b);
-}
-
-int8_t dark_cbuffer_view_compare(const Dark_Cbuffer_View* const a_, const Dark_Cbuffer_View* const b_)
-{
-    DARK_ASSERT(NULL != a_, DARK_ERROR_NULL);
-    DARK_ASSERT(a_->size > 0, DARK_ERROR_ZERO);
-    DARK_ASSERT(NULL != b_, DARK_ERROR_NULL);
-    DARK_ASSERT(b_->size > 0, DARK_ERROR_ZERO);
-
-    if(a_->size < b_->size)
-    {
-        return -1;
-    }
-    else if(a_->size > b_->size)
-    {
-        return 1;
-    }
-
-    for(size_t i = 0; i < a_->size; i++)
-    {
-        const int8_t result = dark_compare_i8((int8_t*)a_->data + i, (int8_t*)b_->data + i);
-
-        if(result != 0)
-        {
-            return result;
-        }
-    }
-
-    return 0;
 }

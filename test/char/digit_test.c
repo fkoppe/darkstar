@@ -6,22 +6,6 @@ int main()
     dark_test_initialise();
 
     //----------TEST----------
-    DARK_TEST("cstring_lenght")
-    {
-        DARK_TEST_EQ_U(26, dark_cstring_lenght("abcdefghijklmnopqrstuvwxyz"));
-        DARK_TEST_EQ_U(0, dark_cstring_lenght(""));
-    }
-    //--------------------------
-
-    //----------TEST----------
-    DARK_TEST("cstring_compare")
-    {
-        DARK_TEST_EQ_U(0, dark_cstring_compare("abcd", "abcd"));
-        DARK_TEST_NE_U(0, dark_cstring_compare("abcdy", "abcdx"));
-    }
-    //--------------------------
-
-    //----------TEST----------
     DARK_TEST("digit_get_u")
     {
         DARK_TEST_EQ_U(1, dark_digit_get_u(4711, 0));

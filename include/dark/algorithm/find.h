@@ -25,6 +25,7 @@
 
 #include <dark/core/std.h>
 #include <dark/tool/array.h>
+#include <dark/tool/array_view.h>
 #include <dark/tool/compare.h>
 
 bool dark_find_linear_index(const void* element, Dark_Array_View array_view, Dark_Compare compare, size_t* index);

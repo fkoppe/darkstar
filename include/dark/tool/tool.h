@@ -25,7 +25,9 @@
 
 #include <dark/tool/array.h>
 #include <dark/tool/array_iterator.h>
+#include <dark/tool/array_view.h>
 #include <dark/tool/buffer.h>
+#include <dark/tool/buffer_view.h>
 #include <dark/tool/compare.h>
 #include <dark/tool/foreach.h>
 #include <dark/tool/growth.h>

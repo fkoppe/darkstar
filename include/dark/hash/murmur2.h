@@ -24,7 +24,7 @@
 #define ___DARK___MURMUR2_H
 
 #include <dark/core/std.h>
-#include <dark/tool/buffer.h>
+#include <dark/tool/buffer_view.h>
 
 uint32_t dark_hash_murmur2_32(Dark_Buffer_View buffer_view);
 

@@ -52,14 +52,7 @@ size_t dark_growth_standard(const size_t current_, const size_t requested_)
         return 0;
     }
 
-    size_t total = dark_max_zu(1, current_ * 1.5f);
-
-    while(total < requested_)
-    {
-        total = dark_max_zu(total + 1, total * 1.5f);
-    }
-
-    return total - current_;
+    return dark_max_zu(requested_, dark_max_zu(1, current_ * 1.5f));
 }
 
 size_t dark_growth_exponential(const size_t current_, const size_t requested_)
@@ -72,12 +65,5 @@ size_t dark_growth_exponential(const size_t current_, const size_t requested_)
         return 0;
     }
 
-    size_t total = dark_max_zu(1, current_ * 2.0f);
-
-    while(total < requested_)
-    {
-        total *= 2;
-    }
-
-    return total - current_;
+    return dark_max_zu(requested_, dark_max_zu(1, current_ * 2.0f));
 }

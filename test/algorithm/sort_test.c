@@ -33,8 +33,8 @@ int main()
         dark_sort_insertion(arrv_1, (Dark_Compare)dark_compare_i32, &element_buffer);
         dark_sort_insertion(arrv_2, (Dark_Compare)dark_compare_i32, &element_buffer);
 
-        DARK_TEST_TRUE(dark_sort_is(dark_array_view(arrv_1), (Dark_Compare)dark_compare_i32));
-        DARK_TEST_TRUE(dark_sort_is(dark_array_view(arrv_2), (Dark_Compare)dark_compare_i32));
+        DARK_TEST_TRUE(dark_sort_is(dark_array_to_view(arrv_1), (Dark_Compare)dark_compare_i32));
+        DARK_TEST_TRUE(dark_sort_is(dark_array_to_view(arrv_2), (Dark_Compare)dark_compare_i32));
     }
     //--------------------------
 

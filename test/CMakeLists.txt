@@ -24,7 +24,7 @@ add_subdirectory(platform)
 #-----
 
 add_subdirectory(algorithm)
-add_subdirectory(stream)
+#add_subdirectory(stream)
 
 #-----
 

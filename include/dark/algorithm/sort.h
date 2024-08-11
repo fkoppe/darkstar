@@ -25,6 +25,7 @@
 
 #include <dark/core/std.h>
 #include <dark/tool/array.h>
+#include <dark/tool/array_view.h>
 
 bool dark_sort_is(Dark_Array_View array_view, Dark_Compare compare);
 

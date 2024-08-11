@@ -3,6 +3,11 @@ target_sources(
     PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/array.c
     ${CMAKE_CURRENT_LIST_DIR}/array_iterator.c
+    ${CMAKE_CURRENT_LIST_DIR}/array_iterator_helper.c
+    ${CMAKE_CURRENT_LIST_DIR}/array_iterator_helper.c
+    ${CMAKE_CURRENT_LIST_DIR}/array_view.c
+    ${CMAKE_CURRENT_LIST_DIR}/buffer.c
+    ${CMAKE_CURRENT_LIST_DIR}/buffer_view.c
     ${CMAKE_CURRENT_LIST_DIR}/compare.c
 	${CMAKE_CURRENT_LIST_DIR}/growth.c
 	${CMAKE_CURRENT_LIST_DIR}/iterator.c

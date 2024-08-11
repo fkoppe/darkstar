@@ -29,22 +29,13 @@
 #include <dark/tool/iterator.h>
 
 typedef struct Dark_Array_Iterator_Context Dark_Array_Iterator_Context;
-struct Dark_Array_Iterator_Context
-{
-    Dark_Allocator* allocator;
-    Dark_Array array;
-    size_t index;
-};
 
-size_t dark_array_iterator_context_byte(void);
-
-void dark_array_iterator_construct(Dark_Allocator* allocator, Dark_Iterator* iterator, void* context, Dark_Array array);
+void dark_array_iterator_construct(Dark_Allocator* allocator, Dark_Iterator* iterator, Dark_Array_Iterator_Context* context, Dark_Array array);
 void dark_array_iterator_destruct(Dark_Iterator* iterator);
 
 Dark_Iterator* dark_array_iterator_new(Dark_Allocator* allocator, Dark_Array array);
 void dark_array_iterator_delete(Dark_Iterator* iterator);
 
-bool dark_array_allocator_next_is(void* context);
-void* dark_array_allocator_next(void* context);
+size_t dark_array_iterator_context_byte(void);
 
 #endif // !defined(___DARK___ARRAY_ITERATOR_H)

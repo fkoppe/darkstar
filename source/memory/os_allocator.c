@@ -20,10 +20,13 @@
 *                                                                                   *
 ************************************************************************************/
 
+#include "os_allocator_helper.h"
 #include "memory_module.h"
 
 #include <dark/core/core.h>
+#include <dark/memory/allocator_struct.h>
 #include <dark/memory/memory.h>
+#include <dark/memory/os_allocator_context.h>
 
 #undef malloc
 #undef calloc
@@ -35,47 +38,37 @@
 #undef DARK_UNIT
 #define DARK_UNIT "os_allocator"
 
-size_t dark_os_allocator_context_byte(void)
-{
-    return sizeof(Dark_Os_Allocator_Context);
-}
-
-void dark_os_allocator_construct(Dark_Allocator* const os_allocator_, void* const context_)
+void dark_os_allocator_construct(Dark_Allocator* const os_allocator_, Dark_Os_Allocator_Context* const context_)
 {
     DARK_ASSERT(NULL != os_allocator_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
 
-    Dark_Allocator_Struct* const allocator = (Dark_Allocator_Struct*)os_allocator_;
+    os_allocator_->allocate = dark_os_allocator_allocate;
+    os_allocator_->callocate = dark_os_allocator_callocate;
+    os_allocator_->context = context_;
 
-    allocator->allocate = dark_os_allocator_allocate;
-    allocator->callocate = dark_os_allocator_callocate;
-    allocator->context = context_;
-
-    Dark_Os_Allocator_Context* const context = (Dark_Os_Allocator_Context*)allocator->context;
-    context->info.count = 0;
-    context->info.usage = 0;
+    context_->info.count = 0;
+    context_->info.usage = 0;
 }
 
 void dark_os_allocator_destruct(Dark_Allocator* const os_allocator_)
 {
     DARK_ASSERT(NULL != os_allocator_, DARK_ERROR_NULL);
 
-    Dark_Allocator_Struct* const allocator = (Dark_Allocator_Struct*)os_allocator_;
-
     //nothing
 }
 
 Dark_Allocator* dark_os_allocator_new(void)
 {
-    Dark_Allocator_Struct* const allocator = malloc(sizeof(Dark_Allocator_Struct) + dark_os_allocator_context_byte());
+    Dark_Allocator* const allocator = malloc(sizeof(*allocator) + dark_os_allocator_context_byte());
     DARK_ASSERT(NULL != allocator, DARK_ERROR_ALLOCATION);
 
-    Dark_Os_Allocator_Context* const context = (Dark_Os_Allocator_Context*)((int8_t*)allocator + sizeof(Dark_Allocator_Struct));
+    Dark_Os_Allocator_Context* const context = (Dark_Os_Allocator_Context*)((int8_t*)allocator + sizeof(Dark_Allocator));
 
     dark_os_allocator_construct((Dark_Allocator*)allocator, context);
 
     context->info.count = 1;
-    context->info.usage = sizeof(Dark_Allocator_Struct) + sizeof(dark_os_allocator_context_byte());
+    context->info.usage = sizeof(Dark_Allocator) + sizeof(dark_os_allocator_context_byte());
 
     return (Dark_Allocator*)allocator;
 }
@@ -84,108 +77,21 @@ void dark_os_allocator_delete(Dark_Allocator* const os_allocator_)
 {
     DARK_ASSERT(NULL != os_allocator_, DARK_ERROR_NULL);
 
-    Dark_Allocator_Struct* const allocator = (Dark_Allocator_Struct*)os_allocator_;
+    dark_os_allocator_destruct(os_allocator_);
 
-    dark_os_allocator_destruct((Dark_Allocator*)allocator);
-
-    free(allocator);
+    free(os_allocator_);
 }
 
 Dark_Allocator_Info dark_os_allocator_info(Dark_Allocator* const os_allocator_)
 {
     DARK_ASSERT(NULL != os_allocator_, DARK_ERROR_NULL);
 
-    Dark_Allocator_Struct* const allocator = (Dark_Allocator_Struct*)os_allocator_;
-    Dark_Os_Allocator_Context* const context = (Dark_Os_Allocator_Context*)allocator->context;
+    Dark_Os_Allocator_Context* const context = (Dark_Os_Allocator_Context*)os_allocator_->context;
 
     return context->info;
 }
 
-void* dark_os_allocator_allocate(void* const context_, void* const address_, const size_t byte_old_, const size_t byte_new_)
+size_t dark_os_allocator_context_byte(void)
 {
-    DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
-
-    Dark_Os_Allocator_Context* const context = (Dark_Os_Allocator_Context*)context_;
-
-    void* pointer = NULL;
-
-    if(NULL == address_ || 0 == byte_old_)
-    {
-        DARK_ASSERT(NULL == address_, DARK_ERROR_LOGIC);
-        DARK_ASSERT(0 == byte_old_, DARK_ERROR_LOGIC);
-        DARK_ASSERT(byte_new_ > 0, DARK_ERROR_LOGIC);
-
-        pointer = malloc(byte_new_);
-
-        context->info.count++;
-        context->info.usage += byte_new_;
-    }
-    else if(NULL != address_ && 0 == byte_new_)
-    {
-        DARK_ASSERT(byte_old_ > 0, DARK_ERROR_LOGIC);
-
-        free(address_);
-
-        context->info.count--;
-        context->info.usage -= byte_old_;
-    }
-    else if(NULL != address_ && byte_old_ > 0 && byte_new_ > 0)
-    {
-        pointer = realloc(address_, byte_new_);
-
-        context->info.usage += (int64_t)(byte_new_ - byte_old_);
-    }
-    else
-    {
-        DARK_EXIT_ERROR(-1, DARK_ERROR_LOGIC);
-    }
-
-    return pointer;
-}
-
-void* dark_os_allocator_callocate(void* const context_, void* const address_, const size_t byte_old_, const size_t byte_new_)
-{
-    DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
-
-    Dark_Os_Allocator_Context* const context = (Dark_Os_Allocator_Context*)context_;
-
-    void* pointer = NULL;
-
-    if(NULL == address_ || 0 == byte_old_)
-    {
-        DARK_ASSERT(NULL == address_, DARK_ERROR_LOGIC);
-        DARK_ASSERT(0 == byte_old_, DARK_ERROR_LOGIC);
-        DARK_ASSERT(byte_new_ > 0, DARK_ERROR_LOGIC);
-
-        pointer = calloc(1, byte_new_);
-
-        context->info.count++;
-        context->info.usage += byte_new_;
-    }
-    else if(NULL != address_ && 0 == byte_new_)
-    {
-        DARK_ASSERT(byte_old_ > 0, DARK_ERROR_LOGIC);
-
-        free(address_);
-
-        context->info.count--;
-        context->info.usage -= byte_old_;
-    }
-    else if(NULL != address_ && byte_old_ > 0 && byte_new_ > 0)
-    {
-        pointer = realloc(address_, byte_new_);
-
-        context->info.usage += (int64_t)(byte_new_ - byte_old_);
-
-        if(byte_new_ > byte_old_ && NULL != pointer)
-        {
-            dark_memset((int8_t*)pointer + byte_old_, 0, byte_new_ - byte_old_);
-        }
-    }
-    else
-    {
-        DARK_EXIT_ERROR(-1, DARK_ERROR_LOGIC);
-    }
-
-    return pointer;
+    return sizeof(Dark_Os_Allocator_Context);
 }

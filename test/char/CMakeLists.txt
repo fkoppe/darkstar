@@ -1,3 +1,5 @@
 dark_test_add(cbuffer_test)
-dark_test_add(char_test)
+dark_test_add(cbuffer_view_test)
+dark_test_add(cstring_test)
+dark_test_add(digit_test)
 dark_test_add(string_test)

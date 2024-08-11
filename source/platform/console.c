@@ -30,21 +30,13 @@
 #undef DARK_UNIT
 #define DARK_UNIT "console"
 
-#if defined(___DARK_LINUX)
-#define ___DARK_UNIX
-#endif // defined(___DARK_LINUX)
-
-#if defined(___DARK_DARWIN)
-#define ___DARK_UNIX
-#endif // defined(___DARK_DARWIN)
-
 #if defined(___DARK_WINDOWS)
 #include <dark/windows.h>
 #endif // defined(___DARK_WINDOWS)
 
-#if defined(___DARK_UNIX)
+#if defined(___DARK_LINUX) || defined(___DARK_DARWIN)
 //nothing
-#endif // defined(___DARK_UNIX)
+#endif // defined(___DARK_LINUX) || defined(___DARK_DARWIN)
 
 void dark_console_hide(void)
 {
@@ -52,9 +44,9 @@ void dark_console_hide(void)
     ShowWindow(GetConsoleWindow(), SW_HIDE);
 #endif // defined(___DARK_WINDOWS)
 
-#if defined(___DARK_UNIX)
+#if defined(___DARK_LINUX) || defined(___DARK_DARWIN)
 //nothing
-#endif // defined(___DARK_UNIX)
+#endif // defined(___DARK_LINUX) || defined(___DARK_DARWIN)
 }
 
 void dark_console_show(void)
@@ -63,9 +55,9 @@ void dark_console_show(void)
     ShowWindow(GetConsoleWindow(), SW_SHOW);
 #endif // defined(___DARK_WINDOWS)
 
-#if defined(___DARK_UNIX)
+#if defined(___DARK_LINUX) || defined(___DARK_DARWIN)
 //nothing
-#endif // defined(___DARK_UNIX)
+#endif // defined(___DARK_LINUX) || defined(___DARK_DARWIN)
 }
 
 void dark_console_clear(void)
@@ -74,7 +66,7 @@ void dark_console_clear(void)
     system("cls");
 #endif // defined(___DARK_WINDOWS)
 
-#if defined(___DARK_UNIX)
+#if defined(___DARK_LINUX) || defined(___DARK_DARWIN)
     system("clear");
-#endif // defined(___DARK_UNIX)
+#endif // defined(___DARK_LINUX) || defined(___DARK_DARWIN)
 }

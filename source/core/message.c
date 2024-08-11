@@ -36,12 +36,12 @@ X X X X X X X X X X X X X X*/
 
 void dark_message_print(const Dark_So so_, const Dark_Message message_)
 {
-    assert(___DARK_SO_MIN < so_ < ___DARK_SO_MAX);
+    assert(___DARK_SO_MIN < so_ && so_ < ___DARK_SO_MAX);
     //message_
 
     const Dark_Message* msg = &message_;
     const char* data_arr[DARK_MESSAGE_DEPTH_MAX * 2] = { 0 };
-    bool data_is = false;
+    bool not_empty_is = false;
     size_t left = 0;
     size_t right = DARK_MESSAGE_DEPTH_MAX - 1;
 
@@ -54,14 +54,14 @@ void dark_message_print(const Dark_So so_, const Dark_Message message_)
 
         if(NULL != msg->prefix)
         {
-            data_is = true;
+            not_empty_is = true;
             data_arr[left] = msg->prefix;
             left++;
         }
 
         if(NULL != msg->suffix)
         {
-            data_is = true;
+            not_empty_is = true;
             data_arr[right] = msg->suffix;
             right--;
         }
@@ -69,7 +69,7 @@ void dark_message_print(const Dark_So so_, const Dark_Message message_)
         msg = msg->parent;
     }
 
-    if (!data_is)
+    if (!not_empty_is)
     {
         return;
     }

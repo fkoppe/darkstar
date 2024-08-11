@@ -25,6 +25,7 @@
 
 #include <dark/char/alphabet.h>
 #include <dark/char/cbuffer.h>
+#include <dark/char/cbuffer_view.h>
 #include <dark/char/cstring.h>
 #include <dark/char/digit.h>
 #include <dark/char/string.h>

@@ -20,11 +20,19 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___LOG_H)
-#define ___DARK___LOG_H
+#if !defined(___DARK___ITERATOR_STRUCT_H)
+#define ___DARK___ITERATOR_STRUCT_H
 
-#include <dark/log/logger.h>
-#include <dark/log/log_data.h>
-#include <dark/log/static_log.h>
+#include <dark/core/error.h>
+#include <dark/core/std.h>
+#include <dark/memory/allocator.h>
 
-#endif // !defined(___DARK___LOG_H)
+struct Dark_Iterator
+{
+    Dark_Allocator* allocator;
+    bool (*next_is)(void* context);
+    void* (*next)(void* context);
+    void* context;
+};
+
+#endif // !defined(___DARK___ITERATOR_STRUCT_H)

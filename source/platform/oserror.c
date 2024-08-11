@@ -30,14 +30,6 @@
 #undef DARK_UNIT
 #define DARK_UNIT "oserror"
 
-#if defined(___DARK_LINUX)
-#define ___DARK_UNIX
-#endif // defined(___DARK_LINUX)
-
-#if defined(___DARK_DARWIN)
-#define ___DARK_UNIX
-#endif // defined(___DARK_DARWIN)
-
 bool dark_oserror_occured_is(void)
 {
     return errno != 0;
@@ -212,7 +204,7 @@ Dark_Oserror dark_oserror_occured(void)
     }
 #endif // defined(___DARK_WINDOWS)
 
-#if defined(___DARK_UNIX)
+#if defined(___DARK_LINUX) || defined(___DARK_DARWIN)
     switch (value)
     {
     case EPERM:
@@ -476,7 +468,7 @@ Dark_Oserror dark_oserror_occured(void)
     default:
         return DARK_OSERROR_UNKNOWN;
     }
-#endif // defined(___DARK_UNIX)
+#endif // defined(___DARK_LINUX) || defined(___DARK_DARWIN)
 }
 
 const char* dark_oserror_name(const Dark_Oserror oserror_)

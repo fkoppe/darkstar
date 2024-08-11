@@ -61,8 +61,6 @@ static const Dark_Message DARK_MESSAGE_FILE_FLAG_BINARY = { NULL, "no binary fla
 static const Dark_Message DARK_MESSAGE_FILE_OPENED_NOT = { NULL, "file not opened", NULL };
 static const Dark_Message DARK_MESSAGE_FILE_OPENED_ALREADY = { NULL, "file already opened", NULL };
 
-size_t dark_file_struct_byte(void);
-
 void dark_file_construct(Dark_Allocator* allocator, Dark_File* file);
 void dark_file_destruct(Dark_File* file);
 
@@ -83,6 +81,8 @@ Dark_Oserror dark_file_read_binary(Dark_File* file, Dark_Array destination, size
 Dark_Oserror dark_file_mmap(Dark_File* file, void** destination);
 
 Dark_Oserror dark_file_byte(Dark_File* file, size_t* destination);
+
+size_t dark_file_struct_byte(void);
 
 size_t dark_file_count_max(void);
 

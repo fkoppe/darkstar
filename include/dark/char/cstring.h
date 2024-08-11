@@ -23,16 +23,23 @@
 #if !defined(___DARK___CSTRING_H)
 #define ___DARK___CSTRING_H
 
+#include <dark/char/cbuffer_view.h>
 #include <dark/core/std.h>
+#include <dark/tool/array_view.h>
+#include <dark/tool/buffer_view.h>
 
 #define DARK_CSTRING_LENGHT_MAX 256
 
 size_t dark_cstring_lenght(const char* cstring);
 
-Dark_Cbuffer_View dark_cstring_cbuffer_view(const char* cstring);
-Dark_Cbuffer_View dark_cstring_cbuffer_view_terminated(const char* cstring);
-Dark_Buffer_View dark_cstring_buffer_view(const char* cstring);
-Dark_Buffer_View dark_cstring_buffer_view_terminated(const char* cstring);
+Dark_Cbuffer_View dark_cstring_to_cbuffer_view(const char* cstring);
+Dark_Cbuffer_View dark_cstring_to_cbuffer_view_terminated(const char* cstring);
+
+Dark_Array_View dark_cstring_to_array_view(const char* cstring);
+Dark_Array_View dark_cstring_to_array_view_terminated(const char* cstring);
+
+Dark_Buffer_View dark_cstring_to_buffer_view(const char* cstring);
+Dark_Buffer_View dark_cstring_to_buffer_view_terminated(const char* cstring);
 
 int8_t dark_cstring_compare(const char* a, const char* b);
 

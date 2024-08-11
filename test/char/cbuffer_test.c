@@ -6,19 +6,17 @@ int main()
     dark_test_initialise();
 
     //----------TEST----------
-    DARK_TEST("cbuffer")
+    DARK_TEST("cbuffer_to")
     {
         char buf[16] = "merry christmas";
 
         const Dark_Cbuffer cbuffer = { 16, buf };
 
-        dark_cbuffer_view(cbuffer);
-        dark_cbuffer_array(cbuffer);
-        dark_cbuffer_array_view(cbuffer);
-        dark_cbuffer_view_array_view(dark_cbuffer_view(cbuffer));
-        dark_cbuffer_buffer(cbuffer);
-        dark_cbuffer_buffer_view(cbuffer);
-        dark_cbuffer_view_buffer_view(dark_cbuffer_view(cbuffer));
+        dark_cbuffer_to_view(cbuffer);
+        dark_cbuffer_to_array(cbuffer);
+        dark_cbuffer_to_array_view(cbuffer);
+        dark_cbuffer_to_buffer(cbuffer);
+        dark_cbuffer_to_buffer_view(cbuffer);
     }
     //--------------------------
 
@@ -37,21 +35,21 @@ int main()
     //--------------------------
 
     //----------TEST----------
-    DARK_TEST("cbuffer_view_terminated_is")
+    DARK_TEST("cbuffer_terminated_is")
     {
         char buf[16] = "merry christmas";
 
         const Dark_Cbuffer cbuffer = { 16, buf };
 
         size_t cstring_lenght = 0;
-        DARK_TEST_TRUE(dark_cbuffer_view_terminated_is(dark_cbuffer_view(cbuffer), &cstring_lenght));
+        DARK_TEST_TRUE(dark_cbuffer_view_terminated_is(dark_cbuffer_to_view(cbuffer), &cstring_lenght));
 
         DARK_TEST_EQ_U(cstring_lenght, 16 - 1);
     }
     //--------------------------
 
     //----------TEST----------
-    DARK_TEST("cbuffer_compare/_view_compare")
+    DARK_TEST("cbuffer_compare")
     {
         char buf_1[16] = "merry christmas";
         const Dark_Cbuffer cbuffer_1 = { 16, buf_1 };

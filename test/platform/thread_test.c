@@ -14,12 +14,6 @@ int main()
 
     dark_test_initialise();
 
-    DARK_TEST("thread_struct_byte")
-    {
-        DARK_TEST_GT_U(dark_thread_struct_byte(), 0);
-    }
-    //--------------------------
-
     //----------TEST----------
     DARK_TEST("thread")
     {
@@ -32,8 +26,15 @@ int main()
 
         DARK_TEST_EQ_I(integer, 42);
 
-        dark_thread_delete(allocator, thread);
+        dark_thread_delete(thread);
 
+    }
+    //--------------------------
+
+    //----------TEST----------
+    DARK_TEST("thread_struct_byte")
+    {
+        DARK_TEST_GT_U(dark_thread_struct_byte(), 0);
     }
     //--------------------------
 

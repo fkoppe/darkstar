@@ -123,7 +123,7 @@ void* dark_find_linear(const void* const element_, const Dark_Array array_, cons
 
     size_t index;
 
-    if(!dark_find_linear_index(element_, dark_array_view(array_), compare_, &index))
+    if(!dark_find_linear_index(element_, dark_array_to_view(array_), compare_, &index))
     {
         return NULL;
     }
@@ -141,7 +141,7 @@ void* dark_find_linear_reverse(const void* const element_, const Dark_Array arra
 
     size_t index;
 
-    if(!dark_find_linear_reverse_index(element_, dark_array_view(array_), compare_, &index))
+    if(!dark_find_linear_reverse_index(element_, dark_array_to_view(array_), compare_, &index))
     {
         return NULL;
     }
@@ -159,7 +159,7 @@ void* dark_find_binary(const void* const element_, const Dark_Array array_, cons
 
     size_t index;
 
-    if(!dark_find_binary_index(element_, dark_array_view(array_), compare_, &index))
+    if(!dark_find_binary_index(element_, dark_array_to_view(array_), compare_, &index))
     {
         return NULL;
     }

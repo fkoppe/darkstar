@@ -24,42 +24,29 @@
 #include "platform_module.h"
 
 #include <dark/core/core.h>
+#include <dark/memory/allocator.h>
 #include <dark/platform/file_struct.h>
 #include <dark/platform/platform.h>
 
-#include <stdio.h>
-
 #undef DARK_UNIT
 #define DARK_UNIT "file"
-
-#if defined(___DARK_LINUX)
-#define ___DARK_UNIX
-#endif // defined(___DARK_LINUX)
-
-#if defined(___DARK_DARWIN)
-#define ___DARK_UNIX
-#endif // defined(___DARK_DARWIN)
 
 #if defined(___DARK_WINDOWS)
 #include <dark/windows.h>
 #include <io.h>
 #endif // defined(___DARK_WINDOWS)
 
-#if defined(___DARK_UNIX)
+#if defined(___DARK_LINUX) || defined(___DARK_DARWIN)
 #include <sys/mman.h>
 #include <sys/stat.h>
-#endif // defined(___DARK_UNIX)
-
-size_t dark_file_struct_byte(void)
-{
-    return sizeof(Dark_File);
-}
+#endif // defined(___DARK_LINUX) || defined(___DARK_DARWIN)
 
 void dark_file_construct(Dark_Allocator* const allocator_, Dark_File* const file_)
 {
     DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
 
+    file_->allocator = allocator_;
     file_->mode = ___DARK_FILE_MODE_MAX;
     file_->flag = DARK_FILE_FLAG_NONE;
     file_->handle = NULL;
@@ -258,12 +245,12 @@ Dark_Oserror dark_file_mmap(Dark_File* const file_, void** const destination_)
     }
 #endif // defined(___DARK_WINDOWS)
 
-#if defined(___DARK_UNIX)
+#if defined(___DARK_LINUX) || defined(___DARK_DARWIN)
     struct stat sb;
     fstat(fileno(file_->handle), &sb);
 
     *destination_ = mmap(NULL, sb.st_size, PROT_READ, MAP_PRIVATE, fileno(file_->handle), 0);
-#endif // defined(___DARK_UNIX)
+#endif // defined(___DARK_LINUX) || defined(___DARK_DARWIN)
 
     if (ferror(file_->handle))
     {
@@ -292,12 +279,12 @@ Dark_Oserror dark_file_byte(Dark_File* const file_, size_t* const destination_)
     *destination_ = size.QuadPart;
 #endif // defined(___DARK_WINDOWS)
 
-#if defined(___DARK_UNIX)
+#if defined(___DARK_LINUX) || defined(___DARK_DARWIN)
     struct stat sb;
     fstat(fileno(file_->handle), &sb);
 
     *destination_ = sb.st_size;
-#endif // defined(___DARK_UNIX)
+#endif // defined(___DARK_LINUX) || defined(___DARK_DARWIN)
 
     if (ferror(file_->handle))
     {
@@ -305,6 +292,11 @@ Dark_Oserror dark_file_byte(Dark_File* const file_, size_t* const destination_)
     }
 
     return DARK_OSERROR_NONE;
+}
+
+size_t dark_file_struct_byte(void)
+{
+    return sizeof(Dark_File);
 }
 
 size_t dark_file_count_max(void)

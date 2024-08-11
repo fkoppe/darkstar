@@ -20,9 +20,16 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___STREAM_H)
-#define ___DARK___STREAM_H
+#if !defined(___DARK___ALLOCATOR_STRUCT_H)
+#define ___DARK___ALLOCATOR_STRUCT_H
 
-#include <dark/stream/ostream.h>
+#include <dark/core/std.h>
 
-#endif // !defined(___DARK___STREAM_H)
+struct Dark_Allocator
+{
+    void* (*allocate)(void* context, void* pointer, size_t byte_old, size_t byte_new);
+    void* (*callocate)(void* context, void* pointer, size_t byte_old, size_t byte_new);
+    void* context;
+};
+
+#endif // !defined(___DARK___ALLOCATOR_STRUCT_H)

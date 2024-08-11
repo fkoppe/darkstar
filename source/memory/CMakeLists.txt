@@ -8,6 +8,8 @@ target_sources(
     ${CMAKE_CURRENT_LIST_DIR}/memory_debug.c
     ${CMAKE_CURRENT_LIST_DIR}/memory_module.h
     ${CMAKE_CURRENT_LIST_DIR}/os_allocator.c
+    ${CMAKE_CURRENT_LIST_DIR}/os_allocator_helper.c
+    ${CMAKE_CURRENT_LIST_DIR}/os_allocator_helper.h
 )
 
 target_precompile_headers(

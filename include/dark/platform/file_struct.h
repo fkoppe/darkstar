@@ -25,6 +25,7 @@
 
 #include <dark/core/std.h>
 #include <dark/memory/allocator.h>
+#include <dark/platform/file.h>
 
 #include <stdio.h>
 

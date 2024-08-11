@@ -3,11 +3,14 @@ target_sources(
     PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/array.h
     ${CMAKE_CURRENT_LIST_DIR}/array_iterator.h
-    ${CMAKE_CURRENT_LIST_DIR}/array_iterator_struct.h
+    ${CMAKE_CURRENT_LIST_DIR}/array_iterator_context.h
+    ${CMAKE_CURRENT_LIST_DIR}/array_view.h
     ${CMAKE_CURRENT_LIST_DIR}/buffer.h
+	${CMAKE_CURRENT_LIST_DIR}/buffer_view.h
     ${CMAKE_CURRENT_LIST_DIR}/compare.h
     ${CMAKE_CURRENT_LIST_DIR}/foreach.h
 	${CMAKE_CURRENT_LIST_DIR}/growth.h
 	${CMAKE_CURRENT_LIST_DIR}/iterator.h
+	${CMAKE_CURRENT_LIST_DIR}/iterator_struct.h
     ${CMAKE_CURRENT_LIST_DIR}/tool.h
 )

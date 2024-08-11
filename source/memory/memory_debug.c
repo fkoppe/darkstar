@@ -24,6 +24,7 @@
 #include "memory_module.h"
 
 #include <dark/core/core.h>
+#include <dark/memory/allocator_struct.h>
 #include <dark/memory/memory.h>
 
 #include <stdlib.h>
@@ -113,8 +114,6 @@ void* dark_memory_debug_allocate(const Dark_Location location_, const Dark_Libra
     //byte_old_
     //byte_new_
 
-    Dark_Allocator_Struct* const allocator = (Dark_Allocator_Struct*)allocator_;
-
     Dark_Memory_Debug_Info call_info;
     call_info.allocator = allocator_;
     call_info.address = NULL;
@@ -135,7 +134,7 @@ void* dark_memory_debug_allocate(const Dark_Location location_, const Dark_Libra
         DARK_MEMORY_DEBUG_ASSERT(call_info, 0 == byte_old_);
         DARK_MEMORY_DEBUG_ASSERT(call_info, byte_new_ > 0);
 
-        void* pointer = allocator->allocate(allocator->context, address_, byte_old_, byte_new_);
+        void* pointer = allocator_->allocate(allocator_->context, address_, byte_old_, byte_new_);
 
         if(NULL == pointer)
         {
@@ -192,7 +191,7 @@ void* dark_memory_debug_allocate(const Dark_Location location_, const Dark_Libra
             }
         }
 
-        void* pointer = allocator->allocate(allocator->context, address_, byte_old_, byte_new_);
+        void* pointer = allocator_->allocate(allocator_->context, address_, byte_old_, byte_new_);
 
         if(NULL != pointer)
         {
@@ -235,7 +234,7 @@ void* dark_memory_debug_allocate(const Dark_Location location_, const Dark_Libra
             }
         }
 
-        void* pointer = allocator->allocate(allocator->context, address_, byte_old_, byte_new_);
+        void* pointer = allocator_->allocate(allocator_->context, address_, byte_old_, byte_new_);
 
         if(NULL == pointer)
         {
@@ -277,8 +276,6 @@ void* dark_memory_debug_callocate(const Dark_Location location_, const Dark_Libr
     //byte_old_
     //byte_new_
 
-    Dark_Allocator_Struct* const allocator = (Dark_Allocator_Struct*)allocator_;
-
     Dark_Memory_Debug_Info call_info;
     call_info.allocator = allocator_;
     call_info.address = NULL;
@@ -299,7 +296,7 @@ void* dark_memory_debug_callocate(const Dark_Location location_, const Dark_Libr
         DARK_MEMORY_DEBUG_ASSERT(call_info, 0 == byte_old_);
         DARK_MEMORY_DEBUG_ASSERT(call_info, byte_new_ > 0);
 
-        void* pointer = allocator->callocate(allocator->context, address_, byte_old_, byte_new_);
+        void* pointer = allocator_->callocate(allocator_->context, address_, byte_old_, byte_new_);
 
         if(NULL == pointer)
         {
@@ -356,7 +353,7 @@ void* dark_memory_debug_callocate(const Dark_Location location_, const Dark_Libr
             }
         }
 
-        void* pointer = allocator->callocate(allocator->context, address_, byte_old_, byte_new_);
+        void* pointer = allocator_->callocate(allocator_->context, address_, byte_old_, byte_new_);
 
         if(NULL != pointer)
         {
@@ -399,7 +396,7 @@ void* dark_memory_debug_callocate(const Dark_Location location_, const Dark_Libr
             }
         }
 
-        void* pointer = allocator->callocate(allocator->context, address_, byte_old_, byte_new_);
+        void* pointer = allocator_->callocate(allocator_->context, address_, byte_old_, byte_new_);
 
         if(NULL == pointer)
         {

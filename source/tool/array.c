@@ -26,9 +26,9 @@
 #include <dark/tool/tool.h>
 
 #undef DARK_UNIT
-#define DARK_UNIT "container"
+#define DARK_UNIT "array"
 
-Dark_Array_View dark_array_view(const Dark_Array array_)
+Dark_Array_View dark_array_to_view(const Dark_Array array_)
 {
     DARK_ASSERT(NULL != array_.data, DARK_ERROR_NULL);
     DARK_ASSERT(array_.size > 0, DARK_ERROR_ZERO);
@@ -42,7 +42,7 @@ Dark_Array_View dark_array_view(const Dark_Array array_)
     return view;
 }
 
-Dark_Buffer dark_array_buffer(const Dark_Array array_)
+Dark_Buffer dark_array_to_buffer(const Dark_Array array_)
 {
     DARK_ASSERT(NULL != array_.data, DARK_ERROR_NULL);
     DARK_ASSERT(array_.size > 0, DARK_ERROR_ZERO);
@@ -53,7 +53,7 @@ Dark_Buffer dark_array_buffer(const Dark_Array array_)
     return buffer;
 }
 
-Dark_Buffer_View dark_array_buffer_view(const Dark_Array array_)
+Dark_Buffer_View dark_array_to_buffer_view(const Dark_Array array_)
 {
     DARK_ASSERT(NULL != array_.data, DARK_ERROR_NULL);
     DARK_ASSERT(array_.size > 0, DARK_ERROR_ZERO);
@@ -64,7 +64,7 @@ Dark_Buffer_View dark_array_buffer_view(const Dark_Array array_)
     return buffer_view;
 }
 
-Dark_Buffer_View dark_array_view_buffer_view(const Dark_Array_View array_view_)
+Dark_Buffer_View dark_array_view_to_buffer_view(const Dark_Array_View array_view_)
 {
     DARK_ASSERT(NULL != array_view_.data, DARK_ERROR_NULL);
     DARK_ASSERT(array_view_.size > 0, DARK_ERROR_ZERO);
@@ -98,8 +98,8 @@ int8_t dark_array_compare(const Dark_Array* const a_, const Dark_Array* const b_
     DARK_ASSERT(b_->size > 0, DARK_ERROR_ZERO);
     DARK_ASSERT(b_->element_byte > 0, DARK_ERROR_ZERO);
 
-    const Dark_Array_View av = dark_array_view(*a_);
-    const Dark_Array_View bv = dark_array_view(*b_);
+    const Dark_Array_View av = dark_array_to_view(*a_);
+    const Dark_Array_View bv = dark_array_to_view(*b_);
 
     return dark_array_view_compare(&av, &bv);
 }

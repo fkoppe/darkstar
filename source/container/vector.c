@@ -31,12 +31,7 @@
 #undef DARK_UNIT
 #define DARK_UNIT "vector"
 
-size_t dark_vector_struct_byte(void)
-{
-    return sizeof(Dark_Vector);
-}
-
-void dark_vector_create_size(Dark_Allocator* const allocator_, Dark_Vector* const vector_, const Dark_Growth growth_, const size_t element_byte_, const size_t capacity_, const size_t size_)
+void dark_vector_construct_size(Dark_Allocator* const allocator_, Dark_Vector* const vector_, const Dark_Growth growth_, const size_t element_byte_, const size_t capacity_, const size_t size_)
 {
     DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
@@ -56,7 +51,7 @@ void dark_vector_create_size(Dark_Allocator* const allocator_, Dark_Vector* cons
     vector_->capacity = capacity_;
 }
 
-void dark_vector_create_capacity(Dark_Allocator* const allocator_, Dark_Vector* const vector_, const Dark_Growth growth_, const size_t element_byte_, const size_t capacity_)
+void dark_vector_construct_capacity(Dark_Allocator* const allocator_, Dark_Vector* const vector_, const Dark_Growth growth_, const size_t element_byte_, const size_t capacity_)
 {
     DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
@@ -64,20 +59,20 @@ void dark_vector_create_capacity(Dark_Allocator* const allocator_, Dark_Vector* 
     DARK_ASSERT(element_byte_ > 0, DARK_ERROR_ZERO);
     //capacity_
 
-    dark_vector_create_size(allocator_, vector_, growth_, element_byte_, capacity_, 0);
+    dark_vector_construct_size(allocator_, vector_, growth_, element_byte_, capacity_, 0);
 }
 
-void dark_vector_create(Dark_Allocator* const allocator_, Dark_Vector* const vector_, const Dark_Growth growth_, const size_t element_byte_)
+void dark_vector_construct(Dark_Allocator* const allocator_, Dark_Vector* const vector_, const Dark_Growth growth_, const size_t element_byte_)
 {
     DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != growth_, DARK_ERROR_NULL);
     DARK_ASSERT(element_byte_ > 0, DARK_ERROR_ZERO);
 
-    dark_vector_create_capacity(allocator_, vector_, growth_, element_byte_, 0);
+    dark_vector_construct_capacity(allocator_, vector_, growth_, element_byte_, 0);
 }
 
-void dark_vector_destroy(Dark_Vector* const vector_)
+void dark_vector_destruct(Dark_Vector* const vector_)
 {
     DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
 
@@ -97,7 +92,7 @@ Dark_Vector* dark_vector_new_size(Dark_Allocator* const allocator_, const Dark_G
     Dark_Vector* const vector = dark_malloc(allocator_, sizeof(*vector));
     DARK_ASSERT(NULL != vector, DARK_ERROR_ALLOCATION);
 
-    dark_vector_create_size(allocator_, vector, growth_, element_byte_, capacity_, size_);
+    dark_vector_construct_size(allocator_, vector, growth_, element_byte_, capacity_, size_);
 
     return vector;
 }
@@ -125,7 +120,7 @@ void dark_vector_delete(Dark_Vector* const vector_)
 {
     DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
 
-    dark_vector_destroy(vector_);
+    dark_vector_destruct(vector_);
 
     dark_free(vector_->allocator, vector_, sizeof(*vector_));
 }
@@ -182,7 +177,7 @@ Dark_Array_View dark_vector_array_view(Dark_Vector* const vector_)
 
     DARK_ASSERT(vector_->array.size > 0, DARK_ERROR_CONTAINER_EMPTY);
 
-    return dark_array_view(vector_->array);
+    return dark_array_to_view(vector_->array);
 }
 
 Dark_Buffer dark_vector_buffer(Dark_Vector* const vector_)
@@ -191,7 +186,7 @@ Dark_Buffer dark_vector_buffer(Dark_Vector* const vector_)
 
     DARK_ASSERT(vector_->array.size > 0, DARK_ERROR_CONTAINER_EMPTY);
 
-    return dark_array_buffer(vector_->array);
+    return dark_array_to_buffer(vector_->array);
 }
 
 Dark_Buffer_View dark_vector_buffer_view(Dark_Vector* const vector_)
@@ -200,7 +195,7 @@ Dark_Buffer_View dark_vector_buffer_view(Dark_Vector* const vector_)
 
     DARK_ASSERT(vector_->array.size > 0, DARK_ERROR_CONTAINER_EMPTY);
 
-    return dark_array_buffer_view(vector_->array);
+    return dark_array_to_buffer_view(vector_->array);
 }
 
 void* dark_vector_emplace(Dark_Vector* const vector_, const size_t index_, const size_t count_)
@@ -244,6 +239,50 @@ void* dark_vector_emplace_back(Dark_Vector* const vector_, const size_t count_)
     return dark_vector_emplace(vector_, vector_->array.size, count_);
 }
 
+Dark_Array dark_vector_emplace_array(Dark_Vector* const vector_, const size_t index_, const size_t count_)
+{
+    DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
+    //index_!
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
+
+    DARK_ASSERT(index_ <= vector_->array.size, DARK_ERROR_CONTAINER_INDEX);
+    DARK_ASSERT(vector_->array.size <= DARK_VECTOR_SIZE_MAX - count_, DARK_ERROR_OVERFLOW);
+
+    Dark_Array array;
+    array.size = count_;
+    array.data = dark_vector_emplace(vector_, index_, count_);
+
+    return array;
+}
+
+Dark_Array dark_vector_emplace_array_front(Dark_Vector* const vector_, const size_t count_)
+{
+    DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
+
+    DARK_ASSERT(vector_->array.size <= DARK_VECTOR_SIZE_MAX - count_, DARK_ERROR_OVERFLOW);
+
+    Dark_Array array;
+    array.size = count_;
+    array.data = dark_vector_emplace_front(vector_, count_);
+
+    return array;
+}
+
+Dark_Array dark_vector_emplace_array_back(Dark_Vector* const vector_, const size_t count_)
+{
+    DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
+
+    DARK_ASSERT(vector_->array.size <= DARK_VECTOR_SIZE_MAX - count_, DARK_ERROR_OVERFLOW);
+
+    Dark_Array array;
+    array.size = count_;
+    array.data = dark_vector_emplace_back(vector_, count_);
+
+    return array;
+}
+
 void* dark_vector_inplace(Dark_Vector* const vector_, const size_t index_)
 {
     DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
@@ -271,6 +310,35 @@ void* dark_vector_inplace_back(Dark_Vector* const vector_)
     DARK_ASSERT(vector_->array.size < DARK_VECTOR_SIZE_MAX, DARK_ERROR_OVERFLOW);
 
     return dark_vector_emplace_back(vector_, 1);
+}
+
+Dark_Array dark_vector_inplace_array(Dark_Vector* const vector_, const size_t index_)
+{
+    DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
+    //index_!
+
+    DARK_ASSERT(index_ <= vector_->array.size, DARK_ERROR_CONTAINER_INDEX);
+    DARK_ASSERT(vector_->array.size < DARK_VECTOR_SIZE_MAX, DARK_ERROR_OVERFLOW);
+
+    return dark_vector_emplace_array(vector_, index_, 1);
+}
+
+Dark_Array dark_vector_inplace_array_front(Dark_Vector* const vector_)
+{
+    DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
+
+    DARK_ASSERT(vector_->array.size < DARK_VECTOR_SIZE_MAX, DARK_ERROR_OVERFLOW);
+
+    return dark_vector_emplace_array_front(vector_, 1);
+}
+
+Dark_Array dark_vector_inplace_array_back(Dark_Vector* const vector_)
+{
+    DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
+
+    DARK_ASSERT(vector_->array.size < DARK_VECTOR_SIZE_MAX, DARK_ERROR_OVERFLOW);
+
+    return dark_vector_emplace_array_back(vector_, 1);
 }
 
 void dark_vector_push(Dark_Vector* const vector_, const size_t index_, const Dark_Array_View source_)
@@ -515,6 +583,13 @@ void dark_vector_clear(Dark_Vector* const vector_)
     vector_->array.size = 0;
 }
 
+size_t dark_vector_element_byte(Dark_Vector* const vector_)
+{
+    DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
+
+    return vector_->array.element_byte;
+}
+
 void dark_vector_foreach(Dark_Vector* const vector_, void* const context_, const Dark_Foreach foreach_)
 {
     DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
@@ -524,9 +599,7 @@ void dark_vector_foreach(Dark_Vector* const vector_, void* const context_, const
     dark_array_foreach(vector_->array, context_, foreach_);
 }
 
-size_t dark_vector_element_byte(Dark_Vector* const vector_)
+size_t dark_vector_struct_byte(void)
 {
-    DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
-
-    return vector_->array.element_byte;
+    return sizeof(Dark_Vector);
 }

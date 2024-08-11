@@ -24,7 +24,9 @@
 #define ___DARK___ARRAY_H
 
 #include <dark/core/std.h>
+#include <dark/tool/array_view.h>
 #include <dark/tool/buffer.h>
+#include <dark/tool/buffer_view.h>
 #include <dark/tool/foreach.h>
 
 typedef struct Dark_Array Dark_Array;
@@ -35,23 +37,13 @@ struct Dark_Array
     void* data;
 };
 
-typedef struct Dark_Array_View Dark_Array_View;
-struct Dark_Array_View
-{
-    size_t element_byte;
-    size_t size;
-    const void* data;
-};
+Dark_Array_View dark_array_to_view(Dark_Array array);
 
-Dark_Array_View dark_array_view(Dark_Array array);
-
-Dark_Buffer dark_array_buffer(Dark_Array array);
-Dark_Buffer_View dark_array_buffer_view(Dark_Array array);
-Dark_Buffer_View dark_array_view_buffer_view(Dark_Array_View array_view);
+Dark_Buffer dark_array_to_buffer(Dark_Array array);
+Dark_Buffer_View dark_array_to_buffer_view(Dark_Array array);
 
 void dark_array_foreach(Dark_Array array, void* context, Dark_Foreach foreach);
 
 int8_t dark_array_compare(const Dark_Array* a, const Dark_Array* b);
-int8_t dark_array_view_compare(const Dark_Array_View* a, const Dark_Array_View* b);
 
 #endif // !defined(___DARK___ARRAY_H)

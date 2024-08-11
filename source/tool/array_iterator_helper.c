@@ -20,17 +20,34 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___ITERATOR_H)
-#define ___DARK___ITERATOR_H
+#include "array_iterator_helper.h"
+#include "tool_module.h"
 
-#include <dark/core/error.h>
-#include <dark/core/std.h>
+#include <dark/core/core.h>
+#include <dark/tool/array_iterator_context.h>
+#include <dark/tool/tool.h>
 
-typedef struct Dark_Iterator Dark_Iterator;
+#undef DARK_UNIT
+#define DARK_UNIT "array_iterator_helper"
 
-static const Dark_Error DARK_ERROR_ITERATOR = { &DARK_ERROR_LOGIC, "iterator", "next not available" };
+bool dark_array_allocator_next_is(void* const context_)
+{
+    DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
 
-bool dark_iterator_next_is(Dark_Iterator* iterator);
-void* dark_iterator_next(Dark_Iterator* iterator);
+    Dark_Array_Iterator_Context* const context = context_;
 
-#endif // !defined(___DARK___ITERATOR_H)
+    return context->index < context->array.size;
+}
+
+void* dark_array_allocator_next(void* const context_)
+{
+    DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
+
+    Dark_Array_Iterator_Context* const context = context_;
+
+    DARK_ASSERT(dark_array_allocator_next_is(context), DARK_ERROR_ITERATOR);
+
+    context->index++;
+
+    return (int8_t*)context->array.data + (context->index - 1);
+}

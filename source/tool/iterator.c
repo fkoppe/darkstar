@@ -23,6 +23,7 @@
 #include "tool_module.h"
 
 #include <dark/core/core.h>
+#include <dark/tool/iterator_struct.h>
 #include <dark/tool/tool.h>
 
 #undef DARK_UNIT
@@ -32,16 +33,12 @@ bool dark_iterator_next_is(Dark_Iterator* const iterator_)
 {
     DARK_ASSERT(NULL != iterator_, DARK_ERROR_NULL);
 
-    Dark_Iterator_Struct* const iterator = (Dark_Iterator_Struct*)iterator_;
-
-    return iterator->next_is(iterator->context);
+    return iterator_->next_is(iterator_->context);
 }
 
 void* dark_iterator_next(Dark_Iterator* const iterator_)
 {
     DARK_ASSERT(NULL != iterator_, DARK_ERROR_NULL);
 
-    Dark_Iterator_Struct* const iterator = (Dark_Iterator_Struct*)iterator_;
-
-    return iterator->next(iterator->context);
+    return iterator_->next(iterator_->context);
 }

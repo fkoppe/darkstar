@@ -28,12 +28,10 @@
 #include <dark/container/container.h>
 #include <dark/core/core.h>
 #include <dark/hash/hash.h>
-#include <dark/log/log.h>
 #include <dark/math/math.h>
 #include <dark/memory/memory.h>
 #include <dark/platform/platform.h>
 #include <dark/random/random.h>
-#include <dark/stream/stream.h>
 #include <dark/time/time.h>
 #include <dark/tool/tool.h>
 

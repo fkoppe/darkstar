@@ -20,27 +20,19 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___OSTREAM_STRUCT_H)
-#define ___DARK___OSTREAM_STRUCT_H
+#if !defined(___DARK___BUFFER_VIEW_H)
+#define ___DARK___BUFFER_VIEW_H
 
-#include <dark/container/vector_struct.h>
 #include <dark/core/std.h>
-#include <dark/platform/mutex_struct.h>
-#include <dark/stream/ostream.h>
+#include <dark/tool/foreach.h>
 
-struct Dark_Ostream
+typedef struct Dark_Buffer_View Dark_Buffer_View;
+struct Dark_Buffer_View
 {
-    Dark_Allocator* allocator;
-    Dark_Ostream_Settings settings;
-    Dark_Vector file_vector;
-    Dark_Vector buffer_vector;
-    struct
-    {
-        bool out_is;
-        bool err_is;
-        Dark_Mutex* out_mutex;
-        Dark_Mutex* err_mutex;
-    } std;
+    size_t byte;
+    const void* data;
 };
 
-#endif // !defined(___DARK___OSTREAM_STRUCT_H)
+void dark_buffer_view_foreach(Dark_Buffer_View buffer_view, void* context, Dark_Foreach foreach);
+
+#endif // !defined(___DARK___BUFFER_VIEW_H)

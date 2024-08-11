@@ -13,14 +13,7 @@ int main()
     dark_test_initialise();
 
     //----------TEST----------
-    DARK_TEST("vector_struct_byte")
-    {
-        DARK_TEST_GT_U(dark_vector_struct_byte(), 0);
-    }
-    //--------------------------
-
-    //----------TEST----------
-    DARK_TEST("vector_new_size/_delete")
+    DARK_TEST("vector_new_size/_delete/_capacity/_size")
     {
         Dark_Vector* const vector = dark_vector_new_size(allocator, dark_growth_standard, sizeof(int), 10, 10);
 
@@ -127,7 +120,7 @@ int main()
     }
     //--------------------------
 
-    //----------TEST----------
+    //----------TEST----------ra
     DARK_TEST("vector_data/VECTOR_DATA")
     {
         Dark_Vector* const vector = dark_vector_new_size(allocator, dark_growth_standard, sizeof(int), 5, 5);
@@ -313,6 +306,60 @@ int main()
     //--------------------------
 
     //----------TEST----------
+    DARK_TEST("vector_emplace_array")
+    {
+        Dark_Vector* const vector = dark_vector_new(allocator, dark_growth_standard, sizeof(int));
+
+        DARK_TEST_EQ_U(dark_vector_capacity(vector), 0);
+        DARK_TEST_EQ_U(dark_vector_size(vector), 0);
+
+        const Dark_Array array = dark_vector_emplace_array(vector, 0, 10);
+
+        DARK_TEST_EQ_U(array.size, 10);
+
+        DARK_VECTOR_AT(vector, 9, int) = 42;
+
+        dark_vector_delete(vector);
+    }
+    //--------------------------
+
+    //----------TEST----------
+    DARK_TEST("vector_emplace_array_front")
+    {
+        Dark_Vector* const vector = dark_vector_new(allocator, dark_growth_standard, sizeof(int));
+
+        DARK_TEST_EQ_U(dark_vector_capacity(vector), 0);
+        DARK_TEST_EQ_U(dark_vector_size(vector), 0);
+
+        const Dark_Array array = dark_vector_emplace_array_front(vector, 10);
+
+        DARK_TEST_EQ_U(array.size, 10);
+
+        DARK_VECTOR_AT(vector, 9, int) = 42;
+
+        dark_vector_delete(vector);
+    }
+    //--------------------------
+
+    //----------TEST----------
+    DARK_TEST("vector_emplace_array_back")
+    {
+        Dark_Vector* const vector = dark_vector_new(allocator, dark_growth_standard, sizeof(int));
+
+        DARK_TEST_EQ_U(dark_vector_capacity(vector), 0);
+        DARK_TEST_EQ_U(dark_vector_size(vector), 0);
+
+        const Dark_Array array = dark_vector_emplace_array_back(vector, 10);
+
+        DARK_TEST_EQ_U(array.size, 10);
+
+        DARK_VECTOR_AT(vector, 9, int) = 42;
+
+        dark_vector_delete(vector);
+    }
+    //--------------------------
+
+    //----------TEST----------
     DARK_TEST("vector_inplace")
     {
         Dark_Vector* const vector = dark_vector_new(allocator, dark_growth_standard, sizeof(int));
@@ -387,6 +434,84 @@ int main()
     //--------------------------
 
     //----------TEST----------
+    DARK_TEST("vector_inplace_array")
+    {
+        Dark_Vector* const vector = dark_vector_new(allocator, dark_growth_standard, sizeof(int));
+
+        DARK_TEST_EQ_U(dark_vector_capacity(vector), 0);
+        DARK_TEST_EQ_U(dark_vector_size(vector), 0);
+
+        *((int*)(dark_vector_inplace_array(vector, 0).data)) = 705;
+
+        DARK_TEST_EQ_U(DARK_VECTOR_AT(vector, 0, int), 705);
+
+        *((int*)(dark_vector_inplace_array(vector, 0).data)) = 7;
+
+        DARK_TEST_EQ_U(DARK_VECTOR_AT(vector, 0, int), 7);
+
+        DARK_TEST_GE_U(dark_vector_capacity(vector), 2);
+        DARK_TEST_EQ_U(dark_vector_size(vector), 2);
+
+        DARK_TEST_EQ_U(DARK_VECTOR_AT(vector, 0, int), 7);
+        DARK_TEST_EQ_U(DARK_VECTOR_AT(vector, 1, int), 705);
+
+        dark_vector_delete(vector);
+    }
+    //--------------------------
+
+    //----------TEST----------
+    DARK_TEST("vector_inplace_array_front")
+    {
+        Dark_Vector* const vector = dark_vector_new(allocator, dark_growth_standard, sizeof(int));
+
+        DARK_TEST_EQ_U(dark_vector_capacity(vector), 0);
+        DARK_TEST_EQ_U(dark_vector_size(vector), 0);
+
+        *((int*)(dark_vector_inplace_array_front(vector).data)) = 705;
+
+        DARK_TEST_EQ_U(DARK_VECTOR_AT(vector, 0, int), 705);
+
+        *((int*)(dark_vector_inplace_array_front(vector).data)) = 7;
+
+        DARK_TEST_EQ_U(DARK_VECTOR_AT(vector, 0, int), 7);
+
+        DARK_TEST_GE_U(dark_vector_capacity(vector), 2);
+        DARK_TEST_EQ_U(dark_vector_size(vector), 2);
+
+        DARK_TEST_EQ_U(DARK_VECTOR_AT(vector, 0, int), 7);
+        DARK_TEST_EQ_U(DARK_VECTOR_AT(vector, 1, int), 705);
+
+        dark_vector_delete(vector);
+    }
+    //--------------------------
+
+//----------TEST----------
+    DARK_TEST("vector_inplace_array_back")
+    {
+        Dark_Vector* const vector = dark_vector_new(allocator, dark_growth_standard, sizeof(int));
+
+        DARK_TEST_EQ_U(dark_vector_capacity(vector), 0);
+        DARK_TEST_EQ_U(dark_vector_size(vector), 0);
+
+        *((int*)(dark_vector_inplace_array_back(vector).data)) = 705;
+
+        DARK_TEST_EQ_U(DARK_VECTOR_AT(vector, 0, int), 705);
+
+        *((int*)(dark_vector_inplace_array_back(vector).data)) = 7;
+
+        DARK_TEST_EQ_U(DARK_VECTOR_AT(vector, 1, int), 7);
+
+        DARK_TEST_GE_U(dark_vector_capacity(vector), 2);
+        DARK_TEST_EQ_U(dark_vector_size(vector), 2);
+
+        DARK_TEST_EQ_U(DARK_VECTOR_AT(vector, 0, int), 705);
+        DARK_TEST_EQ_U(DARK_VECTOR_AT(vector, 1, int), 7);
+
+        dark_vector_delete(vector);
+    }
+//--------------------------
+
+    //----------TEST----------
     DARK_TEST("vector_push")
     {
         int buffer[2] = { 333, 666666 };
@@ -397,12 +522,12 @@ int main()
         DARK_TEST_EQ_U(dark_vector_capacity(vector), 0);
         DARK_TEST_EQ_U(dark_vector_size(vector), 0);
 
-        dark_vector_push(vector, 0, dark_array_view(array));
+        dark_vector_push(vector, 0, dark_array_to_view(array));
 
         DARK_TEST_EQ_U(DARK_VECTOR_AT(vector, 0, int), 333);
         DARK_TEST_EQ_U(DARK_VECTOR_AT(vector, 1, int), 666666);
 
-        dark_vector_push(vector, 1, dark_array_view(array));
+        dark_vector_push(vector, 1, dark_array_to_view(array));
 
         DARK_TEST_EQ_U(DARK_VECTOR_AT(vector, 0, int), 333);
         DARK_TEST_EQ_U(DARK_VECTOR_AT(vector, 1, int), 333);
@@ -427,12 +552,12 @@ int main()
         DARK_TEST_EQ_U(dark_vector_capacity(vector), 0);
         DARK_TEST_EQ_U(dark_vector_size(vector), 0);
 
-        dark_vector_push_front(vector, dark_array_view(array));
+        dark_vector_push_front(vector, dark_array_to_view(array));
 
         DARK_TEST_EQ_U(DARK_VECTOR_AT(vector, 0, int), 333);
         DARK_TEST_EQ_U(DARK_VECTOR_AT(vector, 1, int), 666666);
 
-        dark_vector_push_front(vector, dark_array_view(array));
+        dark_vector_push_front(vector, dark_array_to_view(array));
 
         DARK_TEST_EQ_U(DARK_VECTOR_AT(vector, 0, int), 333);
         DARK_TEST_EQ_U(DARK_VECTOR_AT(vector, 1, int), 666666);
@@ -457,12 +582,12 @@ int main()
         DARK_TEST_EQ_U(dark_vector_capacity(vector), 0);
         DARK_TEST_EQ_U(dark_vector_size(vector), 0);
 
-        dark_vector_push_back(vector, dark_array_view(array));
+        dark_vector_push_back(vector, dark_array_to_view(array));
 
         DARK_TEST_EQ_U(DARK_VECTOR_AT(vector, 0, int), 333);
         DARK_TEST_EQ_U(DARK_VECTOR_AT(vector, 1, int), 666666);
 
-        dark_vector_push_back(vector, dark_array_view(array));
+        dark_vector_push_back(vector, dark_array_to_view(array));
 
         DARK_TEST_EQ_U(DARK_VECTOR_AT(vector, 0, int), 333);
         DARK_TEST_EQ_U(DARK_VECTOR_AT(vector, 1, int), 666666);
@@ -785,8 +910,7 @@ int main()
 
         dark_vector_reserve_additional(vector, 101);
 
-        DARK_TEST_GE_U(dark_vector_capacity(vector), 101);
-        DARK_TEST_LT_U(dark_vector_capacity(vector), 202);
+        DARK_TEST_GE_U(dark_vector_capacity(vector), 202);
         DARK_TEST_EQ_U(dark_vector_size(vector), 0);
 
         dark_vector_delete(vector);
@@ -883,6 +1007,17 @@ int main()
     //--------------------------
 
     //----------TEST----------
+    DARK_TEST("vector_element_byte")
+    {
+        Dark_Vector* const vector = dark_vector_new_size(allocator, dark_growth_standard, sizeof(int), 5, 4);
+
+        DARK_TEST_EQ_U(dark_vector_element_byte(vector), sizeof(int));
+
+        dark_vector_delete(vector);
+    }
+    //--------------------------
+
+    //----------TEST----------
     DARK_TEST("vector_foreach")
     {
         Dark_Vector* const vector = dark_vector_new(allocator, dark_growth_standard, sizeof(int32_t));
@@ -890,7 +1025,7 @@ int main()
         int32_t buffer[5] = { 1, 333, 111, 0, -1 };
         const Dark_Array array = { sizeof(int32_t), 5, buffer };
 
-        dark_vector_push_back(vector, dark_array_view(array));
+        dark_vector_push_back(vector, dark_array_to_view(array));
 
         int32_t sum = 0;
         dark_vector_foreach(vector, &sum, (Dark_Foreach)foreach_helper);
@@ -902,13 +1037,9 @@ int main()
     //--------------------------
 
     //----------TEST----------
-    DARK_TEST("vector_element_byte")
+    DARK_TEST("vector_struct_byte")
     {
-        Dark_Vector* const vector = dark_vector_new_size(allocator, dark_growth_standard, sizeof(int), 5, 4);
-
-        DARK_TEST_EQ_U(dark_vector_element_byte(vector), sizeof(int));
-
-        dark_vector_delete(vector);
+        DARK_TEST_GT_U(dark_vector_struct_byte(), 0);
     }
     //--------------------------
 

@@ -20,18 +20,35 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___LOG_HELPER_H)
-#define ___DARK___LOG_HELPER_H
+#include "tool_module.h"
 
-#include <dark/core/enviroment.h>
-#include <dark/core/std.h>
-#include <dark/log/log_data.h>
+#include <dark/core/core.h>
+#include <dark/tool/tool.h>
 
-static const size_t LOG_BUFFER_SIZE = 128;
+#undef DARK_UNIT
+#define DARK_UNIT "buffer"
 
-void dark_log_general(const Dark_Library* library, const char* module, const char* unit, const char* name, Dark_Log_Format lformat, Dark_Log_Level level, Dark_Ostream* ostream, Dark_Mutex* ostream_mutex, Dark_Cbuffer cbuffer, const char* color, const char* stamp, Dark_String* string);
+Dark_Buffer_View dark_buffer_to_view(const Dark_Buffer buffer_)
+{
+    DARK_ASSERT(NULL != buffer_.data, DARK_ERROR_NULL);
+    DARK_ASSERT(buffer_.byte > 0, DARK_ERROR_ZERO);
 
-const char* dark_level_name(Dark_Log_Level level);
-const char* dark_level_color(Dark_Log_Level level);
+    Dark_Buffer_View buffer_view;
+    buffer_view.data = buffer_.data;
+    buffer_view.byte = buffer_.byte;
 
-#endif // !defined(___DARK___LOG_HELPER_H)
+    return buffer_view;
+}
+
+void dark_buffer_foreach(const Dark_Buffer buffer_, void* const context_, const Dark_Foreach foreach_)
+{
+    DARK_ASSERT(NULL != buffer_.data, DARK_ERROR_NULL);
+    DARK_ASSERT(buffer_.byte > 0, DARK_ERROR_ZERO);
+    //context_
+    DARK_ASSERT(NULL != foreach_, DARK_ERROR_NULL);
+
+    for(size_t i = 0; i < buffer_.byte; i++)
+    {
+        foreach_(buffer_.data + i, context_);
+    }
+}

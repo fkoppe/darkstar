@@ -24,7 +24,7 @@
 #define ___DARK___FNV1_H
 
 #include <dark/core/std.h>
-#include <dark/tool/buffer.h>
+#include <dark/tool/buffer_view.h>
 
 uint32_t dark_hash_fnv1_32(Dark_Buffer_View buffer_view);
 uint64_t dark_hash_fnv1_64(Dark_Buffer_View buffer_view);

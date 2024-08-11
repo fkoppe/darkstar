@@ -36,7 +36,7 @@ X X X X X X X X X X X X X X*/
 
 void dark_error_print(const Dark_So so_, const Dark_Error error_)
 {
-    assert(___DARK_SO_MIN < so_ < ___DARK_SO_MAX);
+    assert(___DARK_SO_MIN < so_ && so_ < ___DARK_SO_MAX);
     //error_
 
     const Dark_Error* err = &error_;
