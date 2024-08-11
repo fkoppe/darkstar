@@ -37,6 +37,6 @@ void dark_buffer_view_foreach(const Dark_Buffer_View buffer_view_, void* const c
 
     for(size_t i = 0; i < buffer_view_.byte; i++)
     {
-        foreach_(buffer_view_.data + i, context_);
+        foreach_((uint8_t*)buffer_view_.data + i, context_);
     }
 }

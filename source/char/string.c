@@ -356,7 +356,7 @@ Dark_Cbuffer dark_string_subcbuffer(Dark_String* const string_, const size_t ind
 
     const Dark_Array array = dark_vector_array(&string_->vector);
 
-    const Dark_Cbuffer cbuffer = { array.size - index_ - 1, array.data + index_ };
+    const Dark_Cbuffer cbuffer = { array.size - index_ - 1, (char*)array.data + index_ };
 
     return cbuffer;
 }
@@ -399,7 +399,7 @@ Dark_Cbuffer_View dark_string_subcbuffer_view_terminated(Dark_String* const stri
 
     const Dark_Array array = dark_vector_array(&string_->vector);
 
-    const Dark_Cbuffer_View cbuffer_view = { array.size - index_, array.data + index_ };
+    const Dark_Cbuffer_View cbuffer_view = { array.size - index_, (char*)array.data + index_ };
 
     return cbuffer_view;
 }

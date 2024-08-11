@@ -49,6 +49,6 @@ void dark_buffer_foreach(const Dark_Buffer buffer_, void* const context_, const 
 
     for(size_t i = 0; i < buffer_.byte; i++)
     {
-        foreach_(buffer_.data + i, context_);
+        foreach_((uint8_t*)buffer_.data + i, context_);
     }
 }
