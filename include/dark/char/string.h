@@ -30,9 +30,9 @@
 
 #include <stdarg.h>
 
-typedef struct Dark_String Dark_String;
+#define DARK_STRING_SIZE_MAX (DARK_VECTOR_SIZE_MAX - 1)
 
-static const size_t DARK_STRING_SIZE_MAX = DARK_VECTOR_SIZE_MAX - 1;
+typedef struct Dark_String Dark_String;
 
 void dark_string_construct_v(Dark_Allocator* allocator, Dark_String* string, Dark_Growth growth, const char* format, va_list arguments);
 void dark_string_construct_f(Dark_Allocator* allocator, Dark_String* string, Dark_Growth growth, const char* format, ...);

@@ -43,9 +43,9 @@
 #define DARK_VECTOR_DATA(vector, type) \
 ((type*)dark_vector_data((vector)))
 
-typedef struct Dark_Vector Dark_Vector;
+#define DARK_VECTOR_SIZE_MAX SIZE_MAX
 
-static const size_t DARK_VECTOR_SIZE_MAX = SIZE_MAX;
+typedef struct Dark_Vector Dark_Vector;
 
 void dark_vector_construct_size(Dark_Allocator* allocator, Dark_Vector* vector, Dark_Growth growth, size_t element_byte, size_t capacity, size_t size);
 void dark_vector_construct_capacity(Dark_Allocator* allocator, Dark_Vector* vector, Dark_Growth growth, size_t element_byte, size_t capacity);

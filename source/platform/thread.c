@@ -59,7 +59,7 @@ void dark_thread_destruct(Dark_Thread* const thread_)
     DARK_ASSERT(NULL != thread_, DARK_ERROR_NULL);
 
 #if defined(___DARK_WINDOWS)
-    bool b1 = CloseHandle(thread->handle);
+    bool b1 = CloseHandle(thread_->handle);
     DARK_ASSERT_CSTRING(0 != b1, DARK_ERROR_PLATFORM, "CloseHandle");
 #endif // defined(___DARK_WINDOWS)
 
