@@ -1,6 +1,8 @@
 #include <dark/darkstar.h>
 #include <dark/darktest.h>
 
+#include <dark/container/vector_struct.h>
+
 void foreach_helper(int32_t* element, int32_t* context)
 {
     *context += *element;
@@ -13,6 +15,24 @@ int main()
     dark_test_initialise();
 
     //----------TEST----------
+    DARK_TEST("vector_construct/_destruct")
+    {
+        Dark_Vector* const vector = dark_malloc(allocator, sizeof(*vector));;
+
+        dark_vector_construct_size(allocator, vector, dark_growth_simple, sizeof(int), 10, 1);
+        dark_vector_destruct(vector);
+
+        dark_vector_construct_capacity(allocator, vector, dark_growth_simple, sizeof(int), 1);
+        dark_vector_destruct(vector);
+
+        dark_vector_construct(allocator, vector, dark_growth_simple, sizeof(int));
+        dark_vector_destruct(vector);
+
+        dark_free(allocator, vector, sizeof(*vector));
+    }
+    //------------------------
+
+    //----------TEST----------
     DARK_TEST("vector_new_size/_delete/_capacity/_size")
     {
         Dark_Vector* const vector = dark_vector_new_size(allocator, dark_growth_standard, sizeof(int), 10, 10);
@@ -22,7 +42,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_new_capacity")
@@ -34,7 +54,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_new")
@@ -46,7 +66,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_at/VECTOR_AT")
@@ -70,7 +90,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_front/VECTOR_FRONT")
@@ -94,7 +114,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_back/VECTOR_BACK")
@@ -118,9 +138,9 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
-    //----------TEST----------ra
+    //----------TEST----------
     DARK_TEST("vector_data/VECTOR_DATA")
     {
         Dark_Vector* const vector = dark_vector_new_size(allocator, dark_growth_standard, sizeof(int), 5, 5);
@@ -138,7 +158,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_array")
@@ -154,7 +174,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_array_view")
@@ -170,7 +190,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_buffer")
@@ -186,7 +206,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_buffer_view")
@@ -202,7 +222,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_emplace")
@@ -227,7 +247,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_emplace_front")
@@ -265,7 +285,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_emplace_back")
@@ -303,7 +323,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_emplace_array")
@@ -321,7 +341,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_emplace_array_front")
@@ -339,7 +359,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_emplace_array_back")
@@ -357,7 +377,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_inplace")
@@ -383,7 +403,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_inplace_front")
@@ -407,7 +427,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_inplace_back")
@@ -431,7 +451,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_inplace_array")
@@ -457,7 +477,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_inplace_array_front")
@@ -483,7 +503,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
 //----------TEST----------
     DARK_TEST("vector_inplace_array_back")
@@ -509,7 +529,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-//--------------------------
+//------------------------
 
     //----------TEST----------
     DARK_TEST("vector_push")
@@ -539,7 +559,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_push_front")
@@ -569,7 +589,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_push_back")
@@ -599,7 +619,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_insert")
@@ -626,7 +646,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_insert_front")
@@ -653,7 +673,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_insert_back")
@@ -680,7 +700,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_pop")
@@ -707,7 +727,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_pop_front")
@@ -738,7 +758,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_pop_back")
@@ -769,7 +789,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_erase")
@@ -814,7 +834,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_erase_front")
@@ -848,7 +868,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_erase_back")
@@ -882,7 +902,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_reserve/_additional")
@@ -915,7 +935,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_reserve_exact")
@@ -942,7 +962,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_shrink_to_fit")
@@ -960,7 +980,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_resize")
@@ -987,7 +1007,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_clear")
@@ -1004,7 +1024,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_element_byte")
@@ -1015,7 +1035,7 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_foreach")
@@ -1034,14 +1054,14 @@ int main()
 
         dark_vector_delete(vector);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("vector_struct_byte")
     {
         DARK_TEST_GT_U(dark_vector_struct_byte(), 0);
     }
-    //--------------------------
+    //------------------------
 
     dark_test_shutdown();
 

@@ -69,7 +69,7 @@ int main()
     dark_test_initialise();
 
     //----------TEST----------
-    DARK_TEST("string_construct_va/_destroy")
+    DARK_TEST("string_construct_va/_destruct")
     {
         Dark_String* const string = dark_malloc(allocator, sizeof(*string));;
 
@@ -84,9 +84,9 @@ int main()
 
         dark_free(allocator, string, sizeof(*string));
     }
-    //--------------------------
+    //------------------------
 
-//----------TEST----------
+    //----------TEST----------
     DARK_TEST("string_construct")
     {
         Dark_String* const string = dark_malloc(allocator, sizeof(*string));;
@@ -115,7 +115,7 @@ int main()
 
         dark_free(allocator, string, sizeof(*string));
     }
-//--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_new_v/_delete")
@@ -126,7 +126,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_new")
@@ -155,7 +155,7 @@ int main()
         string = dark_string_new(allocator, dark_growth_exponential);
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_at/_capacity/_size")
@@ -173,7 +173,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_front")
@@ -187,7 +187,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_back")
@@ -201,7 +201,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_cstring")
@@ -215,7 +215,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_substring")
@@ -231,7 +231,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_cbuffer")
@@ -248,7 +248,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_subcbuffer")
@@ -265,7 +265,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_cbuffer_view")
@@ -282,7 +282,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_cbuffer_view_terminated")
@@ -299,7 +299,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_subcbuffer_view")
@@ -316,7 +316,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_subcbuffer_view_terminated")
@@ -333,7 +333,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_emplace")
@@ -357,7 +357,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_emplace_front")
@@ -381,7 +381,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_emplace_back")
@@ -405,7 +405,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_emplace_cbuffer")
@@ -425,7 +425,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_emplace_cbuffer_front")
@@ -445,7 +445,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_emplace_cbuffer_back")
@@ -465,7 +465,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_inplace")
@@ -485,7 +485,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_inplace_front")
@@ -505,7 +505,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_inplace_back")
@@ -525,7 +525,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_inplace_cbuffer")
@@ -545,7 +545,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_inplace_cbuffer_front")
@@ -565,7 +565,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_inplace_cbuffer_back")
@@ -585,7 +585,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_push_v")
@@ -608,7 +608,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_push_f")
@@ -631,7 +631,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_push_cstring")
@@ -652,7 +652,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_push_cbuffer_view")
@@ -673,7 +673,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_append_v")
@@ -692,7 +692,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_append_f")
@@ -711,7 +711,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_append_cstring")
@@ -731,7 +731,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_append_cbuffer_view")
@@ -751,7 +751,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_prepend_v")
@@ -770,7 +770,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_prepend_f")
@@ -789,7 +789,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_prepend_cstring")
@@ -809,7 +809,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_prepend_cbuffer_view")
@@ -829,7 +829,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_insert")
@@ -861,7 +861,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_insert_front")
@@ -882,7 +882,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_insert_back")
@@ -903,7 +903,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_pop")
@@ -936,7 +936,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_pop_front")
@@ -983,7 +983,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_pop_back")
@@ -1030,7 +1030,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_erase")
@@ -1063,7 +1063,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_erase_front")
@@ -1096,7 +1096,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_erase_back")
@@ -1129,7 +1129,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_reserve/_additional")
@@ -1162,7 +1162,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_reserve_exact")
@@ -1189,7 +1189,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_shrink_to_fit")
@@ -1218,7 +1218,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_resize")
@@ -1252,7 +1252,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_resize_fill")
@@ -1286,7 +1286,7 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_clear")
@@ -1304,14 +1304,14 @@ int main()
 
         dark_string_delete(string);
     }
-    //--------------------------
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("string_struct_byte")
     {
         DARK_TEST_GT_U(dark_string_struct_byte(), 0);
     }
-    //--------------------------
+    //------------------------
 
     dark_test_shutdown();
 

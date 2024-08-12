@@ -1,6 +1,8 @@
 #include <dark/darkstar.h>
 #include <dark/darktest.h>
 
+#include <dark/platform/thread_struct.h>
+
 void test(int* const integer_)
 {
     DARK_ASSERT(NULL != integer_, DARK_ERROR_NULL);
@@ -13,6 +15,20 @@ int main()
     Dark_Allocator* allocator = dark_os_allocator_new();
 
     dark_test_initialise();
+
+    //----------TEST----------
+    DARK_TEST("thread_construct/_destruct")
+    {
+        Dark_Thread* const thread = dark_malloc(allocator, sizeof(*thread));
+
+        int integer = 0;
+
+        dark_thread_construct(allocator, thread, (Dark_Thread_Worker)test, &integer);
+        dark_thread_destruct(thread);
+
+        dark_free(allocator, thread, sizeof(*thread));
+    }
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("thread")

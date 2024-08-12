@@ -1,6 +1,7 @@
-
 #include <dark/darkstar.h>
 #include <dark/darktest.h>
+
+#include <dark/platform/file_struct.h>
 
 int main()
 {
@@ -9,7 +10,19 @@ int main()
     dark_test_initialise();
 
     //----------TEST----------
-    DARK_TEST("file_new/delete")
+    DARK_TEST("file_construct/_destruct")
+    {
+        Dark_File* const file = dark_malloc(allocator, sizeof(*file));;
+
+        dark_file_construct(allocator, file);
+        dark_file_destruct(file);
+
+        dark_free(allocator, file, sizeof(*file));
+    }
+    //------------------------
+
+    //----------TEST----------
+    DARK_TEST("file_new/_delete")
     {
         Dark_File* const file = dark_file_new(allocator);
         dark_file_delete(file);
@@ -17,7 +30,7 @@ int main()
     //--------------------------
 
     //----------TEST----------
-    DARK_TEST("file_open/close")
+    DARK_TEST("file_open/_close")
     {
         Dark_File* const file = dark_file_new(allocator);
 

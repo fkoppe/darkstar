@@ -1,9 +1,23 @@
 #include <dark/darkstar.h>
 #include <dark/darktest.h>
 
+#include <dark/memory/allocator_struct.h>
+#include <dark/memory/os_allocator_context.h>
+
 int main()
 {
     dark_test_initialise();
+
+    //----------TEST----------
+    DARK_TEST("vector_construc/destruct")
+    {
+        Dark_Allocator allocator_struct;
+        Dark_Os_Allocator_Context allocator_context;
+
+        dark_os_allocator_construct(&allocator_struct, &allocator_context);
+        dark_os_allocator_destruct(&allocator_struct);
+    }
+    //------------------------
 
     //----------TEST----------
     DARK_TEST("os_allocator_new/delete")

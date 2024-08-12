@@ -1,11 +1,25 @@
 #include <dark/darkstar.h>
 #include <dark/darktest.h>
 
+#include <dark/time/stopwatch_struct.h>
+
 int main()
 {
     Dark_Allocator* const allocator = dark_os_allocator_new();
 
     dark_test_initialise();
+
+    //----------TEST----------
+    DARK_TEST("stopwatch_construct/_destruct")
+    {
+        Dark_Stopwatch* const stopwatch = dark_malloc(allocator, sizeof(*stopwatch));;
+
+        dark_stopwatch_construct(allocator, stopwatch);
+        dark_stopwatch_destruct(stopwatch);
+
+        dark_free(allocator, stopwatch, sizeof(*stopwatch));
+    }
+    //--------------------------
 
     //----------TEST----------
     DARK_TEST("stopwatch")
