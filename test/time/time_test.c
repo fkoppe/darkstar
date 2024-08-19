@@ -10,6 +10,35 @@ int main()
     dark_test_initialise();
 
     //----------TEST----------
+    DARK_TEST("duration")
+    {
+        DARK_TEST_EQ_U(DARK_DURATION_S_TO_MS(1), 1000);
+        DARK_TEST_EQ_U(DARK_DURATION_S_TO_NS(1), 1000000000);
+
+        DARK_TEST_EQ_U(DARK_DURATION_MS_TO_S(1), 0);
+        DARK_TEST_EQ_U(DARK_DURATION_MS_TO_S(1000), 1);
+        DARK_TEST_EQ_U(DARK_DURATION_MS_TO_NS(1), 1000000);
+
+        DARK_TEST_EQ_U(DARK_DURATION_NS_TO_S(1), 0);
+        DARK_TEST_EQ_U(DARK_DURATION_NS_TO_S(1000000000), 1);
+        DARK_TEST_EQ_U(DARK_DURATION_NS_TO_MS(1), 0);
+        DARK_TEST_EQ_U(DARK_DURATION_NS_TO_MS(1000000), 1);
+
+        DARK_TEST_EQ_U(dark_duration_s_to_ms(1), 1000);
+        DARK_TEST_EQ_U(dark_duration_s_to_ns(1), 1000000000);
+
+        DARK_TEST_EQ_U(dark_duration_ms_to_s(1), 0);
+        DARK_TEST_EQ_U(dark_duration_ms_to_s(1000), 1);
+        DARK_TEST_EQ_U(dark_duration_ms_to_ns(1), 1000000);
+
+        DARK_TEST_EQ_U(dark_duration_ns_to_s(1), 0);
+        DARK_TEST_EQ_U(dark_duration_ns_to_s(1000000000), 1);
+        DARK_TEST_EQ_U(dark_duration_ns_to_ms(1), 0);
+        DARK_TEST_EQ_U(dark_duration_ns_to_ms(1000000), 1);
+    }
+    //--------------------------
+
+    //----------TEST----------
     DARK_TEST("stopwatch_construct/_destruct")
     {
         Dark_Stopwatch* const stopwatch = dark_malloc(allocator, sizeof(*stopwatch));;

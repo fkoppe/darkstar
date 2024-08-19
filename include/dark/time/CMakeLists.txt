@@ -1,6 +1,7 @@
 target_sources(
     darkstar
     PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/duration.h
     ${CMAKE_CURRENT_LIST_DIR}/stamp.h
     ${CMAKE_CURRENT_LIST_DIR}/stopwatch.h
     ${CMAKE_CURRENT_LIST_DIR}/stopwatch_struct.h

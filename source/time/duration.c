@@ -20,11 +20,55 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___TIME_H)
-#define ___DARK___TIME_H
+#include "time_module.h"
 
-#include <dark/time/duration.h>
-#include <dark/time/stamp.h>
-#include <dark/time/stopwatch.h>
+#include <dark/core/core.h>
+#include <dark/math/math.h>
+#include <dark/time/time.h>
 
-#endif // !defined(___DARK___TIME_H)
+#include <time.h>
+
+#undef DARK_UNIT
+#define DARK_UNIT "duration"
+
+size_t dark_duration_s_to_ms(const size_t s_)
+{
+    //s_
+
+    return DARK_DURATION_S_TO_MS(s_);
+}
+
+size_t dark_duration_s_to_ns(const size_t s_)
+{
+    //s_
+
+    return DARK_DURATION_S_TO_NS(s_);
+}
+
+size_t dark_duration_ms_to_s(const size_t ms_)
+{
+    //ms_
+
+    return DARK_DURATION_MS_TO_S(ms_);
+}
+
+size_t dark_duration_ms_to_ns(const size_t ms_)
+{
+    //ms_
+
+    return DARK_DURATION_MS_TO_NS(ms_);
+}
+
+size_t dark_duration_ns_to_s(const size_t ns_)
+{
+    //ns_
+
+    return DARK_DURATION_NS_TO_S(ns_);
+}
+
+size_t dark_duration_ns_to_ms(const size_t ns_)
+{
+    //ns_
+
+    return DARK_DURATION_NS_TO_MS(ns_);
+}

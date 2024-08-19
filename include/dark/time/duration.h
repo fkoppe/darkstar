@@ -20,11 +20,26 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___TIME_H)
-#define ___DARK___TIME_H
+#if !defined(___DARK___DURATION_H)
+#define ___DARK___DURATION_H
 
-#include <dark/time/duration.h>
-#include <dark/time/stamp.h>
-#include <dark/time/stopwatch.h>
+#include <dark/core/std.h>
 
-#endif // !defined(___DARK___TIME_H)
+#define DARK_DURATION_S_TO_MS(s) (s * DARK_KILO)
+#define DARK_DURATION_S_TO_NS(s) (s * DARK_GIGA)
+#define DARK_DURATION_MS_TO_S(s) (s / DARK_KILO)
+#define DARK_DURATION_MS_TO_NS(s) (s * DARK_MEGA)
+#define DARK_DURATION_NS_TO_S(s) (s / DARK_GIGA)
+#define DARK_DURATION_NS_TO_MS(s) (s / DARK_MEGA)
+
+size_t dark_duration_s_to_ms(size_t s);
+size_t dark_duration_s_to_ns(size_t s);
+
+size_t dark_duration_ms_to_s(size_t ms);
+size_t dark_duration_ms_to_ns(size_t ms);
+
+size_t dark_duration_ns_to_s(size_t ns);
+size_t dark_duration_ns_to_ms(size_t ns);
+
+#endif // !defined(___DARK___DURATION_H)
+
