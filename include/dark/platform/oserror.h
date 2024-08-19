@@ -23,6 +23,7 @@
 #if !defined(___DARK___OSERROR_H)
 #define ___DARK___OSERROR_H
 
+#include <dark/core/message.h>
 #include <dark/core/std.h>
 
 typedef enum Dark_Oserror Dark_Oserror;
@@ -170,6 +171,6 @@ enum Dark_Oserror
 bool dark_oserror_occured_is(void);
 Dark_Oserror dark_oserror_occured(void);
 
-const char* dark_oserror_name(Dark_Oserror oserror_);
+const char* dark_oserror_name(Dark_Oserror oserror);
 
 #endif // !defined(___DARK___OSERROR_H)

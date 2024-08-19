@@ -85,6 +85,7 @@ Dark_Oserror dark_file_open(Dark_File* const file_, const char* const path_, con
     DARK_ASSERT(___DARK_FILE_MODE_MIN < mode_ && mode_ < ___DARK_FILE_MODE_MAX, DARK_ERROR_ENUM);
     DARK_ASSERT(___DARK_FILE_FLAG_MIN < flag_ && flag_ < ___DARK_FILE_FLAG_MAX, DARK_ERROR_ENUM);
 
+    DARK_CSTRING_ASSERT_CONTENT(path_);
     DARK_ASSERT_MESSAGE(NULL == file_->handle, DARK_ERROR_STATE, DARK_MESSAGE_FILE_OPENED_ALREADY);
 
     file_->mode = mode_;

@@ -47,6 +47,8 @@ Dark_Cbuffer_View dark_cstring_to_cbuffer_view(const char* const cstring_)
 {
     DARK_ASSERT(NULL != cstring_, DARK_ERROR_NULL);
 
+    DARK_CSTRING_ASSERT_CONTENT(cstring_);
+
     Dark_Cbuffer_View cbuffer_view;
 
     cbuffer_view.size = dark_cstring_lenght(cstring_);
@@ -61,6 +63,8 @@ Dark_Cbuffer_View dark_cstring_to_cbuffer_view_terminated(const char* const cstr
 {
     DARK_ASSERT(NULL != cstring_, DARK_ERROR_NULL);
 
+    DARK_CSTRING_ASSERT_CONTENT(cstring_);
+
     Dark_Cbuffer_View cbuffer_view;
     cbuffer_view.size = dark_cstring_lenght(cstring_) + 1;
     cbuffer_view.data = cstring_;
@@ -71,6 +75,8 @@ Dark_Cbuffer_View dark_cstring_to_cbuffer_view_terminated(const char* const cstr
 Dark_Array_View dark_cstring_to_array_view(const char* const cstring_)
 {
     DARK_ASSERT(NULL != cstring_, DARK_ERROR_NULL);
+
+    DARK_CSTRING_ASSERT_CONTENT(cstring_);
 
     Dark_Array_View array_view;
 
@@ -86,6 +92,8 @@ Dark_Array_View dark_cstring_to_array_view_terminated(const char* const cstring_
 {
      DARK_ASSERT(NULL != cstring_, DARK_ERROR_NULL);
 
+     DARK_CSTRING_ASSERT_CONTENT(cstring_);
+
      Dark_Array_View array_view;
      array_view.size = dark_cstring_lenght(cstring_) + 1;
      array_view.data = cstring_;
@@ -96,6 +104,8 @@ Dark_Array_View dark_cstring_to_array_view_terminated(const char* const cstring_
 Dark_Buffer_View dark_cstring_to_buffer_view(const char* const cstring_)
 {
     DARK_ASSERT(NULL != cstring_, DARK_ERROR_NULL);
+
+    DARK_CSTRING_ASSERT_CONTENT(cstring_);
 
     Dark_Buffer_View buffer_view;
 
@@ -110,6 +120,8 @@ Dark_Buffer_View dark_cstring_to_buffer_view(const char* const cstring_)
 Dark_Buffer_View dark_cstring_to_buffer_view_terminated(const char* const cstring_)
 {
      DARK_ASSERT(NULL != cstring_, DARK_ERROR_NULL);
+
+     DARK_CSTRING_ASSERT_CONTENT(cstring_);
 
      Dark_Buffer_View buffer_view;
      buffer_view.byte = dark_cstring_lenght(cstring_) + 1;

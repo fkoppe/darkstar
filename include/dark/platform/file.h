@@ -61,6 +61,10 @@ static const Dark_Message DARK_MESSAGE_FILE_FLAG_BINARY = { NULL, "no binary fla
 static const Dark_Message DARK_MESSAGE_FILE_OPENED_NOT = { NULL, "file not opened", NULL };
 static const Dark_Message DARK_MESSAGE_FILE_OPENED_ALREADY = { NULL, "file already opened", NULL };
 
+static const Dark_Message DARK_MESSAGE_FILE_OPEN = { NULL, "could not open file", NULL };
+static const Dark_Message DARK_MESSAGE_FILE_CLOSE = { NULL, "could not close file", NULL };
+static const Dark_Message DARK_MESSAGE_FILE_WRITE = { NULL, "could not write to file", NULL };
+
 void dark_file_construct(Dark_Allocator* allocator, Dark_File* file);
 void dark_file_destruct(Dark_File* file);
 

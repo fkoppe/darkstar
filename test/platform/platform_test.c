@@ -1,3 +1,4 @@
+#include "dark/platform/oserror.h"
 #include <dark/darkstar.h>
 #include <dark/darktest.h>
 

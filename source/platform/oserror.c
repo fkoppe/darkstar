@@ -473,7 +473,7 @@ Dark_Oserror dark_oserror_occured(void)
 
 const char* dark_oserror_name(const Dark_Oserror oserror_)
 {
-    DARK_ASSERT(oserror_ < ___DARK_OSERROR_MAX, DARK_ERROR_ENUM);
+    DARK_ASSERT( ___DARK_OSERROR_MIN < oserror_ && oserror_ < ___DARK_OSERROR_MAX, DARK_ERROR_ENUM);
 
     switch (oserror_)
     {

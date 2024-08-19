@@ -6,6 +6,14 @@ int main()
     dark_test_initialise();
 
     //----------TEST----------
+    DARK_TEST("CSTRING_ASSERT")
+    {
+        DARK_CSTRING_ASSERT_INTEGRITY("");
+        DARK_CSTRING_ASSERT_CONTENT("x");
+    }
+    //--------------------------
+
+    //----------TEST----------
     DARK_TEST("cstring_lenght")
     {
         DARK_TEST_EQ_U(26, dark_cstring_lenght("abcdefghijklmnopqrstuvwxyz"));

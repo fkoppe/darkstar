@@ -30,6 +30,26 @@
 
 #define DARK_CSTRING_LENGHT_MAX 256
 
+#if defined(___DARK_DEBUG)
+#define DARK_CSTRING_ASSERT_INTEGRITY(cstring) \
+for(size_t i = 0; i <= DARK_CSTRING_LENGHT_MAX; i++) \
+{ \
+    if('\0' == cstring[i])\
+    { \
+        i = DARK_CSTRING_LENGHT_MAX + 1; \
+    } \
+    if(i == DARK_CSTRING_LENGHT_MAX) \
+    { \
+        DARK_EXIT_CSTRING(-1, DARK_ERROR_RUNTIME, "cstring lost integrity"); \
+    } \
+}
+
+#define DARK_CSTRING_ASSERT_CONTENT(cstring) DARK_ASSERT_CSTRING(dark_cstring_lenght(cstring) > 0, DARK_ERROR_RUNTIME, "cstring is empty")
+#else
+#define DARK_CSTRING_ASSERT_INTEGRITY(cstring)
+#define DARK_CSTRING_ASSERT_CONTENT(cstring)
+#endif // defined(___DARK_DEBUG)
+
 size_t dark_cstring_lenght(const char* cstring);
 
 Dark_Cbuffer_View dark_cstring_to_cbuffer_view(const char* cstring);

@@ -20,20 +20,38 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DARKSTAR_H)
-#define ___DARK___DARKSTAR_H
+#if !defined(___DARK___OSTREAM_STRUCT_H)
+#define ___DARK___OSTREAM_STRUCT_H
 
-#include <dark/algorithm/algorithm.h>
-#include <dark/char/char.h>
-#include <dark/container/container.h>
-#include <dark/core/core.h>
-#include <dark/hash/hash.h>
-#include <dark/math/math.h>
-#include <dark/memory/memory.h>
-#include <dark/platform/platform.h>
-#include <dark/random/random.h>
-#include <dark/stream/stream.h>
-#include <dark/time/time.h>
-#include <dark/tool/tool.h>
+#include <dark/container/vector_struct.h>
+#include <dark/core/std.h>
+#include <dark/platform/file_struct.h>
+#include <dark/platform/mutex_struct.h>
+#include <dark/stream/ostream.h>
+#include <dark/time/stopwatch_struct.h>
 
-#endif // !defined(___DARK___DARKSTAR_H)
+typedef enum Dark_Ostream_Type Dark_Ostream_Type;
+enum Dark_Ostream_Type
+{
+    ___DARK_OSTREAM_TYPE_MIN,
+    DARK_OSTREAM_TYPE_FILE,
+    DARK_OSTREAM_TYPE_STD,
+    ___DARK_OSTREAM_TYPE_MAX,
+};
+
+struct Dark_Ostream
+{
+    Dark_Allocator* allocator;
+    Dark_Ostream_Settings settings;
+    Dark_Vector buffer_vector;
+    Dark_Mutex* mutex;
+    Dark_Ostream_Type type;
+    union
+    {
+        Dark_File* file;
+        FILE* std;
+    } data;
+    Dark_Stopwatch* stopwatch;
+};
+
+#endif // !defined(___DARK___OSTREAM_STRUCT_H)
