@@ -6,6 +6,12 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 
 add_library(darkstar)
 
+target_link_libraries(
+    darkstar
+    PRIVATE
+    glfw
+)
+
 set(DARK_VERSION_MAJOR 0 CACHE INTERNAL "")
 set(DARK_VERSION_MINOR 1 CACHE INTERNAL "")
 set(DARK_VERSION_PATCH 0 CACHE INTERNAL "")
