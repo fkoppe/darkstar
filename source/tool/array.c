@@ -64,17 +64,6 @@ Dark_Buffer_View dark_array_to_buffer_view(const Dark_Array array_)
     return buffer_view;
 }
 
-Dark_Buffer_View dark_array_view_to_buffer_view(const Dark_Array_View array_view_)
-{
-    DARK_ASSERT(NULL != array_view_.data, DARK_ERROR_NULL);
-    DARK_ASSERT(array_view_.size > 0, DARK_ERROR_ZERO);
-    DARK_ASSERT(array_view_.element_byte > 0, DARK_ERROR_ZERO);
-
-    const Dark_Buffer_View buffer_view = { array_view_.element_byte * array_view_.size, array_view_.data };
-
-    return buffer_view;
-}
-
 void dark_array_foreach(const Dark_Array array_, void* const context_, const Dark_Foreach foreach_)
 {
     DARK_ASSERT(NULL != array_.data, DARK_ERROR_NULL);
@@ -102,31 +91,4 @@ int8_t dark_array_compare(const Dark_Array* const a_, const Dark_Array* const b_
     const Dark_Array_View bv = dark_array_to_view(*b_);
 
     return dark_array_view_compare(&av, &bv);
-}
-
-int8_t dark_array_view_compare(const Dark_Array_View* const a_, const Dark_Array_View* const b_)
-{
-    DARK_ASSERT(NULL != a_->data, DARK_ERROR_NULL);
-    DARK_ASSERT(a_->size > 0, DARK_ERROR_ZERO);
-    DARK_ASSERT(a_->element_byte > 0, DARK_ERROR_ZERO);
-    DARK_ASSERT(NULL != b_->data, DARK_ERROR_NULL);
-    DARK_ASSERT(b_->size > 0, DARK_ERROR_ZERO);
-    DARK_ASSERT(b_->element_byte > 0, DARK_ERROR_ZERO);
-
-    if(dark_compare_zu(&a_->element_byte, &b_->element_byte))
-    {
-        return dark_compare_zu(&a_->element_byte, &b_->element_byte);
-    }
-
-    if(dark_compare_zu(&a_->size, &b_->size))
-    {
-        return dark_compare_zu(&a_->size, &b_->size);
-    }
-
-    if(dark_memcmp(a_->data, b_->data, a_->element_byte * a_->size))
-    {
-        return dark_memcmp(a_->data, b_->data, a_->element_byte * a_->size);
-    }
-
-    return 0;
 }

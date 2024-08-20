@@ -17,7 +17,7 @@ int main()
         Dark_Iterator* const iterator = dark_malloc(allocator, sizeof(*iterator));
 
         int buffer[12] = {0};
-        Dark_Array array = { buffer, 12, sizeof(int) };
+        Dark_Array array = { sizeof(int), 12, buffer };
 
         dark_array_iterator_construct(allocator, iterator, &context, array);
         dark_array_iterator_destruct(iterator);
@@ -30,11 +30,11 @@ int main()
     DARK_TEST("array_iterator_new/delete")
     {
         int buffer[12] = {0};
-        Dark_Array array = { buffer, 12, sizeof(int) };
+        Dark_Array array = { sizeof(int), 12, buffer };
 
         Dark_Iterator* iterator = dark_array_iterator_new(allocator, array);
 
-        dark_array_iterator_delete(allocator, iterator);
+        dark_array_iterator_delete(iterator);
     }
     //--------------------------
 

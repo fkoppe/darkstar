@@ -12,19 +12,18 @@ add_subdirectory(core)
 
 #-----
 
-add_subdirectory(hash)
 add_subdirectory(math)
 add_subdirectory(memory)
 
 #-----
 
-add_subdirectory(container)
-add_subdirectory(platform)
+add_subdirectory(tool)
 
 #-----
 
 add_subdirectory(algorithm)
-add_subdirectory(stream)
+add_subdirectory(container)
+add_subdirectory(hash)
 
 #-----
 
@@ -32,8 +31,19 @@ add_subdirectory(char)
 
 #-----
 
+add_subdirectory(platform)
 add_subdirectory(random)
+
+#-----
+
 add_subdirectory(time)
+
+#-----
+
+add_subdirectory(stream)
+
+#-----
+
 #add_subdirectory(log)
 
 #-----

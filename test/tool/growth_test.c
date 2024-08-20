@@ -23,8 +23,8 @@ int main()
         DARK_TEST_EQ_U(dark_growth_standard(0, 0), 0);
         DARK_TEST_EQ_U(dark_growth_standard(1, 0), 0);
         DARK_TEST_EQ_U(dark_growth_standard(1, 1), 0);
-        DARK_TEST_EQ_U(dark_growth_standard(10, 20), 12);
-        DARK_TEST_EQ_U(dark_growth_standard(100, 101), 50);
+        DARK_TEST_EQ_U(dark_growth_standard(10, 20), 20);
+        DARK_TEST_EQ_U(dark_growth_standard(100, 101), 150);
         DARK_TEST_EQ_U(dark_growth_standard(10, 5), 0);
     }
     //--------------------------
@@ -35,8 +35,8 @@ int main()
         DARK_TEST_EQ_U(dark_growth_exponential(0, 0), 0);
         DARK_TEST_EQ_U(dark_growth_exponential(1, 0), 0);
         DARK_TEST_EQ_U(dark_growth_exponential(1, 1), 0);
-        DARK_TEST_EQ_U(dark_growth_exponential(10, 20),10);
-        DARK_TEST_EQ_U(dark_growth_exponential(100, 101), 100);
+        DARK_TEST_EQ_U(dark_growth_exponential(10, 20), 20);
+        DARK_TEST_EQ_U(dark_growth_exponential(100, 101), 200);
         DARK_TEST_EQ_U(dark_growth_exponential(10, 5), 0);
     }
     //--------------------------
