@@ -54,6 +54,7 @@ struct Dark_Library
     const char* name;
     uint32_t version;
     const char* configuration;
+    const char* color;
 };
 
 void dark_location_print(Dark_So so, Dark_Location location);

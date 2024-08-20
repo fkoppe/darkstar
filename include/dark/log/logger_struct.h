@@ -32,8 +32,7 @@ struct Dark_Logger
 {
     Dark_Allocator* allocator;
     Dark_Logger_Settings settings;
-    Dark_Cbuffer_View name_view;
-    size_t color_lenght;
+    size_t name_lenght;
     Dark_String log_string;
     Dark_String va_string;
     struct

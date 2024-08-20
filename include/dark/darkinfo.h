@@ -26,7 +26,8 @@
 #include <dark/core/enviroment.h>
 #include <dark/core/std.h>
 #include <dark/core/version.h>
+#include <dark/platform/console.h>
 
-static const Dark_Library DARK_INFO_LIBRARY_DARKSTAR = { "darkstar", DARK_VERSION_MAKE(___DARK_VERSION_MAJOR, ___DARK_VERSION_MINOR, ___DARK_VERSION_STAGE, ___DARK_VERSION_PATCH), ___DARK_CONFIGURATION};
+static const Dark_Library DARK_INFO_LIBRARY_DARKSTAR = { "darkstar", DARK_VERSION_MAKE(___DARK_VERSION_MAJOR, ___DARK_VERSION_MINOR, ___DARK_VERSION_STAGE, ___DARK_VERSION_PATCH), ___DARK_CONFIGURATION, DARK_CONSOLE_COLOR_BFG_MAGENTA };
 
 #endif // !defined(___DARK___DARKINFO_H)

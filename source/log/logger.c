@@ -36,14 +36,13 @@ void dark_logger_construct(Dark_Allocator* const allocator_, Dark_Logger* const 
 {
     DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != logger_, DARK_ERROR_NULL);
-    DARK_ASSERT(NULL != settings_.name, DARK_ERROR_NULL);
+    //settings_
 
-    DARK_CSTRING_ASSERT_CONTENT(settings_.name);
+    DARK_CSTRING_ASSERT_INTEGRITY(settings_.name);
 
     logger_->allocator = allocator_;
     logger_->settings = settings_;
-    logger_->name_view = dark_cstring_to_cbuffer_view(settings_.name);
-    logger_->color_lenght = dark_cstring_lenght(settings_.color);
+    logger_->name_lenght = dark_cstring_lenght(settings_.name);
 
     dark_string_construct_capacity(allocator_, &logger_->log_string, dark_growth_simple, 1024);
     dark_string_construct_capacity(allocator_, &logger_->va_string, dark_growth_simple, 512);
@@ -63,7 +62,7 @@ void dark_logger_destruct(Dark_Logger* const logger_)
 Dark_Logger* dark_logger_new(Dark_Allocator* const allocator_, const Dark_Logger_Settings settings_)
 {
     DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
-    DARK_ASSERT(NULL != settings_.name, DARK_ERROR_NULL);
+    //settings_
 
     Dark_Logger* const logger = dark_malloc(allocator_, sizeof(*logger));
     DARK_ASSERT(NULL != logger, DARK_ERROR_ALLOCATION);
@@ -106,8 +105,9 @@ void dark_logger_update(Dark_Logger* const logger_)
     logger_->stamp.recent_is = false;
 }
 
-void dark_logger_log_cstring(const char* const module_, const char* const unit_, Dark_Logger* const logger_, const Dark_Log_Level level_, const char* const cstring_)
+void dark_logger_log_cstring(const Dark_Library* const library_, const char* const module_, const char* const unit_, Dark_Logger* const logger_, const Dark_Log_Level level_, const char* const cstring_)
 {
+    //library_
     //module_
     //unit_
     DARK_ASSERT(NULL != logger_, DARK_ERROR_NULL);
@@ -116,11 +116,12 @@ void dark_logger_log_cstring(const char* const module_, const char* const unit_,
 
     DARK_CSTRING_ASSERT_CONTENT(cstring_);
 
-    dark_logger_log_cbuffer_view(module_, unit_, logger_, level_, dark_cstring_to_cbuffer_view(cstring_));
+    dark_logger_log_cbuffer_view(library_, module_, unit_, logger_, level_, dark_cstring_to_cbuffer_view(cstring_));
 }
 
-void dark_logger_log_cbuffer_view(const char* const module_, const char* const unit_, Dark_Logger* const logger_, const Dark_Log_Level level_, const Dark_Cbuffer_View cbuffer_view_)
+void dark_logger_log_cbuffer_view(const Dark_Library* const library_, const char* const module_, const char* const unit_, Dark_Logger* const logger_, const Dark_Log_Level level_, const Dark_Cbuffer_View cbuffer_view_)
 {
+    //library_
     //module_
     //unit_
     DARK_ASSERT(NULL != logger_, DARK_ERROR_NULL);
@@ -137,7 +138,7 @@ void dark_logger_log_cbuffer_view(const char* const module_, const char* const u
     {
         if(level_ >= logger_->ostream.settings[i].level_min)
         {
-            dark_logger_log_helper(module_, unit_, logger_, level_, cbuffer_view_, i);
+            dark_logger_log_helper(library_, module_, unit_, logger_, level_, cbuffer_view_, i);
 
             dark_string_insert_back(&logger_->log_string, '\n');
 
@@ -158,8 +159,9 @@ void dark_logger_log_cbuffer_view(const char* const module_, const char* const u
     }
 }
 
-void dark_logger_log_f(const char* const module_, const char* const unit_, Dark_Logger* const logger_, const Dark_Log_Level level_, const char* const format_, ...)
+void dark_logger_log_f(const Dark_Library* const library_, const char* const module_, const char* const unit_, Dark_Logger* const logger_, const Dark_Log_Level level_, const char* const format_, ...)
 {
+    //library_
     //module_
     //unit_
     DARK_ASSERT(NULL != logger_, DARK_ERROR_NULL);
@@ -170,12 +172,13 @@ void dark_logger_log_f(const char* const module_, const char* const unit_, Dark_
 
     va_list args;
     va_start(args, format_);
-    dark_logger_log_v(module_, unit_, logger_, level_, format_, args);
+    dark_logger_log_v(library_, module_, unit_, logger_, level_, format_, args);
     va_end(args);
 }
 
-void dark_logger_log_v(const char* const module_, const char* const unit_, Dark_Logger* const logger_, const Dark_Log_Level level_, const char* const format_, va_list arguments_)
+void dark_logger_log_v(const Dark_Library* const library_, const char* const module_, const char* const unit_, Dark_Logger* const logger_, const Dark_Log_Level level_, const char* const format_, va_list arguments_)
 {
+    //library_
     //module_
     //unit_
     DARK_ASSERT(NULL != logger_, DARK_ERROR_NULL);
@@ -187,13 +190,14 @@ void dark_logger_log_v(const char* const module_, const char* const unit_, Dark_
 
     dark_string_append_f(&logger_->va_string, format_, arguments_);
 
-    dark_logger_log_cbuffer_view(module_, unit_, logger_, level_, dark_string_cbuffer_view(&logger_->va_string));
+    dark_logger_log_cbuffer_view(library_, module_, unit_, logger_, level_, dark_string_cbuffer_view(&logger_->va_string));
 
     dark_string_clear(&logger_->va_string);
 }
 
-void dark_logger_plog_cstring(const char* const module_, const char* const unit_, const char* const file_, const intmax_t line_, Dark_Logger* const logger_, const Dark_Log_Level level_, const char* const cstring_)
+void dark_logger_plog_cstring(const Dark_Library* const library_, const char* const module_, const char* const unit_, const char* const file_, const intmax_t line_, Dark_Logger* const logger_, const Dark_Log_Level level_, const char* const cstring_)
 {
+    //library_
     //module_
     //unit_
     DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
@@ -204,11 +208,12 @@ void dark_logger_plog_cstring(const char* const module_, const char* const unit_
 
     DARK_CSTRING_ASSERT_CONTENT(cstring_);
 
-    dark_logger_plog_cbuffer_view(module_, unit_, file_, line_, logger_, level_, dark_cstring_to_cbuffer_view(cstring_));
+    dark_logger_plog_cbuffer_view(library_, module_, unit_, file_, line_, logger_, level_, dark_cstring_to_cbuffer_view(cstring_));
 }
 
-void dark_logger_plog_cbuffer_view(const char* const module_, const char* const unit_, const char* const file_, const intmax_t line_, Dark_Logger* const logger_, const Dark_Log_Level level_, const Dark_Cbuffer_View cbuffer_view_)
+void dark_logger_plog_cbuffer_view(const Dark_Library* const library_, const char* const module_, const char* const unit_, const char* const file_, const intmax_t line_, Dark_Logger* const logger_, const Dark_Log_Level level_, const Dark_Cbuffer_View cbuffer_view_)
 {
+    //library_
     //module_
     //unit_
     DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
@@ -227,7 +232,7 @@ void dark_logger_plog_cbuffer_view(const char* const module_, const char* const 
     {
         if(level_ >= logger_->ostream.settings[i].level_min)
         {
-            dark_logger_log_helper(module_, unit_, logger_, level_, cbuffer_view_, i);
+            dark_logger_log_helper(library_, module_, unit_, logger_, level_, cbuffer_view_, i);
 
             dark_string_append_f(&logger_->log_string, " (%s:%ju)\n", file_, line_);
 
@@ -248,8 +253,9 @@ void dark_logger_plog_cbuffer_view(const char* const module_, const char* const 
     }
 }
 
-void dark_logger_plog_f(const char* const module_, const char* const unit_, const char* const file_, const intmax_t line_, Dark_Logger* const logger_, const Dark_Log_Level level_, const char* const format_, ...)
+void dark_logger_plog_f(const Dark_Library* const library_, const char* const module_, const char* const unit_, const char* const file_, const intmax_t line_, Dark_Logger* const logger_, const Dark_Log_Level level_, const char* const format_, ...)
 {
+    //library_
     //module_
     //unit_
     DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
@@ -262,12 +268,13 @@ void dark_logger_plog_f(const char* const module_, const char* const unit_, cons
 
     va_list args;
     va_start(args, format_);
-    dark_logger_plog_v(module_, unit_, file_, line_, logger_, level_, format_, args);
+    dark_logger_plog_v(library_, module_, unit_, file_, line_, logger_, level_, format_, args);
     va_end(args);
 }
 
-void dark_logger_plog_v(const char* const module_, const char* const unit_, const char* const file_, const intmax_t line_, Dark_Logger* const logger_, const Dark_Log_Level level_, const char* const format_, va_list arguments_)
+void dark_logger_plog_v(const Dark_Library* const library_, const char* const module_, const char* const unit_, const char* const file_, const intmax_t line_, Dark_Logger* const logger_, const Dark_Log_Level level_, const char* const format_, va_list arguments_)
 {
+    //library_
     //module_
     //unit_
     DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
@@ -281,7 +288,7 @@ void dark_logger_plog_v(const char* const module_, const char* const unit_, cons
 
     dark_string_append_f(&logger_->va_string, format_, arguments_);
 
-    dark_logger_plog_cbuffer_view(module_, unit_, file_, line_, logger_, level_, dark_string_cbuffer_view(&logger_->va_string));
+    dark_logger_plog_cbuffer_view(library_, module_, unit_, file_, line_, logger_, level_, dark_string_cbuffer_view(&logger_->va_string));
 
     dark_string_clear(&logger_->va_string);
 }

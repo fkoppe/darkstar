@@ -3,6 +3,7 @@
 #include <dark/darktest.h>
 
 #include <dark/stream/ostream_struct.h>
+#include <stdbool.h>
 
 void va_helper(Dark_Logger* const logger_, const char* const format_, ...)
 {
@@ -18,15 +19,15 @@ void va_helper(Dark_Logger* const logger_, const char* const format_, ...)
     va_copy(args2, args1);
     va_copy(args3, args1);
 
-    DARK_LOG_V(logger, DARK_LOG_LEVEL_TRACE, format_, args1);
+    DARK_LOG_V(logger_, DARK_LOG_LEVEL_TRACE, format_, args1);
     va_end(args1);
 
     va_start(args2, format_);
-    DARK_PLOG_V(logger, DARK_LOG_LEVEL_TRACE, format_, args2);
+    DARK_PLOG_V(logger_, DARK_LOG_LEVEL_TRACE, format_, args2);
     va_end(args2);
 
     va_start(args3, format_);
-    DARK_DLOG_V(logger, DARK_LOG_LEVEL_TRACE, format_, args3);
+    DARK_DLOG_V(logger_, DARK_LOG_LEVEL_TRACE, format_, args3);
     va_end(args3);
 }
 
@@ -36,6 +37,7 @@ int main()
     Dark_Mutex* mutex = dark_mutex_new(allocator);
 
     Dark_Ostream_Settings ostream_settings;
+    ostream_settings.keep_open_is = false;
     ostream_settings.binary_is = false;
     ostream_settings.force_size_is = false;
     ostream_settings.buffer_size = 0;
@@ -52,7 +54,6 @@ int main()
     {
         Dark_Logger_Settings logger_settings;
         logger_settings.name = "test_logger";
-        logger_settings.color = "";
         logger_settings.log_is = true;
         logger_settings.update_is = true;
 

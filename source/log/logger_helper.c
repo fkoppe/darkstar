@@ -29,8 +29,9 @@
 #include <dark/log/logger_struct.h>
 #include <dark/platform/platform.h>
 
-void dark_logger_log_helper(const char* const module_, const char* const unit_, Dark_Logger* const logger_, const Dark_Log_Level level_, const Dark_Cbuffer_View cbuffer_view_, const size_t i_)
+void dark_logger_log_helper(const Dark_Library* const library_, const char* const module_, const char* const unit_, Dark_Logger* const logger_, const Dark_Log_Level level_, const Dark_Cbuffer_View cbuffer_view_, const size_t i_)
 {
+    //library_
     //module_
     //unit_
     DARK_ASSERT(NULL != logger_, DARK_ERROR_NULL);
@@ -42,10 +43,7 @@ void dark_logger_log_helper(const char* const module_, const char* const unit_, 
     if(logger_->ostream.settings[i_].format.timestamp_is)
     {
         dark_logger_stamp_recent_make(logger_);
-    }
 
-    if(logger_->ostream.settings[i_].format.name_is)
-    {
         dark_string_insert_back(&logger_->log_string, '[');
 
         const Dark_Cbuffer cbuffer = { DARK_STAMP_HMS_SIZE, logger_->stamp.buffer };
@@ -54,57 +52,73 @@ void dark_logger_log_helper(const char* const module_, const char* const unit_, 
         dark_string_insert_back(&logger_->log_string, ']');
     }
 
-    const uint64_t id = dark_thread_current_id();
+    uint64_t id;
 
     switch(logger_->ostream.settings[i_].format.thread)
     {
     case DARK_LOGGER_THREAD_NOT:
         break;
     case DARK_LOGGER_THREAD_UINT:
+        id = dark_thread_current_id();
         dark_string_append_f(&logger_->log_string, "[%llu]", id);
         break;
     case DARK_LOGGER_THREAD_HEX:
+        id = dark_thread_current_id();
         dark_string_append_f(&logger_->log_string, "[0x%llx]", id);
         break;
     default:
         DARK_ABORT_ERROR(DARK_ERROR_SWITCH);
     }
 
-    if(logger_->ostream.settings[i_].format.name_is)
+    if(logger_->ostream.settings[i_].format.name_is && logger_->name_lenght > 0)
     {
         dark_string_insert_back(&logger_->log_string, '[');
-
-        if(logger_->ostream.settings[i_].color_is && logger_->color_lenght > 0)
-        {
-            const Dark_Cbuffer_View color_view = { logger_->color_lenght, logger_->settings.color };
-            dark_string_append_cbuffer_view(&logger_->log_string, color_view);
-        }
-
         dark_string_append_cstring(&logger_->log_string, logger_->settings.name);
-
-        if(logger_->ostream.settings[i_].color_is && logger_->color_lenght > 0)
-        {
-            dark_string_append_cstring(&logger_->log_string, DARK_CONSOLE_COLOR_RESET);
-        }
-
         dark_string_insert_back(&logger_->log_string, ']');
+    }
+
+    if(logger_->ostream.settings[i_].format.library_is && NULL != library_)
+    {
+        const size_t name_lenght = dark_cstring_lenght(library_->name);
+
+        if(logger_->ostream.settings[i_].format.library_is && name_lenght > 0)
+        {
+            dark_string_insert_back(&logger_->log_string, '[');
+
+            const size_t color_lenght = dark_cstring_lenght(library_->color);
+
+            if(logger_->ostream.settings[i_].color_is && color_lenght > 0)
+            {
+                const Dark_Cbuffer_View color_view = { color_lenght, library_->color };
+                dark_string_append_cbuffer_view(&logger_->log_string, color_view);
+            }
+
+            const Dark_Cbuffer_View name_view = { name_lenght, library_->name };
+            dark_string_append_cbuffer_view(&logger_->log_string, name_view);
+            if(logger_->ostream.settings[i_].color_is && color_lenght > 0)
+            {
+                dark_string_append_cstring(&logger_->log_string, DARK_CONSOLE_COLOR_RESET);
+            }
+
+            dark_string_insert_back(&logger_->log_string, ']');
+        }
     }
 
     const char* const level_name = dark_log_level_name(level_);
     const char* const level_color = dark_log_level_color(level_);
-    const size_t level_lenght = dark_cstring_lenght(level_color);
+    const size_t color_lenght = dark_cstring_lenght(level_color);
 
     dark_string_insert_back(&logger_->log_string, '[');
 
-    if(logger_->ostream.settings[i_].color_is && level_lenght > 0)
+    if(logger_->ostream.settings[i_].color_is && color_lenght > 0)
     {
-        const Dark_Cbuffer_View color_view = { level_lenght, level_color };
+        const Dark_Cbuffer_View color_view = { color_lenght, level_color };
         dark_string_append_cbuffer_view(&logger_->log_string, color_view);
     }
 
     dark_string_append_cstring(&logger_->log_string, level_name);
 
-    if(logger_->ostream.settings[i_].color_is && level_lenght > 0)
+    if(logger_->ostream.settings[i_].color_is && color_lenght > 0)
     {
         dark_string_append_cstring(&logger_->log_string, DARK_CONSOLE_COLOR_RESET);
     }

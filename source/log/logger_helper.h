@@ -26,7 +26,7 @@
 #include <dark/core/std.h>
 #include <dark/log/logger.h>
 
-void dark_logger_log_helper(const char* module, const char* unit, Dark_Logger* logger, Dark_Log_Level level, Dark_Cbuffer_View cbuffer_view, size_t i);
+void dark_logger_log_helper(const Dark_Library* library, const char* module, const char* unit, Dark_Logger* logger, Dark_Log_Level level, Dark_Cbuffer_View cbuffer_view, size_t i);
 
 void dark_logger_stamp_recent_make(Dark_Logger* logger);
 

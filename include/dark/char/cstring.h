@@ -32,6 +32,7 @@
 
 #if defined(___DARK_DEBUG)
 #define DARK_CSTRING_ASSERT_INTEGRITY(cstring) \
+DARK_ASSERT_CSTRING(NULL != cstring, DARK_ERROR_NULL, "cstring was null");\
 for(size_t i = 0; i <= DARK_CSTRING_LENGHT_MAX; i++) \
 { \
     if('\0' == cstring[i])\
