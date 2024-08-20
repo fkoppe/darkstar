@@ -48,7 +48,12 @@ struct Dark_Ostream
     Dark_Ostream_Type type;
     union
     {
-        Dark_File* file;
+        struct
+        {
+            const char* path;
+            Dark_File_Flag flag;
+            Dark_File* instance;
+        } file;
         FILE* std;
     } data;
     Dark_Stopwatch* stopwatch;

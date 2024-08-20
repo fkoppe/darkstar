@@ -32,6 +32,7 @@ typedef struct Dark_Ostream Dark_Ostream;
 typedef struct Dark_Ostream_Settings Dark_Ostream_Settings;
 struct Dark_Ostream_Settings
 {
+    bool keep_open_is;
     bool binary_is;
     bool force_size_is;
     size_t buffer_size;

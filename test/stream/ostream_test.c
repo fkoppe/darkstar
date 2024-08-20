@@ -14,6 +14,7 @@ int main()
     DARK_TEST("ostream_construct/destruct")
     {
         Dark_Ostream_Settings ostream_settings;
+        ostream_settings.keep_open_is = false;
         ostream_settings.binary_is = false;
         ostream_settings.force_size_is = false;
         ostream_settings.buffer_size = 0;
@@ -38,6 +39,7 @@ int main()
     DARK_TEST("ostream_new/_delete")
     {
         Dark_Ostream_Settings ostream_settings;
+        ostream_settings.keep_open_is = false;
         ostream_settings.binary_is = false;
         ostream_settings.force_size_is = false;
         ostream_settings.buffer_size = 0;
@@ -61,6 +63,7 @@ int main()
         const Dark_Buffer_View view = { sizeof(buffer), buffer };
 
         Dark_Ostream_Settings ostream_settings;
+        ostream_settings.keep_open_is = false;
         ostream_settings.binary_is = false;
         ostream_settings.force_size_is = false;
         ostream_settings.buffer_size = 10;
@@ -82,6 +85,7 @@ int main()
 
 
         Dark_Ostream_Settings ostream_settings;
+        ostream_settings.keep_open_is = false;
         ostream_settings.binary_is = false;
         ostream_settings.force_size_is = false;
         ostream_settings.buffer_size = 10;

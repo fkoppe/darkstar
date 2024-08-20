@@ -54,21 +54,25 @@ void dark_ostream_construct_file(Dark_Allocator* const allocator_, Dark_Ostream*
     ostream_->mutex = mutex_;
     ostream_->type = DARK_OSTREAM_TYPE_FILE;
 
-    ostream_->data.file = dark_file_new(allocator_);
+    ostream_->data.file.path = path_;
+    ostream_->data.file.instance = dark_file_new(allocator_);
 
-    Dark_File_Flag flag = DARK_FILE_FLAG_NONE;
+    ostream_->data.file.flag = DARK_FILE_FLAG_NONE;
 
     if(ostream_->settings.binary_is)
     {
-        flag = DARK_FILE_FLAG_BINARY;
+        ostream_->data.file.flag = DARK_FILE_FLAG_BINARY;
     }
 
-    const Dark_Oserror result = dark_file_open(ostream_->data.file, path_, DARK_FILE_MODE_APPEND, flag);
-
-    if(DARK_OSERROR_NONE != result)
+    if(ostream_->settings.keep_open_is)
     {
-        const Dark_Message message = { &DARK_MESSAGE_FILE_OPEN, NULL, path_ };
-        DARK_EXIT_MESSAGE(-1, DARK_ERROR_RUNTIME, message);
+        const Dark_Oserror result = dark_file_open(ostream_->data.file.instance, ostream_->data.file.path, DARK_FILE_MODE_APPEND, ostream_->data.file.flag);
+
+        if(DARK_OSERROR_NONE != result)
+        {
+            const Dark_Message message = { &DARK_MESSAGE_FILE_OPEN, NULL, path_ };
+            DARK_EXIT_MESSAGE(-1, DARK_ERROR_RUNTIME, message);
+        }
     }
 
     if(ostream_->settings.auto_flush_ns > 0)
@@ -136,16 +140,27 @@ void dark_ostream_destruct(Dark_Ostream* const ostream_)
 
     if(DARK_OSTREAM_TYPE_FILE == ostream_->type)
     {
-        DARK_ASSERT(dark_file_open_is(ostream_->data.file), DARK_ERROR_STATE);
+        if(!ostream_->settings.keep_open_is)
+        {
+            const Dark_Oserror result = dark_file_open(ostream_->data.file.instance, ostream_->data.file.path, DARK_FILE_MODE_APPEND, ostream_->data.file.flag);
 
-        const Dark_Oserror result = dark_file_close(ostream_->data.file);
+            if(DARK_OSERROR_NONE != result)
+            {
+                const Dark_Message message = { &DARK_MESSAGE_FILE_OPEN, NULL, ostream_->data.file.path };
+                DARK_EXIT_MESSAGE(-1, DARK_ERROR_RUNTIME, message);
+            }
+        }
+
+        DARK_ASSERT_CSTRING(dark_file_open_is(ostream_->data.file.instance), DARK_ERROR_STATE, "file closed unexpectedly");
+
+        const Dark_Oserror result = dark_file_close(ostream_->data.file.instance);
 
         if(DARK_OSERROR_NONE != result)
         {
             DARK_EXIT_MESSAGE(-1, DARK_ERROR_RUNTIME, DARK_MESSAGE_FILE_CLOSE);
         }
 
-        dark_file_delete(ostream_->data.file);
+        dark_file_delete(ostream_->data.file.instance);
     }
 
     dark_vector_destruct(&ostream_->buffer_vector);
@@ -300,24 +315,45 @@ void dark_ostream_flush_unbuffered(Dark_Ostream* const ostream_, const Dark_Buff
 
     if(DARK_OSTREAM_TYPE_FILE == ostream_->type)
     {
-        DARK_ASSERT(dark_file_open_is(ostream_->data.file), DARK_ERROR_STATE);
+        if(!ostream_->settings.keep_open_is)
+        {
+            const Dark_Oserror result = dark_file_open(ostream_->data.file.instance, ostream_->data.file.path, DARK_FILE_MODE_APPEND, ostream_->data.file.flag);
+
+            if(DARK_OSERROR_NONE != result)
+            {
+                const Dark_Message message = { &DARK_MESSAGE_FILE_OPEN, NULL, ostream_->data.file.path };
+                DARK_EXIT_MESSAGE(-1, DARK_ERROR_RUNTIME, message);
+            }
+        }
+
+        DARK_ASSERT(dark_file_open_is(ostream_->data.file.instance), DARK_ERROR_STATE);
 
         Dark_Oserror result;
 
         if(ostream_->settings.binary_is)
         {
             const Dark_Array_View array_view = { sizeof(uint8_t), source_.byte, source_.data };
-            result = dark_file_write_binary(ostream_->data.file, array_view);
+            result = dark_file_write_binary(ostream_->data.file.instance, array_view);
         }
         else
         {
             const Dark_Cbuffer_View cbuffer_view = { source_.byte, source_.data };
-            result = dark_file_write(ostream_->data.file, cbuffer_view);
+            result = dark_file_write(ostream_->data.file.instance, cbuffer_view);
         }
 
         if(DARK_OSERROR_NONE != result)
         {
             DARK_EXIT_MESSAGE(-1, DARK_ERROR_RUNTIME, DARK_MESSAGE_FILE_WRITE);
+        }
+
+        if(!ostream_->settings.keep_open_is)
+        {
+            const Dark_Oserror result = dark_file_close(ostream_->data.file.instance);
+
+            if(DARK_OSERROR_NONE != result)
+            {
+                DARK_EXIT_MESSAGE(-1, DARK_ERROR_RUNTIME, DARK_MESSAGE_FILE_CLOSE);
+            }
         }
     }
     else
