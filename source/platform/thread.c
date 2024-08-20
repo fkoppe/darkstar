@@ -24,6 +24,7 @@
 
 #include <dark/core/core.h>
 #include <dark/math/math.h>
+#include <dark/memory/memory.h>
 #include <dark/platform/platform.h>
 #include <dark/platform/thread_struct.h>
 
@@ -154,10 +155,10 @@ size_t dark_thread_struct_byte(void)
 uint64_t dark_thread_current_id(void)
 {
 #if defined(___DARK_WINDOWS)
-    return GetCurrentThreadId();
+    return (uint64_t)GetCurrentThreadId();
 #endif // defined(___DARK_WINDOWS)
 
 #if defined(___DARK_LINUX) || defined(___DARK_DARWIN)
-    return pthread_self();
+    return (uint64_t)pthread_self();
 #endif // defined(___DARK_LINUX) || defined(___DARK_DARWIN)
 }

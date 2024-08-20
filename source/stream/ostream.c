@@ -25,6 +25,7 @@
 #include <dark/char/char.h>
 #include <dark/core/core.h>
 #include <dark/math/math.h>
+#include <dark/memory/memory.h>
 #include <dark/platform/platform.h>
 #include <dark/stream/ostream_struct.h>
 #include <dark/stream/stream.h>
@@ -204,6 +205,21 @@ void dark_ostream_delete(Dark_Ostream* const ostream_)
     dark_free(ostream_->allocator, ostream_, sizeof(*ostream_));
 }
 
+void dark_ostream_update(Dark_Ostream* const ostream_)
+{
+    DARK_ASSERT(NULL != ostream_, DARK_ERROR_NULL);
+
+    if(0 == ostream_->settings.auto_flush_ns)
+    {
+        return;
+    }
+
+    if(dark_stopwatch_ns(ostream_->stopwatch) >= ostream_->settings.auto_flush_ns)
+    {
+        dark_ostream_flush(ostream_);
+    }
+}
+
 void dark_ostream_write(Dark_Ostream* const ostream_, const Dark_Buffer_View source_)
 {
     DARK_ASSERT(NULL != ostream_, DARK_ERROR_NULL);
@@ -320,21 +336,6 @@ void dark_ostream_flush_unbuffered(Dark_Ostream* const ostream_, const Dark_Buff
     if(NULL != ostream_->mutex)
     {
         dark_mutex_unlock(ostream_->mutex);
-    }
-}
-
-void dark_ostream_update(Dark_Ostream* const ostream_)
-{
-    DARK_ASSERT(NULL != ostream_, DARK_ERROR_NULL);
-
-    if(0 == ostream_->settings.auto_flush_ns)
-    {
-        return;
-    }
-
-    if(dark_stopwatch_ns(ostream_->stopwatch) >= ostream_->settings.auto_flush_ns)
-    {
-        dark_ostream_flush(ostream_);
     }
 }
 

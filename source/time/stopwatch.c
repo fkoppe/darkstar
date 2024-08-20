@@ -24,6 +24,7 @@
 
 #include <dark/core/core.h>
 #include <dark/math/math.h>
+#include <dark/memory/memory.h>
 #include <dark/platform/platform.h>
 #include <dark/time/stopwatch_struct.h>
 #include <dark/time/time.h>

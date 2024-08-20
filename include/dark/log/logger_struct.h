@@ -20,41 +20,34 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___OSTREAM_H)
-#define ___DARK___OSTREAM_H
+#if !defined(___DARK___LOGGER_STRUCT_H)
+#define ___DARK___LOGGER_STRUCT_H
 
-#include <dark/core/std.h>
-#include <dark/platform/mutex.h>
-#include <dark/tool/buffer_view.h>
+#include <dark/char/string_struct.h>
+#include <dark/memory/allocator.h>
+#include <dark/platform/file_struct.h>
+#include <dark/time/stamp.h>
 
-typedef struct Dark_Ostream Dark_Ostream;
-
-typedef struct Dark_Ostream_Settings Dark_Ostream_Settings;
-struct Dark_Ostream_Settings
+struct Dark_Logger
 {
-    bool binary_is;
-    bool force_size_is;
-    size_t buffer_size;
-    size_t auto_flush_ns;
+    Dark_Allocator* allocator;
+    Dark_Logger_Settings settings;
+    Dark_Cbuffer_View name_view;
+    size_t color_lenght;
+    Dark_String log_string;
+    Dark_String va_string;
+    struct
+    {
+        bool recent_is;
+        char buffer[DARK_STAMP_HMS_SIZE];
+    } stamp;
+    struct
+    {
+        size_t count;
+        Dark_Logger_Ostream_Settings settings[DARK_LOGGER_STREAM_COUNT_MAX];
+        Dark_Ostream* instance[DARK_LOGGER_STREAM_COUNT_MAX];
+        Dark_Mutex* mutex[DARK_LOGGER_STREAM_COUNT_MAX];
+    } ostream;
 };
 
-void dark_ostream_construct_file(Dark_Allocator* allocator, Dark_Ostream* ostream, Dark_Ostream_Settings settings, const char* path, Dark_Mutex* mutex);
-void dark_ostream_construct_stdout(Dark_Allocator* allocator, Dark_Ostream* ostream, Dark_Ostream_Settings settings, Dark_Mutex* mutex);
-void dark_ostream_construct_stderr(Dark_Allocator* allocator, Dark_Ostream* ostream, Dark_Ostream_Settings settings, Dark_Mutex* mutex);
-void dark_ostream_destruct(Dark_Ostream* ostream);
-
-Dark_Ostream* dark_ostream_new_file(Dark_Allocator* allocator, Dark_Ostream_Settings settings, const char* path, Dark_Mutex* mutex);
-Dark_Ostream* dark_ostream_new_stdout(Dark_Allocator* allocator, Dark_Ostream_Settings settings, Dark_Mutex* mutex);
-Dark_Ostream* dark_ostream_new_stderr(Dark_Allocator* allocator, Dark_Ostream_Settings settings, Dark_Mutex* mutex);
-void dark_ostream_delete(Dark_Ostream* ostream);
-
-void dark_ostream_update(Dark_Ostream* ostream);
-
-void dark_ostream_write(Dark_Ostream* ostream, Dark_Buffer_View source);
-
-void dark_ostream_flush(Dark_Ostream* ostream);
-void dark_ostream_flush_unbuffered(Dark_Ostream* ostream, Dark_Buffer_View source);
-
-size_t dark_ostream_struct_byte(void);
-
-#endif // !defined(___DARK___OSTREAM_H)
+#endif // !defined(___DARK___LOGGER_STRUCT_H)

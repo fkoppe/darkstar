@@ -22,6 +22,7 @@
 
 #include "platform_module.h"
 
+#include <dark/memory/memory.h>
 #include <dark/platform/mutex_struct.h>
 #include <dark/platform/platform.h>
 

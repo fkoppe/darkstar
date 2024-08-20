@@ -20,41 +20,17 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___OSTREAM_H)
-#define ___DARK___OSTREAM_H
+#if !defined(___DARK___LOGGER_HELPER_H)
+#define ___DARK___LOGGER_HELPER_H
 
 #include <dark/core/std.h>
-#include <dark/platform/mutex.h>
-#include <dark/tool/buffer_view.h>
+#include <dark/log/logger.h>
 
-typedef struct Dark_Ostream Dark_Ostream;
+void dark_logger_log_helper(const char* module, const char* unit, Dark_Logger* logger, Dark_Log_Level level, Dark_Cbuffer_View cbuffer_view, size_t i);
 
-typedef struct Dark_Ostream_Settings Dark_Ostream_Settings;
-struct Dark_Ostream_Settings
-{
-    bool binary_is;
-    bool force_size_is;
-    size_t buffer_size;
-    size_t auto_flush_ns;
-};
+void dark_logger_stamp_recent_make(Dark_Logger* logger);
 
-void dark_ostream_construct_file(Dark_Allocator* allocator, Dark_Ostream* ostream, Dark_Ostream_Settings settings, const char* path, Dark_Mutex* mutex);
-void dark_ostream_construct_stdout(Dark_Allocator* allocator, Dark_Ostream* ostream, Dark_Ostream_Settings settings, Dark_Mutex* mutex);
-void dark_ostream_construct_stderr(Dark_Allocator* allocator, Dark_Ostream* ostream, Dark_Ostream_Settings settings, Dark_Mutex* mutex);
-void dark_ostream_destruct(Dark_Ostream* ostream);
+const char* dark_log_level_name(Dark_Log_Level level);
+const char* dark_log_level_color(Dark_Log_Level level);
 
-Dark_Ostream* dark_ostream_new_file(Dark_Allocator* allocator, Dark_Ostream_Settings settings, const char* path, Dark_Mutex* mutex);
-Dark_Ostream* dark_ostream_new_stdout(Dark_Allocator* allocator, Dark_Ostream_Settings settings, Dark_Mutex* mutex);
-Dark_Ostream* dark_ostream_new_stderr(Dark_Allocator* allocator, Dark_Ostream_Settings settings, Dark_Mutex* mutex);
-void dark_ostream_delete(Dark_Ostream* ostream);
-
-void dark_ostream_update(Dark_Ostream* ostream);
-
-void dark_ostream_write(Dark_Ostream* ostream, Dark_Buffer_View source);
-
-void dark_ostream_flush(Dark_Ostream* ostream);
-void dark_ostream_flush_unbuffered(Dark_Ostream* ostream, Dark_Buffer_View source);
-
-size_t dark_ostream_struct_byte(void);
-
-#endif // !defined(___DARK___OSTREAM_H)
+#endif // !defined(___DARK___LOGGER_HELPER_H)

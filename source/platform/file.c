@@ -24,7 +24,7 @@
 #include "platform_module.h"
 
 #include <dark/core/core.h>
-#include <dark/memory/allocator.h>
+#include <dark/memory/memory.h>
 #include <dark/platform/file_struct.h>
 #include <dark/platform/platform.h>
 
