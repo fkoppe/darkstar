@@ -29,11 +29,11 @@
 #undef DARK_UNIT
 #define DARK_UNIT "iterator"
 
-bool dark_iterator_next_is(Dark_Iterator* const iterator_)
+bool dark_iterator_done(Dark_Iterator* const iterator_)
 {
     DARK_ASSERT(NULL != iterator_, DARK_ERROR_NULL);
 
-    return iterator_->next_is(iterator_->context);
+    return iterator_->done(iterator_->context);
 }
 
 void* dark_iterator_next(Dark_Iterator* const iterator_)
@@ -41,4 +41,26 @@ void* dark_iterator_next(Dark_Iterator* const iterator_)
     DARK_ASSERT(NULL != iterator_, DARK_ERROR_NULL);
 
     return iterator_->next(iterator_->context);
+}
+
+void* dark_iterator_peek(Dark_Iterator* const iterator_)
+{
+    DARK_ASSERT(NULL != iterator_, DARK_ERROR_NULL);
+
+    return iterator_->peek(iterator_->context);
+}
+
+void dark_iterator_reset(Dark_Iterator* const iterator_)
+{
+    DARK_ASSERT(NULL != iterator_, DARK_ERROR_NULL);
+
+    iterator_->reset(iterator_->context);
+}
+
+size_t dark_iterator_skip(Dark_Iterator* const iterator_, const size_t count_)
+{
+    DARK_ASSERT(NULL != iterator_, DARK_ERROR_NULL);
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
+
+    return iterator_->skip(iterator_->context, count_);
 }

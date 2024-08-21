@@ -930,6 +930,7 @@ void dark_string_reserve(Dark_String* const string_, const size_t capacity_)
 void dark_string_reserve_additional(Dark_String* const string_, const size_t additional_)
 {
     DARK_ASSERT(NULL != string_, DARK_ERROR_NULL);
+    DARK_ASSERT(additional_ > 0, DARK_ERROR_ZERO);
 
     DARK_ASSERT(dark_vector_size(&string_->vector) > 0, DARK_ERROR_CONTAINER_INTEGRITY);
 

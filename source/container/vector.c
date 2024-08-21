@@ -545,6 +545,7 @@ void dark_vector_reserve(Dark_Vector* const vector_, const size_t capacity_)
 void dark_vector_reserve_additional(Dark_Vector* const vector_, const size_t additional_)
 {
     DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
+    DARK_ASSERT(additional_ > 0, DARK_ERROR_ZERO);
 
     dark_vector_reserve(vector_, vector_->array.size + additional_);
 }

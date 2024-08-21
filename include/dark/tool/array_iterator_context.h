@@ -25,6 +25,7 @@
 
 #include <dark/core/core.h>
 #include <dark/tool/array.h>
+#include <dark/tool/array_iterator.h>
 #include <dark/tool/iterator.h>
 
 struct Dark_Array_Iterator_Context

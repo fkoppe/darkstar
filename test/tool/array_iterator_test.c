@@ -38,6 +38,34 @@ int main()
     }
     //--------------------------
 
+    //----------TEST----------
+    DARK_TEST("array_iterator")
+    {
+        int buffer[12] = {0};
+        Dark_Array array = { sizeof(int), 12, buffer };
+
+        Dark_Iterator* iterator = dark_array_iterator_new(allocator, array);
+
+        size_t i = 0;
+        while (!dark_iterator_done(iterator))
+        {
+            dark_iterator_peek(iterator);
+            dark_iterator_next(iterator);
+
+            i++;
+        }
+
+        DARK_TEST_EQ_U(12, i);
+
+        dark_iterator_reset(iterator);
+
+        DARK_TEST_EQ_U(dark_iterator_skip(iterator, i), i);
+        DARK_TEST_EQ_U(dark_iterator_skip(iterator, 100), 0);
+
+        dark_array_iterator_delete(iterator);
+    }
+    //--------------------------
+
         //----------TEST----------
     DARK_TEST("array_iterator_context_byte")
     {

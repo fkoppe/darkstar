@@ -25,7 +25,10 @@
 
 #include <dark/core/std.h>
 
-bool dark_array_allocator_next_is(void* context);
-void* dark_array_allocator_next(void* context);
+bool dark_array_iterator_done(void* context);
+void* dark_array_iterator_next(void* context);
+void* dark_array_iterator_peek(void* context);
+void dark_array_iterator_reset(void* context);
+size_t dark_array_iterator_skip(void* context, size_t count);
 
 #endif // !defined(___DARK___ARRAY_ITERATOR_HELPER_H)

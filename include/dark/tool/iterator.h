@@ -28,9 +28,12 @@
 
 typedef struct Dark_Iterator Dark_Iterator;
 
-static const Dark_Error DARK_ERROR_ITERATOR = { &DARK_ERROR_LOGIC, "iterator", "next not available" };
+static const Dark_Error DARK_ERROR_ITERATOR = { &DARK_ERROR_LOGIC, "iterator", "no more element available" };
 
-bool dark_iterator_next_is(Dark_Iterator* iterator);
+bool dark_iterator_done(Dark_Iterator* iterator);
 void* dark_iterator_next(Dark_Iterator* iterator);
+void* dark_iterator_peek(Dark_Iterator* iterator);
+void dark_iterator_reset(Dark_Iterator* iterator);
+size_t dark_iterator_skip(Dark_Iterator* iterator, size_t count);
 
 #endif // !defined(___DARK___ITERATOR_H)
