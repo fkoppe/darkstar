@@ -41,7 +41,7 @@ void dark_array_iterator_construct(Dark_Allocator* const allocator_, Dark_Iterat
     DARK_ASSERT(array_.element_byte > 0, DARK_ERROR_ZERO);
 
     iterator_->allocator = allocator_;
-    iterator_->done = dark_array_iterator_done;
+    iterator_->done = dark_array_iterator_done_is;
     iterator_->next = dark_array_iterator_next;
     iterator_->peek = dark_array_iterator_peek;
     iterator_->reset = dark_array_iterator_reset;

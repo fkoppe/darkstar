@@ -569,7 +569,7 @@ int main()
         Dark_Iterator* const iterator = dark_linear_queue_iterate(linear_queue);
 
         size_t i = 0;
-        while (!dark_iterator_done(iterator))
+        while (!dark_iterator_done_is(iterator))
         {
             dark_iterator_peek(iterator);
 

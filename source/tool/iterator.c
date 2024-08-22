@@ -29,7 +29,7 @@
 #undef DARK_UNIT
 #define DARK_UNIT "iterator"
 
-bool dark_iterator_done(Dark_Iterator* const iterator_)
+bool dark_iterator_done_is(Dark_Iterator* const iterator_)
 {
     DARK_ASSERT(NULL != iterator_, DARK_ERROR_NULL);
 

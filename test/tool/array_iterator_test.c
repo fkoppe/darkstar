@@ -47,7 +47,7 @@ int main()
         Dark_Iterator* iterator = dark_array_iterator_new(allocator, array);
 
         size_t i = 0;
-        while (!dark_iterator_done(iterator))
+        while (!dark_iterator_done_is(iterator))
         {
             dark_iterator_peek(iterator);
             dark_iterator_next(iterator);

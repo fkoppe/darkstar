@@ -25,7 +25,7 @@
 
 #include <dark/core/std.h>
 
-bool dark_array_iterator_done(void* context);
+bool dark_array_iterator_done_is(void* context);
 void* dark_array_iterator_next(void* context);
 void* dark_array_iterator_peek(void* context);
 void dark_array_iterator_reset(void* context);

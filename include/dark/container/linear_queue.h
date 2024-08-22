@@ -84,7 +84,7 @@ size_t dark_linear_queue_size(Dark_Linear_Queue* linear_queue);
 void dark_linear_queue_shrink(Dark_Linear_Queue* linear_queue, size_t size);
 void dark_linear_queue_clear(Dark_Linear_Queue* linear_queue);
 
-bool dark_linear_queue_done(Dark_Linear_Queue* linear_queue);
+bool dark_linear_queue_done_is(Dark_Linear_Queue* linear_queue);
 void* dark_linear_queue_next(Dark_Linear_Queue* linear_queue);
 void* dark_linear_queue_peek(Dark_Linear_Queue* linear_queue);
 void dark_linear_queue_reset(Dark_Linear_Queue* linear_queue);
