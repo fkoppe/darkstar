@@ -39,7 +39,7 @@ int main()
     //--------------------------
 
     //----------TEST----------
-    DARK_TEST("array_iterator")
+    DARK_TEST("array_ITERATOR")
     {
         int buffer[12] = {0};
         Dark_Array array = { sizeof(int), 12, buffer };

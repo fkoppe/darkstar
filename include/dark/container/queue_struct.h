@@ -20,11 +20,23 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___CONTAINER_H)
-#define ___DARK___CONTAINER_H
+#if !defined(___DARK___QUEUE_STRUCT_H)
+#define ___DARK___QUEUE_STRUCT_H
 
-#include <dark/container/container_data.h>
 #include <dark/container/queue.h>
-#include <dark/container/vector.h>
+#include <dark/container/vector_struct.h>
+#include <dark/core/std.h>
+#include <dark/memory/allocator.h>
+#include <dark/tool/array.h>
+#include <dark/tool/growth.h>
+#include <dark/tool/iterator_struct.h>
 
-#endif // !defined(___DARK___CONTAINER_H)
+struct Dark_Queue
+{
+    Dark_Allocator* allocator;
+    Dark_Vector vector;
+    Dark_Iterator iterator;
+    size_t index;
+};
+
+#endif // !defined(___DARK___QUEUE_STRUCT_H)
