@@ -23,7 +23,7 @@
 #if !defined(___DARK___QUEUE_STRUCT_H)
 #define ___DARK___QUEUE_STRUCT_H
 
-#include <dark/container/queue.h>
+#include <dark/container/linear_queue.h>
 #include <dark/container/vector_struct.h>
 #include <dark/core/std.h>
 #include <dark/memory/allocator.h>
@@ -31,7 +31,7 @@
 #include <dark/tool/growth.h>
 #include <dark/tool/iterator_struct.h>
 
-struct Dark_Queue
+struct Dark_Linear_Queue
 {
     Dark_Allocator* allocator;
     Dark_Vector vector;

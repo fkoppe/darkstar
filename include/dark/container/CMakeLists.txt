@@ -3,8 +3,8 @@ target_sources(
     PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/container.h
     ${CMAKE_CURRENT_LIST_DIR}/container_data.h
-    ${CMAKE_CURRENT_LIST_DIR}/queue.h
-    ${CMAKE_CURRENT_LIST_DIR}/queue_struct.h
+    ${CMAKE_CURRENT_LIST_DIR}/linear_queue.h
+    ${CMAKE_CURRENT_LIST_DIR}/linear_queue_struct.h
     ${CMAKE_CURRENT_LIST_DIR}/vector.h
     ${CMAKE_CURRENT_LIST_DIR}/vector_struct.h
 )
