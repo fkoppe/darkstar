@@ -20,13 +20,60 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___FILE_HELPER_H)
-#define ___DARK___FILE_HELPER_H
+#include "display_module.h"
 
-#include <dark/core/std.h>
-#include <dark/platform/file.h>
-#include <dark/char/cbuffer.h>
+#include <dark/core/core.h>
+#include <dark/display/display.h>
+#include <dark/display/monitor_handler_struct.h>
+#include <dark/log/logger.h>
+#include <dark/memory/memory.h>
 
-void dark_file_modifier_write(Dark_File_Mode mode, Dark_File_Flag flag, Dark_Cbuffer destionation);
+#include <GLFW/glfw3.h>
 
-#endif // !defined(___DARK___FILE_HELPER_H)
+#undef DARK_UNIT
+#define DARK_UNIT "monitor"
+
+void dark_monitor_handler_construct(Dark_Monitor_Handler* const monitor_handler_, const Dark_Entropy entropy_, Dark_Event_Handler* const event_handler_)
+{
+    DARK_ASSERT(NULL != monitor_handler_, DARK_ERROR_NULL);
+    //entropy_
+    DARK_ASSERT(NULL != event_handler_, DARK_ERROR_NULL);
+
+
+}
+
+void dark_monitor_handler_destruct(Dark_Monitor_Handler* const monitor_handler_)
+{
+    DARK_ASSERT(NULL != monitor_handler_, DARK_ERROR_NULL);
+}
+
+void dark_monitor_handler_new(Dark_Monitor_Handler* const monitor_handler_, const Dark_Entropy entropy_, Dark_Event_Handler* const event_handler_)
+{
+    DARK_ASSERT(NULL != monitor_handler_, DARK_ERROR_NULL);
+    //entropy_
+    DARK_ASSERT(NULL != event_handler_, DARK_ERROR_NULL);
+
+
+}
+
+void dark_monitor_handler_delete(Dark_Monitor_Handler* const monitor_handler_)
+{
+    DARK_ASSERT(NULL != monitor_handler_, DARK_ERROR_NULL);
+}
+
+Dark_Uuid4 dark_monitor_handler_primary_id(Dark_Monitor_Handler* const monitor_handler_)
+{
+    DARK_ASSERT(NULL != monitor_handler_, DARK_ERROR_NULL);
+
+
+}
+
+void dark_monitor_handler_id_raw(Dark_Monitor_Handler* const monitor_handler_, const Dark_Uuid4 monitor_uuid_)
+{
+    DARK_ASSERT(NULL != monitor_handler_, DARK_ERROR_NULL);
+    DARK_ASSERT(0 != dark_uuid4_compare(&DARK_UUID4_ZERO, &monitor_uuid_), DARK_ERROR_VALUE);
+
+
+
+
+}

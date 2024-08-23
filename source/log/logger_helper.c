@@ -159,68 +159,68 @@ void dark_logger_stamp_recent_make(Dark_Logger* const logger_)
     }
 }
 
-const char* dark_log_level_name(const Dark_Log_Level level_)
+Dark_Cbuffer_View dark_log_level_name_write(const Dark_Log_Level level_)
 {
     DARK_ASSERT(level_ < ___DARK_LOG_LEVEL_MAX, DARK_ERROR_ENUM);
 
     switch(level_)
     {
     case DARK_LOG_LEVEL_TRACE:
-        return "trace";
+        return dark_cstring_to_cbuffer_view("trace");
     case DARK_LOG_LEVEL_COMMENT:
-        return "comment";
+        return dark_cstring_to_cbuffer_view("comment");
     case DARK_LOG_LEVEL_DEBUG:
-        return "debug";
+        return dark_cstring_to_cbuffer_view("debug");
     case DARK_LOG_LEVEL_NOTE:
-        return "note";
+        return dark_cstring_to_cbuffer_view("note");
     case DARK_LOG_LEVEL_INFO:
-        return "info";
+        return dark_cstring_to_cbuffer_view("info");
     case DARK_LOG_LEVEL_NOTICE:
-        return "notice";
+        return dark_cstring_to_cbuffer_view("notice");
     case DARK_LOG_LEVEL_WARN:
-        return "warn";
+        return dark_cstring_to_cbuffer_view("warn");
     case DARK_LOG_LEVEL_ERROR:
-        return "error";
+        return dark_cstring_to_cbuffer_view("error");
     case DARK_LOG_LEVEL_CRITICAL:
-        return "critical";
+        return dark_cstring_to_cbuffer_view("critical");
     case DARK_LOG_LEVEL_ALERT:
-        return "alert";
+        return dark_cstring_to_cbuffer_view("alert");
     case DARK_LOG_LEVEL_EMERGENCY:
-        return "emergency";
+        return dark_cstring_to_cbuffer_view("emergency");
     default:
         DARK_ABORT_ERROR(DARK_ERROR_SWITCH);
         break;
     }
 }
 
-const char* dark_log_level_color(const Dark_Log_Level level_)
+Dark_Cbuffer_View dark_log_level_color_write(const Dark_Log_Level level_, const Dark_Cbuffer cbuffer_)
 {
     DARK_ASSERT(level_ < ___DARK_LOG_LEVEL_MAX, DARK_ERROR_ENUM);
 
     switch(level_)
     {
     case DARK_LOG_LEVEL_TRACE:
-        return "";
+        return dark_cstring_to_cbuffer_view("");
     case DARK_LOG_LEVEL_COMMENT:
-        return "";
+        return dark_cstring_to_cbuffer_view("");
     case DARK_LOG_LEVEL_DEBUG:
-        return DARK_CONSOLE_COLOR_FG_GREEN;
+        return dark_cstring_to_cbuffer_view(DARK_CONSOLE_COLOR_FG_GREEN);
     case DARK_LOG_LEVEL_NOTE:
-        return DARK_CONSOLE_COLOR_FG_CYAN;
+        return dark_cstring_to_cbuffer_view(DARK_CONSOLE_COLOR_FG_CYAN);
     case DARK_LOG_LEVEL_INFO:
-        return DARK_CONSOLE_COLOR_FG_BLUE;
+        return dark_cstring_to_cbuffer_view(DARK_CONSOLE_COLOR_FG_BLUE);
     case DARK_LOG_LEVEL_NOTICE:
-        return DARK_CONSOLE_COLOR_FG_MAGENTA;
+        return dark_cstring_to_cbuffer_view(DARK_CONSOLE_COLOR_FG_MAGENTA);
     case DARK_LOG_LEVEL_WARN:
-        return DARK_CONSOLE_COLOR_FG_YELLOW;
+        return dark_cstring_to_cbuffer_view(DARK_CONSOLE_COLOR_FG_YELLOW);
     case DARK_LOG_LEVEL_ERROR:
-        return DARK_CONSOLE_COLOR_FG_RED;
+        return dark_cstring_to_cbuffer_view(DARK_CONSOLE_COLOR_FG_RED);
     case DARK_LOG_LEVEL_CRITICAL:
-        return DARK_CONSOLE_COLOR_BG_MAGENTA;
+        return dark_cstring_to_cbuffer_view(DARK_CONSOLE_COLOR_BG_MAGENTA);
     case DARK_LOG_LEVEL_ALERT:
-        return DARK_CONSOLE_COLOR_BG_YELLOW;
+        return dark_cstring_to_cbuffer_view(DARK_CONSOLE_COLOR_BG_YELLOW);
     case DARK_LOG_LEVEL_EMERGENCY:
-        return DARK_CONSOLE_COLOR_BG_RED;
+        return dark_cstring_to_cbuffer_view(DARK_CONSOLE_COLOR_BG_RED);
     default:
         DARK_ABORT_ERROR(DARK_ERROR_SWITCH);
         break;

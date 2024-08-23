@@ -45,7 +45,20 @@ for(size_t i = 0; i <= DARK_CSTRING_LENGHT_MAX; i++) \
     } \
 }
 
-#define DARK_CSTRING_ASSERT_CONTENT(cstring) DARK_ASSERT_CSTRING(dark_cstring_lenght(cstring) > 0, DARK_ERROR_RUNTIME, "cstring is empty")
+#define DARK_CSTRING_ASSERT_CONTENT(cstring) \
+for(size_t i = 0; i <= DARK_CSTRING_LENGHT_MAX; i++) \
+{ \
+    if('\0' == cstring[i])\
+    { \
+        DARK_ASSERT_CSTRING(0 != i, DARK_ERROR_RUNTIME, "cstring was empty"); \
+        i = DARK_CSTRING_LENGHT_MAX + 1; \
+    } \
+    if(i == DARK_CSTRING_LENGHT_MAX) \
+    { \
+        DARK_EXIT_CSTRING(-1, DARK_ERROR_RUNTIME, "cstring lost integrity"); \
+    } \
+}
+
 #else
 #define DARK_CSTRING_ASSERT_INTEGRITY(cstring)
 #define DARK_CSTRING_ASSERT_CONTENT(cstring)

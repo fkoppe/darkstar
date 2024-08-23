@@ -20,13 +20,23 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___FILE_HELPER_H)
-#define ___DARK___FILE_HELPER_H
+#if !defined(___DARK___EVENT_HANDLER_H)
+#define ___DARK___EVENT_HANDLER_H
 
 #include <dark/core/std.h>
-#include <dark/platform/file.h>
-#include <dark/char/cbuffer.h>
+#include <dark/event/event_data.h>
+#include <dark/memory/allocator.h>
 
-void dark_file_modifier_write(Dark_File_Mode mode, Dark_File_Flag flag, Dark_Cbuffer destionation);
+typedef struct Dark_Event_Handler Dark_Event_Handler;
 
-#endif // !defined(___DARK___FILE_HELPER_H)
+void dark_event_handler_construct(Dark_Allocator* allocator);
+void dark_event_handler_destruct(void);
+
+Dark_Event_Handler* dark_event_handler_new(Dark_Allocator* allocator);
+void dark_event_handler_delete(Dark_Event_Handler* event_handler);
+
+void dark_event_handler_insert(Dark_Event_Handler* event_handler, Dark_Event event);
+
+void dark_event_handler_clear(Dark_Event_Handler* event_handler);
+
+#endif // !defined(___DARK___EVENT_HANDLER_H)

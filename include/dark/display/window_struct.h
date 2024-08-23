@@ -20,13 +20,19 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___FILE_HELPER_H)
-#define ___DARK___FILE_HELPER_H
+#if !defined(___DARK___WINDOW_STRUCT_H)
+#define ___DARK___WINDOW_STRUCT_H
 
 #include <dark/core/std.h>
-#include <dark/platform/file.h>
-#include <dark/char/cbuffer.h>
+#include <dark/display/window.h>
+#include <dark/memory/allocator.h>
 
-void dark_file_modifier_write(Dark_File_Mode mode, Dark_File_Flag flag, Dark_Cbuffer destionation);
+struct Dark_Window
+{
+    Dark_Allocator* allocator;
+    Dark_Window_Settings settings;
+    bool open_is;
+    bool visible_is;
+};
 
-#endif // !defined(___DARK___FILE_HELPER_H)
+#endif // !defined(___DARK___WINDOW_STRUCT_H)

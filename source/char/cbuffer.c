@@ -31,8 +31,7 @@
 
 Dark_Cbuffer_View dark_cbuffer_to_view(const Dark_Cbuffer cbuffer_)
 {
-    DARK_ASSERT(NULL != cbuffer_.data, DARK_ERROR_NULL);
-    DARK_ASSERT(cbuffer_.size > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(cbuffer_.data == NULL || cbuffer_.size > 0, DARK_ERROR_VALUE);
 
     const Dark_Cbuffer_View view = { cbuffer_.size, cbuffer_.data };
 
@@ -41,8 +40,7 @@ Dark_Cbuffer_View dark_cbuffer_to_view(const Dark_Cbuffer cbuffer_)
 
 Dark_Array dark_cbuffer_to_array(const Dark_Cbuffer cbuffer_)
 {
-    DARK_ASSERT(NULL != cbuffer_.data, DARK_ERROR_NULL);
-    DARK_ASSERT(cbuffer_.size > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(cbuffer_.data == NULL || cbuffer_.size > 0, DARK_ERROR_VALUE);
 
     const Dark_Array array = { sizeof(char), cbuffer_.size, cbuffer_.data };
 
@@ -51,8 +49,7 @@ Dark_Array dark_cbuffer_to_array(const Dark_Cbuffer cbuffer_)
 
 Dark_Array_View dark_cbuffer_to_array_view(const Dark_Cbuffer cbuffer_)
 {
-    DARK_ASSERT(NULL != cbuffer_.data, DARK_ERROR_NULL);
-    DARK_ASSERT(cbuffer_.size > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(cbuffer_.data == NULL || cbuffer_.size > 0, DARK_ERROR_VALUE);
 
     const Dark_Array_View array_view = { sizeof(char), cbuffer_.size, cbuffer_.data };
 
@@ -61,8 +58,7 @@ Dark_Array_View dark_cbuffer_to_array_view(const Dark_Cbuffer cbuffer_)
 
 Dark_Buffer dark_cbuffer_to_buffer(const Dark_Cbuffer cbuffer_)
 {
-    DARK_ASSERT(NULL != cbuffer_.data, DARK_ERROR_NULL);
-    DARK_ASSERT(cbuffer_.size > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(cbuffer_.data == NULL || cbuffer_.size > 0, DARK_ERROR_VALUE);
 
     const Dark_Buffer buffer = { cbuffer_.size, cbuffer_.data };
 
@@ -71,8 +67,7 @@ Dark_Buffer dark_cbuffer_to_buffer(const Dark_Cbuffer cbuffer_)
 
 Dark_Buffer_View dark_cbuffer_to_buffer_view(const Dark_Cbuffer cbuffer_)
 {
-    DARK_ASSERT(NULL != cbuffer_.data, DARK_ERROR_NULL);
-    DARK_ASSERT(cbuffer_.size > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(cbuffer_.data == NULL || cbuffer_.size > 0, DARK_ERROR_VALUE);
 
     const Dark_Buffer_View buffer_view = { cbuffer_.size, cbuffer_.data };
 
@@ -81,8 +76,7 @@ Dark_Buffer_View dark_cbuffer_to_buffer_view(const Dark_Cbuffer cbuffer_)
 
 bool dark_cbuffer_terminated_is(const Dark_Cbuffer cbuffer_, size_t* const cstring_lenght_)
 {
-    DARK_ASSERT(NULL != cbuffer_.data, DARK_ERROR_NULL);
-    DARK_ASSERT(cbuffer_.size > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(cbuffer_.data == NULL || cbuffer_.size > 0, DARK_ERROR_VALUE);
     //cstring_lenght_
 
     return dark_cbuffer_view_terminated_is(dark_cbuffer_to_view(cbuffer_), cstring_lenght_);
@@ -90,10 +84,8 @@ bool dark_cbuffer_terminated_is(const Dark_Cbuffer cbuffer_, size_t* const cstri
 
 int8_t dark_cbuffer_compare(const Dark_Cbuffer* a_, const Dark_Cbuffer* b_)
 {
-    DARK_ASSERT(NULL != a_, DARK_ERROR_NULL);
-    DARK_ASSERT(a_->size > 0, DARK_ERROR_ZERO);
-    DARK_ASSERT(NULL != b_, DARK_ERROR_NULL);
-    DARK_ASSERT(b_->size > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(a_->data == NULL || a_->size > 0, DARK_ERROR_VALUE);
+    DARK_ASSERT(b_->data == NULL || b_->size > 0, DARK_ERROR_VALUE);
 
     const Dark_Cbuffer_View a = dark_cbuffer_to_view(*a_);
     const Dark_Cbuffer_View b = dark_cbuffer_to_view(*b_);

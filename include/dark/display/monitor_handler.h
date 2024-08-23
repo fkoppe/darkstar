@@ -20,13 +20,25 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___FILE_HELPER_H)
-#define ___DARK___FILE_HELPER_H
+#if !defined(___DARK___MONITOR_H)
+#define ___DARK___MONITOR_H
 
 #include <dark/core/std.h>
-#include <dark/platform/file.h>
-#include <dark/char/cbuffer.h>
+#include <dark/event/event_handler.h>
+#include <dark/random/entropy.h>
+#include <dark/random/uuid4.h>
+#include <dark/tool/array.h>
 
-void dark_file_modifier_write(Dark_File_Mode mode, Dark_File_Flag flag, Dark_Cbuffer destionation);
+typedef struct Dark_Monitor_Handler Dark_Monitor_Handler;
 
-#endif // !defined(___DARK___FILE_HELPER_H)
+void dark_monitor_handler_construct(Dark_Monitor_Handler* monitor_handler, Dark_Entropy entropy, Dark_Event_Handler* event_handler);
+void dark_monitor_handler_destruct(Dark_Monitor_Handler* monitor_handler);
+
+void dark_monitor_handler_new(Dark_Monitor_Handler* monitor_handler, Dark_Entropy entropy, Dark_Event_Handler* event_handler);
+void dark_monitor_handler_delete(Dark_Monitor_Handler* monitor_handler);
+
+Dark_Uuid4 dark_monitor_handler_primary_id(Dark_Monitor_Handler* monitor_handler);
+
+void dark_monitor_handler_id_raw(Dark_Monitor_Handler* monitor_handler, Dark_Uuid4 monitor_uuid);
+
+#endif // !defined(___DARK___MONITOR_H)

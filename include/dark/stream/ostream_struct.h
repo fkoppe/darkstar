@@ -50,7 +50,7 @@ struct Dark_Ostream
     {
         struct
         {
-            const char* path;
+            Dark_Cbuffer_View path;
             Dark_File_Flag flag;
             Dark_File* instance;
         } file;

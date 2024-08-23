@@ -20,13 +20,16 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___FILE_HELPER_H)
-#define ___DARK___FILE_HELPER_H
+#include "display_module.h"
 
-#include <dark/core/std.h>
-#include <dark/platform/file.h>
-#include <dark/char/cbuffer.h>
+#include <dark/core/core.h>
+#include <dark/display/display.h>
+#include <dark/display/monitor_handler_struct.h>
+#include <dark/display/window_struct.h>
+#include <dark/log/logger.h>
+#include <dark/memory/memory.h>
 
-void dark_file_modifier_write(Dark_File_Mode mode, Dark_File_Flag flag, Dark_Cbuffer destionation);
+#undef DARK_UNIT
+#define DARK_UNIT "window"
 
-#endif // !defined(___DARK___FILE_HELPER_H)
+

@@ -20,43 +20,57 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___OSTREAM_H)
-#define ___DARK___OSTREAM_H
+#if !defined(___DARK___WINDOW_H)
+#define ___DARK___WINDOW_H
 
 #include <dark/char/cbuffer_view.h>
 #include <dark/core/std.h>
-#include <dark/platform/mutex.h>
-#include <dark/tool/buffer_view.h>
+#include <dark/event/event_handler.h>
+#include <dark/random/uuid4.h>
 
-typedef struct Dark_Ostream Dark_Ostream;
+typedef struct Dark_Window Dark_Window;
 
-typedef struct Dark_Ostream_Settings Dark_Ostream_Settings;
-struct Dark_Ostream_Settings
+typedef struct Dark_Window_Settings Dark_Window_Settings;
+struct Dark_Window_Settings
 {
-    bool keep_open_is;
-    bool binary_is;
-    bool force_size_is;
-    size_t buffer_size;
-    size_t auto_flush_ns;
+    Dark_Cbuffer_View title;
+    size_t width;
+    size_t height;
+    bool resizeable_is;
 };
 
-void dark_ostream_construct_file(Dark_Allocator* allocator, Dark_Ostream* ostream, Dark_Ostream_Settings settings, Dark_Cbuffer_View path, Dark_Mutex* mutex);
-void dark_ostream_construct_stdout(Dark_Allocator* allocator, Dark_Ostream* ostream, Dark_Ostream_Settings settings, Dark_Mutex* mutex);
-void dark_ostream_construct_stderr(Dark_Allocator* allocator, Dark_Ostream* ostream, Dark_Ostream_Settings settings, Dark_Mutex* mutex);
-void dark_ostream_destruct(Dark_Ostream* ostream);
+void dark_window_construct(Dark_Allocator* allocator, Dark_Window_Settings settings, Dark_Event_Handler* event_handler);
+void dark_window_destruct(void);
 
-Dark_Ostream* dark_ostream_new_file(Dark_Allocator* allocator, Dark_Ostream_Settings settings, Dark_Cbuffer_View path, Dark_Mutex* mutex);
-Dark_Ostream* dark_ostream_new_stdout(Dark_Allocator* allocator, Dark_Ostream_Settings settings, Dark_Mutex* mutex);
-Dark_Ostream* dark_ostream_new_stderr(Dark_Allocator* allocator, Dark_Ostream_Settings settings, Dark_Mutex* mutex);
-void dark_ostream_delete(Dark_Ostream* ostream);
+Dark_Window* dark_window_new(Dark_Allocator* allocator, Dark_Window_Settings settings, Dark_Event_Handler* event_handler);
+void dark_window_delete(Dark_Window* window);
 
-void dark_ostream_update(Dark_Ostream* ostream);
+Dark_Window_Settings dark_window_settings_get(Dark_Window* window);
+void dark_window_settings_set(Dark_Window* window, Dark_Window_Settings settings);
 
-void dark_ostream_write(Dark_Ostream* ostream, Dark_Buffer_View source);
+void dark_window_open_windowed(Dark_Window* window, bool visible_is);
+void dark_window_open_fullscreen(Dark_Window* window, Dark_Uuid4 monitor_uuid);
+bool dark_window_fullscreen_is(Dark_Window* window);
 
-void dark_ostream_flush(Dark_Ostream* ostream);
-void dark_ostream_flush_unbuffered(Dark_Ostream* ostream, Dark_Buffer_View source);
+void dark_window_windowed(Dark_Window* window, bool visible_is);
+void dark_window_fullscreen(Dark_Window* window, Dark_Uuid4 monitor_uuid);
 
-size_t dark_ostream_struct_byte(void);
+void dark_window_close(Dark_Window* window);
+bool dark_window_open_is(Dark_Window* window);
 
-#endif // !defined(___DARK___OSTREAM_H)
+void dark_window_resize(Dark_Window* window);
+void dark_window_extend(Dark_Window* window, size_t* width, size_t* height);
+void dark_window_framebuffer_extend(Dark_Window* window, size_t* width, size_t* height);
+
+void dark_window_move(Dark_Window* window, size_t x, size_t y);
+void dark_window_position(Dark_Window* window);
+
+void dark_window_show(Dark_Window* window);
+void dark_window_hide(Dark_Window* window);
+bool dark_window_visible_is(Dark_Window* window);
+
+void dark_window_title_set(Dark_Window* window, Dark_Cbuffer_View title);
+
+size_t dark_window_struct_byte(void);
+
+#endif // !defined(___DARK___WINDOW_H)

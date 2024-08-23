@@ -23,6 +23,7 @@
 #if !defined(___DARK___LOGGER_HELPER_H)
 #define ___DARK___LOGGER_HELPER_H
 
+#include <dark/char/cbuffer.h>
 #include <dark/core/std.h>
 #include <dark/log/logger.h>
 
@@ -30,7 +31,7 @@ void dark_logger_log_helper(const Dark_Library* library, const char* module, con
 
 void dark_logger_stamp_recent_make(Dark_Logger* logger);
 
-const char* dark_log_level_name(Dark_Log_Level level);
-const char* dark_log_level_color(Dark_Log_Level level);
+Dark_Cbuffer_View dark_log_level_name(Dark_Log_Level level);
+Dark_Cbuffer_View dark_log_level_color(Dark_Log_Level level);
 
 #endif // !defined(___DARK___LOGGER_HELPER_H)

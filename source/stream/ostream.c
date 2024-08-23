@@ -36,15 +36,14 @@
 #undef DARK_UNIT
 #define DARK_UNIT "ostream"
 
-void dark_ostream_construct_file(Dark_Allocator* const allocator_, Dark_Ostream* const ostream_, const Dark_Ostream_Settings settings_, const char* const path_, Dark_Mutex* const mutex_)
+void dark_ostream_construct_file(Dark_Allocator* const allocator_, Dark_Ostream* const ostream_, const Dark_Ostream_Settings settings_, const Dark_Cbuffer_View path_, Dark_Mutex* const mutex_)
 {
     DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != ostream_, DARK_ERROR_NULL);
     DARK_ASSERT_CSTRING(!(0 == settings_.buffer_size) || !settings_.force_size_is, DARK_ERROR_LOGIC, "can not force size to 0");
-    DARK_ASSERT(NULL != path_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != path_.data, DARK_ERROR_NULL);
+    DARK_ASSERT(path_.size > 0, DARK_ERROR_ZERO);
     //mutex_
-
-    DARK_CSTRING_ASSERT_CONTENT(path_);
 
     ostream_->allocator = allocator_;
     ostream_->settings = settings_;
@@ -70,7 +69,7 @@ void dark_ostream_construct_file(Dark_Allocator* const allocator_, Dark_Ostream*
 
         if(DARK_OSERROR_NONE != result)
         {
-            const Dark_Message message = { &DARK_MESSAGE_FILE_OPEN, NULL, path_ };
+            const Dark_Message message = { &DARK_MESSAGE_FILE_OPEN, NULL, path_.data };
             DARK_EXIT_MESSAGE(-1, DARK_ERROR_RUNTIME, message);
         }
     }
@@ -146,7 +145,7 @@ void dark_ostream_destruct(Dark_Ostream* const ostream_)
 
             if(DARK_OSERROR_NONE != result)
             {
-                const Dark_Message message = { &DARK_MESSAGE_FILE_OPEN, NULL, ostream_->data.file.path };
+                const Dark_Message message = { &DARK_MESSAGE_FILE_OPEN, NULL, ostream_->data.file.path.data };
                 DARK_EXIT_MESSAGE(-1, DARK_ERROR_RUNTIME, message);
             }
         }
@@ -166,14 +165,13 @@ void dark_ostream_destruct(Dark_Ostream* const ostream_)
     dark_vector_destruct(&ostream_->buffer_vector);
 }
 
-Dark_Ostream* dark_ostream_new_file(Dark_Allocator* const allocator_, const Dark_Ostream_Settings settings_, const char* const path_, Dark_Mutex* const mutex_)
+Dark_Ostream* dark_ostream_new_file(Dark_Allocator* const allocator_, const Dark_Ostream_Settings settings_, const Dark_Cbuffer_View path_, Dark_Mutex* const mutex_)
 {
     DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
     DARK_ASSERT_CSTRING(!(0 == settings_.buffer_size) || !settings_.force_size_is, DARK_ERROR_LOGIC, "can not force size to 0");
-    DARK_ASSERT(NULL != path_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != path_.data, DARK_ERROR_NULL);
+    DARK_ASSERT(path_.size > 0, DARK_ERROR_ZERO);
     //mutex_
-
-    DARK_CSTRING_ASSERT_CONTENT(path_);
 
     Dark_Ostream* const ostream = dark_malloc(allocator_, sizeof(*ostream));
     DARK_ASSERT(NULL != ostream, DARK_ERROR_ALLOCATION);
@@ -321,7 +319,7 @@ void dark_ostream_flush_unbuffered(Dark_Ostream* const ostream_, const Dark_Buff
 
             if(DARK_OSERROR_NONE != result)
             {
-                const Dark_Message message = { &DARK_MESSAGE_FILE_OPEN, NULL, ostream_->data.file.path };
+                const Dark_Message message = { &DARK_MESSAGE_FILE_OPEN, NULL, ostream_->data.file.path.data };
                 DARK_EXIT_MESSAGE(-1, DARK_ERROR_RUNTIME, message);
             }
         }

@@ -27,6 +27,8 @@
 #include <dark/char/char.h>
 #include <dark/container/container.h>
 #include <dark/core/core.h>
+#include <dark/display/display.h>
+#include <dark/event/event.h>
 #include <dark/hash/hash.h>
 #include <dark/log/log.h>
 #include <dark/math/math.h>

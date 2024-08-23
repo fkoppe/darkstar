@@ -78,23 +78,27 @@ void dark_file_delete(Dark_File* const file_)
     dark_free(file_->allocator, file_, sizeof(*file_));
 }
 
-Dark_Oserror dark_file_open(Dark_File* const file_, const char* const path_, const Dark_File_Mode mode_, const Dark_File_Flag flag_)
+Dark_Oserror dark_file_open(Dark_File* const file_, const Dark_Cbuffer_View path_, const Dark_File_Mode mode_, const Dark_File_Flag flag_)
 {
     DARK_ASSERT(NULL != file_, DARK_ERROR_NULL);
-    DARK_ASSERT(NULL != path_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != path_.data, DARK_ERROR_NULL);
+    DARK_ASSERT(path_.size > 0, DARK_ERROR_NULL);
     DARK_ASSERT(___DARK_FILE_MODE_MIN < mode_ && mode_ < ___DARK_FILE_MODE_MAX, DARK_ERROR_ENUM);
     DARK_ASSERT(___DARK_FILE_FLAG_MIN < flag_ && flag_ < ___DARK_FILE_FLAG_MAX, DARK_ERROR_ENUM);
 
-    DARK_CSTRING_ASSERT_CONTENT(path_);
     DARK_ASSERT_MESSAGE(NULL == file_->handle, DARK_ERROR_STATE, DARK_MESSAGE_FILE_OPENED_ALREADY);
 
     file_->mode = mode_;
     file_->flag = flag_;
 
-    char modifier[DARK_FILE_MODIFIER_SIZE] = { 0 };
-    dark_file_modifier_get(mode_, flag_, modifier);
+    char buffer[DARK_FILE_MODIFIER_SIZE] = { 0 };
+    const Dark_Cbuffer modifier = { DARK_FILE_MODIFIER_SIZE, buffer };
 
-    file_->handle = fopen(path_, modifier);
+    dark_file_modifier_write(mode_, flag_, modifier);
+
+    DARK_CSTRING_ASSERT_INTEGRITY(buffer);
+
+    file_->handle = fopen(path_.data, modifier.data);
 
     if (NULL == file_->handle)
     {

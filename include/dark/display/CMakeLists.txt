@@ -1,0 +1,9 @@
+target_sources(
+    darkstar
+    PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/display.h
+    ${CMAKE_CURRENT_LIST_DIR}/monitor_handler.h
+    ${CMAKE_CURRENT_LIST_DIR}/monitor_handler_struct.h
+    ${CMAKE_CURRENT_LIST_DIR}/window.h
+    ${CMAKE_CURRENT_LIST_DIR}/window_struct.h
+)

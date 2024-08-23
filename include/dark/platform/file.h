@@ -24,6 +24,7 @@
 #define ___DARK___FILE_H
 
 #include <dark/char/cbuffer.h>
+#include <dark/char/cbuffer_view.h>
 #include <dark/core/message.h>
 #include <dark/core/std.h>
 #include <dark/memory/allocator.h>
@@ -71,7 +72,7 @@ void dark_file_destruct(Dark_File* file);
 Dark_File* dark_file_new(Dark_Allocator* allocator);
 void dark_file_delete(Dark_File* file);
 
-Dark_Oserror dark_file_open(Dark_File* file, const char* path, Dark_File_Mode mode, Dark_File_Flag flag);
+Dark_Oserror dark_file_open(Dark_File* file, Dark_Cbuffer_View path, Dark_File_Mode mode, Dark_File_Flag flag);
 Dark_Oserror dark_file_close(Dark_File* file);
 
 bool dark_file_open_is(Dark_File* file);

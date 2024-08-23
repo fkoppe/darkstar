@@ -36,7 +36,7 @@ typedef union Dark_Uuid4
     uint64_t oct[2];
 } Dark_Uuid4;
 
-static const Dark_Uuid4 DARK_UUID4_NULL = { .oct = { 0, 0 } };
+static const Dark_Uuid4 DARK_UUID4_ZERO = { .oct = { 0, 0 } };
 
 Dark_Uuid4 dark_uuid4_generate(uint64_t* random);
 

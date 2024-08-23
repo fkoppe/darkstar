@@ -28,22 +28,23 @@
 #undef DARK_UNIT
 #define DARK_UNIT "file_helper"
 
-void dark_file_modifier_get(const Dark_File_Mode mode_, const Dark_File_Flag flag_, char* const destination_)
+void dark_file_modifier_get(const Dark_File_Mode mode_, const Dark_File_Flag flag_, const Dark_Cbuffer destination_)
 {
     DARK_ASSERT(___DARK_FILE_MODE_MIN < mode_ && mode_ < ___DARK_FILE_MODE_MAX, DARK_ERROR_ENUM);
     DARK_ASSERT(___DARK_FILE_FLAG_MIN < flag_ && flag_ < ___DARK_FILE_FLAG_MAX, DARK_ERROR_ENUM);
-    DARK_ASSERT(NULL != destination_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != destination_.data, DARK_ERROR_NULL);
+    DARK_ASSERT(destination_.size >= DARK_FILE_MODIFIER_SIZE, DARK_ERROR_NULL);
 
     switch (mode_)
     {
     case DARK_FILE_MODE_READ:
-        *destination_ = 'r';
+        destination_.data[0] = 'r';
         break;
     case DARK_FILE_MODE_WRITE:
-        *destination_ = 'w';
+        destination_.data[0] = 'w';
         break;
     case DARK_FILE_MODE_APPEND:
-        *destination_ = 'a';
+        destination_.data[0] = 'a';
         break;
     default:
         DARK_ABORT_ERROR(DARK_ERROR_SWITCH);
@@ -54,13 +55,13 @@ void dark_file_modifier_get(const Dark_File_Mode mode_, const Dark_File_Flag fla
 
     if (flag_ & DARK_FILE_FLAG_BINARY)
     {
-        destination_[i] = 'b';
+        destination_.data[i] = 'b';
         i++;
     }
 
     if (flag_ & DARK_FILE_FLAG_UPDATE)
     {
-        destination_[i] = '+';
+        destination_.data[i] = '+';
         i++;
     }
 }
