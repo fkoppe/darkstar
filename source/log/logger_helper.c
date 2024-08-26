@@ -104,21 +104,20 @@ void dark_logger_log_helper(const Dark_Library* const library_, const char* cons
         }
     }
 
-    const char* const level_name = dark_log_level_name(level_);
-    const char* const level_color = dark_log_level_color(level_);
-    const size_t color_lenght = dark_cstring_lenght(level_color);
+    const Dark_Cbuffer_View level_color = dark_log_level_color(level_);
+    const Dark_Cbuffer_View level_name = dark_log_level_name(level_);
 
     dark_string_insert_back(&logger_->log_string, '[');
 
-    if(logger_->ostream.settings[i_].color_is && color_lenght > 0)
+    if(logger_->ostream.settings[i_].color_is && level_color.size > 0)
     {
-        const Dark_Cbuffer_View color_view = { color_lenght, level_color };
-        dark_string_append_cbuffer_view(&logger_->log_string, color_view);
+        dark_string_append_cbuffer_view(&logger_->log_string, level_color);
     }
 
-    dark_string_append_cstring(&logger_->log_string, level_name);
+    DARK_ASSERT(level_name.size > 0, DARK_ERROR_UNKNOWN);
+    dark_string_append_cbuffer_view(&logger_->log_string, level_name);
 
-    if(logger_->ostream.settings[i_].color_is && color_lenght > 0)
+    if(logger_->ostream.settings[i_].color_is && level_color.size > 0)
     {
         dark_string_append_cstring(&logger_->log_string, DARK_CONSOLE_COLOR_RESET);
     }

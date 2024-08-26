@@ -35,6 +35,7 @@ struct Dark_Iterator
     void* (*peek)(void* context);
     void (*reset)(void* context);
     size_t (*skip)(void* context, size_t count);
+    size_t byte;
     void* context;
 };
 

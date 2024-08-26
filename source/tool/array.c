@@ -23,6 +23,7 @@
 #include "tool_module.h"
 
 #include <dark/core/core.h>
+#include <dark/tool/iterator_struct.h>
 #include <dark/tool/tool.h>
 
 #undef DARK_UNIT
@@ -62,6 +63,33 @@ Dark_Buffer_View dark_array_to_buffer_view(const Dark_Array array_)
     const Dark_Buffer_View buffer_view = { array_.element_byte * array_.size, array_.data };
 
     return buffer_view;
+}
+
+void dark_array_iterator(const Dark_Array array_, Dark_Iterator* const iterator_)
+{
+    DARK_ASSERT(NULL != array_.data, DARK_ERROR_NULL);
+    DARK_ASSERT(array_.size > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(NULL != iterator_, DARK_ERROR_NULL);
+
+    DARK_ASSERT(iterator_->context == NULL || iterator_->byte > 0, DARK_ERROR_INTERNAL);
+
+    if(iterator_->byte < sizeof(Dark_Array_Iterator_Context));
+    {
+        if(iterator_->byte > 0)
+        {
+            iterator_->context = dark_realloc(iterator_->allocator, iterator_->context, iterator_->byte, sizeof(Dark_Array_Iterator_Context));
+        }
+        else
+        {
+            iterator_->context = dark_malloc(iterator_->allocator, sizeof(Dark_Array_Iterator_Context));
+        }
+
+        iterator_->byte = sizeof(Dark_Array_Iterator_Context);
+    }
+
+    dark_array_iterator_context_construct(iterator_->context, array_);
+
+    iterator_->done = dark_array_iterator_done;
 }
 
 void dark_array_foreach(const Dark_Array array_, void* const context_, const Dark_Foreach foreach_)

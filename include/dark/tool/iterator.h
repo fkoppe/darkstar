@@ -25,10 +25,19 @@
 
 #include <dark/core/error.h>
 #include <dark/core/std.h>
+#include <dark/memory/allocator.h>
 
 typedef struct Dark_Iterator Dark_Iterator;
 
 static const Dark_Error DARK_ERROR_ITERATOR = { &DARK_ERROR_LOGIC, "iterator", "no more element available" };
+
+void dark_iterator_construct_context(Dark_Allocator* allocator, Dark_Iterator* iterator, size_t context_byte);
+void dark_iterator_construct(Dark_Allocator* allocator, Dark_Iterator* iterator);
+void dark_iterator_destruct(Dark_Iterator* iterator);
+
+Dark_Iterator* dark_iterator_new_context(Dark_Allocator* allocator, size_t context_byte);
+Dark_Iterator* dark_iterator_new(Dark_Allocator* allocator);
+void dark_iterator_delete(Dark_Iterator* iterator);
 
 bool dark_iterator_done_is(Dark_Iterator* iterator);
 void* dark_iterator_next(Dark_Iterator* iterator);

@@ -27,6 +27,7 @@
 #include <dark/tool/array_view.h>
 #include <dark/tool/buffer.h>
 #include <dark/tool/foreach.h>
+#include <dark/tool/iterator.h>
 
 typedef struct Dark_Array_View Dark_Array_View;
 struct Dark_Array_View
@@ -37,6 +38,8 @@ struct Dark_Array_View
 };
 
 Dark_Buffer_View dark_array_view_to_buffer_view(Dark_Array_View array_view);
+
+void dark_array_view_iterator(Dark_Array_View array_view, Dark_Iterator* iterator);
 
 void dark_array_view_foreach(Dark_Array_View array_view, void* context, Dark_Foreach foreach);
 

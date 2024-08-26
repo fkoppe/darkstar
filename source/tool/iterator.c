@@ -29,6 +29,65 @@
 #undef DARK_UNIT
 #define DARK_UNIT "iterator"
 
+void dark_iterator_construct_context(Dark_Allocator* const allocator_, Dark_Iterator* const iterator_, const size_t context_byte_)
+{
+    DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != iterator_, DARK_ERROR_NULL);
+    //context_byte_
+
+    iterator_->allocator = allocator_;
+    iterator_->byte = context_byte_;
+
+    if(context_byte_ > 0)
+    {
+        iterator_->context = dark_malloc(allocator_, context_byte_);
+    }
+    else
+    {
+        iterator_->context = NULL;
+    }
+}
+
+void dark_iterator_construct(Dark_Allocator* allocator, Dark_Iterator* iterator);
+
+void dark_iterator_destruct(Dark_Iterator* const iterator_)
+{
+    DARK_ASSERT(NULL != iterator_, DARK_ERROR_NULL);
+
+    if(iterator_->byte > 0)
+    {
+        DARK_ASSERT(NULL != iterator_->context, DARK_ERROR_UNKNOWN);
+
+        dark_free(iterator_->allocator, iterator_->context, iterator_->byte);
+    }
+}
+
+Dark_Iterator* dark_iterator_new_context(Dark_Allocator* const allocator_, const size_t context_byte_)
+{
+    DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
+    //context_byte_
+
+    Dark_Iterator* const iterator = dark_malloc(iterator->allocator, sizeof(*iterator) + context_byte_);
+
+    dark_iterator_construct_context(allocator_, iterator, context_byte_);
+
+    return iterator;
+}
+
+Dark_Iterator* dark_iterator_new(Dark_Allocator* const allocator_)
+{
+    return dark_iterator_new_context(allocator_, 0);
+}
+
+void dark_iterator_delete(Dark_Iterator* const iterator_)
+{
+    DARK_ASSERT(NULL != iterator_, DARK_ERROR_NULL);
+
+    dark_iterator_destruct(iterator_);
+
+    dark_free(iterator_->allocator, iterator_, sizeof(*iterator_));
+}
+
 bool dark_iterator_done_is(Dark_Iterator* const iterator_)
 {
     DARK_ASSERT(NULL != iterator_, DARK_ERROR_NULL);

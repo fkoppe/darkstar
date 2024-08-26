@@ -61,11 +61,18 @@ void dark_monitor_handler_delete(Dark_Monitor_Handler* const monitor_handler_)
     DARK_ASSERT(NULL != monitor_handler_, DARK_ERROR_NULL);
 }
 
-Dark_Uuid4 dark_monitor_handler_primary_id(Dark_Monitor_Handler* const monitor_handler_)
+void dark_monitor_handler_update(Dark_Monitor_Handler* const monitor_handler_)
 {
     DARK_ASSERT(NULL != monitor_handler_, DARK_ERROR_NULL);
 
 
+}
+
+Dark_Uuid4 dark_monitor_handler_primary_id(Dark_Monitor_Handler* const monitor_handler_)
+{
+    DARK_ASSERT(NULL != monitor_handler_, DARK_ERROR_NULL);
+
+    //no update
 }
 
 void dark_monitor_handler_id_raw(Dark_Monitor_Handler* const monitor_handler_, const Dark_Uuid4 monitor_uuid_)
@@ -73,7 +80,5 @@ void dark_monitor_handler_id_raw(Dark_Monitor_Handler* const monitor_handler_, c
     DARK_ASSERT(NULL != monitor_handler_, DARK_ERROR_NULL);
     DARK_ASSERT(0 != dark_uuid4_compare(&DARK_UUID4_ZERO, &monitor_uuid_), DARK_ERROR_VALUE);
 
-
-
-
+    //no update
 }
