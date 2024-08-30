@@ -123,7 +123,7 @@ bool dark_linear_map_contain_is(Dark_Linear_Map* const linear_map_, const void* 
 
     for(size_t i = 0; i < dark_linear_map_size(linear_map_); i++)
     {
-        if(0 == linear_map_->compare((char*)dark_vector_at(&linear_map_->vector, i), key_))
+        if(0 == linear_map_->compare((uint8_t*)dark_vector_at(&linear_map_->vector, i), key_))
         {
             return true;
         }
@@ -138,9 +138,9 @@ void* dark_linear_map_value(Dark_Linear_Map* const linear_map_, const void* cons
 
     for(size_t i = 0; i < dark_linear_map_size(linear_map_); i++)
     {
-        if(0 == linear_map_->compare((char*)dark_vector_at(&linear_map_->vector, i), key_))
+        if(0 == linear_map_->compare((uint8_t*)dark_vector_at(&linear_map_->vector, i), key_))
         {
-            return (char*)dark_vector_at(&linear_map_->vector, i) + linear_map_->key_byte;
+            return (uint8_t*)dark_vector_at(&linear_map_->vector, i) + linear_map_->key_byte;
         }
     }
 
@@ -161,7 +161,7 @@ void* dark_linear_map_inplace(Dark_Linear_Map* const linear_map_, const void* co
         void* const destination = dark_vector_inplace_back(&linear_map_->vector);
         dark_memcpy(destination, key_, linear_map_->key_byte);
 
-        contain = destination + linear_map_->key_byte;
+        contain = (uint8_t*)destination + linear_map_->key_byte;
     }
 
     return contain;
