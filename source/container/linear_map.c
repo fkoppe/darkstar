@@ -103,6 +103,20 @@ void dark_linear_map_delete(Dark_Linear_Map* const linear_map_)
     dark_free(linear_map_->allocator, linear_map_, sizeof(*linear_map_));
 }
 
+Dark_Array_View dark_linear_map_array_view(Dark_Linear_Map* const linear_map_)
+{
+    DARK_ASSERT(NULL != linear_map_, DARK_ERROR_NULL);
+
+    return dark_vector_array_view(&linear_map_->vector);
+}
+
+Dark_Buffer_View dark_linear_map_buffer_view(Dark_Linear_Map* const linear_map_)
+{
+    DARK_ASSERT(NULL != linear_map_, DARK_ERROR_NULL);
+
+    return dark_vector_buffer_view(&linear_map_->vector);
+}
+
 bool dark_linear_map_contain_is(Dark_Linear_Map* const linear_map_, const void* const key_)
 {
     DARK_ASSERT(NULL != linear_map_, DARK_ERROR_NULL);

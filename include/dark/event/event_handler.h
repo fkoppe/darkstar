@@ -26,13 +26,14 @@
 #include <dark/core/std.h>
 #include <dark/event/event_data.h>
 #include <dark/memory/allocator.h>
+#include <dark/log/logger.h>
 
 typedef struct Dark_Event_Handler Dark_Event_Handler;
 
-void dark_event_handler_construct(Dark_Allocator* allocator);
+void dark_event_handler_construct(Dark_Allocator* allocator, Dark_Logger* logger);
 void dark_event_handler_destruct(void);
 
-Dark_Event_Handler* dark_event_handler_new(Dark_Allocator* allocator);
+Dark_Event_Handler* dark_event_handler_new(Dark_Allocator* allocator, Dark_Logger* logger);
 void dark_event_handler_delete(Dark_Event_Handler* event_handler);
 
 void dark_event_handler_insert(Dark_Event_Handler* event_handler, Dark_Event event);

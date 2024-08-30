@@ -65,6 +65,32 @@ void dark_monitor_handler_update(Dark_Monitor_Handler* const monitor_handler_)
 {
     DARK_ASSERT(NULL != monitor_handler_, DARK_ERROR_NULL);
 
+    int count = 0;
+    GLFWmonitor** const monitor =  glfwGetMonitors(&count);
+
+    const Dark_Array_View view = dark_linear_map_array_view(&monitor_handler_->map);
+
+    for(size_t i = 0; i < count; i++)
+    {
+        bool found = false;
+        for(size_t j = 0; j < view.size; j++)
+        {
+            if(0 == dark_memcmp(view.data + j * view.element_byte + sizeof(Dark_Uuid4), monitor[i], sizeof(void*)))
+            {
+                found = true;
+            }
+        }
+
+        if(!found)
+        {
+            const Dark_Uuid4 uuid = dark_uuid4_generate(monitor_handler_->entropy_);
+            dark_linear_map_insert(&monitor_handler_->map, );
+        }
+    }
+}
+
+size_t dark_monitor_handler_count(Dark_Monitor_Handler* const monitor_handler_)
+{
 
 }
 
@@ -72,6 +98,8 @@ Dark_Uuid4 dark_monitor_handler_primary_id(Dark_Monitor_Handler* const monitor_h
 {
     DARK_ASSERT(NULL != monitor_handler_, DARK_ERROR_NULL);
 
+
+    DARK_ABORT_CSTRING(DARK_ERROR_RUNTIME, "unimplemented");
     //no update
 }
 

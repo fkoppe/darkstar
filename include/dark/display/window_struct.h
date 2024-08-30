@@ -24,7 +24,6 @@
 #define ___DARK___WINDOW_STRUCT_H
 
 #include <dark/core/std.h>
-#include <dark/display/window.h>
 #include <dark/memory/allocator.h>
 
 struct Dark_Window

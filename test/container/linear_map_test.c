@@ -57,6 +57,38 @@ int main()
     //------------------------
 
     //----------TEST----------
+    DARK_TEST("linear_map_array_view")
+    {
+        Dark_Linear_Map* const linear_map = dark_linear_map_new_capacity(allocator, (Dark_Compare)dark_compare_i32, sizeof(uint64_t), sizeof(int32_t), 5);
+
+        DARK_TEST_EQ_U(dark_linear_map_capacity(linear_map), 5);
+        DARK_TEST_EQ_U(dark_linear_map_size(linear_map), 5);
+
+        const Dark_Array_View array_view = dark_linear_map_array_view(linear_map);
+
+        DARK_TEST_EQ_U(array_view.size, 5);
+
+        dark_linear_map_delete(linear_map);
+    }
+    //------------------------
+
+    //----------TEST----------
+    DARK_TEST("linear_map_buffer_view")
+    {
+        Dark_Linear_Map* const linear_map = dark_linear_map_new_capacity(allocator, (Dark_Compare)dark_compare_i32, sizeof(uint64_t), sizeof(int32_t), 5);
+
+        DARK_TEST_EQ_U(dark_linear_map_capacity(linear_map), 5);
+        DARK_TEST_EQ_U(dark_linear_map_size(linear_map), 5);
+
+        const Dark_Buffer_View buffer_view = dark_linear_map_buffer_view(linear_map);
+
+        DARK_TEST_EQ_U(buffer_view.byte, 5 * (sizeof(uint64_t) + sizeof(int32_t)));
+
+        dark_linear_map_delete(linear_map);
+    }
+    //------------------------
+
+    //----------TEST----------
     DARK_TEST("linear_map_contain_is/inplace")
     {
         Dark_Linear_Map* const linear_map = dark_linear_map_new_capacity(allocator, (Dark_Compare)dark_compare_i32, sizeof(uint64_t), sizeof(int32_t), 10);

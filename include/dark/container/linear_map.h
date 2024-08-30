@@ -45,6 +45,9 @@ Dark_Linear_Map* dark_linear_map_new_capacity(Dark_Allocator* allocator, Dark_Co
 Dark_Linear_Map* dark_linear_map_new(Dark_Allocator* allocator, Dark_Compare compare, size_t key_byte, size_t value_byte);
 void dark_linear_map_delete(Dark_Linear_Map* linear_map);
 
+Dark_Array_View dark_linear_map_array_view(Dark_Linear_Map* linear_map);
+Dark_Buffer_View dark_linear_map_buffer_view(Dark_Linear_Map* linear_map);
+
 bool dark_linear_map_contain_is(Dark_Linear_Map* linear_map, const void* key);
 void* dark_linear_map_value(Dark_Linear_Map* linear_map, const void* key);
 

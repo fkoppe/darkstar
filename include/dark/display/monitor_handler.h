@@ -39,6 +39,8 @@ void dark_monitor_handler_delete(Dark_Monitor_Handler* monitor_handler);
 
 void dark_monitor_handler_update(Dark_Monitor_Handler* monitor_handler);
 
+size_t dark_monitor_handler_count(Dark_Monitor_Handler* monitor_handler);
+
 Dark_Uuid4 dark_monitor_handler_primary_id(Dark_Monitor_Handler* monitor_handler);
 
 void dark_monitor_handler_id_raw(Dark_Monitor_Handler* monitor_handler, Dark_Uuid4 monitor_uuid);

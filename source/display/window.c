@@ -32,4 +32,36 @@
 #undef DARK_UNIT
 #define DARK_UNIT "window"
 
+void dark_window_construct(Dark_Allocator* allocator, Dark_Window_Settings settings, Dark_Event_Handler* event_handler);
+void dark_window_destruct(void);
 
+Dark_Window* dark_window_new(Dark_Allocator* allocator, Dark_Window_Settings settings, Dark_Event_Handler* event_handler);
+void dark_window_delete(Dark_Window* window);
+
+Dark_Window_Settings dark_window_settings_get(Dark_Window* window);
+void dark_window_settings_set(Dark_Window* window, Dark_Window_Settings settings);
+
+void dark_window_open_windowed(Dark_Window* window, bool visible_is);
+void dark_window_open_fullscreen(Dark_Window* window, Dark_Uuid4 monitor_uuid);
+bool dark_window_fullscreen_is(Dark_Window* window);
+
+void dark_window_windowed(Dark_Window* window, bool visible_is);
+void dark_window_fullscreen(Dark_Window* window, Dark_Uuid4 monitor_uuid);
+
+void dark_window_close(Dark_Window* window);
+bool dark_window_open_is(Dark_Window* window);
+
+void dark_window_resize(Dark_Window* window);
+void dark_window_extend(Dark_Window* window, size_t* width, size_t* height);
+void dark_window_framebuffer_extend(Dark_Window* window, size_t* width, size_t* height);
+
+void dark_window_move(Dark_Window* window, size_t x, size_t y);
+void dark_window_position(Dark_Window* window);
+
+void dark_window_show(Dark_Window* window);
+void dark_window_hide(Dark_Window* window);
+bool dark_window_visible_is(Dark_Window* window);
+
+void dark_window_title_set(Dark_Window* window, Dark_Cbuffer_View title);
+
+size_t dark_window_struct_byte(void);

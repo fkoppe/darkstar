@@ -23,14 +23,14 @@
 #if !defined(___DARK___MONITOR_STRUCT_H)
 #define ___DARK___MONITOR_STRUCT_H
 
-#include <dark/container/vector_struct.h>
+#include <dark/container/linear_map_struct.h>
 #include <dark/core/std.h>
-#include <dark/memory/allocator.h.h>
+#include <dark/memory/allocator.h>
 
 struct Dark_Monitor_Handler
 {
     Dark_Allocator* allocator;
-    Dark_Vector vector;
-}
+    Dark_Linear_Map map;
+};
 
 #endif // !defined(___DARK___MONITOR_STRUCT_H)
