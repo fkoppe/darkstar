@@ -61,6 +61,19 @@ int main()
     {
         Dark_Linear_Map* const linear_map = dark_linear_map_new_capacity(allocator, (Dark_Compare)dark_compare_i32, sizeof(uint64_t), sizeof(int32_t), 5);
 
+        const uint64_t key_1 = 1;
+        const uint64_t key_2 = 2;
+        const uint64_t key_3 = 3;
+        const uint64_t key_4 = 4;
+        const uint64_t key_5 = 5;
+        const int32_t val = 42;
+
+        dark_linear_map_insert(linear_map, &key_1, &val);
+        dark_linear_map_insert(linear_map, &key_2, &val);
+        dark_linear_map_insert(linear_map, &key_3, &val);
+        dark_linear_map_insert(linear_map, &key_4, &val);
+        dark_linear_map_insert(linear_map, &key_5, &val);
+
         DARK_TEST_EQ_U(dark_linear_map_capacity(linear_map), 5);
         DARK_TEST_EQ_U(dark_linear_map_size(linear_map), 5);
 
@@ -76,6 +89,19 @@ int main()
     DARK_TEST("linear_map_buffer_view")
     {
         Dark_Linear_Map* const linear_map = dark_linear_map_new_capacity(allocator, (Dark_Compare)dark_compare_i32, sizeof(uint64_t), sizeof(int32_t), 5);
+
+        const uint64_t key_1 = 1;
+        const uint64_t key_2 = 2;
+        const uint64_t key_3 = 3;
+        const uint64_t key_4 = 4;
+        const uint64_t key_5 = 5;
+        const int32_t val = 42;
+
+        dark_linear_map_insert(linear_map, &key_1, &val);
+        dark_linear_map_insert(linear_map, &key_2, &val);
+        dark_linear_map_insert(linear_map, &key_3, &val);
+        dark_linear_map_insert(linear_map, &key_4, &val);
+        dark_linear_map_insert(linear_map, &key_5, &val);
 
         DARK_TEST_EQ_U(dark_linear_map_capacity(linear_map), 5);
         DARK_TEST_EQ_U(dark_linear_map_size(linear_map), 5);
