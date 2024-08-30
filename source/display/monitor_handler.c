@@ -27,6 +27,7 @@
 #include <dark/display/monitor_handler_struct.h>
 #include <dark/log/logger.h>
 #include <dark/memory/memory.h>
+#include <dark/random/random.h>
 
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
@@ -80,7 +81,7 @@ void dark_monitor_handler_update(Dark_Monitor_Handler* const monitor_handler_)
         bool found = false;
         for(size_t j = 0; j < view.size; j++)
         {
-            if(0 == dark_memcmp(view.data + j * view.element_byte + sizeof(Dark_Uuid4), monitor[i], sizeof(void*)))
+            if(0 == dark_memcmp((char*)view.data + j * view.element_byte + sizeof(Dark_Uuid4), monitor[i], sizeof(void*)))
             {
                 found = true;
             }
