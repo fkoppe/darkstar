@@ -22,7 +22,7 @@ int main()
 
         Dark_Ostream* const ostream = dark_malloc(allocator, sizeof(*ostream));
 
-        dark_ostream_construct_file(allocator, ostream, ostream_settings, "test.txt", NULL);
+        dark_ostream_construct_file(allocator, ostream, ostream_settings, dark_cstring_to_cbuffer_view("test.txt"), NULL);
         dark_ostream_destruct(ostream);
 
         dark_ostream_construct_stdout(allocator, ostream, ostream_settings, NULL);
@@ -45,7 +45,7 @@ int main()
         ostream_settings.buffer_size = 0;
         ostream_settings.auto_flush_ns = 0;
 
-        Dark_Ostream* ostream = dark_ostream_new_file(allocator, ostream_settings, "test.txt", NULL);
+        Dark_Ostream* ostream = dark_ostream_new_file(allocator, ostream_settings, dark_cstring_to_cbuffer_view("test.txt"), NULL);
         dark_ostream_delete(ostream);
 
         ostream = dark_ostream_new_stdout(allocator, ostream_settings, NULL);
@@ -69,7 +69,7 @@ int main()
         ostream_settings.buffer_size = 10;
         ostream_settings.auto_flush_ns = 0;
 
-        Dark_Ostream* const ostream = dark_ostream_new_file(allocator, ostream_settings, "test.txt", NULL);
+        Dark_Ostream* const ostream = dark_ostream_new_file(allocator, ostream_settings, dark_cstring_to_cbuffer_view("test.txt"), NULL);
 
         dark_ostream_flush_unbuffered(ostream, view);
 
@@ -91,7 +91,7 @@ int main()
         ostream_settings.buffer_size = 10;
         ostream_settings.auto_flush_ns = 0;
 
-        Dark_Ostream* const ostream = dark_ostream_new_file(allocator, ostream_settings, "test.txt", NULL);
+        Dark_Ostream* const ostream = dark_ostream_new_file(allocator, ostream_settings, dark_cstring_to_cbuffer_view("test.txt"), NULL);
 
         dark_ostream_write(ostream, view);
         dark_ostream_flush(ostream);

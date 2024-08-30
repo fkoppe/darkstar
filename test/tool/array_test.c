@@ -8,6 +8,8 @@ void foreach_helper(int32_t* element, int32_t* constext)
 
 int main()
 {
+    Dark_Allocator* allocator = dark_os_allocator_new();
+
     dark_test_initialise();
 
     //----------TEST----------
@@ -19,6 +21,43 @@ int main()
         dark_array_to_view(array);
         dark_array_to_buffer(array);
         dark_array_to_buffer_view(array);
+    }
+    //--------------------------
+
+    //----------TEST----------
+    DARK_TEST("array_ITERATOR")
+    {
+        int buffer[12] = {0};
+        Dark_Array array = { sizeof(int), 12, buffer };
+
+        Dark_Iterator* iterator = dark_iterator_new(allocator);
+
+        dark_array_iterator(array, iterator);
+
+        size_t i = 0;
+        while (!dark_iterator_done_is(iterator))
+        {
+            dark_iterator_peek(iterator);
+            dark_iterator_next(iterator);
+
+            i++;
+        }
+
+        DARK_TEST_EQ_U(12, i);
+
+        dark_iterator_reset(iterator);
+
+        DARK_TEST_EQ_U(dark_iterator_skip(iterator, i), i);
+        DARK_TEST_EQ_U(dark_iterator_skip(iterator, 100), 0);
+
+        dark_iterator_delete(iterator);
+    }
+    //--------------------------
+
+        //----------TEST----------
+    DARK_TEST("array_iterator_context_byte")
+    {
+        DARK_TEST_NE_U(dark_array_iterator_context_byte(), 0);
     }
     //--------------------------
 
@@ -54,6 +93,8 @@ int main()
     //--------------------------
 
     dark_test_shutdown();
+
+    dark_os_allocator_delete(allocator);
 
     return DARK_EXIT_SUCCESS;
 }

@@ -1027,6 +1027,41 @@ int main()
     //------------------------
 
     //----------TEST----------
+    DARK_TEST("vector_ITERATOR")
+    {
+        Dark_Vector* const vector = dark_vector_new(allocator, dark_growth_standard, sizeof(int));
+
+        int32_t buffer[5] = { 1, 333, 111, 0, -1 };
+        const Dark_Array array = { sizeof(int32_t), 5, buffer };
+
+        dark_vector_push_back(vector, dark_array_to_view(array));
+
+        Dark_Iterator* const iterator = dark_iterator_new_context(allocator, dark_vector_iterator_context_byte());
+
+        dark_vector_iterator(vector, iterator);
+
+        size_t i = 0;
+        while (!dark_iterator_done_is(iterator))
+        {
+            dark_iterator_peek(iterator);
+            dark_iterator_next(iterator);
+            i++;
+        }
+
+        DARK_TEST_EQ_U(5, i);
+
+        dark_iterator_reset(iterator);
+
+        DARK_TEST_EQ_U(dark_iterator_skip(iterator, i), i);
+        DARK_TEST_EQ_U(dark_iterator_skip(iterator, 100), 0);
+
+        dark_iterator_delete(iterator);
+
+        dark_vector_delete(vector);
+    }
+    //------------------------
+
+    //----------TEST----------
     DARK_TEST("vector_element_byte")
     {
         Dark_Vector* const vector = dark_vector_new_size(allocator, dark_growth_standard, sizeof(int), 5, 4);

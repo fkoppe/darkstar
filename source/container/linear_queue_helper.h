@@ -20,16 +20,23 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___TOOL_H)
-#define ___DARK___TOOL_H
+#if !defined(___DARK___LINEAR_QUEUE_HELPER_H)
+#define ___DARK___LINEAR_QUEUE_HELPER_H
 
-#include <dark/tool/array.h>
-#include <dark/tool/array_view.h>
-#include <dark/tool/buffer.h>
-#include <dark/tool/buffer_view.h>
-#include <dark/tool/compare.h>
-#include <dark/tool/foreach.h>
-#include <dark/tool/growth.h>
-#include <dark/tool/iterator.h>
+#include <dark/core/std.h>
+#include <dark/container/linear_queue.h>
 
-#endif // !defined(___DARK___TOOL_H)
+typedef struct Dark_Linear_Queue_Iterator_Context Dark_Linear_Queue_Iterator_Context;
+struct Dark_Linear_Queue_Iterator_Context
+{
+    Dark_Linear_Queue* queue;
+    size_t index;
+};
+
+bool dark_linear_queue_iterator_done_is(Dark_Linear_Queue_Iterator_Context* context);
+void* dark_linear_queue_iterator_next(Dark_Linear_Queue_Iterator_Context* context);
+void* dark_linear_queue_iterator_peek(Dark_Linear_Queue_Iterator_Context* context);
+void dark_linear_queue_iterator_reset(Dark_Linear_Queue_Iterator_Context* context);
+size_t dark_linear_queue_iterator_skip(Dark_Linear_Queue_Iterator_Context* context, size_t count);
+
+#endif // !defined(___DARK___LINEAR_QUEUE_HELPER_H)

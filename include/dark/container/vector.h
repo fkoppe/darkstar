@@ -103,6 +103,9 @@ size_t dark_vector_size(Dark_Vector* vector);
 void dark_vector_resize(Dark_Vector* vector, size_t size);
 void dark_vector_clear(Dark_Vector* vector);
 
+void dark_vector_iterator(Dark_Vector* vector, Dark_Iterator* iterator);
+size_t dark_vector_iterator_context_byte(void);
+
 size_t dark_vector_element_byte(Dark_Vector* vector);
 
 void dark_vector_foreach(Dark_Vector* vector, void* context, Dark_Foreach foreach);

@@ -20,22 +20,58 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___ARRAY_ITERATOR_H)
-#define ___DARK___ARRAY_ITERATOR_H
+#include "linear_queue_helper.h"
+#include "container_module.h"
 
+#include <dark/container/container.h>
 #include <dark/core/core.h>
-#include <dark/memory/allocator.h>
-#include <dark/tool/array.h>
-#include <dark/tool/iterator.h>
+#include <dark/math/math.h>
 
-typedef struct Dark_Array_Iterator_Context Dark_Array_Iterator_Context;
+#undef DARK_UNIT
+#define DARK_UNIT "linear_queue_helper"
 
-void dark_array_iterator_construct(Dark_Allocator* allocator, Dark_Iterator* iterator, Dark_Array_Iterator_Context* context, Dark_Array array);
-void dark_array_iterator_destruct(Dark_Iterator* iterator);
+bool dark_linear_queue_iterator_done_is(Dark_Linear_Queue_Iterator_Context* const context_)
+{
+    DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
 
-Dark_Iterator* dark_array_iterator_new(Dark_Allocator* allocator, Dark_Array array);
-void dark_array_iterator_delete(Dark_Iterator* iterator);
+    return context_->index >= dark_linear_queue_size(context_->queue);
+}
 
-size_t dark_array_iterator_context_byte(void);
+void* dark_linear_queue_iterator_next(Dark_Linear_Queue_Iterator_Context* const context_)
+{
+    DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
 
-#endif // !defined(___DARK___ARRAY_ITERATOR_H)
+    DARK_ASSERT(!dark_linear_queue_iterator_done_is(context_), DARK_ERROR_ITERATOR);
+
+    context_->index++;
+
+    return dark_linear_queue_at(context_->queue, context_->index - 1);
+}
+
+void* dark_linear_queue_iterator_peek(Dark_Linear_Queue_Iterator_Context* const context_)
+{
+    DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
+
+    DARK_ASSERT(!dark_linear_queue_iterator_done_is(context_), DARK_ERROR_ITERATOR);
+
+     return dark_linear_queue_at(context_->queue, context_->index);
+}
+
+void dark_linear_queue_iterator_reset(Dark_Linear_Queue_Iterator_Context*  const context_)
+{
+    DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
+
+    context_->index = 0;
+}
+
+size_t dark_linear_queue_iterator_skip(Dark_Linear_Queue_Iterator_Context*  const context_, const size_t count_)
+{
+    DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
+    DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
+
+    const size_t skipped = dark_min_zu(count_, dark_sat_add_zu(dark_linear_queue_size(context_->queue), -context_->index));
+
+    context_->index += skipped;
+
+    return skipped;
+}

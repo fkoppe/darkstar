@@ -20,18 +20,57 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___ARRAY_ITERATOR_CONTEXT_H)
-#define ___DARK___ARRAY_ITERATOR_CONTEXT_H
+#include "array_view_helper.h"
+#include "tool_module.h"
 
 #include <dark/core/core.h>
-#include <dark/tool/array.h>
-#include <dark/tool/array_iterator.h>
-#include <dark/tool/iterator.h>
+#include <dark/math/math.h>
+#include <dark/tool/tool.h>
 
-struct Dark_Array_Iterator_Context
+#undef DARK_UNIT
+#define DARK_UNIT "array_view_helper"
+
+bool dark_array_view_iterator_done_is(Dark_Array_View_Iterator_Context* const context_)
 {
-    Dark_Array array;
-    size_t index;
-};
+    DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
 
-#endif // !defined(___DARK___ARRAY_ITERATOR_CONTEXT_H)
+    return context_->index >= context_->array_view.size;
+}
+
+void* dark_array_view_iterator_next(Dark_Array_View_Iterator_Context* const context_)
+{
+    DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
+
+    DARK_ASSERT(!dark_array_view_iterator_done_is(context_), DARK_ERROR_ITERATOR);
+
+    context_->index++;
+
+    return (int8_t*)context_->array_view.data + (context_->index - 1);
+}
+
+void* dark_array_view_iterator_peek(Dark_Array_View_Iterator_Context* const context_)
+{
+    DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
+
+    DARK_ASSERT(!dark_array_view_iterator_done_is(context_), DARK_ERROR_ITERATOR);
+
+    return (int8_t*)context_->array_view.data + (context_->index - 1);
+}
+
+void dark_array_view_iterator_reset(Dark_Array_View_Iterator_Context* const context_)
+{
+    DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
+
+    context_->index = 0;
+}
+
+size_t dark_array_view_iterator_skip(Dark_Array_View_Iterator_Context* const context_, const size_t count_)
+{
+    DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
+
+    const size_t skipped = dark_min_zu(count_, context_->array_view.size - context_->index);
+
+    context_->index += skipped;
+
+    return skipped;
+}

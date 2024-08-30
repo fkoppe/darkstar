@@ -90,8 +90,8 @@ void* dark_linear_queue_peek(Dark_Linear_Queue* linear_queue);
 void dark_linear_queue_reset(Dark_Linear_Queue* linear_queue);
 size_t dark_linear_queue_skip(Dark_Linear_Queue* linear_queue, size_t count);
 
-//keine seiten effekte solange die elemente nicht verändert werden
 void dark_linear_queue_iterator(Dark_Linear_Queue* linear_queue, Dark_Iterator* iterator);
+size_t dark_linear_queue_iterator_context_byte(void);
 
 size_t dark_linear_queue_element_byte(Dark_Linear_Queue* linear_queue);
 

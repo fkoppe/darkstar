@@ -43,7 +43,7 @@ for(size_t i = 0; i <= DARK_CSTRING_LENGHT_MAX; i++) \
     { \
         DARK_EXIT_CSTRING(-1, DARK_ERROR_RUNTIME, "cstring lost integrity"); \
     } \
-}
+} DARK_INSTRUCTION
 
 #define DARK_CSTRING_ASSERT_CONTENT(cstring) \
 for(size_t i = 0; i <= DARK_CSTRING_LENGHT_MAX; i++) \
@@ -57,7 +57,7 @@ for(size_t i = 0; i <= DARK_CSTRING_LENGHT_MAX; i++) \
     { \
         DARK_EXIT_CSTRING(-1, DARK_ERROR_RUNTIME, "cstring lost integrity"); \
     } \
-}
+} DARK_INSTRUCTION
 
 #else
 #define DARK_CSTRING_ASSERT_INTEGRITY(cstring)

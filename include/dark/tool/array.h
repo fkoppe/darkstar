@@ -44,6 +44,7 @@ Dark_Buffer dark_array_to_buffer(Dark_Array array);
 Dark_Buffer_View dark_array_to_buffer_view(Dark_Array array);
 
 void dark_array_iterator(Dark_Array array, Dark_Iterator* iterator);
+size_t dark_array_iterator_context_byte(void);
 
 void dark_array_foreach(Dark_Array array, void* context, Dark_Foreach foreach);
 

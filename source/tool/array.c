@@ -20,6 +20,7 @@
 *                                                                                   *
 ************************************************************************************/
 
+#include "array_helper.h"
 #include "tool_module.h"
 
 #include <dark/core/core.h>
@@ -31,8 +32,7 @@
 
 Dark_Array_View dark_array_to_view(const Dark_Array array_)
 {
-    DARK_ASSERT(NULL != array_.data, DARK_ERROR_NULL);
-    DARK_ASSERT(array_.size > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(array_.data == NULL || array_.size > 0, DARK_ERROR_VALUE);
     DARK_ASSERT(array_.element_byte > 0, DARK_ERROR_ZERO);
 
     Dark_Array_View view;
@@ -45,8 +45,7 @@ Dark_Array_View dark_array_to_view(const Dark_Array array_)
 
 Dark_Buffer dark_array_to_buffer(const Dark_Array array_)
 {
-    DARK_ASSERT(NULL != array_.data, DARK_ERROR_NULL);
-    DARK_ASSERT(array_.size > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(array_.data == NULL || array_.size > 0, DARK_ERROR_VALUE);
     DARK_ASSERT(array_.element_byte > 0, DARK_ERROR_ZERO);
 
     const Dark_Buffer buffer = { array_.element_byte * array_.size, array_.data };
@@ -56,8 +55,7 @@ Dark_Buffer dark_array_to_buffer(const Dark_Array array_)
 
 Dark_Buffer_View dark_array_to_buffer_view(const Dark_Array array_)
 {
-    DARK_ASSERT(NULL != array_.data, DARK_ERROR_NULL);
-    DARK_ASSERT(array_.size > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(array_.data == NULL || array_.size > 0, DARK_ERROR_VALUE);
     DARK_ASSERT(array_.element_byte > 0, DARK_ERROR_ZERO);
 
     const Dark_Buffer_View buffer_view = { array_.element_byte * array_.size, array_.data };
@@ -67,35 +65,46 @@ Dark_Buffer_View dark_array_to_buffer_view(const Dark_Array array_)
 
 void dark_array_iterator(const Dark_Array array_, Dark_Iterator* const iterator_)
 {
-    DARK_ASSERT(NULL != array_.data, DARK_ERROR_NULL);
-    DARK_ASSERT(array_.size > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(array_.data == NULL || array_.size > 0, DARK_ERROR_VALUE);
     DARK_ASSERT(NULL != iterator_, DARK_ERROR_NULL);
 
     DARK_ASSERT(iterator_->context == NULL || iterator_->byte > 0, DARK_ERROR_INTERNAL);
 
-    if(iterator_->byte < sizeof(Dark_Array_Iterator_Context));
+    if(iterator_->byte < sizeof(Dark_Array_Iterator_Context))
     {
         if(iterator_->byte > 0)
         {
             iterator_->context = dark_realloc(iterator_->allocator, iterator_->context, iterator_->byte, sizeof(Dark_Array_Iterator_Context));
+            DARK_ASSERT(NULL != iterator_->context, DARK_ERROR_ALLOCATION);
         }
         else
         {
             iterator_->context = dark_malloc(iterator_->allocator, sizeof(Dark_Array_Iterator_Context));
+            DARK_ASSERT(NULL != iterator_->context, DARK_ERROR_ALLOCATION);
         }
 
         iterator_->byte = sizeof(Dark_Array_Iterator_Context);
     }
 
-    dark_array_iterator_context_construct(iterator_->context, array_);
+    Dark_Array_Iterator_Context* const context = iterator_->context;
+    context->array = array_;
+    context->index = 0;
 
-    iterator_->done = dark_array_iterator_done;
+    iterator_->done_is = (void*)dark_array_iterator_done_is;
+    iterator_->peek = (void*)dark_array_iterator_peek;
+    iterator_->next = (void*)dark_array_iterator_next;
+    iterator_->reset = (void*)dark_array_iterator_reset;
+    iterator_->skip = (void*)dark_array_iterator_skip;
+}
+
+size_t dark_array_iterator_context_byte(void)
+{
+    return sizeof(Dark_Array_Iterator_Context);
 }
 
 void dark_array_foreach(const Dark_Array array_, void* const context_, const Dark_Foreach foreach_)
 {
-    DARK_ASSERT(NULL != array_.data, DARK_ERROR_NULL);
-    DARK_ASSERT(array_.size > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(array_.data == NULL || array_.size > 0, DARK_ERROR_VALUE);
     DARK_ASSERT(array_.element_byte > 0, DARK_ERROR_ZERO);
     //context_
     DARK_ASSERT(NULL != foreach_, DARK_ERROR_NULL);
@@ -108,11 +117,9 @@ void dark_array_foreach(const Dark_Array array_, void* const context_, const Dar
 
 int8_t dark_array_compare(const Dark_Array* const a_, const Dark_Array* const b_)
 {
-    DARK_ASSERT(NULL != a_->data, DARK_ERROR_NULL);
-    DARK_ASSERT(a_->size > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(a_->data == NULL || a_->size > 0, DARK_ERROR_VALUE);
     DARK_ASSERT(a_->element_byte > 0, DARK_ERROR_ZERO);
-    DARK_ASSERT(NULL != b_->data, DARK_ERROR_NULL);
-    DARK_ASSERT(b_->size > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(b_->data == NULL || b_->size > 0, DARK_ERROR_VALUE);
     DARK_ASSERT(b_->element_byte > 0, DARK_ERROR_ZERO);
 
     const Dark_Array_View av = dark_array_to_view(*a_);

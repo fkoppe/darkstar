@@ -20,68 +20,23 @@
 *                                                                                   *
 ************************************************************************************/
 
-#include "array_iterator_helper.h"
-#include "tool_module.h"
+#if !defined(___DARK___ARRAY_HELPER_H)
+#define ___DARK___ARRAY_HELPER_H
 
-#include <dark/core/core.h>
-#include <dark/tool/array_iterator_context.h>
-#include <dark/math/math.h>
-#include <dark/tool/tool.h>
+#include <dark/core/std.h>
+#include <dark/tool/array.h>
 
-#undef DARK_UNIT
-#define DARK_UNIT "array_iterator_helper"
-
-bool dark_array_iterator_done_is(void* const context_)
+typedef struct Dark_Array_Iterator_Context Dark_Array_Iterator_Context;
+struct Dark_Array_Iterator_Context
 {
-    DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
+    Dark_Array array;
+    size_t index;
+};
 
-    Dark_Array_Iterator_Context* const context = context_;
+bool dark_array_iterator_done_is(Dark_Array_Iterator_Context* context);
+void* dark_array_iterator_next(Dark_Array_Iterator_Context* context);
+void* dark_array_iterator_peek(Dark_Array_Iterator_Context* context);
+void dark_array_iterator_reset(Dark_Array_Iterator_Context* context);
+size_t dark_array_iterator_skip(Dark_Array_Iterator_Context* context, size_t count);
 
-    return context->index >= context->array.size;
-}
-
-void* dark_array_iterator_next(void* const context_)
-{
-    DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
-
-    Dark_Array_Iterator_Context* const context = context_;
-
-    DARK_ASSERT(!dark_array_iterator_done_is(context), DARK_ERROR_ITERATOR);
-
-    context->index++;
-
-    return (int8_t*)context->array.data + (context->index - 1);
-}
-
-void* dark_array_iterator_peek(void* const context_)
-{
-    DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
-
-    Dark_Array_Iterator_Context* const context = context_;
-
-    DARK_ASSERT(!dark_array_iterator_done_is(context), DARK_ERROR_ITERATOR);
-
-    return (int8_t*)context->array.data + (context->index - 1);
-}
-
-void dark_array_iterator_reset(void* const context_)
-{
-    DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
-
-    Dark_Array_Iterator_Context* const context = context_;
-
-    context->index = 0;
-}
-
-size_t dark_array_iterator_skip(void* const context_, const size_t count_)
-{
-    DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
-
-    Dark_Array_Iterator_Context* const context = context_;
-
-    const size_t skipped = dark_min_zu(count_, context->array.size - context->index);
-
-    context->index += skipped;
-
-    return skipped;
-}
+#endif // !defined(___DARK___ARRAY_HELPER_H)

@@ -584,6 +584,16 @@ void dark_vector_clear(Dark_Vector* const vector_)
     vector_->array.size = 0;
 }
 
+void dark_vector_iterator(Dark_Vector* const vector_, Dark_Iterator* const iterator_)
+{
+    return dark_array_iterator(vector_->array, iterator_);
+}
+
+size_t dark_vector_iterator_context_byte(void)
+{
+    return dark_array_iterator_context_byte();
+}
+
 size_t dark_vector_element_byte(Dark_Vector* const vector_)
 {
     DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);

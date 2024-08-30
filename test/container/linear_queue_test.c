@@ -19,9 +19,6 @@ int main()
     {
         Dark_Linear_Queue* const linear_queue = dark_malloc(allocator, sizeof(*linear_queue));;
 
-        dark_linear_queue_construct_capacity(allocator, linear_queue, dark_growth_simple, sizeof(int), 1);
-        dark_linear_queue_destruct(linear_queue);
-
         dark_linear_queue_construct(allocator, linear_queue, dark_growth_simple, sizeof(int));
         dark_linear_queue_destruct(linear_queue);
 
@@ -557,7 +554,7 @@ int main()
     //------------------------
 
     //----------TEST----------
-    DARK_TEST("linear_queue_ITERATE")
+    DARK_TEST("linear_queue_ITERATOR")
     {
         Dark_Linear_Queue* const linear_queue = dark_linear_queue_new(allocator, dark_growth_standard, sizeof(int));
 
@@ -566,17 +563,15 @@ int main()
 
         dark_linear_queue_push(linear_queue, dark_array_to_view(array));
 
-        Dark_Iterator* const iterator = dark_linear_queue_iterate(linear_queue);
+        Dark_Iterator* const iterator = dark_iterator_new_context(allocator, dark_linear_queue_iterator_context_byte());
+
+        dark_linear_queue_iterator(linear_queue, iterator);
 
         size_t i = 0;
         while (!dark_iterator_done_is(iterator))
         {
             dark_iterator_peek(iterator);
-
-            size_t s = dark_linear_queue_size(linear_queue);
             dark_iterator_next(iterator);
-            DARK_TEST_EQ_U(dark_linear_queue_size(linear_queue), s - 1);
-
             i++;
         }
 
@@ -586,6 +581,8 @@ int main()
 
         DARK_TEST_EQ_U(dark_iterator_skip(iterator, i), i);
         DARK_TEST_EQ_U(dark_iterator_skip(iterator, 100), 0);
+
+        dark_iterator_delete(iterator);
 
         dark_linear_queue_delete(linear_queue);
     }

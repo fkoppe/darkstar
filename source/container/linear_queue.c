@@ -21,6 +21,7 @@
 ************************************************************************************/
 
 #include "container_module.h"
+#include "linear_queue_helper.h"
 
 #include <dark/container/container.h>
 #include <dark/container/linear_queue_struct.h>
@@ -44,13 +45,6 @@ void dark_linear_queue_construct_capacity(Dark_Allocator* const allocator_, Dark
 
     dark_vector_construct_capacity(linear_queue_->allocator, &linear_queue_->vector, growth_, element_byte_, capacity_);
 
-    linear_queue_->iterator.allocator = NULL;
-    linear_queue_->iterator.done = (void*)dark_linear_queue_done_is;
-    linear_queue_->iterator.next = (void*)dark_linear_queue_next;
-    linear_queue_->iterator.peek = (void*)dark_linear_queue_peek;
-    linear_queue_->iterator.reset = (void*)dark_linear_queue_reset;;
-    linear_queue_->iterator.skip = (void*)dark_linear_queue_skip;
-    linear_queue_->iterator.context = linear_queue_;
     linear_queue_->index = 0;
 }
 
@@ -311,7 +305,7 @@ void* dark_linear_queue_next(Dark_Linear_Queue* const linear_queue_)
 {
     DARK_ASSERT(NULL != linear_queue_, DARK_ERROR_NULL);
 
-    DARK_ASSERT(!dark_linear_queue_done_is(linear_queue_), DARK_ERROR_ITERATOR);
+    DARK_ASSERT(!dark_linear_queue_done_is(linear_queue_), DARK_ERROR_CONTAINER_EMPTY);
 
     void* const element = dark_linear_queue_front(linear_queue_);
 
@@ -324,7 +318,7 @@ void* dark_linear_queue_peek(Dark_Linear_Queue* const linear_queue_)
 {
     DARK_ASSERT(NULL != linear_queue_, DARK_ERROR_NULL);
 
-    DARK_ASSERT(!dark_linear_queue_done_is(linear_queue_), DARK_ERROR_ITERATOR);
+    DARK_ASSERT(!dark_linear_queue_done_is(linear_queue_), DARK_ERROR_CONTAINER_EMPTY);
 
     return dark_linear_queue_front(linear_queue_);
 }
@@ -348,11 +342,41 @@ size_t dark_linear_queue_skip(Dark_Linear_Queue* const linear_queue_, const size
     return skipped;
 }
 
-Dark_Iterator* dark_linear_queue_iterate(Dark_Linear_Queue* const linear_queue_)
+void dark_linear_queue_iterator(Dark_Linear_Queue* const linear_queue_, Dark_Iterator* const iterator_)
 {
     DARK_ASSERT(NULL != linear_queue_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != iterator_, DARK_ERROR_NULL);
 
-    return &linear_queue_->iterator;
+    DARK_ASSERT(iterator_->context == NULL || iterator_->byte > 0, DARK_ERROR_INTERNAL);
+
+    if(iterator_->byte < sizeof(Dark_Linear_Queue*))
+    {
+        if(iterator_->byte > 0)
+        {
+            iterator_->context = dark_realloc(iterator_->context, iterator_->context, iterator_->byte, sizeof(Dark_Linear_Queue*));
+            DARK_ASSERT(NULL != iterator_->context, DARK_ERROR_ALLOCATION);
+        }
+        else
+        {
+            iterator_->context = dark_malloc(iterator_->allocator, sizeof(Dark_Linear_Queue*));
+            DARK_ASSERT(NULL != iterator_->context, DARK_ERROR_ALLOCATION);
+        }
+
+        iterator_->byte = sizeof(Dark_Linear_Queue*);
+    }
+
+    *(Dark_Linear_Queue**)iterator_->context = linear_queue_;
+
+    iterator_->done_is = (void*)dark_linear_queue_iterator_done_is;
+    iterator_->peek = (void*)dark_linear_queue_iterator_peek;
+    iterator_->next = (void*)dark_linear_queue_iterator_next;
+    iterator_->reset = (void*)dark_linear_queue_iterator_reset;
+    iterator_->skip = (void*)dark_linear_queue_iterator_skip;
+}
+
+size_t dark_linear_queue_iterator_context_byte(void)
+{
+    return sizeof(Dark_Linear_Queue*);
 }
 
 size_t dark_linear_queue_element_byte(Dark_Linear_Queue* const linear_queue_)

@@ -45,7 +45,7 @@ int main()
 
     Dark_Ostream* const ostream = dark_malloc(allocator, sizeof(*ostream));
 
-    dark_ostream_construct_file(allocator, ostream, ostream_settings, "log.txt", NULL);
+    dark_ostream_construct_file(allocator, ostream, ostream_settings, dark_cstring_to_cbuffer_view("log.txt"), NULL);
 
     dark_test_initialise();
 

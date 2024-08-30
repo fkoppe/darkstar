@@ -34,7 +34,7 @@ int main()
     {
         Dark_File* const file = dark_file_new(allocator);
 
-        Dark_Oserror result = dark_file_open(file, "test_file", DARK_FILE_MODE_WRITE, DARK_FILE_FLAG_NONE);
+        Dark_Oserror result = dark_file_open(file, dark_cstring_to_cbuffer_view("test_file"), DARK_FILE_MODE_WRITE, DARK_FILE_FLAG_NONE);
         DARK_TEST_TRUE(DARK_OSERROR_NONE == result);
 
         result = dark_file_close(file);
@@ -52,7 +52,7 @@ int main()
 
         Dark_File* const file = dark_file_new(allocator);
 
-        Dark_Oserror result = dark_file_open(file, "test_file.txt", DARK_FILE_MODE_WRITE, DARK_FILE_FLAG_NONE);
+        Dark_Oserror result = dark_file_open(file, dark_cstring_to_cbuffer_view("test_file.txt"), DARK_FILE_MODE_WRITE, DARK_FILE_FLAG_NONE);
         DARK_TEST_TRUE(DARK_OSERROR_NONE == result);
 
         result = dark_file_write(file, cbuffer_view);
@@ -64,7 +64,7 @@ int main()
         char read[12];
         Dark_Cbuffer cbuffer_read = { 12, read };
 
-        result = dark_file_open(file, "test_file.txt", DARK_FILE_MODE_READ, DARK_FILE_FLAG_NONE);
+        result = dark_file_open(file, dark_cstring_to_cbuffer_view("test_file.txt"), DARK_FILE_MODE_READ, DARK_FILE_FLAG_NONE);
         DARK_TEST_TRUE(DARK_OSERROR_NONE == result);
 
         result = dark_file_read(file, cbuffer_read);
@@ -89,7 +89,7 @@ int main()
 
         Dark_File* const file = dark_file_new(allocator);
 
-        Dark_Oserror result = dark_file_open(file, "test_file_binary", DARK_FILE_MODE_WRITE, DARK_FILE_FLAG_BINARY);
+        Dark_Oserror result = dark_file_open(file, dark_cstring_to_cbuffer_view("test_file_binary"), DARK_FILE_MODE_WRITE, DARK_FILE_FLAG_BINARY);
         DARK_TEST_TRUE(DARK_OSERROR_NONE == result);
 
         result = dark_file_write_binary(file, array_view);
@@ -98,7 +98,7 @@ int main()
         result = dark_file_close(file);
         DARK_TEST_TRUE(DARK_OSERROR_NONE == result);
 
-        result = dark_file_open(file, "test_file_binary", DARK_FILE_MODE_READ, DARK_FILE_FLAG_BINARY);
+        result = dark_file_open(file, dark_cstring_to_cbuffer_view("test_file_binary"), DARK_FILE_MODE_READ, DARK_FILE_FLAG_BINARY);
         DARK_TEST_TRUE(DARK_OSERROR_NONE == result);
 
         char read[12];
@@ -129,7 +129,7 @@ int main()
 
         Dark_File* const file = dark_file_new(allocator);
 
-        Dark_Oserror result = dark_file_open(file, "test_file", DARK_FILE_MODE_WRITE, DARK_FILE_FLAG_NONE);
+        Dark_Oserror result = dark_file_open(file, dark_cstring_to_cbuffer_view("test_file"), DARK_FILE_MODE_WRITE, DARK_FILE_FLAG_NONE);
         DARK_TEST_TRUE(DARK_OSERROR_NONE == result);
 
         result = dark_file_write(file, cbuffer_view);
@@ -138,7 +138,7 @@ int main()
                 result = dark_file_close(file);
         DARK_TEST_TRUE(DARK_OSERROR_NONE == result);
 
-        result = dark_file_open(file, "test_file", DARK_FILE_MODE_READ, DARK_FILE_FLAG_NONE);
+        result = dark_file_open(file, dark_cstring_to_cbuffer_view("test_file"), DARK_FILE_MODE_READ, DARK_FILE_FLAG_NONE);
         DARK_TEST_TRUE(DARK_OSERROR_NONE == result);
 
         void* mapped = NULL;
@@ -160,7 +160,7 @@ int main()
     {
         Dark_File* const file = dark_file_new(allocator);
 
-        Dark_Oserror result = dark_file_open(file, "test_file", DARK_FILE_MODE_READ, DARK_FILE_FLAG_NONE);
+        Dark_Oserror result = dark_file_open(file, dark_cstring_to_cbuffer_view("test_file"), DARK_FILE_MODE_READ, DARK_FILE_FLAG_NONE);
         DARK_TEST_TRUE(DARK_OSERROR_NONE == result);
 
         DARK_TEST_TRUE(dark_file_open_is(file));
@@ -177,7 +177,7 @@ int main()
     {
         Dark_File* const file = dark_file_new(allocator);
 
-        Dark_Oserror result = dark_file_open(file, "test_file", DARK_FILE_MODE_READ, DARK_FILE_FLAG_NONE);
+        Dark_Oserror result = dark_file_open(file, dark_cstring_to_cbuffer_view("test_file"), DARK_FILE_MODE_READ, DARK_FILE_FLAG_NONE);
         DARK_TEST_TRUE(DARK_OSERROR_NONE == result);
 
         size_t size = 0;

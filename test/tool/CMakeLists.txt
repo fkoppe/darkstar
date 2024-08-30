@@ -1,5 +1,4 @@
 dark_test_add(array_test)
-dark_test_add(array_iterator_test)
 dark_test_add(array_view_test)
 dark_test_add(buffer_test)
 dark_test_add(buffer_view_test)

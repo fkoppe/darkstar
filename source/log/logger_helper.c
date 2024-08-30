@@ -127,16 +127,26 @@ void dark_logger_log_helper(const Dark_Library* const library_, const char* cons
 
     if(logger_->ostream.settings[i_].format.module_is && NULL != module_)
     {
-        dark_string_append_cstring(&logger_->log_string, module_);
-        dark_string_insert_back(&logger_->log_string, ':');
-        dark_string_insert_back(&logger_->log_string, ' ');
+        const Dark_Cbuffer_View view = dark_cstring_to_cbuffer_view(module_);
+
+        if(view.size > 0)
+        {
+            dark_string_append_cstring(&logger_->log_string, module_);
+            dark_string_insert_back(&logger_->log_string, ':');
+            dark_string_insert_back(&logger_->log_string, ' ');
+        }
     }
 
     if(logger_->ostream.settings[i_].format.unit_is && NULL != unit_)
     {
-        dark_string_append_cstring(&logger_->log_string, unit_);
-        dark_string_insert_back(&logger_->log_string, ':');
-        dark_string_insert_back(&logger_->log_string, ' ');
+        const Dark_Cbuffer_View view = dark_cstring_to_cbuffer_view(module_);
+
+        if(view.size > 0)
+        {
+            dark_string_append_cstring(&logger_->log_string, unit_);
+            dark_string_insert_back(&logger_->log_string, ':');
+            dark_string_insert_back(&logger_->log_string, ' ');
+        }
     }
 
     dark_string_append_cbuffer_view(&logger_->log_string, cbuffer_view_);
@@ -158,7 +168,7 @@ void dark_logger_stamp_recent_make(Dark_Logger* const logger_)
     }
 }
 
-Dark_Cbuffer_View dark_log_level_name_write(const Dark_Log_Level level_)
+Dark_Cbuffer_View dark_log_level_name(const Dark_Log_Level level_)
 {
     DARK_ASSERT(level_ < ___DARK_LOG_LEVEL_MAX, DARK_ERROR_ENUM);
 
@@ -192,7 +202,7 @@ Dark_Cbuffer_View dark_log_level_name_write(const Dark_Log_Level level_)
     }
 }
 
-Dark_Cbuffer_View dark_log_level_color_write(const Dark_Log_Level level_, const Dark_Cbuffer cbuffer_)
+Dark_Cbuffer_View dark_log_level_color(const Dark_Log_Level level_)
 {
     DARK_ASSERT(level_ < ___DARK_LOG_LEVEL_MAX, DARK_ERROR_ENUM);
 

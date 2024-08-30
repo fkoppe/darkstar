@@ -2,8 +2,6 @@ target_sources(
     darkstar
     PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/array.h
-    ${CMAKE_CURRENT_LIST_DIR}/array_iterator.h
-    ${CMAKE_CURRENT_LIST_DIR}/array_iterator_context.h
     ${CMAKE_CURRENT_LIST_DIR}/array_view.h
     ${CMAKE_CURRENT_LIST_DIR}/buffer.h
 	${CMAKE_CURRENT_LIST_DIR}/buffer_view.h

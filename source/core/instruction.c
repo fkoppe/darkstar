@@ -20,15 +20,19 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___ARRAY_ITERATOR_HELPER_H)
-#define ___DARK___ARRAY_ITERATOR_HELPER_H
+/*X X X X X X X X X X X X X X
+X                           X
+X   THIS IS A CORE FILE     X
+X                           X
+X X X X X X X X X X X X X X*/
 
-#include <dark/core/std.h>
+#include "core_module.h"
 
-bool dark_array_iterator_done_is(void* context);
-void* dark_array_iterator_next(void* context);
-void* dark_array_iterator_peek(void* context);
-void dark_array_iterator_reset(void* context);
-size_t dark_array_iterator_skip(void* context, size_t count);
+#include <dark/core/core.h>
 
-#endif // !defined(___DARK___ARRAY_ITERATOR_HELPER_H)
+#undef DARK_UNIT
+
+void dark_instruction(void)
+{
+    //nothing
+}

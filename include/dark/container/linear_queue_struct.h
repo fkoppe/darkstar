@@ -27,15 +27,12 @@
 #include <dark/container/vector_struct.h>
 #include <dark/core/std.h>
 #include <dark/memory/allocator.h>
-#include <dark/tool/array.h>
-#include <dark/tool/growth.h>
 #include <dark/tool/iterator_struct.h>
 
 struct Dark_Linear_Queue
 {
     Dark_Allocator* allocator;
     Dark_Vector vector;
-    Dark_Iterator iterator;
     size_t index;
 };
 

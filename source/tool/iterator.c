@@ -48,7 +48,13 @@ void dark_iterator_construct_context(Dark_Allocator* const allocator_, Dark_Iter
     }
 }
 
-void dark_iterator_construct(Dark_Allocator* allocator, Dark_Iterator* iterator);
+void dark_iterator_construct(Dark_Allocator* const allocator_, Dark_Iterator* const iterator_)
+{
+    DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != iterator_, DARK_ERROR_NULL);
+
+    dark_iterator_construct_context(allocator_, iterator_, 0);
+}
 
 void dark_iterator_destruct(Dark_Iterator* const iterator_)
 {
@@ -67,7 +73,8 @@ Dark_Iterator* dark_iterator_new_context(Dark_Allocator* const allocator_, const
     DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
     //context_byte_
 
-    Dark_Iterator* const iterator = dark_malloc(iterator->allocator, sizeof(*iterator) + context_byte_);
+    Dark_Iterator* const iterator = dark_malloc(allocator_, sizeof(*iterator));
+    DARK_ASSERT(NULL != iterator, DARK_ERROR_ALLOCATION);
 
     dark_iterator_construct_context(allocator_, iterator, context_byte_);
 
@@ -92,7 +99,7 @@ bool dark_iterator_done_is(Dark_Iterator* const iterator_)
 {
     DARK_ASSERT(NULL != iterator_, DARK_ERROR_NULL);
 
-    return iterator_->done(iterator_->context);
+    return iterator_->done_is(iterator_->context);
 }
 
 void* dark_iterator_next(Dark_Iterator* const iterator_)

@@ -28,7 +28,7 @@
 #undef DARK_UNIT
 #define DARK_UNIT "file_helper"
 
-void dark_file_modifier_get(const Dark_File_Mode mode_, const Dark_File_Flag flag_, const Dark_Cbuffer destination_)
+void dark_file_modifier_write(const Dark_File_Mode mode_, const Dark_File_Flag flag_, const Dark_Cbuffer destination_)
 {
     DARK_ASSERT(___DARK_FILE_MODE_MIN < mode_ && mode_ < ___DARK_FILE_MODE_MAX, DARK_ERROR_ENUM);
     DARK_ASSERT(___DARK_FILE_FLAG_MIN < flag_ && flag_ < ___DARK_FILE_FLAG_MAX, DARK_ERROR_ENUM);

@@ -30,13 +30,13 @@
 struct Dark_Iterator
 {
     Dark_Allocator* allocator;
-    bool (*done)(void* context);
+    size_t byte;
+    void* context;
+    bool (*done_is)(void* context);
     void* (*next)(void* context);
     void* (*peek)(void* context);
     void (*reset)(void* context);
     size_t (*skip)(void* context, size_t count);
-    size_t byte;
-    void* context;
 };
 
 #endif // !defined(___DARK___ITERATOR_STRUCT_H)

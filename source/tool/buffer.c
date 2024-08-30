@@ -30,8 +30,7 @@
 
 Dark_Buffer_View dark_buffer_to_view(const Dark_Buffer buffer_)
 {
-    DARK_ASSERT(NULL != buffer_.data, DARK_ERROR_NULL);
-    DARK_ASSERT(buffer_.byte > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(buffer_.data == NULL || buffer_.byte > 0, DARK_ERROR_VALUE);
 
     Dark_Buffer_View buffer_view;
     buffer_view.data = buffer_.data;
@@ -42,8 +41,7 @@ Dark_Buffer_View dark_buffer_to_view(const Dark_Buffer buffer_)
 
 void dark_buffer_foreach(const Dark_Buffer buffer_, void* const context_, const Dark_Foreach foreach_)
 {
-    DARK_ASSERT(NULL != buffer_.data, DARK_ERROR_NULL);
-    DARK_ASSERT(buffer_.byte > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(buffer_.data == NULL || buffer_.byte > 0, DARK_ERROR_VALUE);
     //context_
     DARK_ASSERT(NULL != foreach_, DARK_ERROR_NULL);
 

@@ -20,16 +20,23 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___TOOL_H)
-#define ___DARK___TOOL_H
+#if !defined(___DARK___ARRAY_VIEW_HELPER_H)
+#define ___DARK___ARRAY_VIEW_HELPER_H
 
-#include <dark/tool/array.h>
+#include <dark/core/std.h>
 #include <dark/tool/array_view.h>
-#include <dark/tool/buffer.h>
-#include <dark/tool/buffer_view.h>
-#include <dark/tool/compare.h>
-#include <dark/tool/foreach.h>
-#include <dark/tool/growth.h>
-#include <dark/tool/iterator.h>
 
-#endif // !defined(___DARK___TOOL_H)
+typedef struct Dark_Array_View_Iterator_Context Dark_Array_View_Iterator_Context;
+struct Dark_Array_View_Iterator_Context
+{
+    Dark_Array_View array_view;
+    size_t index;
+};
+
+bool dark_array_view_iterator_done_is(Dark_Array_View_Iterator_Context* context);
+void* dark_array_view_iterator_next(Dark_Array_View_Iterator_Context* context);
+void* dark_array_view_iterator_peek(Dark_Array_View_Iterator_Context* context);
+void dark_array_view_iterator_reset(Dark_Array_View_Iterator_Context* context);
+size_t dark_array_view_iterator_skip(Dark_Array_View_Iterator_Context* context, size_t count);
+
+#endif // !defined(___DARK___ARRAY_VIEW_HELPER_H)

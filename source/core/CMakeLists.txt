@@ -5,6 +5,7 @@ target_sources(
     ${CMAKE_CURRENT_LIST_DIR}/core_module.h
     ${CMAKE_CURRENT_LIST_DIR}/enviroment.c
     ${CMAKE_CURRENT_LIST_DIR}/error.c
+    ${CMAKE_CURRENT_LIST_DIR}/instruction.c
     ${CMAKE_CURRENT_LIST_DIR}/mem.c
     ${CMAKE_CURRENT_LIST_DIR}/message.c
     ${CMAKE_CURRENT_LIST_DIR}/so.c
