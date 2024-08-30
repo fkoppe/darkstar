@@ -28,6 +28,7 @@
 #include <dark/log/logger.h>
 #include <dark/memory/memory.h>
 
+#define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 
 #undef DARK_UNIT
