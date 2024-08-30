@@ -20,19 +20,13 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___MONITOR_STRUCT_H)
-#define ___DARK___MONITOR_STRUCT_H
+#if !defined(___DARK___UNIMPLEMENTED_H)
+#define ___DARK___UNIMPLEMENTED_H
 
-#include <dark/container/linear_map_struct.h>
 #include <dark/core/std.h>
-#include <dark/memory/allocator.h>
-#include <dark/random/entropy.h>
 
-struct Dark_Monitor_Handler
-{
-    Dark_Allocator* allocator;
-    Dark_Linear_Map map;
-    Dark_Entropy* entropy;
-};
+#define DARK_UNIMPLEMENTED DARK_EXIT_MESSAGE(-1, DARK_ERROR_SUPPORT, DARK_MESSAGE_UNIMPLEMENTED)
 
-#endif // !defined(___DARK___MONITOR_STRUCT_H)
+static const Dark_Message DARK_MESSAGE_UNIMPLEMENTED = { NULL, NULL, "unfortunatly a feature is required which is not yet available" };
+
+#endif // !defined(___DARK___UNIMPLEMENTED_H)

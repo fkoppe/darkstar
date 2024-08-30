@@ -12,6 +12,12 @@ target_link_libraries(
     glfw
 )
 
+target_include_directories(
+    darkstar
+    PRIVATE
+    ${GLFW_INCLUDE_DIRS}
+)
+
 set(DARK_VERSION_MAJOR 0 CACHE INTERNAL "")
 set(DARK_VERSION_MINOR 1 CACHE INTERNAL "")
 set(DARK_VERSION_PATCH 0 CACHE INTERNAL "")

@@ -31,34 +31,38 @@
 #include <GLFW/glfw3.h>
 
 #undef DARK_UNIT
-#define DARK_UNIT "monitor"
+#define DARK_UNIT "monitor_handler"
 
-void dark_monitor_handler_construct(Dark_Monitor_Handler* const monitor_handler_, const Dark_Entropy entropy_, Dark_Event_Handler* const event_handler_)
+void dark_monitor_handler_construct(Dark_Monitor_Handler* const monitor_handler_, Dark_Entropy* const entropy_, Dark_Event_Handler* const event_handler_)
 {
     DARK_ASSERT(NULL != monitor_handler_, DARK_ERROR_NULL);
-    //entropy_
+    DARK_ASSERT(NULL != entropy_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != event_handler_, DARK_ERROR_NULL);
 
-
+    DARK_UNIMPLEMENTED;
 }
 
 void dark_monitor_handler_destruct(Dark_Monitor_Handler* const monitor_handler_)
 {
     DARK_ASSERT(NULL != monitor_handler_, DARK_ERROR_NULL);
+
+    DARK_UNIMPLEMENTED;
 }
 
-void dark_monitor_handler_new(Dark_Monitor_Handler* const monitor_handler_, const Dark_Entropy entropy_, Dark_Event_Handler* const event_handler_)
+void dark_monitor_handler_new(Dark_Monitor_Handler* const monitor_handler_, Dark_Entropy* const entropy_, Dark_Event_Handler* const event_handler_)
 {
     DARK_ASSERT(NULL != monitor_handler_, DARK_ERROR_NULL);
-    //entropy_
+    DARK_ASSERT(NULL != entropy_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != event_handler_, DARK_ERROR_NULL);
 
-
+    DARK_UNIMPLEMENTED;
 }
 
 void dark_monitor_handler_delete(Dark_Monitor_Handler* const monitor_handler_)
 {
     DARK_ASSERT(NULL != monitor_handler_, DARK_ERROR_NULL);
+
+    DARK_UNIMPLEMENTED;
 }
 
 void dark_monitor_handler_update(Dark_Monitor_Handler* const monitor_handler_)
@@ -83,24 +87,26 @@ void dark_monitor_handler_update(Dark_Monitor_Handler* const monitor_handler_)
 
         if(!found)
         {
-            const Dark_Uuid4 uuid = dark_uuid4_generate(monitor_handler_->entropy_);
-            dark_linear_map_insert(&monitor_handler_->map, );
+            const Dark_Uuid4 uuid = dark_uuid4_generate(dark_entropy_get_64(monitor_handler_->entropy));
+            dark_linear_map_insert(&monitor_handler_->map, &uuid, &monitor[i]);
         }
     }
 }
 
 size_t dark_monitor_handler_count(Dark_Monitor_Handler* const monitor_handler_)
 {
+    DARK_ASSERT(NULL != monitor_handler_, DARK_ERROR_NULL);
 
+    return dark_linear_map_size(&monitor_handler_->map);
 }
 
 Dark_Uuid4 dark_monitor_handler_primary_id(Dark_Monitor_Handler* const monitor_handler_)
 {
     DARK_ASSERT(NULL != monitor_handler_, DARK_ERROR_NULL);
 
-
-    DARK_ABORT_CSTRING(DARK_ERROR_RUNTIME, "unimplemented");
     //no update
+
+    DARK_UNIMPLEMENTED;
 }
 
 void dark_monitor_handler_id_raw(Dark_Monitor_Handler* const monitor_handler_, const Dark_Uuid4 monitor_uuid_)
@@ -109,4 +115,6 @@ void dark_monitor_handler_id_raw(Dark_Monitor_Handler* const monitor_handler_, c
     DARK_ASSERT(0 != dark_uuid4_compare(&DARK_UUID4_ZERO, &monitor_uuid_), DARK_ERROR_VALUE);
 
     //no update
+
+    DARK_UNIMPLEMENTED;
 }

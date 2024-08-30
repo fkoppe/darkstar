@@ -26,12 +26,14 @@
 #include <dark/core/assert.h>
 #include <dark/core/enviroment.h>
 #include <dark/core/error.h>
+#include <dark/core/instruction.h>
 #include <dark/core/mem.h>
 #include <dark/core/message.h>
 #include <dark/core/so.h>
 #include <dark/core/sprint.h>
 #include <dark/core/std.h>
 #include <dark/core/terminate.h>
+#include <dark/core/unimplemented.h>
 #include <dark/core/util.h>
 #include <dark/core/version.h>
 

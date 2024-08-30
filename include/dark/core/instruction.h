@@ -20,19 +20,14 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___MONITOR_STRUCT_H)
-#define ___DARK___MONITOR_STRUCT_H
+#if !defined(___DARK___INSTRUCTION_H)
+#define ___DARK___INSTRUCTION_H
 
-#include <dark/container/linear_map_struct.h>
 #include <dark/core/std.h>
-#include <dark/memory/allocator.h>
-#include <dark/random/entropy.h>
 
-struct Dark_Monitor_Handler
-{
-    Dark_Allocator* allocator;
-    Dark_Linear_Map map;
-    Dark_Entropy* entropy;
-};
+#define DARK_INSTRUCTION \
+dark_instruction()
 
-#endif // !defined(___DARK___MONITOR_STRUCT_H)
+void dark_instruction(void);
+
+#endif // !defined(___DARK___INSTRUCTION_H)

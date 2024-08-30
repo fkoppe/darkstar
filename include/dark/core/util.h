@@ -44,12 +44,7 @@
 #define DARK_CAST(x, min, max) \
 (DARK_MIN(DARK_MAX((x), (min)), (max)))
 
-#define DARK_INSTRUCTION \
-dark_instruction()
-
 static const int DARK_EXIT_SUCCESS = 0;
 static const int DARK_EXIT_FAILURE = -1;
-
-void dark_instruction(void);
 
 #endif // !defined(___DARK___UTIL_H)
