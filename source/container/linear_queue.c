@@ -349,23 +349,27 @@ void dark_linear_queue_iterator(Dark_Linear_Queue* const linear_queue_, Dark_Ite
 
     DARK_ASSERT(iterator_->context == NULL || iterator_->byte > 0, DARK_ERROR_INTERNAL);
 
-    if(iterator_->byte < sizeof(Dark_Linear_Queue*))
+    if(iterator_->byte < sizeof(Dark_Linear_Queue_Iterator_Context*))
     {
         if(iterator_->byte > 0)
         {
-            iterator_->context = dark_realloc(iterator_->context, iterator_->context, iterator_->byte, sizeof(Dark_Linear_Queue*));
+            iterator_->context = dark_realloc(iterator_->context, iterator_->context, iterator_->byte, sizeof(Dark_Linear_Queue_Iterator_Context*));
             DARK_ASSERT(NULL != iterator_->context, DARK_ERROR_ALLOCATION);
         }
         else
         {
-            iterator_->context = dark_malloc(iterator_->allocator, sizeof(Dark_Linear_Queue*));
+            iterator_->context = dark_malloc(iterator_->allocator, sizeof(Dark_Linear_Queue_Iterator_Context*));
             DARK_ASSERT(NULL != iterator_->context, DARK_ERROR_ALLOCATION);
         }
 
-        iterator_->byte = sizeof(Dark_Linear_Queue*);
+        iterator_->byte = sizeof(Dark_Linear_Queue_Iterator_Context*);
     }
 
-    *(Dark_Linear_Queue**)iterator_->context = linear_queue_;
+    DARK_ASSERT(iterator_->context != NULL && iterator_->byte > 0, DARK_ERROR_INTERNAL);
+
+    Dark_Linear_Queue_Iterator_Context* const context = iterator_->context;
+    context->queue = linear_queue_;
+    context->index = 0;
 
     iterator_->done_is = (void*)dark_linear_queue_iterator_done_is;
     iterator_->peek = (void*)dark_linear_queue_iterator_peek;
@@ -376,7 +380,7 @@ void dark_linear_queue_iterator(Dark_Linear_Queue* const linear_queue_, Dark_Ite
 
 size_t dark_linear_queue_iterator_context_byte(void)
 {
-    return sizeof(Dark_Linear_Queue*);
+    return sizeof(Dark_Linear_Queue_Iterator_Context);
 }
 
 size_t dark_linear_queue_element_byte(Dark_Linear_Queue* const linear_queue_)
