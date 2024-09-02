@@ -35,13 +35,18 @@
 #undef DARK_UNIT
 #define DARK_UNIT "monitor_handler"
 
-void dark_monitor_handler_construct(Dark_Monitor_Handler* const monitor_handler_, Dark_Entropy* const entropy_, Dark_Event_Handler* const event_handler_)
+void dark_monitor_handler_construct(Dark_Allocator* const allocator_, Dark_Monitor_Handler* const monitor_handler_, Dark_Entropy* const entropy_, Dark_Event_Handler* const event_handler_)
 {
+    DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != monitor_handler_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != entropy_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != event_handler_, DARK_ERROR_NULL);
 
-    DARK_UNIMPLEMENTED;
+    monitor_handler_->allocator = allocator_;
+
+    dark_linear_map_construct_capacity(allocator_, &monitor_handler_->map, (Dark_Compare)dark_uuid4_compare, sizeof(Dark_Uuid4), sizeof(void*), 1);
+
+    monitor_handler_->entropy = entropy_;
 }
 
 void dark_monitor_handler_destruct(Dark_Monitor_Handler* const monitor_handler_)
@@ -51,8 +56,9 @@ void dark_monitor_handler_destruct(Dark_Monitor_Handler* const monitor_handler_)
     DARK_UNIMPLEMENTED;
 }
 
-void dark_monitor_handler_new(Dark_Monitor_Handler* const monitor_handler_, Dark_Entropy* const entropy_, Dark_Event_Handler* const event_handler_)
+void dark_monitor_handler_new(Dark_Allocator* const allocator_, Dark_Monitor_Handler* const monitor_handler_, Dark_Entropy* const entropy_, Dark_Event_Handler* const event_handler_)
 {
+    DARK_ASSERT(NULL != allocator_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != monitor_handler_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != entropy_, DARK_ERROR_NULL);
     DARK_ASSERT(NULL != event_handler_, DARK_ERROR_NULL);

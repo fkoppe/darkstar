@@ -25,16 +25,17 @@
 
 #include <dark/core/std.h>
 #include <dark/event/event_handler.h>
+#include <dark/memory/allocator.h>
 #include <dark/random/entropy.h>
 #include <dark/random/uuid4.h>
 #include <dark/tool/array.h>
 
 typedef struct Dark_Monitor_Handler Dark_Monitor_Handler;
 
-void dark_monitor_handler_construct(Dark_Monitor_Handler* monitor_handler, Dark_Entropy* entropy, Dark_Event_Handler* event_handler);
+void dark_monitor_handler_construct(Dark_Allocator* allocator, Dark_Monitor_Handler* monitor_handler, Dark_Entropy* entropy, Dark_Event_Handler* event_handler);
 void dark_monitor_handler_destruct(Dark_Monitor_Handler* monitor_handler);
 
-void dark_monitor_handler_new(Dark_Monitor_Handler* monitor_handler, Dark_Entropy* entropy, Dark_Event_Handler* event_handler);
+void dark_monitor_handler_new(Dark_Allocator* allocator, Dark_Monitor_Handler* monitor_handler, Dark_Entropy* entropy, Dark_Event_Handler* event_handler);
 void dark_monitor_handler_delete(Dark_Monitor_Handler* monitor_handler);
 
 void dark_monitor_handler_update(Dark_Monitor_Handler* monitor_handler);
