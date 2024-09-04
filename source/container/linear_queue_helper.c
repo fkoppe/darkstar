@@ -20,8 +20,8 @@
 *                                                                                   *
 ************************************************************************************/
 
-#include "linear_queue_helper.h"
 #include "container_module.h"
+#include "linear_queue_helper.h"
 
 #include <dark/container/container.h>
 #include <dark/core/core.h>

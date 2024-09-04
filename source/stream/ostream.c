@@ -31,7 +31,6 @@
 #include <dark/stream/stream.h>
 
 #include <time.h>
-#include <stdio.h>
 
 #undef DARK_UNIT
 #define DARK_UNIT "ostream"

@@ -35,20 +35,20 @@
 
 #define DARK_LOGGER_STREAM_COUNT_MAX 3
 
-#define DARK_LOG_CSTRING(logger, level, cstring) dark_logger_log_cstring(DARK_LIBRARY, DARK_MODULE, DARK_UNIT, (logger), (level), (cstring))
-#define DARK_LOG_CBUFFER_VIEW(logger, level, cbuffer_view) dark_logger_log_cbuffer_view(DARK_LIBRARY, DARK_MODULE, DARK_UNIT, (logger), (level), (cbuffer_view))
-#define DARK_LOG_F(logger, level, format, ...) dark_logger_log_f(DARK_LIBRARY, DARK_MODULE, DARK_UNIT, (logger), (level), (format), (__VA_ARGS__))
-#define DARK_LOG_V(logger, level, format, args) dark_logger_log_v(DARK_LIBRARY, DARK_MODULE, DARK_UNIT, (logger), (level), (format), (args))
+#define DARK_LOG_CSTRING(logger, level, cstring) if((NULL != logger)) dark_logger_log_cstring(DARK_LIBRARY, DARK_MODULE, DARK_UNIT, (logger), (level), (cstring))
+#define DARK_LOG_CBUFFER_VIEW(logger, level, cbuffer_view) if((NULL != logger)) dark_logger_log_cbuffer_view(DARK_LIBRARY, DARK_MODULE, DARK_UNIT, (logger), (level), (cbuffer_view))
+#define DARK_LOG_F(logger, level, format, ...) if((NULL != logger)) dark_logger_log_f(DARK_LIBRARY, DARK_MODULE, DARK_UNIT, (logger), (level), (format), (__VA_ARGS__))
+#define DARK_LOG_V(logger, level, format, args) if((NULL != logger)) dark_logger_log_v(DARK_LIBRARY, DARK_MODULE, DARK_UNIT, (logger), (level), (format), (args))
 
-#define DARK_PLOG_CSTRING(logger, level, cstring)  dark_logger_plog_cstring(DARK_LIBRARY, DARK_MODULE, DARK_UNIT, __FILE__, __LINE__, (logger), (level), (cstring))
-#define DARK_PLOG_CBUFFER_VIEW(logger, level, cbuffer_view) dark_logger_plog_cbuffer_view(DARK_LIBRARY, DARK_MODULE, DARK_UNIT, __FILE__, __LINE__, (logger), (level), (cbuffer_view))
-#define DARK_PLOG_F(logger, level, format, ...) dark_logger_plog_f(DARK_LIBRARY, DARK_MODULE, DARK_UNIT, __FILE__, __LINE__, (logger), (level), (format), (__VA_ARGS__))
-#define DARK_PLOG_V(logger, level, format, args) dark_logger_plog_v(DARK_LIBRARY, DARK_MODULE, DARK_UNIT, __FILE__, __LINE__, (logger), (level), (format), (args))
+#define DARK_PLOG_CSTRING(logger, level, cstring) if((NULL != logger)) dark_logger_plog_cstring(DARK_LIBRARY, DARK_MODULE, DARK_UNIT, __FILE__, __LINE__, (logger), (level), (cstring))
+#define DARK_PLOG_CBUFFER_VIEW(logger, level, cbuffer_view) if((NULL != logger)) dark_logger_plog_cbuffer_view(DARK_LIBRARY, DARK_MODULE, DARK_UNIT, __FILE__, __LINE__, (logger), (level), (cbuffer_view))
+#define DARK_PLOG_F(logger, level, format, ...) if((NULL != logger)) dark_logger_plog_f(DARK_LIBRARY, DARK_MODULE, DARK_UNIT, __FILE__, __LINE__, (logger), (level), (format), (__VA_ARGS__))
+#define DARK_PLOG_V(logger, level, format, args) if((NULL != logger)) dark_logger_plog_v(DARK_LIBRARY, DARK_MODULE, DARK_UNIT, __FILE__, __LINE__, (logger), (level), (format), (args))
 
-#define DARK_DLOG_CSTRING(logger, level, cstring)  dark_logger_dlog_cstring((logger), (level), (cstring))
-#define DARK_DLOG_CBUFFER_VIEW(logger, level, cbuffer_view) dark_logger_dlog_cbuffer_view((logger), (level), (cbuffer_view))
-#define DARK_DLOG_F(logger, level, format, ...) dark_logger_dlog_f((logger), (level), (format), (__VA_ARGS__))
-#define DARK_DLOG_V(logger, level, format, args) dark_logger_dlog_v((logger), (level), (format), (args))
+#define DARK_DLOG_CSTRING(logger, level, cstring) if((NULL != logger)) dark_logger_dlog_cstring((logger), (level), (cstring))
+#define DARK_DLOG_CBUFFER_VIEW(logger, level, cbuffer_view) if((NULL != logger)) dark_logger_dlog_cbuffer_view((logger), (level), (cbuffer_view))
+#define DARK_DLOG_F(logger, level, format, ...) if((NULL != logger)) dark_logger_dlog_f((logger), (level), (format), (__VA_ARGS__))
+#define DARK_DLOG_V(logger, level, format, args) if((NULL != logger)) dark_logger_dlog_v((logger), (level), (format), (args))
 
 typedef struct Dark_Logger Dark_Logger;
 

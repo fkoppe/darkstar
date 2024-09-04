@@ -6,7 +6,7 @@
 void foreach_helper(void* element, int32_t* context)
 {
     uint64_t* const key = element;
-    int32_t* const value = (char*)element + sizeof(uint64_t);
+    int32_t* const value = (int32_t*)((char*)element + sizeof(uint64_t));
 
     *context += *value;
 }

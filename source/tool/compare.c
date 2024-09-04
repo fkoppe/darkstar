@@ -274,3 +274,22 @@ int8_t dark_compare_d(const double* const element_, const double* const other_)
         return 0;
     }
 }
+
+int8_t dark_compare_p(const void** const element_, const void** const other_)
+{
+    DARK_ASSERT(NULL != element_, DARK_ERROR_NULL);
+    DARK_ASSERT(NULL != other_, DARK_ERROR_NULL);
+
+    if(*element_ < *other_)
+    {
+        return -1;
+    }
+    else if(*element_ > *other_)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
