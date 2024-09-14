@@ -20,11 +20,13 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___WINDOW_H)
-#define ___DARK___WINDOW_H
+#if !defined(___DARK___SURFACE_H)
+#define ___DARK___SURFACE_H
 
 #include <dark/core/std.h>
 
+#include <dark/surface/event_data.h>
+#include <dark/surface/event_handler.h>
+#include <dark/surface/window.h>
 
-
-#endif // !defined(___DARK___WINDOW_H)
+#endif // !defined(___DARK___SURFACE_H)

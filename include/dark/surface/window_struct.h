@@ -20,24 +20,36 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___EVENT_HANDLER_H)
-#define ___DARK___EVENT_HANDLER_H
+#if !defined(___DARK___WINDOW_STRUCT_H)
+#define ___DARK___WINDOW_STRUCT_H
 
 #include <dark/core/std.h>
-#include <dark/event/event_data.h>
-#include <dark/memory/allocator.h>
 #include <dark/log/logger.h>
+#include <dark/memory/allocator.h>
+#include <dark/surface/event_handler.h>
 
-typedef struct Dark_Event_Handler Dark_Event_Handler;
+#define GLFW_INCLUDE_NONE
+#include <GLFW/glfw3.h>
 
-void dark_event_handler_construct(Dark_Allocator* allocator, Dark_Logger* logger);
-void dark_event_handler_destruct(void);
+typedef struct Dark_Window_Data Dark_Window_Data;
+struct Dark_Window_Data
+{
+    size_t id;
+    Dark_Event_Handler* event_handler;
+};
 
-Dark_Event_Handler* dark_event_handler_new(Dark_Allocator* allocator, Dark_Logger* logger);
-void dark_event_handler_delete(Dark_Event_Handler* event_handler);
+struct Dark_Window
+{
+    Dark_Allocator* allocator;
+    Dark_Window_Settings settings;
+    bool open_is;
+    bool visible_is;
+    bool fullscreen_is;
+    GLFWwindow* instance;
+    size_t monitor_width;
+    size_t monitor_height;
+    Dark_Window_Data data;
+    Dark_Logger* logger;
+};
 
-void dark_event_handler_insert(Dark_Event_Handler* event_handler, Dark_Event event);
-
-void dark_event_handler_clear(Dark_Event_Handler* event_handler);
-
-#endif // !defined(___DARK___EVENT_HANDLER_H)
+#endif // !defined(___DARK___WINDOW_STRUCT_H)

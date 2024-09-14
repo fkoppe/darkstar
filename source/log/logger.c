@@ -371,6 +371,98 @@ void dark_logger_dlog_v(Dark_Logger* const logger_, const Dark_Log_Level level_,
     dark_string_clear(&logger_->va_string);
 }
 
+void dark_logger_idlog_cstring(const Dark_Library* const library_, const char* const module_, const char* const unit_, const size_t id_, Dark_Logger* const logger_, const Dark_Log_Level level_, const char* const cstring_)
+{
+    //library_
+    //module_
+    //unit_
+    //id_
+    DARK_ASSERT(NULL != logger_, DARK_ERROR_NULL);
+    DARK_ASSERT(___DARK_LOG_LEVEL_MIN < level_ && level_ < ___DARK_LOG_LEVEL_MAX, DARK_ERROR_ENUM);
+    DARK_ASSERT(NULL != cstring_, DARK_ERROR_NULL);
+
+    DARK_CSTRING_ASSERT_CONTENT(cstring_);
+
+    dark_logger_idlog_cbuffer_view(library_, module_, unit_, id_, logger_, level_, dark_cstring_to_cbuffer_view(cstring_));
+}
+
+void dark_logger_idlog_cbuffer_view(const Dark_Library* const library_, const char* const module_, const char* const unit_, const size_t id_, Dark_Logger* const logger_, const Dark_Log_Level level_, const Dark_Cbuffer_View cbuffer_view_)
+{
+    //library_
+    //module_
+    //unit_
+    //id_
+    DARK_ASSERT(NULL != logger_, DARK_ERROR_NULL);
+    DARK_ASSERT(___DARK_LOG_LEVEL_MIN < level_ && level_ < ___DARK_LOG_LEVEL_MAX, DARK_ERROR_ENUM);
+    DARK_ASSERT(cbuffer_view_.size > 0, DARK_ERROR_ZERO);
+    DARK_ASSERT(NULL != cbuffer_view_.data, DARK_ERROR_NULL);
+
+    if(!logger_->settings.log_is)
+    {
+        return;
+    }
+
+    for(size_t i = 0; i < logger_->ostream.count; i++)
+    {
+        if(level_ >= logger_->ostream.settings[i].level_min)
+        {
+            dark_logger_log_helper(library_, module_, unit_, logger_, level_, cbuffer_view_, i);
+            dark_string_append_f(&logger_->log_string, " (id#%zu)\n", id_);
+
+            if(NULL != logger_->ostream.mutex[i])
+            {
+                dark_mutex_lock(logger_->ostream.mutex[i]);
+            }
+
+            dark_ostream_write(logger_->ostream.instance[i], dark_cbuffer_view_to_buffer_view(dark_string_cbuffer_view(&logger_->log_string)));
+
+            if(NULL != logger_->ostream.mutex[i])
+            {
+                dark_mutex_unlock(logger_->ostream.mutex[i]);
+            }
+
+            dark_string_clear(&logger_->log_string);
+        }
+    }
+}
+
+void dark_logger_idlog_f(const Dark_Library* const library_, const char* const module_, const char* const unit_, const size_t id_, Dark_Logger* const logger_, const Dark_Log_Level level_, const char* const format_, ...)
+{
+    //library_
+    //module_
+    //unit_
+    //id_
+    DARK_ASSERT(NULL != logger_, DARK_ERROR_NULL);
+    DARK_ASSERT(___DARK_LOG_LEVEL_MIN < level_ && level_ < ___DARK_LOG_LEVEL_MAX, DARK_ERROR_ENUM);
+    DARK_ASSERT(NULL != format_, DARK_ERROR_NULL);
+
+    DARK_CSTRING_ASSERT_CONTENT(format_);
+
+    va_list args;
+    va_start(args, format_);
+    dark_logger_idlog_v(library_, module_, unit_, id_, logger_, level_, format_, args);
+    va_end(args);
+}
+
+void dark_logger_idlog_v(const Dark_Library* const library_, const char* const module_, const char* const unit_, const size_t id_, Dark_Logger* const logger_, const Dark_Log_Level level_, const char* const format_, va_list arguments_)
+{
+    //library_
+    //module_
+    //unit_
+    //id_
+    DARK_ASSERT(NULL != logger_, DARK_ERROR_NULL);
+    DARK_ASSERT(___DARK_LOG_LEVEL_MIN < level_ && level_ < ___DARK_LOG_LEVEL_MAX, DARK_ERROR_ENUM);
+    DARK_ASSERT(NULL != format_, DARK_ERROR_NULL);
+
+    DARK_CSTRING_ASSERT_CONTENT(format_);
+
+    dark_string_append_f(&logger_->va_string, format_, arguments_);
+
+    dark_logger_idlog_cbuffer_view(library_, module_, unit_, id_, logger_, level_, dark_string_cbuffer_view(&logger_->va_string));
+
+    dark_string_clear(&logger_->va_string);
+}
+
 size_t dark_logger_struct_byte(void)
 {
     return sizeof(Dark_Logger);

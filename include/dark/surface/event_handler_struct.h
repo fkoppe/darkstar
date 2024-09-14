@@ -20,12 +20,19 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___DISPLAY_H)
-#define ___DARK___DISPLAY_H
+#if !defined(___DARK___EVENT_HANDLER_STRUCT_H)
+#define ___DARK___EVENT_HANDLER_STRUCT_H
 
+#include <dark/container/linear_queue_struct.h>
 #include <dark/core/std.h>
+#include <dark/memory/allocator.h>
+#include <dark/surface/event_handler.h>
 
-#include <dark/display/monitor_handler.h>
-#include <dark/display/window.h>
+struct Dark_Event_Handler
+{
+    Dark_Allocator* allocator;
+    Dark_Linear_Queue queue;
+    Dark_Logger* logger;
+};
 
-#endif // !defined(___DARK___DISPLAY_H)
+#endif // !defined(___DARK___EVENT_HANDLER_STRUCT_H)

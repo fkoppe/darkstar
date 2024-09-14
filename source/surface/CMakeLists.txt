@@ -1,0 +1,11 @@
+target_sources(
+    darkstar
+    PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/event_handler.c
+    ${CMAKE_CURRENT_LIST_DIR}/surface_module.h
+    ${CMAKE_CURRENT_LIST_DIR}/window_callback.c
+    ${CMAKE_CURRENT_LIST_DIR}/window_callback.h
+    ${CMAKE_CURRENT_LIST_DIR}/window_helper.c
+    ${CMAKE_CURRENT_LIST_DIR}/window_helper.h
+    ${CMAKE_CURRENT_LIST_DIR}/window.c
+)

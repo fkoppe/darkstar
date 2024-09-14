@@ -20,12 +20,29 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___EVENT_H)
-#define ___DARK___EVENT_H
+#if !defined(___DARK___WINDOW_CALLBACK_H)
+#define ___DARK___WINDOW_CALLBACK_H
 
 #include <dark/core/std.h>
 
-#include <dark/event/event_data.h>
-#include <dark/event/event_handler.h>
+#define GLFW_INCLUDE_NONE
+#include <GLFW/glfw3.h>
 
-#endif // !defined(___DARK___EVENT_H)
+void dark_window_callback_window_move(GLFWwindow* window, int x, int y);
+void dark_window_callback_window_resize(GLFWwindow* window, int width, int height);
+void dark_window_callback_window_close(GLFWwindow* window);
+void dark_window_callback_window_refresh(GLFWwindow* window);
+void dark_window_callback_window_focus(GLFWwindow* window, int focused);
+void dark_window_callback_window_iconify(GLFWwindow* window, int iconified);
+void dark_window_callback_window_maximize(GLFWwindow* window, int maximized);
+void dark_window_callback_window_content_scale(GLFWwindow* window, float xscale, float yscale);
+void dark_window_callback_framebuffer_size(GLFWwindow* window, int width, int height);
+void dark_window_callback_mouse_button(GLFWwindow* window, int button, int action, int mods);
+void dark_window_callback_cursor_move(GLFWwindow* window, double x, double y);
+void dark_window_callback_cursor_enter(GLFWwindow* window, int entered);
+void dark_window_callback_scroll(GLFWwindow* window, double x, double y);
+void dark_window_callback_key(GLFWwindow* window, int key, int scancode, int action, int mods);
+void dark_window_callback_char(GLFWwindow* window, unsigned int codepoint);
+void dark_window_callback_file_drop(GLFWwindow* window, int count, const char** paths);
+
+#endif // !defined(___DARK___WINDOW_CALLBACK_H)

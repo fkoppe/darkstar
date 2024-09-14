@@ -25,8 +25,8 @@
 
 #include <dark/char/cbuffer_view.h>
 #include <dark/core/std.h>
-#include <dark/event/event_handler.h>
-#include <dark/random/uuid4.h>
+#include <dark/log/logger.h>
+#include <dark/surface/event_handler.h>
 
 typedef struct Dark_Window Dark_Window;
 
@@ -36,29 +36,33 @@ struct Dark_Window_Settings
     Dark_Cbuffer_View title;
     size_t width;
     size_t height;
-    bool resizeable_is;
 };
 
-void dark_window_construct(Dark_Allocator* allocator, Dark_Window_Settings settings, Dark_Event_Handler* event_handler);
-void dark_window_destruct(void);
+static const Dark_Message DARK_MESSAGE_WINDOW_OPENED_NOT = { NULL, "window not opened", NULL };
+static const Dark_Message DARK_MESSAGE_WINDOW_OPENED_ALREADY = { NULL, "window already opened", NULL };
 
-Dark_Window* dark_window_new(Dark_Allocator* allocator, Dark_Window_Settings settings, Dark_Event_Handler* event_handler);
+void dark_window_construct(Dark_Allocator* allocator, Dark_Window* window, size_t id, Dark_Window_Settings settings, Dark_Event_Handler* event_handler, Dark_Logger* logger);
+void dark_window_destruct(Dark_Window* window);
+
+Dark_Window* dark_window_new(Dark_Allocator* allocator, size_t id, Dark_Window_Settings settings, Dark_Event_Handler* event_handler, Dark_Logger* logger);
 void dark_window_delete(Dark_Window* window);
 
 Dark_Window_Settings dark_window_settings_get(Dark_Window* window);
 void dark_window_settings_set(Dark_Window* window, Dark_Window_Settings settings);
 
+void dark_window_update(Dark_Window* window);
+
 void dark_window_open_windowed(Dark_Window* window, bool visible_is);
-void dark_window_open_fullscreen(Dark_Window* window, Dark_Uuid4 monitor_uuid);
+void dark_window_open_fullscreen(Dark_Window* window);
 bool dark_window_fullscreen_is(Dark_Window* window);
 
 void dark_window_windowed(Dark_Window* window, bool visible_is);
-void dark_window_fullscreen(Dark_Window* window, Dark_Uuid4 monitor_uuid);
+void dark_window_fullscreen(Dark_Window* window);
 
 void dark_window_close(Dark_Window* window);
 bool dark_window_open_is(Dark_Window* window);
 
-void dark_window_resize(Dark_Window* window);
+void dark_window_resize(Dark_Window* window, size_t width, size_t height);
 void dark_window_extend(Dark_Window* window, size_t* width, size_t* height);
 void dark_window_framebuffer_extend(Dark_Window* window, size_t* width, size_t* height);
 

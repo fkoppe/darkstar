@@ -50,6 +50,11 @@
 #define DARK_DLOG_F(logger, level, format, ...) if((NULL != logger)) dark_logger_dlog_f((logger), (level), (format), (__VA_ARGS__))
 #define DARK_DLOG_V(logger, level, format, args) if((NULL != logger)) dark_logger_dlog_v((logger), (level), (format), (args))
 
+#define DARK_IDLOG_CSTRING(logger, id, level, cstring) if((NULL != logger)) dark_logger_idlog_cstring(DARK_LIBRARY, DARK_MODULE, DARK_UNIT, (id), (logger), (level), (cstring))
+#define DARK_IDLOG_CBUFFER_VIEW(logger, id, level, cbuffer_view) if((NULL != dark_logger_idlog_cbuffer_view(DARK_LIBRARY, DARK_MODULE, DARK_UNIT, (id), (logger), (level), (cbuffer_view))
+#define DARK_IDLOG_F(logger, id, level, format, ...) if((NULL != logger)) dark_logger_idlog_f(DARK_LIBRARY, DARK_MODULE, DARK_UNIT, (id), (logger), (level), (format), (__VA_ARGS__))
+#define DARK_IDLOG_V(logger, id, level, format, args) if((NULL != logger)) dark_logger_idlog_v(DARK_LIBRARY, DARK_MODULE, DARK_UNIT, (id), (logger), (level), (format), (args))
+
 typedef struct Dark_Logger Dark_Logger;
 
 typedef enum Dark_Logger_Thread Dark_Logger_Thread;
@@ -110,6 +115,11 @@ void dark_logger_dlog_cstring(Dark_Logger* logger, Dark_Log_Level level, const c
 void dark_logger_dlog_cbuffer_view(Dark_Logger* logger, Dark_Log_Level level, Dark_Cbuffer_View cbuffer_view);
 void dark_logger_dlog_f(Dark_Logger* logger, Dark_Log_Level level, const char* format, ...);
 void dark_logger_dlog_v(Dark_Logger* logger, Dark_Log_Level level, const char* format, va_list arguments);
+
+void dark_logger_idlog_cstring(const Dark_Library* library, const char* module, const char* unit, size_t id, Dark_Logger* logger, Dark_Log_Level level, const char* cstring);
+void dark_logger_idlog_cbuffer_view(const Dark_Library* library, const char* module, const char* unit, size_t id, Dark_Logger* logger, Dark_Log_Level level, Dark_Cbuffer_View cbuffer_view);
+void dark_logger_idlog_f(const Dark_Library* library, const char* module, const char* unit, size_t id, Dark_Logger* logger, Dark_Log_Level level, const char* format, ...);
+void dark_logger_idlog_v(const Dark_Library* library, const char* module, const char* unit, size_t id, Dark_Logger* logger, Dark_Log_Level level, const char* format, va_list arguments);
 
 void dark_logger_stamp_recent_make(Dark_Logger* logger);
 

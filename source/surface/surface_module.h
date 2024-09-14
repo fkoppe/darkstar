@@ -20,19 +20,17 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___MONITOR_STRUCT_H)
-#define ___DARK___MONITOR_STRUCT_H
+#if !defined(___DARK___SURFACE_MODULE_H)
+#define ___DARK___SURFACE_MODULE_H
 
-#include <dark/container/linear_map_struct.h>
 #include <dark/core/std.h>
-#include <dark/memory/allocator.h>
-#include <dark/random/entropy.h>
 
-struct Dark_Monitor_Handler
-{
-    Dark_Allocator* allocator;
-    Dark_Linear_Map map;
-    Dark_Entropy* entropy;
-};
+#undef DARK_MODULE
+#define DARK_MODULE "surface"
 
-#endif // !defined(___DARK___MONITOR_STRUCT_H)
+#define GLFW_INCLUDE_NONE
+#include <GLFW/glfw3.h>
+
+static const Dark_Error DARK_ERROR_GLFW = { &DARK_ERROR_API, "glfw", NULL};
+
+#endif // !defined(___DARK___SURFACE_MODULE_H)

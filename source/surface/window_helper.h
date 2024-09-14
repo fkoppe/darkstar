@@ -20,11 +20,13 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___EVENT_HANDLER_STRUCT_H)
-#define ___DARK___EVENT_HANDLER_STRUCT_H
+#if !defined(___DARK___WINDOW_HELPER_H)
+#define ___DARK___WINDOW_HELPER_H
 
 #include <dark/core/std.h>
+#include <dark/surface/event_data.h>
 
+Dark_Key_Modifier dark_window_key_modifier(int modifier);
+Dark_Key dark_window_key(int key);
 
-
-#endif // !defined(___DARK___EVENT_HANDLER_STRUCT_H)
+#endif // !defined(___DARK___WINDOW_HELPER_H)

@@ -193,7 +193,7 @@ enum Dark_Event_Type
     DARK_EVENT_TYPE_WINDOW_CLOSED,
     DARK_EVENT_TYPE_WINDOW_REFRESHED,
     DARK_EVENT_TYPE_WINDOW_FOCUSED,
-    DARK_EVENT_TYPE_WINDOW_DEFOCUSED,
+    DARK_EVENT_TYPE_WINDOW_UNFOCUSED,
     DARK_EVENT_TYPE_WINDOW_ICONIFIED,
     DARK_EVENT_TYPE_WINDOW_UNICONIFIED,
     DARK_EVENT_TYPE_WINDOW_MAXIMIZED,
@@ -211,10 +211,10 @@ enum Dark_Event_Type
     DARK_EVENT_TYPE_KEY_RELEASED,
     DARK_EVENT_TYPE_CODEPOINT_INPUT,
     DARK_EVENT_TYPE_FILE_DROPPED,
-    DARK_EVENT_TYPE_MONITOR_CONNECTED,
-    DARK_EVENT_TYPE_MONITOR_DISCONNECTED,
-    DARK_EVENT_TYPE_JOYSTICK_CONNECTED,
-    DARK_EVENT_TYPE_JOYSTICK_DISCONNECTED,
+    //DARK_EVENT_TYPE_MONITOR_CONNECTED = -1, //TODO
+    //DARK_EVENT_TYPE_MONITOR_DISCONNECTED = -1,
+    //DARK_EVENT_TYPE_JOYSTICK_CONNECTED = -1,
+    //DARK_EVENT_TYPE_JOYSTICK_DISCONNECTED = -1,
     DARK_EVENT_TYPE_UNKNOWN,
     ___DARK_EVENT_TYPE_MAX,
 };
@@ -223,43 +223,50 @@ typedef struct Dark_Event Dark_Event;
 struct Dark_Event
 {
     Dark_Event_Type type;
-    union {
-        size_t monitor_id;
-        size_t joystick_id;
-        size_t window_id;
-    };
-    union {
-        struct {
+    union
+    {
+        size_t window;
+    } id;
+    union
+    {
+        struct
+        {
             size_t x;
             size_t y;
         } position;
-        struct {
+        struct
+        {
             size_t width;
             size_t height;
         } size;
-        struct {
+        struct
+        {
             double x;
             double y;
         } scroll;
-        struct {
+        struct
+        {
             Dark_Key key;
             Dark_Key_Modifier modifier;
             int32_t scancode;
         } keyboard;
-        struct {
+        struct
+        {
             Dark_Mouse_Button button;
             Dark_Key_Modifier modifier;
         } mouse;
         uint32_t codepoint;
-        struct {
+        struct
+        {
             const char** paths;
             size_t count;
         } file;
-        struct {
+        struct
+        {
             float x;
             float y;
         } scale;
-    };
+    } data;
 };
 
 #endif // !defined(___DARK___EVENT_DATA_H)
