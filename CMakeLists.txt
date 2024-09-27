@@ -6,21 +6,6 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 
 add_library(darkstar)
 
-target_link_libraries(
-    darkstar
-    PRIVATE
-    glfw
-)
-
-target_include_directories(
-    darkstar
-    PRIVATE
-    ${GLFW_INCLUDE_DIRS}
-)
-
-set(GLFW_BUILD_DOCS OFF CACHE BOOL "" )
-set(GLFW_INSTALL OFF CACHE BOOL "" )
-
 set(DARK_VERSION_MAJOR 0 CACHE INTERNAL "")
 set(DARK_VERSION_MINOR 1 CACHE INTERNAL "")
 set(DARK_VERSION_PATCH 0 CACHE INTERNAL "")
