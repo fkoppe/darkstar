@@ -34,7 +34,6 @@
 #include <dark/platform/platform.h>
 #include <dark/random/random.h>
 #include <dark/stream/stream.h>
-#include <dark/surface/surface.h>
 #include <dark/time/time.h>
 #include <dark/tool/tool.h>
 
