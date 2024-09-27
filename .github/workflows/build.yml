@@ -42,7 +42,7 @@ jobs:
 
     # Cache CMake build directory
     - name: Cache build directory
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ${{ github.workspace }}/build
         key: build-${{ matrix.os }}-${{ matrix.c_compiler }}-${{ matrix.build_type }}
