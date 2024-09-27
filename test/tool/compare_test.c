@@ -178,14 +178,16 @@ int main()
     DARK_TEST("compare_p")
     {
         const double a = 12.1;
-        const double b = -12.1;
-        const void* ap = (void*)&a;
+        const double b = 7.3;
+
+        const void* ap1 = (void*)&a;
         const void* ap2 = (void*)&a;
         const void* bp = (void*)&b;
 
-        DARK_TEST_EQ_U(dark_compare_p(&ap, &ap2), 0);
+        DARK_TEST_EQ_U(dark_compare_p(&ap1, &ap2), 0);
 
-        DARK_TEST_NE_U(dark_compare_p(&ap, &bp), 1);
+        DARK_TEST_NE_U(dark_compare_p(&ap1, &bp), 0);
+        DARK_TEST_NE_U(dark_compare_p(&ap2, &bp), 0);
     }
     //--------------------------
 
