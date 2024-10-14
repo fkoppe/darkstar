@@ -52,6 +52,7 @@
 static const Dark_Message DARK_MESSAGE_EXIT = { NULL, NULL, "exit has been called" };
 static const Dark_Message DARK_MESSAGE_ABORT = { NULL, NULL, "abort has been called" };
 
+DARK_NORETURN void dark_abort(void);
 DARK_NORETURN void dark_terminate(Dark_Location location, const Dark_Library* library, const char* module, const char* unit, int code, Dark_Error error, Dark_Message message, bool abort_is);
 
 #endif // !defined(___DARK___TERMINATE_H)
