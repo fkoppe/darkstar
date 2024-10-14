@@ -35,12 +35,17 @@ X X X X X X X X X X X X X X*/
 
 #undef DARK_UNIT
 
+DARK_NORETURN void dark_exit(const int8_t code_)
+{
+    exit(code_);
+}
+
 DARK_NORETURN void dark_abort(void)
 {
     abort();
 }
 
-DARK_NORETURN void dark_terminate(const Dark_Location location_, const Dark_Library* const library_, const char* const module_, const char* const unit_, const int code_, const Dark_Error error_, const Dark_Message message_, const bool abort_is_)
+DARK_NORETURN void dark_terminate(const Dark_Location location_, const Dark_Library* const library_, const char* const module_, const char* const unit_, const int8_t code_, const Dark_Error error_, const Dark_Message message_, const bool abort_is_)
 {
     assert(NULL != location_.file);
     assert(NULL != location_.func);
@@ -84,10 +89,10 @@ DARK_NORETURN void dark_terminate(const Dark_Location location_, const Dark_Libr
 
     if (abort_is_)
     {
-        abort();
+        dark_abort();
     }
     else
     {
-        exit(code_);
+        dark_exit(code_);
     }
 }
