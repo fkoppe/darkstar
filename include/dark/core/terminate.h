@@ -43,10 +43,10 @@
 #define DARK_EXIT_ERROR(code, error) exit(code)
 #define DARK_EXIT_CSTRING(code, error, cstring) exit(code)
 #define DARK_EXIT_MESSAGE(code, error, message) exit(code)
-#define DARK_ABORT abort()
-#define DARK_ABORT_ERROR(error) abort()
-#define DARK_ABORT_CSTRING(error, cstring) abort()
-#define DARK_ABORT_MESSAGE(error, message) abort()
+#define DARK_ABORT dark_abort()
+#define DARK_ABORT_ERROR(error) dark_abort()
+#define DARK_ABORT_CSTRING(error, cstring) dark_abort()
+#define DARK_ABORT_MESSAGE(error, message) dark_abort()
 #endif // defined(___DARK_DEBINFO)
 
 static const Dark_Message DARK_MESSAGE_EXIT = { NULL, NULL, "exit has been called" };
