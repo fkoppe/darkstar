@@ -1,4 +1,4 @@
-name: Build
+^name: Build
 
 on:
   push:
@@ -44,7 +44,7 @@ jobs:
       id: strings
       shell: bash
       run: |
-        echo "::set-output name=build-output-dir::${{ github.workspace }}/build/${{ matrix.build_type }}"
+        echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
 
     - name: Cache build directory
       uses: actions/cache@v4
