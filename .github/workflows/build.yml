@@ -40,7 +40,6 @@ jobs:
       with:
         submodules: true
 
-    # Cache CMake build directory
     - name: Cache build directory
       uses: actions/cache@v4
       with:
