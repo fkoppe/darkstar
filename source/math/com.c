@@ -20,19 +20,66 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___MATH_H)
-#define ___DARK___MATH_H
+#include "math_module.h"
 
-#include <dark/math/abs.h>
-#include <dark/math/add.h>
-#include <dark/math/cast.h>
-#include <dark/math/com.h>
-#include <dark/math/constant.h>
-#include <dark/math/max.h>
-#include <dark/math/min.h>
-#include <dark/math/pow.h>
-#include <dark/math/range.h>
-#include <dark/math/sat_add.h>
-#include <dark/math/sat_cast.h>
+#include <dark/math/math.h>
 
-#endif // !defined(___DARK___MATH_H)
+#undef DARK_UNIT
+#define DARK_UNIT "com"
+
+uintmax_t dark_gcd_u(const uintmax_t a_, const uintmax_t b_)
+{
+    //a_
+    //b_
+
+    if(a_ == b_)
+    {
+        return a_;
+    }
+
+    uintmax_t a = dark_max_umax(a_, b_);
+    uintmax_t b = dark_min_umax(a_, b_);
+
+    while(0 != b)
+    {
+        a %= b;
+
+        if(0 == a)
+        {
+            return b;
+        }
+
+        b %= a;
+    }
+
+    return a;
+}
+
+uintmax_t dark_gcd_i(const intmax_t a_, const intmax_t b_)
+{
+    //a_
+    //b_
+
+    return dark_gcd_u(dark_abs_imax(a_), dark_abs_imax(b_));
+}
+
+uintmax_t dark_lcm_u(const uintmax_t a_, const uintmax_t b_)
+{
+    //a_
+    //b_
+
+    if(0 == a_ || 0 == b_)
+    {
+        return 0;
+    }
+
+    return (a_ * b_) / dark_gcd_u(a_, b_);
+}
+
+uintmax_t dark_lcm_i(const intmax_t a_, const intmax_t b_)
+{
+    //a_
+    //b_
+
+    return dark_lcm_u(dark_abs_imax(a_), dark_abs_imax(b_));
+}

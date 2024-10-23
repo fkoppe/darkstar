@@ -20,19 +20,15 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___MATH_H)
-#define ___DARK___MATH_H
+#if !defined(___DARK___COM_H)
+#define ___DARK___COM_H
 
-#include <dark/math/abs.h>
-#include <dark/math/add.h>
-#include <dark/math/cast.h>
-#include <dark/math/com.h>
-#include <dark/math/constant.h>
-#include <dark/math/max.h>
-#include <dark/math/min.h>
-#include <dark/math/pow.h>
-#include <dark/math/range.h>
-#include <dark/math/sat_add.h>
-#include <dark/math/sat_cast.h>
+#include <dark/core/std.h>
 
-#endif // !defined(___DARK___MATH_H)
+uintmax_t dark_gcd_u(uintmax_t a, uintmax_t b);
+uintmax_t dark_gcd_i(intmax_t a, intmax_t b);
+
+uintmax_t dark_lcm_u(uintmax_t a, uintmax_t b);
+uintmax_t dark_lcm_i(intmax_t a, intmax_t b);
+
+#endif // !defined(___DARK___COM_H)

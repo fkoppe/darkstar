@@ -1,6 +1,7 @@
 dark_test_add(abs_test)
 dark_test_add(add_test)
 dark_test_add(cast_test)
+dark_test_add(com_test)
 dark_test_add(max_test)
 dark_test_add(min_test)
 dark_test_add(pow_test)

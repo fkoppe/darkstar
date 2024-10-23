@@ -4,6 +4,7 @@ target_sources(
     ${CMAKE_CURRENT_LIST_DIR}/abs.h
     ${CMAKE_CURRENT_LIST_DIR}/add.h
     ${CMAKE_CURRENT_LIST_DIR}/cast.h
+    ${CMAKE_CURRENT_LIST_DIR}/com.h
     ${CMAKE_CURRENT_LIST_DIR}/constant.h
     ${CMAKE_CURRENT_LIST_DIR}/math.h
     ${CMAKE_CURRENT_LIST_DIR}/max.h
