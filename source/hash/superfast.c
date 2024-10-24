@@ -40,8 +40,9 @@ uint32_t dark_hash_superfast_32(const Dark_Buffer_View buffer_view_)
 
     const uint16_t* data = buffer_view_.data;
 
+    const uint32_t rem = buffer_view_.byte & 3;
+
     uint32_t hash = buffer_view_.byte;
-    uint32_t rem = buffer_view_.byte & 3;
     uint32_t index = 0;
     uint32_t temp = 0;
 
