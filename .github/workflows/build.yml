@@ -46,15 +46,6 @@ jobs:
       run: |
         echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
 
-    - name: Cache build directory
-      uses: actions/cache@v4
-      with:
-        path: ${{ github.workspace }}/build
-        key: build-${{ matrix.os }}-${{ matrix.c_compiler }}-${{ matrix.build_type }}
-        restore-keys: |
-          build-${{ matrix.os }}-${{ matrix.c_compiler }}-
-          build-${{ matrix.os }}-
-
     - name: Configure CMake
       run: >
         cmake -B ${{ steps.strings.outputs.build-output-dir }}
@@ -66,9 +57,6 @@ jobs:
 
     - name: Build
       run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }}
-
-    - name: Check build directory contents
-      run: ls -R ${{ steps.strings.outputs.build-output-dir }}
 
     - name: Test
       working-directory: ${{ steps.strings.outputs.build-output-dir }}
