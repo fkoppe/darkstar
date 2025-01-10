@@ -27,6 +27,6 @@
 
 #define DARK_UNIMPLEMENTED DARK_EXIT_MESSAGE(-1, DARK_ERROR_SUPPORT, DARK_MESSAGE_UNIMPLEMENTED)
 
-static const Dark_Message DARK_MESSAGE_UNIMPLEMENTED = { NULL, NULL, "unfortunatly a feature is required which is not yet available" };
+static const Dark_Message DARK_MESSAGE_UNIMPLEMENTED = { NULL, NULL, "unfortunatly a feature is required that is not yet available" };
 
 #endif // !defined(___DARK___UNIMPLEMENTED_H)
