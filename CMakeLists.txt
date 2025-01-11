@@ -6,8 +6,6 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 
 add_library(darkstar)
 
-target_link_libraries(darkstar PRIVATE m)
-
 set(DARK_VERSION_MAJOR 0 CACHE INTERNAL "")
 set(DARK_VERSION_MINOR 1 CACHE INTERNAL "")
 set(DARK_VERSION_PATCH 0 CACHE INTERNAL "")
@@ -91,6 +89,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
             PUBLIC
             "___DARK_LINUX"
         )
+	target_link_libraries(darkstar PRIVATE m)
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
         message(STATUS "Configurating for Darwin")
         target_compile_definitions(
