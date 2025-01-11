@@ -29,4 +29,21 @@ static const uint16_t DARK_KILO = 1000;
 static const uint32_t DARK_MEGA = 1000000;
 static const uint32_t DARK_GIGA = 1000000000;
 
+static const float DARK_PI = 3.14159265358979323846f;
+static const float DARK_PI_DIV_2 = 1.57079632679489661923f;
+static const float DARK_PI_DIV_4 = 0.78539816339744830962f;
+static const float DARK_1_DIV_PI = 0.31830988618379067154f;
+static const float DARK_2_DIV_PI = 0.63661977236758134308f;
+
+static const float DARK_EULER = 2.7182818284590452354f;
+static const float DARK_PHI = 1.618033988749895f;
+
+static const float DARK_SQRT_2 = 1.41421356237309504880f;
+static const float DARK_SQRT_1_DIV_2 = 0.70710678118654752440f;
+static const float DARK_2_DIV_SQRT_PI = 1.12837916709551257390f;
+static const float DARK_LN2 = 0.69314718055994530942f;
+static const float DARK_LN10 = 2.30258509299404568402f;
+static const float DARK_LOG2E = 1.4426950408889634074f;
+static const float DARK_LOG10E = 0.43429448190325182765f;
+
 #endif // !defined(___DARK___CONSTANT_H)

@@ -28,6 +28,8 @@
 #include <dark/math/cast.h>
 #include <dark/math/com.h>
 #include <dark/math/constant.h>
+#include <dark/math/dmath.h>
+#include <dark/math/fmath.h>
 #include <dark/math/max.h>
 #include <dark/math/min.h>
 #include <dark/math/pow.h>

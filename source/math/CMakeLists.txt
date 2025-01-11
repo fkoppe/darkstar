@@ -5,6 +5,8 @@ target_sources(
     ${CMAKE_CURRENT_LIST_DIR}/add.c
     ${CMAKE_CURRENT_LIST_DIR}/cast.c
     ${CMAKE_CURRENT_LIST_DIR}/com.c
+    ${CMAKE_CURRENT_LIST_DIR}/dmath.c
+    ${CMAKE_CURRENT_LIST_DIR}/fmath.c
     ${CMAKE_CURRENT_LIST_DIR}/math_module.h
     ${CMAKE_CURRENT_LIST_DIR}/max.c
     ${CMAKE_CURRENT_LIST_DIR}/min.c
