@@ -30,7 +30,7 @@ uint16_t dark_min_u16(uint16_t a, uint16_t b);
 uint32_t dark_min_u32(uint32_t a, uint32_t b);
 uint64_t dark_min_u64(uint64_t a, uint64_t b);
 uintmax_t dark_min_umax(uintmax_t a, uintmax_t b);
-uintmax_t dark_min_zu(uintmax_t a, uintmax_t b);
+size_t dark_min_zu(size_t a, size_t b);
 
 int8_t dark_min_i8(int8_t a, int8_t b);
 int16_t dark_min_i16(int16_t a, int16_t b);

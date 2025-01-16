@@ -26,6 +26,6 @@
 #include <dark/core/std.h>
 
 uintmax_t dark_upow_u(uintmax_t base, uintmax_t exponent);
-uintmax_t dark_upow_i(intmax_t base, uintmax_t exponent);
+intmax_t dark_upow_i(intmax_t base, uintmax_t exponent);
 
 #endif // !defined(___DARK___POW_H)

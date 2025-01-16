@@ -28,7 +28,7 @@
 #undef DARK_UNIT
 #define DARK_UNIT "pow"
 
-uintmax_t dark_upow_u(uintmax_t base_, uintmax_t exponent_)
+uintmax_t dark_upow_u(const uintmax_t base_, const uintmax_t exponent_)
 {
     //base_
     //exponent_
@@ -45,17 +45,25 @@ uintmax_t dark_upow_u(uintmax_t base_, uintmax_t exponent_)
         return 0;
     }
 
-    uintmax_t val = base_;
-    for(size_t i = 1; i < exponent_; i++)
+    uintmax_t exponent = exponent_;
+    uintmax_t base = base_;
+    uintmax_t val = 1;
+
+    while (exponent > 0)
     {
-        DARK_ASSERT(val <= (UINTMAX_MAX - (val * base_)), DARK_ERROR_OVERFLOW);
-        val *= base_;
+        if (exponent % 2 == 1)
+        {
+            val = dark_umult_umax(base, val);
+        }
+
+        base = dark_umult_umax(base, base);
+        exponent /= 2;
     }
 
     return val;
 }
 
-uintmax_t dark_upow_i(intmax_t base_, uintmax_t exponent_)
+intmax_t dark_upow_i(const intmax_t base_, const uintmax_t exponent_)
 {
     //base_
     //exponent_
@@ -72,20 +80,19 @@ uintmax_t dark_upow_i(intmax_t base_, uintmax_t exponent_)
         return 0;
     }
 
-    intmax_t val = base_;
-    for(size_t i = 1; i < exponent_; i++)
+    if(base_ > 0)
     {
-        if (val > 0)
+        return dark_upow_u(base_, exponent_);
+    }
+    else
+    {
+        if(-exponent_ % 2 == 0)
         {
-            DARK_ASSERT(val <= (INTMAX_MAX - (val * dark_abs_imax(base_))), DARK_ERROR_OVERFLOW);
+            return dark_ucast_imax(dark_upow_u(-base_, exponent_));
         }
         else
         {
-            DARK_ASSERT(val >= (INTMAX_MAX + (val * dark_abs_imax(base_))), DARK_ERROR_UNDERFLOW);
+            return -dark_ucast_imax(dark_upow_u(-base_, exponent_));
         }
-
-        val *= base_;
     }
-
-    return val;
 }

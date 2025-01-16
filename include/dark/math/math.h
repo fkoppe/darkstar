@@ -30,11 +30,14 @@
 #include <dark/math/constant.h>
 #include <dark/math/dmath.h>
 #include <dark/math/fmath.h>
+#include <dark/math/log.h>
 #include <dark/math/max.h>
 #include <dark/math/min.h>
+#include <dark/math/mult.h>
 #include <dark/math/pow.h>
 #include <dark/math/range.h>
 #include <dark/math/sat_add.h>
 #include <dark/math/sat_cast.h>
+#include <dark/math/sat_mult.h>
 
 #endif // !defined(___DARK___MATH_H)

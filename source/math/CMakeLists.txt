@@ -7,11 +7,14 @@ target_sources(
     ${CMAKE_CURRENT_LIST_DIR}/com.c
     ${CMAKE_CURRENT_LIST_DIR}/dmath.c
     ${CMAKE_CURRENT_LIST_DIR}/fmath.c
+    ${CMAKE_CURRENT_LIST_DIR}/log.c
     ${CMAKE_CURRENT_LIST_DIR}/math_module.h
     ${CMAKE_CURRENT_LIST_DIR}/max.c
     ${CMAKE_CURRENT_LIST_DIR}/min.c
+    ${CMAKE_CURRENT_LIST_DIR}/mult.c
     ${CMAKE_CURRENT_LIST_DIR}/pow.c
     ${CMAKE_CURRENT_LIST_DIR}/range.c
     ${CMAKE_CURRENT_LIST_DIR}/sat_add.c
     ${CMAKE_CURRENT_LIST_DIR}/sat_cast.c
+    ${CMAKE_CURRENT_LIST_DIR}/sat_mult.c
 )

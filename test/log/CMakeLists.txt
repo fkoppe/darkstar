@@ -1,1 +1,1 @@
-dark_test_add(log_test)
+dark_test_add(logger_test)
