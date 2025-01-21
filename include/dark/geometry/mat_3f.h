@@ -20,46 +20,53 @@
  *                                                                                   *
  ************************************************************************************/
 
-#if !defined(___DARK___DMATH_H)
-#define ___DARK___DMATH_H
+#if !defined(___DARK___MAT_3F_H)
+#define ___DARK___MAT_3F_H
 
 #include <dark/core/std.h>
+#include <dark/geometry/vec_3f.h>
 
-#include <float.h>
+typedef struct Dark_Mat_3f Dark_Mat_3f;
+struct Dark_Mat_3f
+{
+    float m[9];
+};
 
-#define DARK_INFINITY_D = (1.0 / 0.0)
-#define DARK_NEGATVIE_INFINITY_D = (-1.0 / 0.0)
-#define DARK_NAN_D (0.0 / 0.0)
-#define DARK_EPSILON_D 1e-9f
+Dark_Mat_3f dark_mat_3f_create(Dark_Vec_3f col1, Dark_Vec_3f col2, Dark_Vec_3f col3);
+Dark_Mat_3f dark_mat_3f_identity(void);
+Dark_Mat_3f dark_mat_3f_zero(void);
 
-double dark_sin_d(double value);
-double dark_cos_d(double value);
-double dark_tan_d(double value);
+Dark_Vec_3f dark_mat_3f_column(Dark_Mat_3f mat3, uint8_t col);
+Dark_Vec_3f dark_mat_3f_row(Dark_Mat_3f mat3, uint8_t row);
+float dark_mat_3f_get(Dark_Mat_3f mat3, uint8_t col, uint8_t row);
+Dark_Mat_3f dark_mat_3f_set(Dark_Mat_3f mat3, uint8_t col, uint8_t row, float value);
 
-double dark_asin_d(double value);
-double dark_acos_d(double value);
-double dark_atan_d(double value);
+Dark_Mat_3f dark_mat_3f_add(Dark_Mat_3f a, Dark_Mat_3f b);
+Dark_Mat_3f dark_mat_3f_sub(Dark_Mat_3f a, Dark_Mat_3f b);
+Dark_Mat_3f dark_mat_3f_mult(Dark_Mat_3f mat3, float scalar);
+Dark_Vec_3f dark_mat_3f_mult_vec(Dark_Mat_3f mat3, Dark_Vec_3f vec);
+Dark_Mat_3f dark_mat_3f_mult_mat(Dark_Mat_3f a, Dark_Mat_3f b);
+Dark_Mat_3f dark_mat_3f_div(Dark_Mat_3f mat3, float scalar);
 
-double dark_exp_d(double value);
-double dark_exp2_d(double value);
-double dark_log_d(double value);
-double dark_log10_d(double value);
+float dark_mat_3f_determinant(Dark_Mat_3f mat3);
+bool dark_mat_3f_invert_is(Dark_Mat_3f mat3);
+Dark_Mat_3f dark_mat_3f_invert(Dark_Mat_3f mat3);
 
-double dark_pow_d(double base, double exponent);
-double dark_sqrt_d(double value);
+Dark_Mat_3f dark_mat_3f_transpose(Dark_Mat_3f mat3);
 
-double dark_abs_d(double value);
-double dark_mod_d(double value, double mod);
-double dark_ceil_d(double value);
-double dark_dloor_d(double value);
-double dark_round_d(double value);
+Dark_Mat_3f dark_mat_3f_orthonormalize(Dark_Mat_3f mat3);
+Dark_Mat_3f dark_mat_3f_adjoint(Dark_Mat_3f mat3);
 
-bool dark_nan_is_d(double value);
-bool dark_ifinite_is_d(double value);
+Dark_Mat_3f dark_mat_3f_rotate_x(float angle);
+Dark_Mat_3f dark_mat_3f_rotate_y(float angle);
+Dark_Mat_3f dark_mat_3f_rotate_z(float angle);
 
-bool dark_range_is_d(double d, double lower, double upper);
-double dark_range_clamp_d(double d, double lower, double upper);
+Dark_Mat_3f dark_mat_3f_scale(float scale_x, float scale_y);
+Dark_Mat_3f dark_mat_3f_translate(float translation_x, float translation_y);
 
-int8_t dark_compare_d(const double* element, const double* other);
+Dark_Mat_3f dark_mat_3f_from_axis_angle(Dark_Vec_3f axis, float angle);
+Dark_Mat_3f dark_mat_3f_rotation_between(Dark_Vec_3f from, Dark_Vec_3f to);
 
-#endif // !defined(___DARK___DMATH_H)
+int8_t dark_mat_3f_compare(const Dark_Mat_3f* element, const Dark_Mat_3f* other);
+
+#endif // !defined(___DARK___MAT_3F_H)

@@ -30,6 +30,7 @@
 #define DARK_INFINITY_F = (1.0f / 0.0f)
 #define DARK_NEGATVIE_INFINITY_F = (-1.0f / 0.0f)
 #define DARK_NAN_F (0.0f / 0.0f)
+#define DARK_EPSILON_F 1e-6f
 
 float dark_sin_f(float value);
 float dark_cos_f(float value);
@@ -55,5 +56,10 @@ float dark_round_f(float value);
 
 bool dark_nan_is_f(float value);
 bool dark_ifinite_is_f(float value);
+
+bool dark_range_is_f(float f, float lower, float upper);
+float dark_range_clamp_f(float f, float lower, float upper);
+
+int8_t dark_compare_f(const float* element, const float* other);
 
 #endif // !defined(___DARK___FLOAT_H)

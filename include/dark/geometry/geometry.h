@@ -20,46 +20,11 @@
  *                                                                                   *
  ************************************************************************************/
 
-#if !defined(___DARK___DMATH_H)
-#define ___DARK___DMATH_H
+#if !defined(___DARK___GEOMETRY_H)
+#define ___DARK___GEOMETRY_H
 
-#include <dark/core/std.h>
+#include <dark/geometry/mat_3f.h>
+#include <dark/geometry/vec_2f.h>
+#include <dark/geometry/vec_3f.h>
 
-#include <float.h>
-
-#define DARK_INFINITY_D = (1.0 / 0.0)
-#define DARK_NEGATVIE_INFINITY_D = (-1.0 / 0.0)
-#define DARK_NAN_D (0.0 / 0.0)
-#define DARK_EPSILON_D 1e-9f
-
-double dark_sin_d(double value);
-double dark_cos_d(double value);
-double dark_tan_d(double value);
-
-double dark_asin_d(double value);
-double dark_acos_d(double value);
-double dark_atan_d(double value);
-
-double dark_exp_d(double value);
-double dark_exp2_d(double value);
-double dark_log_d(double value);
-double dark_log10_d(double value);
-
-double dark_pow_d(double base, double exponent);
-double dark_sqrt_d(double value);
-
-double dark_abs_d(double value);
-double dark_mod_d(double value, double mod);
-double dark_ceil_d(double value);
-double dark_dloor_d(double value);
-double dark_round_d(double value);
-
-bool dark_nan_is_d(double value);
-bool dark_ifinite_is_d(double value);
-
-bool dark_range_is_d(double d, double lower, double upper);
-double dark_range_clamp_d(double d, double lower, double upper);
-
-int8_t dark_compare_d(const double* element, const double* other);
-
-#endif // !defined(___DARK___DMATH_H)
+#endif // !defined(___DARK___GEOMETRY_H)

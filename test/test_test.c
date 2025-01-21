@@ -28,6 +28,16 @@ int main()
         DARK_TEST_GT_I(2, 1);
         DARK_TEST_GE_I(2, 2);
         DARK_TEST_GE_I(2, 1);
+
+        DARK_TEST_EQ_F(-1.0f, 1.0f - 2.0f);
+        DARK_TEST_NE_F(2.0f, 1.0f);
+        DARK_TEST_LT_F(1.0f, 2.0f);
+        DARK_TEST_LE_F(1.0f, 1.0f);
+        DARK_TEST_LE_F(1.0f, 2.0f);
+        DARK_TEST_GT_F(2.0f, 1.0f);
+        DARK_TEST_GE_F(2.0f, 2.0f);
+        DARK_TEST_GE_F(2.0f, 1.0f);
+        DARK_TEST_EQ_F(2.0f, 2.0f + FLT_EPSILON);
     }
     //--------------------------
 

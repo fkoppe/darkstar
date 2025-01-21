@@ -20,46 +20,42 @@
  *                                                                                   *
  ************************************************************************************/
 
-#if !defined(___DARK___DMATH_H)
-#define ___DARK___DMATH_H
+#if !defined(___DARK___VEC_3F_H)
+#define ___DARK___VEC_3F_H
 
 #include <dark/core/std.h>
 
-#include <float.h>
+typedef struct Dark_Vec_3f Dark_Vec_3f;
+struct Dark_Vec_3f
+{
+    float x;
+    float y;
+    float z;
+};
 
-#define DARK_INFINITY_D = (1.0 / 0.0)
-#define DARK_NEGATVIE_INFINITY_D = (-1.0 / 0.0)
-#define DARK_NAN_D (0.0 / 0.0)
-#define DARK_EPSILON_D 1e-9f
+Dark_Vec_3f dark_vec_3f_create(float x, float y, float z);
+Dark_Vec_3f dark_vec_3f_zero(void);
 
-double dark_sin_d(double value);
-double dark_cos_d(double value);
-double dark_tan_d(double value);
+float dark_vec_3f_x(Dark_Vec_3f vec3);
+float dark_vec_3f_y(Dark_Vec_3f vec3);
+float dark_vec_3f_z(Dark_Vec_3f vec3);
 
-double dark_asin_d(double value);
-double dark_acos_d(double value);
-double dark_atan_d(double value);
+Dark_Vec_3f dark_vec_3f_add(Dark_Vec_3f a, Dark_Vec_3f b);
+Dark_Vec_3f dark_vec_3f_sub(Dark_Vec_3f minuend, Dark_Vec_3f subtrahend);
+Dark_Vec_3f dark_vec_3f_mult(Dark_Vec_3f vec3, float scalar);
+Dark_Vec_3f dark_vec_3f_div(Dark_Vec_3f vec3, float scalar);
 
-double dark_exp_d(double value);
-double dark_exp2_d(double value);
-double dark_log_d(double value);
-double dark_log10_d(double value);
+Dark_Vec_3f dark_vec_3f_normalize(Dark_Vec_3f vec3);
+Dark_Vec_3f dark_vec_3f_perpendicular(Dark_Vec_3f vec3);
 
-double dark_pow_d(double base, double exponent);
-double dark_sqrt_d(double value);
+Dark_Vec_3f dark_vec_3f_cross(Dark_Vec_3f a, Dark_Vec_3f b);
 
-double dark_abs_d(double value);
-double dark_mod_d(double value, double mod);
-double dark_ceil_d(double value);
-double dark_dloor_d(double value);
-double dark_round_d(double value);
+float dark_vec_3f_dot_f(Dark_Vec_3f a, Dark_Vec_3f b);
+float dark_vec_3f_angle_f(Dark_Vec_3f a, Dark_Vec_3f b);
+float dark_vec_3f_lenght_f(Dark_Vec_3f vec3);
 
-bool dark_nan_is_d(double value);
-bool dark_ifinite_is_d(double value);
+double dark_vec_3f_dot_d(Dark_Vec_3f a, Dark_Vec_3f b);
+double dark_vec_3f_angle_d(Dark_Vec_3f a, Dark_Vec_3f b);
+double dark_vec_3f_lenght_d(Dark_Vec_3f vec3);
 
-bool dark_range_is_d(double d, double lower, double upper);
-double dark_range_clamp_d(double d, double lower, double upper);
-
-int8_t dark_compare_d(const double* element, const double* other);
-
-#endif // !defined(___DARK___DMATH_H)
+#endif // !defined(___DARK___VEC_3F_H)

@@ -40,9 +40,6 @@ int8_t dark_compare_i32(const int32_t* element, const int32_t* other);
 int8_t dark_compare_i64(const int64_t* element, const int64_t* other);
 int8_t dark_compare_imax(const intmax_t* element, const intmax_t* other);
 
-int8_t dark_compare_f(const float* element, const float* other);
-int8_t dark_compare_d(const double* element, const double* other);
-
 int8_t dark_compare_p(const void** element, const void** other);
 
 #endif // !defined(___DARK___COMPARE_H)

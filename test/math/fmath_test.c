@@ -34,8 +34,24 @@ int main()
 
         DARK_TEST_TRUE(isnan(NAN));
         DARK_TEST_TRUE(isfinite(3.14f));
+
+        DARK_TEST_FALSE(dark_range_is_f(111.0f, 5.0f, 9.9f));
+        DARK_TEST_EQ_F(dark_range_clamp_f(111.0f, 5.0f, 9.9f), 9.9f);
     }
     //------------------------
+
+    //----------TEST----------
+    DARK_TEST("compare_f")
+    {
+        const float a = 12.1;
+        const float b = -12.1;
+
+        DARK_TEST_EQ_U(dark_compare_f(&b, &b), 0);
+
+        DARK_TEST_EQ_U(dark_compare_f(&a, &b), 1);
+        DARK_TEST_EQ_U(dark_compare_f(&b, &a), -1);
+    }
+    //--------------------------
 
     dark_test_shutdown();
 

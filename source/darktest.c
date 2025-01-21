@@ -22,9 +22,12 @@
 
 #include <dark/darktest.h>
 
+#include <dark/math/dmath.h>
+#include <dark/math/fmath.h>
 #include <dark/memory/memory_debug.h>
 
 #include <assert.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -267,12 +270,14 @@ void dark_test_f(const char* const func_, const intmax_t line_, const char* cons
 
     bool result = false;
 
-    if(eq_ && (a_ == b_))
+    const float diff = fabs(a_ - b_);
+
+    if(eq_ && (diff < DARK_EPSILON_F))
     {
         result = true;
     }
 
-    if(lt_ && (a_ < b_))
+    if(lt_ && !result && a_ < b_)
     {
         result = true;
     }
@@ -317,12 +322,14 @@ void dark_test_d(const char* const func_, const intmax_t line_, const char* cons
 
     bool result = false;
 
-    if(eq_ && (a_ == b_))
+    const float diff = fabs(a_ - b_);
+
+    if(eq_ && (diff < DARK_EPSILON_D))
     {
         result = true;
     }
 
-    if(lt_ && (a_ < b_))
+    if(lt_ && !result && a_ < b_)
     {
         result = true;
     }

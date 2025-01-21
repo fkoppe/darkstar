@@ -17,6 +17,7 @@ add_subdirectory(memory)
 
 #-----
 
+add_subdirectory(geometry)
 add_subdirectory(tool)
 
 #-----

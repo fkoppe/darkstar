@@ -149,32 +149,6 @@ int main()
     //--------------------------
 
     //----------TEST----------
-    DARK_TEST("compare_f")
-    {
-        const float a = 12.1;
-        const float b = -12.1;
-
-        DARK_TEST_EQ_U(dark_compare_f(&b, &b), 0);
-
-        DARK_TEST_EQ_U(dark_compare_f(&a, &b), 1);
-        DARK_TEST_EQ_U(dark_compare_f(&b, &a), -1);
-    }
-    //--------------------------
-
-    //----------TEST----------
-    DARK_TEST("compare_d")
-    {
-        const double a = 12.1;
-        const double b = -12.1;
-
-        DARK_TEST_EQ_U(dark_compare_d(&b, &b), 0);
-
-        DARK_TEST_EQ_U(dark_compare_d(&a, &b), 1);
-        DARK_TEST_EQ_U(dark_compare_d(&b, &a), -1);
-    }
-    //--------------------------
-
-    //----------TEST----------
     DARK_TEST("compare_p")
     {
         const double a = 12.1;
