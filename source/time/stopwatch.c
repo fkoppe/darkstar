@@ -142,7 +142,7 @@ void dark_stopwatch_start(Dark_Stopwatch* const stopwatch_)
 {
     DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
 
-    if (!stopwatch_->running_is)
+    if(!stopwatch_->running_is)
     {
         stopwatch_->stamp = dark_clock_ns();
         stopwatch_->running_is = true;
@@ -153,7 +153,7 @@ void dark_stopwatch_stop(Dark_Stopwatch* const stopwatch_)
 {
     DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
 
-    if (stopwatch_->running_is)
+    if(stopwatch_->running_is)
     {
         stopwatch_->time += (dark_clock_ns() - stopwatch_->stamp);
         stopwatch_->running_is = false;
@@ -239,7 +239,7 @@ uint64_t dark_stopwatch_ns(Dark_Stopwatch* const stopwatch_)
 {
     DARK_ASSERT(NULL != stopwatch_, DARK_ERROR_NULL);
 
-    if (stopwatch_->running_is)
+    if(stopwatch_->running_is)
     {
         return stopwatch_->time + (dark_clock_ns() - stopwatch_->stamp);
     }

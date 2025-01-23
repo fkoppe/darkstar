@@ -845,7 +845,7 @@ void dark_string_pop(Dark_String* const string_, const size_t index_, const size
     DARK_ASSERT(index_ <= dark_string_size(string_), DARK_ERROR_CONTAINER_INDEX);
     DARK_ASSERT(count_ > 0, DARK_ERROR_ZERO);
 
-    if (0 == count_)
+    if(0 == count_)
     {
         return;
     }

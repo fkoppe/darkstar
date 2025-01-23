@@ -54,6 +54,9 @@ double dark_ceil_d(double value);
 double dark_dloor_d(double value);
 double dark_round_d(double value);
 
+double dark_min_d(double a, double b);
+double dark_max_d(double a, double b);
+
 bool dark_nan_is_d(double value);
 bool dark_ifinite_is_d(double value);
 

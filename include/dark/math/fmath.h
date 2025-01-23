@@ -54,6 +54,9 @@ float dark_ceil_f(float value);
 float dark_floor_f(float value);
 float dark_round_f(float value);
 
+float dark_min_f(float a, float b);
+float dark_max_f(float a, float b);
+
 bool dark_nan_is_f(float value);
 bool dark_ifinite_is_f(float value);
 

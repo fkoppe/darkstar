@@ -152,7 +152,7 @@ float dark_vec_2f_angle_f(const Dark_Vec_2f a_, const Dark_Vec_2f b_)
     float len_a = dark_vec_2f_lenght_f(a_);
     float len_b = dark_vec_2f_lenght_f(b_);
 
-    if (len_a == 0.0f || len_b == 0.0f)
+    if(len_a == 0.0f || len_b == 0.0f)
     {
         return 0.0f;
     }
@@ -186,7 +186,7 @@ double dark_vec_2f_angle_d(const Dark_Vec_2f a_, const Dark_Vec_2f b_)
     const float len_a = dark_vec_2f_lenght_d(a_);
     const float len_b = dark_vec_2f_lenght_d(b_);
 
-    if (len_a == 0.0f || len_b == 0.0f)
+    if(len_a == 0.0f || len_b == 0.0f)
     {
         return 0.0f;
     }

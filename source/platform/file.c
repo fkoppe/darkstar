@@ -100,7 +100,7 @@ Dark_Oserror dark_file_open(Dark_File* const file_, const Dark_Cbuffer_View path
 
     file_->handle = fopen(path_.data, modifier.data);
 
-    if (NULL == file_->handle)
+    if(NULL == file_->handle)
     {
         return dark_oserror_occured();
     }
@@ -114,7 +114,7 @@ Dark_Oserror dark_file_close(Dark_File* const file_)
 
     DARK_ASSERT_MESSAGE(NULL != file_->handle, DARK_ERROR_STATE, DARK_MESSAGE_FILE_OPENED_NOT);
 
-    if (0 != fclose(file_->handle))
+    if(0 != fclose(file_->handle))
     {
         return dark_oserror_occured();
     }
@@ -141,12 +141,12 @@ Dark_Oserror dark_file_write(Dark_File* const file_, const Dark_Cbuffer_View sou
     DARK_ASSERT_MESSAGE((file_->flag & DARK_FILE_FLAG_UPDATE) || DARK_FILE_MODE_WRITE == file_->mode || DARK_FILE_MODE_APPEND == file_->mode, DARK_ERROR_STATE, DARK_MESSAGE_FILE_MODE_WRITE);
     DARK_ASSERT_MESSAGE(!(file_->flag & DARK_FILE_FLAG_BINARY), DARK_ERROR_STATE, DARK_MESSAGE_FILE_FLAG_BINARY);
 
-    if (fwrite(source_.data, sizeof(char), source_.size, file_->handle) != source_.size)
+    if(fwrite(source_.data, sizeof(char), source_.size, file_->handle) != source_.size)
     {
         return dark_oserror_occured();
     }
 
-    if (ferror(file_->handle))
+    if(ferror(file_->handle))
     {
         return dark_oserror_occured();
     }
@@ -166,12 +166,12 @@ Dark_Oserror dark_file_write_binary(Dark_File* const file_, const Dark_Array_Vie
     DARK_ASSERT_MESSAGE((file_->flag & DARK_FILE_FLAG_UPDATE) || DARK_FILE_MODE_WRITE == file_->mode || DARK_FILE_MODE_APPEND == file_->mode, DARK_ERROR_STATE, DARK_MESSAGE_FILE_MODE_WRITE);
     DARK_ASSERT_MESSAGE(file_->flag & DARK_FILE_FLAG_BINARY, DARK_ERROR_STATE, DARK_MESSAGE_FILE_FLAG_BINARY);
 
-    if (fwrite(source_.data, source_.element_byte, source_.size, file_->handle) != source_.size)
+    if(fwrite(source_.data, source_.element_byte, source_.size, file_->handle) != source_.size)
     {
         return dark_oserror_occured();
     }
 
-    if (ferror(file_->handle))
+    if(ferror(file_->handle))
     {
         return dark_oserror_occured();
     }
@@ -189,12 +189,12 @@ Dark_Oserror dark_file_read(Dark_File* const file_, const Dark_Cbuffer destinati
     DARK_ASSERT_MESSAGE((file_->flag & DARK_FILE_FLAG_UPDATE) || DARK_FILE_MODE_READ == file_->mode, DARK_ERROR_STATE, DARK_MESSAGE_FILE_MODE_READ);
     DARK_ASSERT_MESSAGE(!(file_->flag & DARK_FILE_FLAG_BINARY), DARK_ERROR_STATE, DARK_MESSAGE_FILE_FLAG_BINARY);
 
-    if (NULL == fgets(destination_.data, destination_.size, file_->handle))
+    if(NULL == fgets(destination_.data, destination_.size, file_->handle))
     {
         return dark_oserror_occured();
     }
 
-    if (ferror(file_->handle))
+    if(ferror(file_->handle))
     {
         return dark_oserror_occured();
     }
@@ -216,7 +216,7 @@ Dark_Oserror dark_file_read_binary(Dark_File* const file_, const Dark_Array dest
 
     *read_count_ = fread(destination_.data, destination_.element_byte, destination_.size, file_->handle);
 
-    if (ferror(file_->handle))
+    if(ferror(file_->handle))
     {
         return dark_oserror_occured();
     }
@@ -234,7 +234,7 @@ Dark_Oserror dark_file_mmap(Dark_File* const file_, void** const destination_)
 
 #if defined(___DARK_WINDOWS)
     const HANDLE handle_mapped = CreateFileMapping((HANDLE)_get_osfhandle(fileno(file_->handle)), NULL, PAGE_READONLY, 0, 0, 0);
-    if (NULL == handle_mapped)
+    if(NULL == handle_mapped)
     {
         return dark_oserror_occured();
     }
@@ -244,7 +244,7 @@ Dark_Oserror dark_file_mmap(Dark_File* const file_, void** const destination_)
     bool b = CloseHandle(handle_mapped);
     DARK_ASSERT_CSTRING(b, DARK_ERROR_PLATFORM, "CloseHandle");
 
-    if (NULL == *destination_)
+    if(NULL == *destination_)
     {
         return dark_oserror_occured();
     }
@@ -257,7 +257,7 @@ Dark_Oserror dark_file_mmap(Dark_File* const file_, void** const destination_)
     *destination_ = mmap(NULL, sb.st_size, PROT_READ, MAP_PRIVATE, fileno(file_->handle), 0);
 #endif // defined(___DARK_LINUX) || defined(___DARK_DARWIN)
 
-    if (ferror(file_->handle))
+    if(ferror(file_->handle))
     {
         return dark_oserror_occured();
     }
@@ -276,7 +276,7 @@ Dark_Oserror dark_file_byte(Dark_File* const file_, size_t* const destination_)
 #if defined(___DARK_WINDOWS)
     LARGE_INTEGER size;
 
-    if (0 == GetFileSizeEx((HANDLE)_get_osfhandle(fileno(file_->handle)), &size))
+    if(0 == GetFileSizeEx((HANDLE)_get_osfhandle(fileno(file_->handle)), &size))
     {
         return dark_oserror_occured();
     }
@@ -291,7 +291,7 @@ Dark_Oserror dark_file_byte(Dark_File* const file_, size_t* const destination_)
     *destination_ = sb.st_size;
 #endif // defined(___DARK_LINUX) || defined(___DARK_DARWIN)
 
-    if (ferror(file_->handle))
+    if(ferror(file_->handle))
     {
         return dark_oserror_occured();
     }

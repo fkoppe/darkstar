@@ -2,7 +2,7 @@ target_sources(
     darkstar
     PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/container.h
-    ${CMAKE_CURRENT_LIST_DIR}/container_data.h
+    ${CMAKE_CURRENT_LIST_DIR}/container_error.h
     ${CMAKE_CURRENT_LIST_DIR}/linear_map.h
     ${CMAKE_CURRENT_LIST_DIR}/linear_map_struct.h
     ${CMAKE_CURRENT_LIST_DIR}/linear_queue.h

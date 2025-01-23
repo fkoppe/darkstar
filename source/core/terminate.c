@@ -61,7 +61,7 @@ DARK_NORETURN void dark_terminate(const Dark_Location location_, const Dark_Libr
 
     dark_print(DARK_SO_ERR, "-------------------------TERMINATE-------------------------\n");
 
-    if (abort_is_)
+    if(abort_is_)
     {
         dark_message_print(DARK_SO_ERR, DARK_MESSAGE_ABORT);
     }
@@ -87,7 +87,7 @@ DARK_NORETURN void dark_terminate(const Dark_Location location_, const Dark_Libr
 
     dark_flush(DARK_SO_ERR);
 
-    if (abort_is_)
+    if(abort_is_)
     {
         dark_abort();
     }

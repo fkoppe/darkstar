@@ -53,13 +53,13 @@ void dark_file_modifier_write(const Dark_File_Mode mode_, const Dark_File_Flag f
 
     size_t i = 1;
 
-    if (flag_ & DARK_FILE_FLAG_BINARY)
+    if(flag_ & DARK_FILE_FLAG_BINARY)
     {
         destination_.data[i] = 'b';
         i++;
     }
 
-    if (flag_ & DARK_FILE_FLAG_UPDATE)
+    if(flag_ & DARK_FILE_FLAG_UPDATE)
     {
         destination_.data[i] = '+';
         i++;

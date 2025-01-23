@@ -135,7 +135,7 @@ Dark_Vec_3f dark_vec_3f_perpendicular(const Dark_Vec_3f vec3_)
 
     Dark_Vec_3f vec;
 
-    if (vec3_.x == 0.0f && vec3_.y == 0.0f)
+    if(vec3_.x == 0.0f && vec3_.y == 0.0f)
     {
         vec = other_x;
     }
@@ -143,7 +143,7 @@ Dark_Vec_3f dark_vec_3f_perpendicular(const Dark_Vec_3f vec3_)
     {
         vec = dark_vec_3f_cross(vec3_, other_x);
 
-        if (dark_vec_3f_x(vec) == 0.0f && dark_vec_3f_y(vec) == 0.0f && dark_vec_3f_z(vec) == 0.0f)
+        if(dark_vec_3f_x(vec) == 0.0f && dark_vec_3f_y(vec) == 0.0f && dark_vec_3f_z(vec) == 0.0f)
         {
             const Dark_Vec_3f other_y = { 0.0f, 1.0f, 0.0f };
 
@@ -185,7 +185,7 @@ float dark_vec_3f_angle_f(const Dark_Vec_3f a_, const Dark_Vec_3f b_)
     const float len_a = dark_vec_3f_lenght_f(a_);
     const float len_b = dark_vec_3f_lenght_f(b_);
 
-    if (len_a == 0.0f || len_b == 0.0f)
+    if(len_a == 0.0f || len_b == 0.0f)
     {
         return 0.0f;
     }
@@ -219,7 +219,7 @@ double dark_vec_3f_angle_d(const Dark_Vec_3f a_, const Dark_Vec_3f b_)
     const double len_a = dark_vec_3f_lenght_d(a_);
     const double len_b = dark_vec_3f_lenght_d(b_);
 
-    if (len_a == 0.0f || len_b == 0.0f)
+    if(len_a == 0.0f || len_b == 0.0f)
     {
         return 0.0f;
     }

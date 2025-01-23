@@ -32,6 +32,9 @@ int main()
         DARK_TEST_EQ_F(floorf(5.4f), dark_floor_f(5.4f));
         DARK_TEST_EQ_F(roundf(5.4f), dark_round_f(5.4f));
 
+        DARK_TEST_EQ_F(0.0111f, dark_min_f(10.2f, 0.0111f));
+        DARK_TEST_EQ_F(10.2f, dark_max_f(10.2f, 0.0111f));
+
         DARK_TEST_TRUE(isnan(NAN));
         DARK_TEST_TRUE(isfinite(3.14f));
 

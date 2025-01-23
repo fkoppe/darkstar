@@ -47,17 +47,17 @@ void dark_error_print(const Dark_So so_, const Dark_Error error_)
 
     for (size_t i = 0; i < DARK_ERROR_DEPTH_MAX; i++)
     {
-        if (NULL == err)
+        if(NULL == err)
         {
             break;
         }
 
-        if (NULL != err->info)
+        if(NULL != err->info)
         {
             info_is = true;
         }
 
-        if (NULL != err->type)
+        if(NULL != err->type)
         {
             dark_printf(DARK_SO_ERR, "%s_", err->type);
         }
@@ -69,7 +69,7 @@ void dark_error_print(const Dark_So so_, const Dark_Error error_)
 
     dark_print(DARK_SO_ERR, "error\n");
 
-    if (!info_is)
+    if(!info_is)
     {
         return;
     }
@@ -78,7 +78,7 @@ void dark_error_print(const Dark_So so_, const Dark_Error error_)
 
     for (size_t i = 0; i < DARK_ERROR_DEPTH_MAX; i++)
     {
-        if (NULL == info_arr[i])
+        if(NULL == info_arr[i])
         {
             continue;
         }

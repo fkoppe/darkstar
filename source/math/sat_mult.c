@@ -33,7 +33,7 @@ uint8_t dark_sat_mult_u8(const uintmax_t a_, const intmax_t b_)
     //a_
     //b_
 
-    if (a_ > 0)
+    if(a_ > 0)
     {
         if(b_ < 0 || b_ > UINT8_MAX / a_)
         {
@@ -49,7 +49,7 @@ uint16_t dark_sat_mult_u16(const uintmax_t a_, const intmax_t b_)
     //a_
     //b_
 
-    if (a_ > 0)
+    if(a_ > 0)
     {
         if(b_ < 0 || b_ > UINT16_MAX / a_)
         {
@@ -65,7 +65,7 @@ uint32_t dark_sat_mult_u32(const uintmax_t a_, const intmax_t b_)
     //a_
     //b_
 
-    if (a_ > 0)
+    if(a_ > 0)
     {
         if(b_ < 0 || b_ > UINT32_MAX / a_)
         {
@@ -81,7 +81,7 @@ uint64_t dark_sat_mult_u64(const uintmax_t a_, const intmax_t b_)
     //a_
     //b_
 
-    if (a_ > 0)
+    if(a_ > 0)
     {
         if(b_ < 0 || b_ > UINT64_MAX / a_)
         {
@@ -97,7 +97,7 @@ uintmax_t dark_sat_mult_umax(const uintmax_t a_, const intmax_t b_)
     //a_
     //b_
 
-    if (a_ > 0)
+    if(a_ > 0)
     {
         if(b_ < 0 || b_ > UINTMAX_MAX / a_)
         {
@@ -113,7 +113,7 @@ size_t dark_sat_mult_zu(const uintmax_t a_, const intmax_t b_)
     //a_
     //b_
 
-    if (a_ > 0)
+    if(a_ > 0)
     {
         if(b_ < 0 || b_ > SIZE_MAX / a_)
         {
@@ -129,7 +129,7 @@ uint8_t dark_sat_umult_u8(const uintmax_t a_, const uintmax_t b_)
     //a_
     //b_
 
-    if (a_ > 0)
+    if(a_ > 0)
     {
         if(b_ > UINT8_MAX / a_)
         {
@@ -145,7 +145,7 @@ uint16_t dark_sat_umult_u16(const uintmax_t a_, const uintmax_t b_)
     //a_
     //b_
 
-    if (a_ > 0)
+    if(a_ > 0)
     {
         if(b_ > UINT16_MAX / a_)
         {
@@ -161,7 +161,7 @@ uint32_t dark_sat_umult_u32(const uintmax_t a_, const uintmax_t b_)
     //a_
     //b_
 
-    if (a_ > 0)
+    if(a_ > 0)
     {
         if(b_ > UINT32_MAX / a_)
         {
@@ -177,7 +177,7 @@ uint64_t dark_sat_umult_u64(const uintmax_t a_, const uintmax_t b_)
     //a_
     //b_
 
-    if (a_ > 0)
+    if(a_ > 0)
     {
         if(b_ > UINT64_MAX / a_)
         {
@@ -193,7 +193,7 @@ uintmax_t dark_sat_umult_umax(const uintmax_t a_, const uintmax_t b_)
     //a_
     //b_
 
-    if (a_ > 0)
+    if(a_ > 0)
     {
         if(b_ > UINTMAX_MAX / a_)
         {
@@ -209,7 +209,7 @@ size_t dark_sat_umult_zu(const uintmax_t a_, const uintmax_t b_)
     //a_
     //b_
 
-    if (a_ > 0)
+    if(a_ > 0)
     {
         if(b_ > SIZE_MAX / a_)
         {
@@ -402,7 +402,7 @@ int8_t dark_sat_umult_i8(const uintmax_t a_, const uintmax_t b_)
     //a_
     //b_
 
-    if (a_ > 0)
+    if(a_ > 0)
     {
         if(b_ > INT8_MAX / a_)
         {
@@ -419,7 +419,7 @@ int16_t dark_sat_umult_i16(const uintmax_t a_, const uintmax_t b_)
     //a_
     //b_
 
-    if (a_ > 0)
+    if(a_ > 0)
     {
         if(b_ > INT16_MAX / a_)
         {
@@ -435,7 +435,7 @@ int32_t dark_sat_umult_i32(const uintmax_t a_, const uintmax_t b_)
     //a_
     //b_
 
-    if (a_ > 0)
+    if(a_ > 0)
     {
         if(b_ > INT32_MAX / a_)
         {
@@ -451,7 +451,7 @@ int64_t dark_sat_umult_i64(const uintmax_t a_, const uintmax_t b_)
     //a_
     //b_
 
-    if (a_ > 0)
+    if(a_ > 0)
     {
         if(b_ > INT64_MAX / a_)
         {
@@ -467,7 +467,7 @@ intmax_t dark_sat_umult_imax(const uintmax_t a_, const uintmax_t b_)
     //a_
     //b_
 
-    if (a_ > 0)
+    if(a_ > 0)
     {
         if(b_ > INTMAX_MAX / a_)
         {

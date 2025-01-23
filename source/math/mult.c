@@ -370,7 +370,7 @@ int8_t dark_umult_i8(const uintmax_t a_, const uintmax_t b_)
     //a_
     //b_
 
-    if (a_ > 0)
+    if(a_ > 0)
     {
         DARK_ASSERT(b_ <= INT8_MAX / a_, DARK_ERROR_OVERFLOW);
     }
@@ -383,7 +383,7 @@ int16_t dark_umult_i16(const uintmax_t a_, const uintmax_t b_)
     //a_
     //b_
 
-    if (a_ > 0)
+    if(a_ > 0)
     {
         DARK_ASSERT(b_ <= INT16_MAX / a_, DARK_ERROR_OVERFLOW);
     }
@@ -396,7 +396,7 @@ int32_t dark_umult_i32(const uintmax_t a_, const uintmax_t b_)
     //a_
     //b_
 
-    if (a_ > 0)
+    if(a_ > 0)
     {
         DARK_ASSERT(b_ <= INT32_MAX / a_, DARK_ERROR_OVERFLOW);
     }
@@ -409,7 +409,7 @@ int64_t dark_umult_i64(const uintmax_t a_, const uintmax_t b_)
     //a_
     //b_
 
-    if (a_ > 0)
+    if(a_ > 0)
     {
         DARK_ASSERT(b_ <= INT64_MAX / a_, DARK_ERROR_OVERFLOW);
     }
@@ -422,7 +422,7 @@ intmax_t dark_umult_imax(const uintmax_t a_, const uintmax_t b_)
     //a_
     //b_
 
-    if (a_ > 0)
+    if(a_ > 0)
     {
         DARK_ASSERT(b_ <= INTMAX_MAX / a_, DARK_ERROR_OVERFLOW);
     }

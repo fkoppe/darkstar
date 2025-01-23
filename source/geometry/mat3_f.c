@@ -289,7 +289,7 @@ bool dark_mat_3f_invert_is(const Dark_Mat_3f mat3_)
 
     const float det = dark_mat_3f_determinant(mat3_);
 
-    if (dark_abs_f(det) > DARK_EPSILON_F)
+    if(dark_abs_f(det) > DARK_EPSILON_F)
     {
         return true;
     }

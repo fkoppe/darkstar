@@ -150,6 +150,22 @@ double dark_round_d(double value_)
     return round(value_);
 }
 
+double dark_min_d(const double a_, const double b_)
+{
+    //a_
+    //b_
+
+    return DARK_MIN(a_, b_);
+}
+
+double dark_max_d(const double a_, const double b_)
+{
+    //a_
+    //b_
+
+    return DARK_MAX(a_, b_);
+}
+
 bool dark_nan_is_d(double value_)
 {
     //value_
@@ -177,11 +193,11 @@ double dark_range_clamp_d(const double d_, const double lower_, const double upp
     //d_
     DARK_ASSERT(lower_ <= upper_, DARK_ERROR_LOGIC);
 
-    if (d_ < lower_)
+    if(d_ < lower_)
     {
         return lower_;
     }
-    else if (d_ > upper_)
+    else if(d_ > upper_)
     {
         return upper_;
     }
@@ -198,11 +214,11 @@ int8_t dark_compare_d(const double* const element_, const double* const other_)
 
     const double diff = dark_abs_f(*element_ - *other_);
 
-    if (diff < DARK_EPSILON_D)
+    if(diff < DARK_EPSILON_D)
     {
         return 0;
     }
-    else if (*element_ < *other_)
+    else if(*element_ < *other_)
     {
         return -1;
     }

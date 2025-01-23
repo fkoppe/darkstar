@@ -40,7 +40,7 @@ uintmax_t dark_upow_u(const uintmax_t base_, const uintmax_t exponent_)
         return 1;
     }
 
-    if (0 == base_)
+    if(0 == base_)
     {
         return 0;
     }
@@ -51,7 +51,7 @@ uintmax_t dark_upow_u(const uintmax_t base_, const uintmax_t exponent_)
 
     while (exponent > 0)
     {
-        if (exponent % 2 == 1)
+        if(exponent % 2 == 1)
         {
             val = dark_umult_umax(base, val);
         }
@@ -75,7 +75,7 @@ intmax_t dark_upow_i(const intmax_t base_, const uintmax_t exponent_)
         return 1;
     }
 
-    if (0 == base_)
+    if(0 == base_)
     {
         return 0;
     }

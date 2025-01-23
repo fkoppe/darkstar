@@ -65,17 +65,17 @@ void dark_library_print(const Dark_So so_, const Dark_Library* const library_, c
         dark_printf(so_, "conf:\t%s\n\n", library_->configuration);
     }
 
-    if (NULL != module_)
+    if(NULL != module_)
     {
         dark_printf(so_, "modl:\t%s\n", module_);
     }
 
-    if (NULL != unit_)
+    if(NULL != unit_)
     {
         dark_printf(so_, "unit:\t%s\n", unit_);
     }
 
-    if (NULL != unit_ || module_)
+    if(NULL != unit_ || module_)
     {
         dark_print(so_, "\n");
     }

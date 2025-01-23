@@ -150,6 +150,22 @@ float dark_round_f(const float value_)
     return roundf(value_);
 }
 
+float dark_min_f(const float a_, const float b_)
+{
+    //a_
+    //b_
+
+    return DARK_MIN(a_, b_);
+}
+
+float dark_max_f(const float a_, const float b_)
+{
+    //a_
+    //b_
+
+    return DARK_MAX(a_, b_);
+}
+
 bool dark_nan_is_f(const float value_)
 {
     //value_
@@ -177,11 +193,11 @@ float dark_range_clamp_f(const float f_, const float lower_, const float upper_)
     //f_
     DARK_ASSERT(lower_ <= upper_, DARK_ERROR_LOGIC);
 
-    if (f_ < lower_)
+    if(f_ < lower_)
     {
         return lower_;
     }
-    else if (f_ > upper_)
+    else if(f_ > upper_)
     {
         return upper_;
     }
@@ -198,11 +214,11 @@ int8_t dark_compare_f(const float* const element_, const float* const other_)
 
     const float diff = dark_abs_f(*element_ - *other_);
 
-    if (diff < DARK_EPSILON_F)
+    if(diff < DARK_EPSILON_F)
     {
         return 0;
     }
-    else if (*element_ < *other_)
+    else if(*element_ < *other_)
     {
         return -1;
     }

@@ -211,7 +211,7 @@ void* dark_vector_emplace(Dark_Vector* const vector_, const size_t index_, const
 
     vector_->array.size += count_;
 
-    if (index_ < vector_->array.size - count_)
+    if(index_ < vector_->array.size - count_)
     {
         dark_memmove((uint8_t*)vector_->array.data + (vector_->array.element_byte * (index_ + count_)), (uint8_t*)vector_->array.data + (vector_->array.element_byte * index_), vector_->array.element_byte * (vector_->array.size - index_ - count_));
     }
@@ -430,12 +430,12 @@ void dark_vector_pop(Dark_Vector* const vector_, const size_t index_, const size
 
     vector_->array.size -= count_;
 
-    if (0 == vector_->array.size)
+    if(0 == vector_->array.size)
     {
         return;
     }
 
-    if (index_ + count_ >= vector_->array.size + count_)
+    if(index_ + count_ >= vector_->array.size + count_)
     {
         return;
     }
@@ -503,18 +503,18 @@ void dark_vector_reserve_exact(Dark_Vector* const vector_, const size_t capacity
 {
     DARK_ASSERT(NULL != vector_, DARK_ERROR_NULL);
 
-    if (vector_->capacity == capacity_)
+    if(vector_->capacity == capacity_)
     {
         return;
     }
 
-    if (0 == capacity_)
+    if(0 == capacity_)
     {
         dark_bfree(vector_->allocator, vector_->array.data, vector_->array.element_byte, vector_->capacity);
     }
     else
     {
-        if (vector_->capacity > 0)
+        if(vector_->capacity > 0)
         {
             vector_->array.data = dark_brealloc(vector_->allocator, vector_->array.data, vector_->array.element_byte, vector_->capacity, capacity_);
         }

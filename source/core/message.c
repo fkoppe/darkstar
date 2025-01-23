@@ -47,7 +47,7 @@ void dark_message_print(const Dark_So so_, const Dark_Message message_)
 
     for (size_t i = 0; i < DARK_MESSAGE_DEPTH_MAX; i++)
     {
-        if (NULL == msg)
+        if(NULL == msg)
         {
             break;
         }
@@ -69,14 +69,14 @@ void dark_message_print(const Dark_So so_, const Dark_Message message_)
         msg = msg->parent;
     }
 
-    if (!not_empty_is)
+    if(!not_empty_is)
     {
         return;
     }
 
     for (size_t i = 0; i < DARK_MESSAGE_DEPTH_MAX; i++)
     {
-        if (NULL == data_arr[i])
+        if(NULL == data_arr[i])
         {
             continue;
         }
