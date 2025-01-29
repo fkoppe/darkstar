@@ -23,16 +23,10 @@
 #if !defined(___DARK___CBUFFER_VIEW_H)
 #define ___DARK___CBUFFER_VIEW_H
 
+#include <dark/core/data.h>
 #include <dark/core/std.h>
 #include <dark/tool/array_view.h>
 #include <dark/tool/buffer.h>
-
-typedef struct Dark_Cbuffer_View Dark_Cbuffer_View;
-struct Dark_Cbuffer_View
-{
-    size_t size;
-    const char* data;
-};
 
 Dark_Array_View dark_cbuffer_view_to_array_view(Dark_Cbuffer_View cbuffer_view);
 

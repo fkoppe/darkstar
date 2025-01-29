@@ -2,6 +2,7 @@ target_sources(
     darkstar
     PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/core.h
+    ${CMAKE_CURRENT_LIST_DIR}/data.h
     ${CMAKE_CURRENT_LIST_DIR}/enviroment.h
     ${CMAKE_CURRENT_LIST_DIR}/error.h
     ${CMAKE_CURRENT_LIST_DIR}/instruction.h

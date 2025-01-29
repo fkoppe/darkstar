@@ -1,3 +1,42 @@
+/************************************************************************************
+*                                                                                   *
+*   darkstar 0.1.0.0 - https://github.com/fkoppe/darkstar                           *
+*   ************************************************************************        *
+*                                                                                   *
+*   Copyright (C) 2023-2025 Felix Koppe <fkoppe@web.de>                             *
+*                                                                                   *
+*   This program is free software: you can redistribute it and/or modify            *
+*   it under the terms of the GNU Affero General Public License as published        *
+*   by the Free Software Foundation, either version 3 of the License, or            *
+*   (at your option) any later version.                                             *
+*                                                                                   *
+*   This program is distributed in the hope that it will be useful,                 *
+*   but WITHOUT ANY WARRANTY; without even the implied warranty of                  *
+*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the                   *
+*   GNU Affero General Public License for more details.                             *
+*                                                                                   *
+*   You should have received a copy of the GNU Affero General Public License        *
+*   along with this program.  If not, see <https://www.gnu.org/licenses/>.          *
+*                                                                                   *
+************************************************************************************/
+
+/* X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+X                                                                    X
+X   THIS CODE INCLUDES MODIFICATIONS MADE FOR THE DARKSTAR PROJECT.  X
+X   ALL CHANGES TO THE ORIGINAL CODE ARE MARKED WITH COMMENTS.       X
+X                                                                    X
+X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X */
+
+//X X X X X X X X X X X X X X START OF MODIFICATION X X X X X X X X X X X X X X
+// Modification by Felix Koppe <fkoppe@web.de>, 01.2025
+// This change adds handling for 'v' format specifier to stb_sprintf to print Dark_Cbuffer_View
+
+#include <dark/core/data.h>
+
+#include <assert.h>
+#include <string.h>
+//X X X X X X X X X X X X X X END OF MODIFICATION X X X X X X X X X X X X X X X
+
 // stb_sprintf - v1.10 - public domain snprintf() implementation
 // originally by Jeff Roberts / RAD Game Tools, 2015/10/20
 // http://github.com/nothings/stb
@@ -575,6 +614,14 @@ STBSP__PUBLICDEF int STB_SPRINTF_DECORATE(vsprintfcb)(STBSP_SPRINTFCB *callback,
          char lead[8];
          char tail[8];
          char *s;
+
+//X X X X X X X X X X X X X X START OF MODIFICATION X X X X X X X X X X X X X X
+// Modification by Felix Koppe <fkoppe@web.de>, 01.2025
+// This change adds handling for 'v' format specifier to stb_sprintf to print Dark_Cbuffer_View
+
+         Dark_Cbuffer_View cbuffer_view;
+//X X X X X X X X X X X X X X END OF MODIFICATION X X X X X X X X X X X X X X X
+
          char const *h;
          stbsp__uint32 l, n, cs;
          stbsp__uint64 n64;
@@ -583,6 +630,24 @@ STBSP__PUBLICDEF int STB_SPRINTF_DECORATE(vsprintfcb)(STBSP_SPRINTFCB *callback,
 #endif
          stbsp__int32 dp;
          char const *sn;
+
+//X X X X X X X X X X X X X X START OF MODIFICATION X X X X X X X X X X X X X X
+// Modification by Felix Koppe <fkoppe@web.de>, 01.2025
+// This change adds handling for 'v' format specifier to stb_sprintf to print Dark_Cbuffer_View
+
+      case 'v':
+         cbuffer_view = va_arg(va, Dark_Cbuffer_View);
+         assert(cbuffer_view.data == NULL || cbuffer_view.size > 0);
+         memcpy(&s, &cbuffer_view.data, sizeof(char*));
+         l = cbuffer_view.size;
+         lead[0] = 0;
+         tail[0] = 0;
+         pr = 0;
+         dp = 0;
+         cs = 0;
+
+         goto scopy;
+//X X X X X X X X X X X X X X END OF MODIFICATION X X X X X X X X X X X X X X X
 
       case 's':
          // get the string

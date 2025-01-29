@@ -176,12 +176,14 @@ Dark_Cbuffer_View dark_log_level_name(const Dark_Log_Level level_)
     {
     case DARK_LOG_LEVEL_TRACE:
         return dark_cstring_to_cbuffer_view("trace");
-    case DARK_LOG_LEVEL_COMMENT:
-        return dark_cstring_to_cbuffer_view("comment");
+    case DARK_LOG_LEVEL_VERBOSE:
+        return dark_cstring_to_cbuffer_view("verbose");
+    case DARK_LOG_LEVEL_FINE:
+        return dark_cstring_to_cbuffer_view("fine");
     case DARK_LOG_LEVEL_DEBUG:
         return dark_cstring_to_cbuffer_view("debug");
-    case DARK_LOG_LEVEL_NOTE:
-        return dark_cstring_to_cbuffer_view("note");
+    case DARK_LOG_LEVEL_COMMENT:
+        return dark_cstring_to_cbuffer_view("comment");
     case DARK_LOG_LEVEL_INFO:
         return dark_cstring_to_cbuffer_view("info");
     case DARK_LOG_LEVEL_NOTICE:
@@ -210,11 +212,13 @@ Dark_Cbuffer_View dark_log_level_color(const Dark_Log_Level level_)
     {
     case DARK_LOG_LEVEL_TRACE:
         return dark_cstring_to_cbuffer_view("");
-    case DARK_LOG_LEVEL_COMMENT:
+    case DARK_LOG_LEVEL_VERBOSE:
+        return dark_cstring_to_cbuffer_view("");
+    case DARK_LOG_LEVEL_FINE:
         return dark_cstring_to_cbuffer_view("");
     case DARK_LOG_LEVEL_DEBUG:
         return dark_cstring_to_cbuffer_view(DARK_CONSOLE_COLOR_FG_GREEN);
-    case DARK_LOG_LEVEL_NOTE:
+    case DARK_LOG_LEVEL_COMMENT:
         return dark_cstring_to_cbuffer_view(DARK_CONSOLE_COLOR_FG_CYAN);
     case DARK_LOG_LEVEL_INFO:
         return dark_cstring_to_cbuffer_view(DARK_CONSOLE_COLOR_FG_BLUE);

@@ -6,6 +6,22 @@ int main()
     dark_test_initialise();
 
     //----------TEST----------
+    DARK_TEST("cbuffer_view_sprintf")
+    {
+        char buf[16] = "merry christmas";
+
+        const Dark_Cbuffer_View cbuffer_view = { 16, buf };
+
+        char dest[16];
+        const Dark_Cbuffer cbuffer = { 16, dest };
+
+        DARK_TEST_EQ_U(dark_snprintf_notterminated(cbuffer.size, cbuffer.data, "%v", cbuffer_view), 16);
+
+        DARK_TEST_EQ_S(buf, dest, 16);
+    }
+    //--------------------------
+
+    //----------TEST----------
     DARK_TEST("cbuffer_view_to")
     {
         char buf[16] = "merry christmas";
