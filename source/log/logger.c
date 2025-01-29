@@ -25,7 +25,7 @@
 
 #include <dark/char/char.h>
 #include <dark/core/core.h>
-#include <dark/log/logger.h>
+#include <dark/log/log.h>
 #include <dark/log/logger_struct.h>
 #include <dark/memory/memory.h>
 
@@ -188,7 +188,7 @@ void dark_logger_log_v(const Dark_Library* const library_, const char* const mod
 
     DARK_CSTRING_ASSERT_CONTENT(format_);
 
-    dark_string_append_f(&logger_->va_string, format_, arguments_);
+    dark_string_append_v(&logger_->va_string, format_, arguments_);
 
     dark_logger_log_cbuffer_view(library_, module_, unit_, logger_, level_, dark_string_cbuffer_view(&logger_->va_string));
 

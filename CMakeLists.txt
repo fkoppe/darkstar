@@ -6,6 +6,9 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 
 add_library(darkstar)
 
+set(DARKSTAR_DIRECTORY ${CMAKE_CURRENT_LIST_DIR} CACHE INTERNAL "")
+message(STATUS "DARKSTAR_DIRECTORY is: ${DARKSTAR_DIRECTORY}")
+
 set(DARK_VERSION_MAJOR 0 CACHE INTERNAL "")
 set(DARK_VERSION_MINOR 1 CACHE INTERNAL "")
 set(DARK_VERSION_PATCH 0 CACHE INTERNAL "")
@@ -111,6 +114,10 @@ endif()
 if(DARK_TEST_ENABLE)
   enable_testing()
   add_subdirectory(test)
+endif()
+
+if(DARK_DOC_GENERATE)
+  configure_file(document/Doxyfile.in ${CMAKE_BINARY_DIR}/Doxyfile @ONLY)
 endif()
 
 add_subdirectory(include)

@@ -20,11 +20,16 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___LOG_H)
-#define ___DARK___LOG_H
+#if !defined(___DARK___LOG_MESSAGE_H)
+#define ___DARK___LOG_MESSAGE_H
 
-#include <dark/log/log_data.h>
-#include <dark/log/log_message.h>
+#include <dark/core/std.h>
 #include <dark/log/logger.h>
 
-#endif // !defined(___DARK___LOG_H)
+#define DARK_LOG_MESSAGE_INITIALISE(logger) DARK_LOG_CSTRING((logger), DARK_LOG_LEVEL_DEBUG, "initialise")
+#define DARK_LOG_MESSAGE_SHUTDOWN(logger) DARK_LOG_CSTRING((logger), DARK_LOG_LEVEL_DEBUG, "shutdown")
+
+#define DARK_IDLOG_MESSAGE_INITIALISE(logger, id) DARK_IDLOG_CSTRING((logger), (id), DARK_LOG_LEVEL_DEBUG, "initialise")
+#define DARK_IDLOG_MESSAGE_SHUTDOWN(logger, id) DARK_DILOG_CSTRING((logger), (id), DARK_LOG_LEVEL_DEBUG, "shutdown")
+
+#endif // !defined(___DARK___LOG_MESSAGE_H)

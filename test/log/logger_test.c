@@ -71,9 +71,10 @@ int main()
         dark_logger_ostream_add(logger, logger_ostream_settings, ostream, NULL);
 
         DARK_LOG_CSTRING(logger, DARK_LOG_LEVEL_TRACE, "a test log message of some sort");
-        DARK_LOG_CSTRING(logger, DARK_LOG_LEVEL_COMMENT, "a test log message of some sort");
+        DARK_LOG_CSTRING(logger, DARK_LOG_LEVEL_VERBOSE, "a test log message of some sort");
+        DARK_LOG_CSTRING(logger, DARK_LOG_LEVEL_FINE, "a test log message of some sort");
         DARK_LOG_CSTRING(logger, DARK_LOG_LEVEL_DEBUG, "a test log message of some sort");
-        DARK_LOG_CSTRING(logger, DARK_LOG_LEVEL_NOTE, "a test log message of some sort");
+        DARK_LOG_CSTRING(logger, DARK_LOG_LEVEL_COMMENT, "a test log message of some sort");
         DARK_LOG_CSTRING(logger, DARK_LOG_LEVEL_INFO, "a test log message of some sort");
         DARK_LOG_CSTRING(logger, DARK_LOG_LEVEL_NOTICE, "a test log message of some sort");
         DARK_LOG_CSTRING(logger, DARK_LOG_LEVEL_WARN, "a test log message of some sort");
