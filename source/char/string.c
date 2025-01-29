@@ -53,7 +53,7 @@ void dark_string_construct_v(Dark_Allocator* const allocator_, Dark_String* cons
 
     char* const destination = dark_vector_emplace(&string_->vector, 0, size);
 
-    dark_vsnprintf_notterminated(size + 1, destination, format_, copy);
+    dark_vsnprintf_notterminated(size, destination, format_, copy);
     va_end(copy);
 
     const char EOS = '\0';
@@ -84,7 +84,7 @@ void dark_string_construct_f(Dark_Allocator* const allocator_, Dark_String* cons
 
     char* const destination = dark_vector_emplace(&string_->vector, 0, size);
 
-    dark_snprintf_notterminated(size + 1, destination, format_, copy);
+    dark_snprintf_notterminated(size, destination, format_, copy);
     va_end(copy);
 
     const char EOS = '\0';
@@ -663,7 +663,7 @@ void dark_string_append_v(Dark_String* const string_, const char* const format_,
 
     char* const destination = dark_vector_emplace(&string_->vector, dark_string_size(string_), additional);
 
-    dark_vsnprintf_notterminated(additional + 1, destination, format_, copy);
+    dark_vsnprintf_notterminated(additional, destination, format_, copy);
     va_end(copy);
 }
 
@@ -694,7 +694,7 @@ void dark_string_append_f(Dark_String* const string_, const char* const format_,
 
     char* const destination = dark_vector_emplace(&string_->vector, dark_string_size(string_), additional);
 
-    dark_vsnprintf_notterminated(additional + 1, destination, format_, copy);
+    dark_vsnprintf_notterminated(additional, destination, format_, copy);
     va_end(copy);
 }
 

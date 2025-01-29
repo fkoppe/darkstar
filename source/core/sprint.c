@@ -72,7 +72,7 @@ size_t dark_vsnprintf_notterminated(const size_t count_, char* const destination
 
     stbsp__context context;
 
-    if((count_ == 0) && !destination_)
+    if(0 == count_ && NULL == destination_)
     {
         context.length = 0;
 
