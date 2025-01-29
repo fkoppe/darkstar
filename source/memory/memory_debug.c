@@ -32,7 +32,8 @@
 #undef DARK_UNIT
 #define DARK_UNIT "memory_debug"
 
-typedef struct Dark_Debug_Memory
+typedef struct Dark_Debug_Memory Dark_Debug_Memory;
+struct Dark_Debug_Memory
 {
     bool initialise_is;
     struct
@@ -41,7 +42,7 @@ typedef struct Dark_Debug_Memory
         size_t capacity;
         Dark_Memory_Debug_Info* array;
     } info;
-} Dark_Debug_Memory;
+};
 
 static const size_t DEBUG_MEMORY_CAPACITY = 2048;
 
