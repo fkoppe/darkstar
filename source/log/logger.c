@@ -286,7 +286,7 @@ void dark_logger_plog_v(const Dark_Library* const library_, const char* const mo
 
     DARK_CSTRING_ASSERT_CONTENT(format_);
 
-    dark_string_append_f(&logger_->va_string, format_, arguments_);
+    dark_string_append_v(&logger_->va_string, format_, arguments_);
 
     dark_logger_plog_cbuffer_view(library_, module_, unit_, file_, line_, logger_, level_, dark_string_cbuffer_view(&logger_->va_string));
 
@@ -364,7 +364,7 @@ void dark_logger_dlog_v(Dark_Logger* const logger_, const Dark_Log_Level level_,
 
     DARK_CSTRING_ASSERT_CONTENT(format_);
 
-    dark_string_append_f(&logger_->va_string, format_, arguments_);
+    dark_string_append_v(&logger_->va_string, format_, arguments_);
 
     dark_logger_dlog_cbuffer_view(logger_, level_, dark_string_cbuffer_view(&logger_->va_string));
 
@@ -456,7 +456,7 @@ void dark_logger_idlog_v(const Dark_Library* const library_, const char* const m
 
     DARK_CSTRING_ASSERT_CONTENT(format_);
 
-    dark_string_append_f(&logger_->va_string, format_, arguments_);
+    dark_string_append_v(&logger_->va_string, format_, arguments_);
 
     dark_logger_idlog_cbuffer_view(library_, module_, unit_, id_, logger_, level_, dark_string_cbuffer_view(&logger_->va_string));
 
