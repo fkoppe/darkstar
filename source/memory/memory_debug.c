@@ -129,7 +129,7 @@ void* dark_memory_debug_allocate(const Dark_Location location_, const Dark_Libra
     call_info.unit = unit_;
     call_info.func_name = func_name_;
 
-    if(NULL == address_ || 0 == byte_old_)
+    if(NULL == address_ && 0 == byte_old_)
     {
         DARK_MEMORY_DEBUG_ASSERT(call_info, NULL == address_);
         DARK_MEMORY_DEBUG_ASSERT(call_info, 0 == byte_old_);
@@ -165,9 +165,14 @@ void* dark_memory_debug_allocate(const Dark_Location location_, const Dark_Libra
 
         return pointer;
     }
-    else if(NULL != address_ && 0 == byte_new_)
+    else if(0 == byte_new_)
     {
         DARK_MEMORY_DEBUG_ASSERT(call_info, byte_old_ > 0);
+
+        if(NULL == address_)
+        {
+            DARK_MEMORY_DEBUG_EXIT(call_info, "tried to free NULL");
+        }
 
         bool known_is = false;
         size_t index = 0;
@@ -291,7 +296,7 @@ void* dark_memory_debug_callocate(const Dark_Location location_, const Dark_Libr
     call_info.unit = unit_;
     call_info.func_name = func_name_;
 
-    if(NULL == address_ || 0 == byte_old_)
+    if(NULL == address_ && 0 == byte_old_)
     {
         DARK_MEMORY_DEBUG_ASSERT(call_info, NULL == address_);
         DARK_MEMORY_DEBUG_ASSERT(call_info, 0 == byte_old_);
@@ -327,9 +332,14 @@ void* dark_memory_debug_callocate(const Dark_Location location_, const Dark_Libr
 
         return pointer;
     }
-    else if(NULL != address_ && 0 == byte_new_)
+    else if(0 == byte_new_)
     {
         DARK_MEMORY_DEBUG_ASSERT(call_info, byte_old_ > 0);
+
+        if(NULL == address_)
+        {
+            DARK_MEMORY_DEBUG_EXIT(call_info, "tried to free NULL");
+        }
 
         bool known_is = false;
         size_t index = 0;

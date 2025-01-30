@@ -63,10 +63,10 @@ void dark_console_show(void)
 void dark_console_clear(void)
 {
 #if defined(___DARK_WINDOWS)
-    system("cls");
+    DARK_ASSERT(0 != system("cls"), DARK_ERROR_API);
 #endif // defined(___DARK_WINDOWS)
 
 #if defined(___DARK_LINUX) || defined(___DARK_DARWIN)
-    system("clear");
+    DARK_ASSERT(0 != system("clear"), DARK_ERROR_API);
 #endif // defined(___DARK_LINUX) || defined(___DARK_DARWIN)
 }

@@ -45,7 +45,7 @@ void* dark_array_view_iterator_next(Dark_Array_View_Iterator_Context* const cont
 
     context_->index++;
 
-    return (int8_t*)context_->array_view.data + (context_->index - 1);
+    return (int8_t*)context_->array_view.data + context_->array_view.element_byte * (context_->index - 1);
 }
 
 void* dark_array_view_iterator_peek(Dark_Array_View_Iterator_Context* const context_)
@@ -54,7 +54,7 @@ void* dark_array_view_iterator_peek(Dark_Array_View_Iterator_Context* const cont
 
     DARK_ASSERT(!dark_array_view_iterator_done_is(context_), DARK_ERROR_ITERATOR);
 
-    return (int8_t*)context_->array_view.data + (context_->index - 1);
+    return (int8_t*)context_->array_view.data + context_->array_view.element_byte * context_->index;
 }
 
 void dark_array_view_iterator_reset(Dark_Array_View_Iterator_Context* const context_)

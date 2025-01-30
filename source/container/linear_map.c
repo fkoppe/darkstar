@@ -21,7 +21,6 @@
 ************************************************************************************/
 
 #include "container_module.h"
-//#include "linear_map_helper.h"
 
 #include <dark/container/container.h>
 #include <dark/container/linear_map_struct.h>
