@@ -7,7 +7,6 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 add_library(darkstar)
 
 set(DARKSTAR_DIRECTORY ${CMAKE_CURRENT_LIST_DIR} CACHE INTERNAL "")
-message(STATUS "DARKSTAR_DIRECTORY is: ${DARKSTAR_DIRECTORY}")
 
 set(DARK_VERSION_MAJOR 0 CACHE INTERNAL "")
 set(DARK_VERSION_MINOR 1 CACHE INTERNAL "")
@@ -110,6 +109,9 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
 else()
        message(SEND_ERROR "Failed to detect platform")
 endif()
+
+install(TARGETS darkstar DESTINATION lib)
+install(DIRECTORY include/ DESTINATION include)
 
 if(DARK_TEST_ENABLE)
   enable_testing()
