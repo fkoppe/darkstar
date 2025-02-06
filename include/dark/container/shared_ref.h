@@ -20,15 +20,27 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___CONTAINER_H)
-#define ___DARK___CONTAINER_H
+#if !defined(___DARK___SHARED_REF_H)
+#define ___DARK___SHARED_REF_H
 
-#include <dark/container/container_error.h>
-#include <dark/container/linear_map.h>
-#include <dark/container/linear_queue.h>
 #include <dark/container/ref_data.h>
-#include <dark/container/shared_ref.h>
-#include <dark/container/vector.h>
-#include <dark/container/weak_ref.h>
+#include <dark/core/std.h>
+#include <dark/memory/allocator.h>
 
-#endif // !defined(___DARK___CONTAINER_H)
+#define DARK_SHARED_REF_DATA(shared_ref, type) \
+(*(type*)dark_shared_ref_data((shared_ref)))
+
+Dark_Shared_Ref dark_shared_ref_create(Dark_Allocator* allocator, size_t byte, const void* data);
+void dark_shared_ref_destroy(Dark_Shared_Ref shared_ref);
+
+Dark_Shared_Ref dark_shared_ref_copy(Dark_Shared_Ref shared_ref);
+
+size_t dark_shared_ref_shared_count(Dark_Shared_Ref shared_ref);
+size_t dark_shared_ref_weak_count(Dark_Shared_Ref shared_ref);
+
+Dark_Weak_Ref dark_shared_ref_unlock(Dark_Shared_Ref shared_ref);
+
+size_t dark_shared_ref_byte(Dark_Shared_Ref shared_ref);
+void* dark_shared_ref_data(Dark_Shared_Ref shared_ref);
+
+#endif // !defined(___DARK___SHARED_REF_H)

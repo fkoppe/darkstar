@@ -8,6 +8,10 @@ add_library(darkstar)
 
 set(DARKSTAR_DIRECTORY ${CMAKE_CURRENT_LIST_DIR} CACHE INTERNAL "")
 
+###########
+# VERSION #
+###########
+
 set(DARK_VERSION_MAJOR 0 CACHE INTERNAL "")
 set(DARK_VERSION_MINOR 1 CACHE INTERNAL "")
 set(DARK_VERSION_PATCH 0 CACHE INTERNAL "")
@@ -22,11 +26,35 @@ target_compile_definitions(
     ___DARK_VERSION_PATCH=${DARK_VERSION_TWEAK}
 )
 
+#######################
+# CONFIGURATION TYPE #
+#######################
+
 set(CMAKE_CONFIGURATION_TYPES Debug RelWithDebug RelWithDebInfo RelTest Release MinSizeRel)
-string(REGEX REPLACE "-DNDEBUG " "" CMAKE_C_FLAGS_RELWITHDEBUG "${CMAKE_C_FLAGS_RELWITHDEBINFO} -DDEBUG" )
-set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBUG ${CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO})
-string(REGEX REPLACE "( -DNDEBUG$|-DNDEBUG )" "" CMAKE_C_FLAGS_RELTEST "${CMAKE_C_FLAGS_RELEASE}" )
-set(CMAKE_EXE_LINKER_FLAGS_RELTEST ${CMAKE_EXE_LINKER_FLAGS_RELEASE})
+
+target_compile_options(darkstar
+    PRIVATE
+    $<$<CONFIG:RelWithDebug>:${CMAKE_C_FLAGS_RELWITHDEBINFO} -DDEBUG>
+)
+
+target_link_libraries(darkstar
+    PRIVATE
+    $<$<CONFIG:RelWithDebug>:${CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO}>
+)
+
+target_compile_options(darkstar
+    PRIVATE
+    $<$<CONFIG:RelTest>:${CMAKE_C_FLAGS_RELEASE}>
+)
+
+target_link_libraries(darkstar
+    PRIVATE
+    $<$<CONFIG:RelTest>:${CMAKE_EXE_LINKER_FLAGS_RELEASE}>
+)
+
+#############################
+# CONFIGURATION DEFINITION #
+#############################
 
 target_compile_definitions(
     darkstar
@@ -84,6 +112,10 @@ target_compile_definitions(
     >
 )
 
+########################
+# PLATFORM DEFINITION #
+########################
+
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
         message(STATUS "Configurating for Linux")
         target_compile_definitions(
@@ -110,17 +142,26 @@ else()
        message(SEND_ERROR "Failed to detect platform")
 endif()
 
-install(TARGETS darkstar DESTINATION lib)
-install(DIRECTORY include/ DESTINATION include)
+############
+# TESTING #
+############
 
 if(DARK_TEST_ENABLE)
   enable_testing()
   add_subdirectory(test)
 endif()
 
+############
+# DOCUMENT #
+############
+
 if(DARK_DOC_GENERATE)
   configure_file(document/Doxyfile.in ${CMAKE_BINARY_DIR}/Doxyfile @ONLY)
 endif()
+
+################
+# SUBDIRECTORY #
+################
 
 add_subdirectory(include)
 add_subdirectory(library)

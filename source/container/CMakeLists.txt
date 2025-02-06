@@ -6,5 +6,8 @@ target_sources(
     ${CMAKE_CURRENT_LIST_DIR}/linear_queue.c
     ${CMAKE_CURRENT_LIST_DIR}/linear_queue_helper.c
     ${CMAKE_CURRENT_LIST_DIR}/linear_queue_helper.h
+    ${CMAKE_CURRENT_LIST_DIR}/ref_helper.h
+    ${CMAKE_CURRENT_LIST_DIR}/shared_ref.c
 	${CMAKE_CURRENT_LIST_DIR}/vector.c
+	${CMAKE_CURRENT_LIST_DIR}/weak_ref.c
 )

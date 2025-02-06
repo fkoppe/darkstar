@@ -1,3 +1,5 @@
 dark_test_add(linear_map_test)
 dark_test_add(linear_queue_test)
+dark_test_add(shared_ref_test)
 dark_test_add(vector_test)
+dark_test_add(weak_ref_test)

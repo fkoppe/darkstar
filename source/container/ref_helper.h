@@ -20,15 +20,20 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___CONTAINER_H)
-#define ___DARK___CONTAINER_H
+#if !defined(___DARK___REF_HELPER_H)
+#define ___DARK___REF_HELPER_H
 
-#include <dark/container/container_error.h>
-#include <dark/container/linear_map.h>
-#include <dark/container/linear_queue.h>
-#include <dark/container/ref_data.h>
-#include <dark/container/shared_ref.h>
-#include <dark/container/vector.h>
-#include <dark/container/weak_ref.h>
+#include <dark/core/std.h>
 
-#endif // !defined(___DARK___CONTAINER_H)
+typedef struct Dark_Ref_Control Dark_Ref_Control;
+struct Dark_Ref_Control
+{
+    Dark_Allocator* allocator;
+    size_t shared_count;
+    size_t weak_count;
+    size_t byte;
+    void* data;
+};
+
+
+#endif // !defined(___DARK___REF_HELPER_H)

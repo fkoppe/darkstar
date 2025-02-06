@@ -20,15 +20,27 @@
 *                                                                                   *
 ************************************************************************************/
 
-#if !defined(___DARK___CONTAINER_H)
-#define ___DARK___CONTAINER_H
+#if !defined(___DARK___WEAK_REF_H)
+#define ___DARK___WEAK_REF_H
 
-#include <dark/container/container_error.h>
-#include <dark/container/linear_map.h>
-#include <dark/container/linear_queue.h>
 #include <dark/container/ref_data.h>
-#include <dark/container/shared_ref.h>
-#include <dark/container/vector.h>
-#include <dark/container/weak_ref.h>
+#include <dark/core/std.h>
+#include <dark/memory/allocator.h>
 
-#endif // !defined(___DARK___CONTAINER_H)
+#define DARK_WEAK_REF_DATA(weak_ref, type) \
+(*(type*)dark_weak_ref_data((weak_ref)))
+
+Dark_Weak_Ref dark_weak_ref_create(Dark_Shared_Ref shared_ref);
+void dark_weak_ref_destroy(Dark_Weak_Ref weak_ref);
+
+Dark_Weak_Ref dark_weak_ref_copy(Dark_Weak_Ref weak_ref);
+
+size_t dark_weak_ref_shared_count(Dark_Weak_Ref shared_ref);
+size_t dark_weak_ref_weak_count(Dark_Weak_Ref shared_ref);
+
+bool dark_weak_ref_valid_is(Dark_Weak_Ref shared_ref);
+Dark_Shared_Ref dark_weak_ref_lock(Dark_Weak_Ref shared_ref);
+
+size_t dark_weak_ref_byte(Dark_Weak_Ref weak_ref);
+
+#endif // !defined(___DARK___WEAK_REF_H)
