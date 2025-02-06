@@ -26,7 +26,7 @@
 #include <dark/platform/platform.h>
 
 #undef DARK_UNIT
-#define DARK_UNIT "file_helper"
+#define DARK_UNIT "file"
 
 void dark_file_modifier_write(const Dark_File_Mode mode_, const Dark_File_Flag flag_, const Dark_Cbuffer destination_)
 {

@@ -30,7 +30,7 @@
 #include <stdlib.h>
 
 #undef DARK_UNIT
-#define DARK_UNIT "os_allocator_helper"
+#define DARK_UNIT "os_allocator"
 
 void* dark_os_allocator_allocate(void* const context_, void* const address_, const size_t byte_old_, const size_t byte_new_)
 {

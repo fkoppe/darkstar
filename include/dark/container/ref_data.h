@@ -28,13 +28,13 @@
 typedef struct Dark_Shared_Ref Dark_Shared_Ref;
 struct Dark_Shared_Ref
 {
-    void* const handle;
+    void* handle;
 };
 
 typedef struct Dark_Weak_Ref Dark_Weak_Ref;
 struct Dark_Weak_Ref
 {
-    void* const handle;
+    void* handle;
 };
 
 #endif // !defined(___DARK___REF_DATA_H)

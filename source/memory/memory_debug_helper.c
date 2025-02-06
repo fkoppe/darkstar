@@ -29,7 +29,7 @@
 #include <stdlib.h>
 
 #undef DARK_UNIT
-#define DARK_UNIT "memory_debug_helper"
+#define DARK_UNIT "memory_debug"
 
 void dark_memory_debug_assert(const Dark_Memory_Debug_Info call_info_, const char* const condition_)
 {

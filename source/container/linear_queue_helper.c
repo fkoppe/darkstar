@@ -28,7 +28,7 @@
 #include <dark/math/math.h>
 
 #undef DARK_UNIT
-#define DARK_UNIT "linear_queue_helper"
+#define DARK_UNIT "linear_queue"
 
 bool dark_linear_queue_iterator_next_is(Dark_Linear_Queue_Iterator_Context* const context_)
 {

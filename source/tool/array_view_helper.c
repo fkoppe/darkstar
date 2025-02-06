@@ -28,7 +28,7 @@
 #include <dark/tool/tool.h>
 
 #undef DARK_UNIT
-#define DARK_UNIT "array_view_helper"
+#define DARK_UNIT "array_view"
 
 bool dark_array_view_iterator_next_is(Dark_Array_View_Iterator_Context* const context_)
 {
