@@ -95,11 +95,11 @@ void dark_iterator_delete(Dark_Iterator* const iterator_)
     dark_free(iterator_->allocator, iterator_, sizeof(*iterator_));
 }
 
-bool dark_iterator_done_is(Dark_Iterator* const iterator_)
+bool dark_iterator_next_is(Dark_Iterator* const iterator_)
 {
     DARK_ASSERT(NULL != iterator_, DARK_ERROR_NULL);
 
-    return iterator_->done_is(iterator_->context);
+    return iterator_->next_is(iterator_->context);
 }
 
 void* dark_iterator_next(Dark_Iterator* const iterator_)

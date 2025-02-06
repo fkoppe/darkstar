@@ -26,13 +26,14 @@
 #include <dark/core/error.h>
 #include <dark/core/std.h>
 #include <dark/memory/allocator.h>
+#include <dark/tool/iterator.h>
 
 struct Dark_Iterator
 {
     Dark_Allocator* allocator;
     size_t byte;
     void* context;
-    bool (*done_is)(void* context);
+    bool (*next_is)(void* context);
     void* (*next)(void* context);
     void* (*peek)(void* context);
     void (*reset)(void* context);

@@ -33,7 +33,7 @@ struct Dark_Linear_Queue_Iterator_Context
     size_t index;
 };
 
-bool dark_linear_queue_iterator_done_is(Dark_Linear_Queue_Iterator_Context* context);
+bool dark_linear_queue_iterator_next_is(Dark_Linear_Queue_Iterator_Context* context);
 void* dark_linear_queue_iterator_next(Dark_Linear_Queue_Iterator_Context* context);
 void* dark_linear_queue_iterator_peek(Dark_Linear_Queue_Iterator_Context* context);
 void dark_linear_queue_iterator_reset(Dark_Linear_Queue_Iterator_Context* context);

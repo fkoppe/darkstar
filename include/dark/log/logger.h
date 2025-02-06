@@ -125,4 +125,6 @@ void dark_logger_stamp_recent_make(Dark_Logger* logger);
 
 size_t dark_logger_struct_byte(void);
 
+Dark_Cbuffer_View dark_log_level_name(Dark_Log_Level level);
+
 #endif // !defined(___DARK___LOGGER_H)

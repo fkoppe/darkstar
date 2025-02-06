@@ -30,7 +30,7 @@
 #undef DARK_UNIT
 #define DARK_UNIT "array_helper"
 
-bool dark_array_iterator_done_is(Dark_Array_Iterator_Context* const context_)
+bool dark_array_iterator_next_is(Dark_Array_Iterator_Context* const context_)
 {
     DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
 
@@ -41,7 +41,7 @@ void* dark_array_iterator_next(Dark_Array_Iterator_Context* const context_)
 {
     DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
 
-    DARK_ASSERT(!dark_array_iterator_done_is(context_), DARK_ERROR_ITERATOR);
+    DARK_ASSERT(!dark_array_iterator_next_is(context_), DARK_ERROR_ITERATOR);
 
     context_->index++;
 
@@ -52,7 +52,7 @@ void* dark_array_iterator_peek(Dark_Array_Iterator_Context* const context_)
 {
     DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
 
-    DARK_ASSERT(!dark_array_iterator_done_is(context_), DARK_ERROR_ITERATOR);
+    DARK_ASSERT(!dark_array_iterator_next_is(context_), DARK_ERROR_ITERATOR);
 
     return (int8_t*)context_->array.data + context_->array.element_byte * context_->index;
 }

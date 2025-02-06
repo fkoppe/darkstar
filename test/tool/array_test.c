@@ -35,7 +35,7 @@ int main()
         dark_array_iterator(array, iterator);
 
         size_t i = 0;
-        while (!dark_iterator_done_is(iterator))
+        while (!dark_iterator_next_is(iterator))
         {
             dark_iterator_peek(iterator);
             dark_iterator_next(iterator);

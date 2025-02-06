@@ -33,7 +33,7 @@ struct Dark_Array_View_Iterator_Context
     size_t index;
 };
 
-bool dark_array_view_iterator_done_is(Dark_Array_View_Iterator_Context* context);
+bool dark_array_view_iterator_next_is(Dark_Array_View_Iterator_Context* context);
 void* dark_array_view_iterator_next(Dark_Array_View_Iterator_Context* context);
 void* dark_array_view_iterator_peek(Dark_Array_View_Iterator_Context* context);
 void dark_array_view_iterator_reset(Dark_Array_View_Iterator_Context* context);

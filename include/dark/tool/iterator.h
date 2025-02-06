@@ -39,7 +39,7 @@ Dark_Iterator* dark_iterator_new_context(Dark_Allocator* allocator, size_t conte
 Dark_Iterator* dark_iterator_new(Dark_Allocator* allocator);
 void dark_iterator_delete(Dark_Iterator* iterator);
 
-bool dark_iterator_done_is(Dark_Iterator* iterator);
+bool dark_iterator_next_is(Dark_Iterator* iterator);
 void* dark_iterator_next(Dark_Iterator* iterator);
 void* dark_iterator_peek(Dark_Iterator* iterator);
 void dark_iterator_reset(Dark_Iterator* iterator);

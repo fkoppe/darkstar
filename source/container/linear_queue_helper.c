@@ -30,7 +30,7 @@
 #undef DARK_UNIT
 #define DARK_UNIT "linear_queue_helper"
 
-bool dark_linear_queue_iterator_done_is(Dark_Linear_Queue_Iterator_Context* const context_)
+bool dark_linear_queue_iterator_next_is(Dark_Linear_Queue_Iterator_Context* const context_)
 {
     DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
 
@@ -41,7 +41,7 @@ void* dark_linear_queue_iterator_next(Dark_Linear_Queue_Iterator_Context* const 
 {
     DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
 
-    DARK_ASSERT(!dark_linear_queue_iterator_done_is(context_), DARK_ERROR_ITERATOR);
+    DARK_ASSERT(!dark_linear_queue_iterator_next_is(context_), DARK_ERROR_ITERATOR);
 
     context_->index++;
 
@@ -52,7 +52,7 @@ void* dark_linear_queue_iterator_peek(Dark_Linear_Queue_Iterator_Context* const 
 {
     DARK_ASSERT(NULL != context_, DARK_ERROR_NULL);
 
-    DARK_ASSERT(!dark_linear_queue_iterator_done_is(context_), DARK_ERROR_ITERATOR);
+    DARK_ASSERT(!dark_linear_queue_iterator_next_is(context_), DARK_ERROR_ITERATOR);
 
      return dark_linear_queue_at(context_->queue, context_->index);
 }

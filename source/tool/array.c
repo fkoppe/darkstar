@@ -90,7 +90,7 @@ void dark_array_iterator(const Dark_Array array_, Dark_Iterator* const iterator_
     context->array = array_;
     context->index = 0;
 
-    iterator_->done_is = (void*)dark_array_iterator_done_is;
+    iterator_->next_is = (void*)dark_array_iterator_next_is;
     iterator_->peek = (void*)dark_array_iterator_peek;
     iterator_->next = (void*)dark_array_iterator_next;
     iterator_->reset = (void*)dark_array_iterator_reset;

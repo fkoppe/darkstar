@@ -67,7 +67,7 @@ void dark_array_view_iterator(const Dark_Array_View array_view_, Dark_Iterator* 
     context->array_view = array_view_;
     context->index = 0;
 
-    iterator_->done_is = (void*)dark_array_view_iterator_done_is;
+    iterator_->next_is = (void*)dark_array_view_iterator_next_is;
     iterator_->peek = (void*)dark_array_view_iterator_peek;
     iterator_->next = (void*)dark_array_view_iterator_next;
     iterator_->reset = (void*)dark_array_view_iterator_reset;
