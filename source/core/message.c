@@ -81,6 +81,6 @@ void dark_message_print(const Dark_So so_, const Dark_Message message_)
             continue;
         }
 
-        dark_print(DARK_SO_ERR, data_arr[i]);
+        dark_print(so_, data_arr[i]);
     }
 }

@@ -26,7 +26,7 @@
 #include <dark/core/std.h>
 #include <dark/core/so.h>
 
-#define DARK_MESSAGE_DEPTH_MAX 4
+#define DARK_MESSAGE_DEPTH_MAX 16
 
 typedef struct Dark_Message Dark_Message;
 struct Dark_Message
